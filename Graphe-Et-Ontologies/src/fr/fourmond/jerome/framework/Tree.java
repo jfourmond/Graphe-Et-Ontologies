@@ -7,14 +7,14 @@ import java.util.List;
  * {@link Tree} représente un arbre/graphe non orienté (Théorie des graphes).
  * Plus précisément un graphe orienté dont les sommets sont
  * basés sur une classe implémentant {@link Vertex}
- * @param <Vertex_T> Le type d'un sommet, sous contrainte qu'il étende {@link Vertex}
- * @param <Edge_T> Le type de valeur d'un arc
+ * @param <T_Vertex> Le type d'un sommet, sous contrainte qu'il étende {@link Vertex}
+ * @param <T_Edge> Le type de valeur d'un arc
  * @author jfourmond
  */
-public class Tree<Vertex_T extends Vertex, Edge_T > {
+public class Tree<T_Vertex extends Vertex, T_Edge > {
 
-	private List<Vertex_T> vertices;
-	private List<Edge<Vertex_T, Edge_T>> edges;
+	private List<T_Vertex> vertices;
+	private List<Edge<T_Vertex, T_Edge>> edges;
 	
 	//	CONSTRUCTEURS
 	public Tree() {
@@ -22,49 +22,67 @@ public class Tree<Vertex_T extends Vertex, Edge_T > {
 		edges = new ArrayList<>();
 	}
 	
-	public Tree(List<Vertex_T> vertices) { this.vertices = vertices; }
+	public Tree(List<T_Vertex> vertices) { this.vertices = vertices; }
 	
-	public Tree(List<Vertex_T> vertices, List<Edge<Vertex_T, Edge_T>> edges) {
+	public Tree(List<T_Vertex> vertices, List<Edge<T_Vertex, T_Edge>> edges) {
 		this.vertices = vertices;
 		this.edges = edges;
 	}
 	
 	//	GETTERS
-	public List<Vertex_T> getVertices() { return vertices; }
+	public List<T_Vertex> getVertices() { return vertices; }
 	
-	public List<Edge<Vertex_T, Edge_T>> getEdges() { return edges; }
+	public List<Edge<T_Vertex, T_Edge>> getEdges() { return edges; }
 	
 	//	SETTERS
-	public void setVertices(List<Vertex_T> vertices) { this.vertices = vertices; }
+	public void setVertices(List<T_Vertex> vertices) { this.vertices = vertices; }
 	
-	public void setEdges(List<Edge<Vertex_T, Edge_T>> edges) { this.edges = edges; }
+	public void setEdges(List<Edge<T_Vertex, T_Edge>> edges) { this.edges = edges; }
 	
 	/**
-	 * Ajout d'un sommet dans l'arbre
+	 * Ajoute un sommet dans l'arbre
 	 * @param vertex : le {@link Vertex} à ajouter
 	 */
-	public void addVertex(Vertex_T vertex) {
+	public void addVertex(T_Vertex vertex) {
 		// TODO Vérifier que le sommet n'existe pas déjà
 		vertices.add(vertex);
 	}
 	
 	/**
-	 * Ajout d'un arc dans l'arbre
+	 * Ajoute un arc dans l'arbre
 	 * @param edge : le {@link Edge} à ajouter
 	 */
-	public void addEdges(Edge<Vertex_T, Edge_T> edge) {
+	public void addEdges(Edge<T_Vertex, T_Edge> edge) {
 		// TODO vérifier que les sommets de l'arc existe
 		edges.add(edge);
 	}
 	
+	/**
+	 * Réinitialise/Vide l'arbre
+	 */
+	public void clear() {
+		vertices.clear();
+		edges.clear();
+	}
+	
+	/**
+	 * @return le nombre de sommet de l'arbre
+	 */
+	public int getVertexNumber() { return vertices.size(); }
+	
+	/**
+	 * @return le nombre d'arc de l'arbre
+	 */
+	public int getEdgeNumber() { return edges.size(); }
+	
 	@Override
 	public String toString() {
 		String ch = "Sommets : \n";
-		for(Vertex_T vertex : vertices) {
+		for(T_Vertex vertex : vertices) {
 			ch += vertex.fullData();
 		}
 		ch += "Edges : \n";
-		for(Edge<Vertex_T, Edge_T> edge : edges) {
+		for(Edge<T_Vertex, T_Edge> edge : edges) {
 			ch += "\t" + edge + "\n";
 		}
 		return ch;
