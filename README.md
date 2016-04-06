@@ -20,10 +20,6 @@ On désire créer une application en Java pour la navigation dans un document é
 
 ## Etapes
 
-Progression :
-
-<progress max="100" value="25">25%</progress>
-
 ### Première étape
 
 * [Diagramme de classe](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/class_diagram)
