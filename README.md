@@ -7,7 +7,7 @@ Sous la supervision de :
 * Dr. AÏT EL MEKKI Touria
 
 Par :
-* FOURMOND Jérôme
+* [FOURMOND Jérôme](https://github.com/jfourmond)
 
 ---
 
