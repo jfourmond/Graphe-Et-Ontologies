@@ -44,8 +44,8 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 	 * @param vertex : le {@link Vertex} à ajouter
 	 */
 	public void addVertex(T_Vertex vertex) {
-		// TODO Vérifier que le sommet n'existe pas déjà
-		vertices.add(vertex);
+		if(!vertices.contains(vertex))
+			vertices.add(vertex);
 	}
 	
 	/**
@@ -53,8 +53,8 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 	 * @param edge : le {@link Edge} à ajouter
 	 */
 	public void addEdges(Edge<T_Vertex, T_Edge> edge) {
-		// TODO vérifier que les sommets de l'arc existe
-		edges.add(edge);
+		if(!edges.contains(edge))
+			edges.add(edge);
 	}
 	
 	/**
