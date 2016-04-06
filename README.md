@@ -22,6 +22,8 @@ On désire créer une application en Java pour la navigation dans un document é
 
 ### Première étape
 
-* [Diagramme de classe](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/class_diagram)
-* Framework pour la gestion de graphe
-* Visualisation
+- [x] [Diagramme de classe](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/class_diagram)
+- [ ] Framework pour la gestion de graphe :package: 
+- [ ] Visualisation
+
+/play trombone
