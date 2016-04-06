@@ -22,7 +22,7 @@ On désire créer une application en Java pour la navigation dans un document é
 
 Progression :
 
-<progress value="50%" max="200">50%</progress> 
+<progress max="100" value="25">25%</progress>
 
 ### Première étape
 
