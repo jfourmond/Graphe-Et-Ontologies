@@ -1,11 +1,10 @@
 package fr.fourmond.jerome.view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -27,17 +26,25 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 
 	private Tree<T_Vertex, T_Edge> tree;
 
-	List<VertexView> vertices;
+	private  List<VertexView> vertices;
+	
+	// Attribut pour le déplacement
+	private static VertexView vertexPressedOn;
+	private static MouseEvent me;
+	private static boolean pressed = false;
+		private static int decalage_x;
+		private static int decalage_y;
+	private static Point actual;
+	private static Point end;
 	
 	public TreeView(Tree<T_Vertex, T_Edge> tree) {
 		setBorder(BorderFactory.createLineBorder(Color.black));
-		setBackground(Color.RED);
+		// setBackground(Color.RED);
 		
 		this.tree = tree;
 		
 		buildComposants();
 		buildInterface();
-		// drawVertex();
 		buildEvents();
 	}
 
@@ -47,7 +54,10 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		setLayout(null);
 		vertices = new ArrayList<VertexView>();
 		for(T_Vertex vertex : tree.getVertices()) {
-			vertices.add(new VertexView(vertex, rand.nextInt(100), rand.nextInt(100)));
+			VertexView vertexView = new VertexView(vertex, rand.nextInt(100), rand.nextInt(100));
+			vertexView.addMouseListener(this);
+			vertexView.addMouseMotionListener(this);
+			vertices.add(vertexView);
 		}
 	}
 	
@@ -60,17 +70,20 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		Dimension size;
 		for(VertexView vertex : vertices) {
 			size = vertex.getPreferredSize();
-			vertex.setBounds(vertex.getPosition().x + insets.left, vertex.getPosition().y + insets.top, size.width, size.height);
+			// vertex.setBounds(vertex.getPosition().x + insets.left, vertex.getPosition().y + insets.top, size.width, size.height);
+			vertex.setBounds(vertex.getX() + insets.left, vertex.getY() + insets.top, size.width, size.height);
 		}
 		
 		//Size and display the window.
 		insets = getInsets();
-		setSize(300 + insets.left + insets.right,125 + insets.top + insets.bottom);
+		setSize(300 + insets.left + insets.right, 125 + insets.top + insets.bottom);
 	}
 	
 	private void buildEvents() {
-		// TODO Auto-generated method stub
-		
+		for(VertexView vertex : vertices) {
+			vertex.addMouseListener(this);
+			vertex.addMouseMotionListener(this);
+		}
 	}
 	
 	@Override
@@ -85,32 +98,57 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(pressed) {
+			Insets insets = getInsets();
+			Dimension size = vertexPressedOn.getPreferredSize();
+			double posX = e.getX() + vertexPressedOn.getX() - me.getX();
+			double posY = e.getY() + vertexPressedOn.getY() - me.getY();
+			
+			System.out.println(posX + " , " + posY);
+			
+			actual = new Point((int)posX,(int)posY);
+			vertexPressedOn.setBounds(actual.x + insets.left, actual.y + insets.top, size.width, size.height);
+		}
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseMoved(MouseEvent e) { }
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseClicked(MouseEvent e) { }
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		VertexView vertexView = (VertexView) e.getSource();
+		double posX = vertexView.getX() + e.getX();
+		double posY = vertexView.getY() + e.getY();
+		System.out.println("PRESSÉ : " + vertexView.getVertex().briefData() + "(" + posX + "," + posY + ")");
+		if(!pressed) {
+			me = e;
+			vertexPressedOn = vertexView;
+			decalage_x = e.getX();
+			decalage_y = e.getY();
+			pressed = true;
+			
+			System.out.println("Decalage : X = " + decalage_x + " Y = " + decalage_y );
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("RELACHÉ");
+		if(pressed) {
+			Insets insets = getInsets();
+			Dimension size = vertexPressedOn.getPreferredSize();
+			double posX = e.getX() + vertexPressedOn.getX();
+			double posY = e.getY() + vertexPressedOn.getY();
+			
+			end = new Point((int)(posX-decalage_x), (int)(posY-decalage_y));
+			vertexPressedOn.setBounds(end.x + insets.left, end.y + insets.top, size.width, size.height);
+			
+			pressed = false;
+			vertexPressedOn = null;
+		}
 	}
 
 	@Override

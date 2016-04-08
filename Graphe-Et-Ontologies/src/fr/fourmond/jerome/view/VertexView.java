@@ -3,9 +3,6 @@ package fr.fourmond.jerome.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
 
@@ -16,7 +13,7 @@ import fr.fourmond.jerome.framework.Vertex;
  * un sommet du graphe
  * @author jfourmond
  */
-public class VertexView extends JComponent implements MouseListener {
+public class VertexView extends JComponent {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -29,7 +26,6 @@ public class VertexView extends JComponent implements MouseListener {
 		this.vertex = vertex;
 		setLocation(0, 0);
 		setBackground(Color.BLUE);
-		addMouseListener(this);
 	}
 	
 	public VertexView(Vertex vertex, int x, int y) {
@@ -37,7 +33,6 @@ public class VertexView extends JComponent implements MouseListener {
 		// position = new Point(x, y);
 		setLocation(x, y);
 		setBackground(Color.BLUE);
-		addMouseListener(this);
 	}
 	
 	//	GETTERS
@@ -58,19 +53,4 @@ public class VertexView extends JComponent implements MouseListener {
 		g.drawOval(0, 0, radius, radius);
 		g.drawString(vertex.briefData(), radius, radius);
 	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) { }
-
-	@Override
-	public void mousePressed(MouseEvent e) { }
-
-	@Override
-	public void mouseReleased(MouseEvent e) { }
-
-	@Override
-	public void mouseEntered(MouseEvent e) { }
-
-	@Override
-	public void mouseExited(MouseEvent e) { }
 }
