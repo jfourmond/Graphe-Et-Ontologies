@@ -1,62 +1,76 @@
 package fr.fourmond.jerome.view;
 
-import fr.fourmond.jerome.framework.Vertex;
-
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.Random;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
+
+import fr.fourmond.jerome.framework.Vertex;
 
 /**
  * {@link VertexView} est un {@link JComponent} dessinant
  * un sommet du graphe
  * @author jfourmond
  */
-public class VertexView extends JComponent {
+public class VertexView extends JComponent implements MouseListener {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int x;
-	private int y;
+	private static int radius = 25;
 	
-	private Vertex vertex;
+	public Vertex vertex;
 	
 	//	CONSTRUCTEURS
 	public VertexView(Vertex vertex) {
 		this.vertex = vertex;
-		Random rand = new Random();
-		x = rand.nextInt(100);
-		y = rand.nextInt(100);
+		setLocation(0, 0);
+		setBackground(Color.BLUE);
+		addMouseListener(this);
+	}
+	
+	public VertexView(Vertex vertex, int x, int y) {
+		this.vertex = vertex;
+		// position = new Point(x, y);
+		setLocation(x, y);
+		setBackground(Color.BLUE);
+		addMouseListener(this);
 	}
 	
 	//	GETTERS
-	public int getX() {
-		return x;
-	}
 	
-	public int getY() {
-		return y;
-	}
+	public Vertex getVertex() { return vertex; }
+	
+	// public double getX() { return position.getX(); }
+	
 	
 	//	SETTERS
-	public void setX(int x) {
-		this.x = x;
-	}
-	
-	public void setY(int y) {
-		this.y = y;
-	}
+	public void setVertex(Vertex vertex) { this.vertex = vertex; }
 	
 	@Override
-	public Dimension getPreferredSize() {
-		return new Dimension(300, 300);
-	}
+	public Dimension getPreferredSize() { return new Dimension(radius * 2, radius * 2); }
 	
 	@Override
 	public void paint(Graphics g) {
-		System.out.println("Draw : (" + x + "," + y + ")");
-		g.drawOval(x, y, 20, 20);
-		g.drawString(vertex.briefData(), x+5, y+15);
+		g.drawOval(0, 0, radius, radius);
+		g.drawString(vertex.briefData(), radius, radius);
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) { }
+
+	@Override
+	public void mousePressed(MouseEvent e) { }
+
+	@Override
+	public void mouseReleased(MouseEvent e) { }
+
+	@Override
+	public void mouseEntered(MouseEvent e) { }
+
+	@Override
+	public void mouseExited(MouseEvent e) { }
 }
