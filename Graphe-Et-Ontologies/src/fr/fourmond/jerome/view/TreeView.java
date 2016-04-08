@@ -28,6 +28,11 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 
 	private  List<VertexView> vertices;
 	
+	// TODO Panel central et est
+	private static JPanel main_panel;
+		private static JPanel center_panel;
+		private static JPanel east_panel;
+	
 	// Attribut pour le déplacement
 	private static VertexView vertexPressedOn;
 	private static boolean pressed = false;
@@ -101,8 +106,6 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 			double posX = e.getX() + vertexPressedOn.getX() - decalage.getX();
 			double posY = e.getY() + vertexPressedOn.getY() - decalage.getY();
 			
-			System.out.println((e.getX() + vertexPressedOn.getX()) + " , " + (e.getY() + vertexPressedOn.getY()));
-			
 			actual = new Point((int)posX,(int)posY);
 			vertexPressedOn.setBounds(actual.x + insets.left, actual.y + insets.top, size.width, size.height);
 		}
@@ -117,15 +120,10 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	@Override
 	public void mousePressed(MouseEvent e) {
 		VertexView vertexView = (VertexView) e.getSource();
-		double posX = vertexView.getX() + e.getX();
-		double posY = vertexView.getY() + e.getY();
-		System.out.println("PRESSÉ : " + vertexView.getVertex().briefData() + "(" + posX + "," + posY + ")");
 		if(!pressed) {
 			decalage = e;
 			vertexPressedOn = vertexView;
 			pressed = true;
-			
-			System.out.println("Decalage : X = " + decalage.getX() + " Y = " + decalage.getY() );
 		}
 	}
 
