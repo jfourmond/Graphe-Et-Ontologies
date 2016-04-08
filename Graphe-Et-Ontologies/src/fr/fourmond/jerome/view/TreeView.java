@@ -30,17 +30,13 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	
 	// Attribut pour le déplacement
 	private static VertexView vertexPressedOn;
-	private static MouseEvent me;
 	private static boolean pressed = false;
-		private static int decalage_x;
-		private static int decalage_y;
+	private static MouseEvent decalage;
 	private static Point actual;
 	private static Point end;
 	
 	public TreeView(Tree<T_Vertex, T_Edge> tree) {
 		setBorder(BorderFactory.createLineBorder(Color.black));
-		// setBackground(Color.RED);
-		
 		this.tree = tree;
 		
 		buildComposants();
@@ -101,10 +97,11 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		if(pressed) {
 			Insets insets = getInsets();
 			Dimension size = vertexPressedOn.getPreferredSize();
-			double posX = e.getX() + vertexPressedOn.getX() - me.getX();
-			double posY = e.getY() + vertexPressedOn.getY() - me.getY();
 			
-			System.out.println(posX + " , " + posY);
+			double posX = e.getX() + vertexPressedOn.getX() - decalage.getX();
+			double posY = e.getY() + vertexPressedOn.getY() - decalage.getY();
+			
+			System.out.println((e.getX() + vertexPressedOn.getX()) + " , " + (e.getY() + vertexPressedOn.getY()));
 			
 			actual = new Point((int)posX,(int)posY);
 			vertexPressedOn.setBounds(actual.x + insets.left, actual.y + insets.top, size.width, size.height);
@@ -124,26 +121,23 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		double posY = vertexView.getY() + e.getY();
 		System.out.println("PRESSÉ : " + vertexView.getVertex().briefData() + "(" + posX + "," + posY + ")");
 		if(!pressed) {
-			me = e;
+			decalage = e;
 			vertexPressedOn = vertexView;
-			decalage_x = e.getX();
-			decalage_y = e.getY();
 			pressed = true;
 			
-			System.out.println("Decalage : X = " + decalage_x + " Y = " + decalage_y );
+			System.out.println("Decalage : X = " + decalage.getX() + " Y = " + decalage.getY() );
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		System.out.println("RELACHÉ");
 		if(pressed) {
 			Insets insets = getInsets();
 			Dimension size = vertexPressedOn.getPreferredSize();
 			double posX = e.getX() + vertexPressedOn.getX();
 			double posY = e.getY() + vertexPressedOn.getY();
 			
-			end = new Point((int)(posX-decalage_x), (int)(posY-decalage_y));
+			end = new Point((int)(posX-decalage.getX()), (int)(posY-decalage.getY()));
 			vertexPressedOn.setBounds(end.x + insets.left, end.y + insets.top, size.width, size.height);
 			
 			pressed = false;

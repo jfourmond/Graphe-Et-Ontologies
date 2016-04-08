@@ -36,11 +36,7 @@ public class VertexView extends JComponent {
 	}
 	
 	//	GETTERS
-	
 	public Vertex getVertex() { return vertex; }
-	
-	// public double getX() { return position.getX(); }
-	
 	
 	//	SETTERS
 	public void setVertex(Vertex vertex) { this.vertex = vertex; }
