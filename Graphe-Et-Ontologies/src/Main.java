@@ -3,7 +3,7 @@ import javax.swing.UIManager;
 import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.TreeException;
-import fr.fourmond.jerome.view.MainView;
+import fr.fourmond.jerome.view.Window;
 import fr.fourmond.jerome.view.TreeView;
 
 public class Main {
@@ -41,7 +41,7 @@ public class Main {
 		System.out.println(t);
 		TreeView<DefaultVertex, Integer> treeView = new TreeView<>(t);
 		
-		new MainView(treeView);
+		new Window(treeView);
 	}
 
 }

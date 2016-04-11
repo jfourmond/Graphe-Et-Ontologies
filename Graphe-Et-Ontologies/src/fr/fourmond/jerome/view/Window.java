@@ -11,7 +11,7 @@ import javax.swing.JMenuItem;
 
 import fr.fourmond.jerome.framework.Tree;
 
-public class MainView extends JFrame implements ActionListener {
+public class Window extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -26,7 +26,7 @@ public class MainView extends JFrame implements ActionListener {
 			private JMenuItem item_close;
 	private TreeView treeView;
 			
-	public MainView() {
+	public Window() {
 		super(title);
 		
 		tree = new Tree<>();
@@ -41,7 +41,7 @@ public class MainView extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
-	public MainView(TreeView<?, ?> treeView) {
+	public Window(TreeView<?, ?> treeView) {
 		super(title);
 		
 		this.treeView = treeView;
