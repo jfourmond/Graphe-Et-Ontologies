@@ -99,7 +99,7 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 	public String toString() {
 		String ch = "Sommets : \n";
 		for(T_Vertex vertex : vertices) {
-			ch += vertex.fullData();
+			ch += "\t" + vertex.fullData();
 		}
 		ch += "Edges : \n";
 		for(Edge<T_Vertex, T_Edge> edge : edges) {

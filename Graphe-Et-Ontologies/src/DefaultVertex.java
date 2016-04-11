@@ -25,7 +25,7 @@ public class DefaultVertex implements Vertex {
 	@Override
 	public String fullData() {
 		String ch = "";
-		ch += "ID : " + id + "\n";
+		ch += "ID : " + id + "\t";
 		ch += "VALUE : " + value + "\n";
 		return ch;
 	}

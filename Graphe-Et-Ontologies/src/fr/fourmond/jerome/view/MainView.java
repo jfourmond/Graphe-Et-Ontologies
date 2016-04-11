@@ -1,6 +1,6 @@
 package fr.fourmond.jerome.view;
 
-import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
 import fr.fourmond.jerome.framework.Tree;
 
@@ -18,15 +17,14 @@ public class MainView extends JFrame implements ActionListener {
 	
 	private static final String title = "Graphe & Ontologies";
 	
-	private static TreeView treeView;
-		private static Tree<?, ?> tree;
+	private static Tree<?, ?> tree;
 	
 	// Menu
 	private JMenuBar menu_bar;
 		private JMenu file;
 			private JMenuItem item_open;
 			private JMenuItem item_close;
-	private JPanel main_panel;
+	private TreeView treeView;
 			
 	public MainView() {
 		super(title);
@@ -37,7 +35,9 @@ public class MainView extends JFrame implements ActionListener {
 		buildInterface();
 		buildEvents();
 		
-		setSize(400, 300);
+		pack();
+		setMinimumSize(new Dimension(400, 300));
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setVisible(true);
 	}
 	
@@ -50,7 +50,9 @@ public class MainView extends JFrame implements ActionListener {
 		buildInterface();
 		buildEvents();
 		
-		setSize(400, 300);
+		pack();
+		setMinimumSize(new Dimension(400, 300));
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setVisible(true);
 	}
 	
@@ -61,19 +63,15 @@ public class MainView extends JFrame implements ActionListener {
 		file = new JMenu("Fichier");
 			item_open = new JMenuItem("Ouvrir");
 			item_close = new JMenuItem("Quitter");
-	
-			main_panel = new JPanel(new BorderLayout());
 	}
 	
 	private void buildInterface() {
 		file.add(item_open);
 		file.add(item_close);
 		menu_bar.add(file);
-	
-		main_panel.add(treeView, BorderLayout.CENTER);
-		
+
 		setJMenuBar(menu_bar);
-		setContentPane(main_panel);
+		setContentPane(treeView);
 	}
 	
 	private void buildEvents() {

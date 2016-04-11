@@ -1,5 +1,6 @@
 package fr.fourmond.jerome.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,7 +16,9 @@ import java.util.List;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
+import javax.swing.JEditorPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
@@ -28,10 +31,9 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 
 	private  List<VertexView> vertices;
 	
-	// TODO Panel central et est
-	private static JPanel main_panel;
-		private static JPanel center_panel;
-		private static JPanel east_panel;
+	private static JPanel center_panel;
+	private static JPanel east_panel;
+		private static JTextArea info_area;
 	
 	// Attribut pour le déplacement
 	private static VertexView vertexPressedOn;
@@ -41,7 +43,6 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	private static Point end;
 	
 	public TreeView(Tree<T_Vertex, T_Edge> tree) {
-		setBorder(BorderFactory.createLineBorder(Color.black));
 		this.tree = tree;
 		
 		buildComposants();
@@ -52,7 +53,18 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	private void buildComposants() {
 		Random rand = new Random();
 		
-		setLayout(null);
+		setLayout(new BorderLayout());
+		setBorder(BorderFactory.createLineBorder(Color.black));
+			center_panel = new JPanel();
+			center_panel.setLayout(null);
+			
+			east_panel = new JPanel();
+				info_area = new JTextArea();
+				info_area.setEditable(false);
+				info_area.setText(tree.toString());
+			east_panel.setBorder(BorderFactory.createLineBorder(Color.black));
+			
+		// setLayout(null);
 		vertices = new ArrayList<VertexView>();
 		for(T_Vertex vertex : tree.getVertices()) {
 			VertexView vertexView = new VertexView(vertex, rand.nextInt(100), rand.nextInt(100));
@@ -64,20 +76,23 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	
 	private void buildInterface() {
 		for(VertexView vertex : vertices) {
-			add(vertex);
+			center_panel.add(vertex);
 		}
 		
-		Insets insets = getInsets();
+		Insets insets = center_panel.getInsets();
 		Dimension size;
 		for(VertexView vertex : vertices) {
 			size = vertex.getPreferredSize();
-			// vertex.setBounds(vertex.getPosition().x + insets.left, vertex.getPosition().y + insets.top, size.width, size.height);
 			vertex.setBounds(vertex.getX() + insets.left, vertex.getY() + insets.top, size.width, size.height);
 		}
 		
+		east_panel.add(info_area);
 		//Size and display the window.
-		insets = getInsets();
-		setSize(300 + insets.left + insets.right, 125 + insets.top + insets.bottom);
+		// insets = getInsets();
+		// setSize(300 + insets.left + insets.right, 125 + insets.top + insets.bottom);
+		
+		add(center_panel, BorderLayout.CENTER);
+		add(east_panel, BorderLayout.EAST);
 	}
 	
 	private void buildEvents() {
