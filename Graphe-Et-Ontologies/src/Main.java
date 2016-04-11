@@ -19,21 +19,21 @@ public class Main {
 		
 		DefaultVertex A = new DefaultVertex(20);
 		DefaultVertex B = new DefaultVertex(15);
+		DefaultVertex D = new DefaultVertex(32);
 		
-		OtherVertex C = new OtherVertex("hello");
-		
-		Edge<DefaultVertex, Integer> Edge1 = new Edge<>(A, B, 10);
-		Edge<DefaultVertex, Integer> Edge2 = new Edge<>(A, B, 10);
+		// OtherVertex C = new OtherVertex("hello");
 		
 		try {
 			t.addVertex(A);
 			// t.addVertex(A);	ERREUR
 			t.addVertex(B);
 			// t.add(C);	ERREUR
+			t.addVertex(D);
 			
 			t.addEdges(new Edge<DefaultVertex, Integer>(A, B, 10));
 			// t.addEdges(new Edge<DefaultVertex, Integer>(A, B, 10));	ERREUR
 			// t.addEdges(new Edge<DefaultVertex, Integer>(A, C, 10));	ERREUR
+			t.addEdges(new Edge<DefaultVertex, Integer>(A, D, 22));
 		} catch(TreeException TE) {
 			TE.printStackTrace();
 		}

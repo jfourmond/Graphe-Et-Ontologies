@@ -56,6 +56,6 @@ public class Edge<T_Vertex extends Vertex, T_Value> {
 	
 	@Override
 	public String toString() {
-		return "(" + firstVertex.briefData() + " , " + secondVertex.briefData() + " , " + value + ")\n";
+		return "(" + firstVertex.briefData() + " , " + secondVertex.briefData() + " , " + value + ")";
 	}
 }

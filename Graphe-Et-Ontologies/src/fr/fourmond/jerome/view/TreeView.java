@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
-import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 
@@ -29,7 +29,8 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 
 	private Tree<T_Vertex, T_Edge> tree;
 
-	private  List<VertexView> vertices;
+	private List<VertexView> vertices;
+	private List<EdgeView<T_Vertex, T_Edge>> edges;
 	
 	private static JPanel center_panel;
 	private static JPanel east_panel;
@@ -50,6 +51,19 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		buildEvents();
 	}
 
+	/**
+	 * Récupération du {@link VertexView} correspondant au {@link Vertex} T
+	 * @param T : le sommet à rechercher
+	 * @return le {@link VertexView} correspondant
+	 */
+	public VertexView getVertexViewFrom(Vertex T) {
+		for(VertexView vertex : vertices) {
+			if(vertex.getVertex() == T)
+				return vertex;
+		}
+		return null;
+	}
+	
 	private void buildComposants() {
 		Random rand = new Random();
 		
@@ -65,6 +79,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 			east_panel.setBorder(BorderFactory.createLineBorder(Color.black));
 			
 		// setLayout(null);
+		//	Build VertexView
 		vertices = new ArrayList<VertexView>();
 		for(T_Vertex vertex : tree.getVertices()) {
 			VertexView vertexView = new VertexView(vertex, rand.nextInt(100), rand.nextInt(100));
@@ -72,11 +87,23 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 			vertexView.addMouseMotionListener(this);
 			vertices.add(vertexView);
 		}
+		// Build EdgeView
+		edges = new ArrayList<>();
+		for(Edge<T_Vertex, T_Edge> edge : tree.getEdges()) {
+			EdgeView<T_Vertex, T_Edge> edgeView = new EdgeView<>(edge, getVertexViewFrom(edge.getFirstVertex()), getVertexViewFrom(edge.getSecondVertex()));
+			System.out.println(getVertexViewFrom(edge.getFirstVertex()));
+			edges.add(edgeView);
+		}
 	}
 	
 	private void buildInterface() {
+		// Print VertexView
 		for(VertexView vertex : vertices) {
 			center_panel.add(vertex);
+		}
+		// Print EdgeView
+		for(EdgeView<T_Vertex, T_Edge> edge : edges) {
+			center_panel.add(edge);
 		}
 		
 		Insets insets = center_panel.getInsets();
@@ -84,6 +111,10 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		for(VertexView vertex : vertices) {
 			size = vertex.getPreferredSize();
 			vertex.setBounds(vertex.getX() + insets.left, vertex.getY() + insets.top, size.width, size.height);
+		} 
+		for(EdgeView<T_Vertex, T_Edge> edge : edges) {
+			size = edge.getPreferredSize();
+			edge.setBounds(edge.getStart().getX(), edge.getStart().getY(), size.width, size.height);
 		}
 		
 		east_panel.add(info_area);
@@ -103,11 +134,6 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	}
 	
 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-	}
-	
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 	}
@@ -123,6 +149,13 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 			
 			actual = new Point((int)posX,(int)posY);
 			vertexPressedOn.setBounds(actual.x + insets.left, actual.y + insets.top, size.width, size.height);
+			
+			for(EdgeView<T_Vertex, T_Edge> edge : edges) {
+				size = edge.getPreferredSize();
+				edge.setBounds(edge.getStart().getX(), edge.getStart().getY(), size.width, size.height);
+			}
+			
+			repaint();
 		}
 	}
 
