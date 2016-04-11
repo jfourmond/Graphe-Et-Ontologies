@@ -57,7 +57,7 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 	 * @throws TreeException si l'arc est déjà dans l'arbre
 	 */
 	public void addEdges(Edge<T_Vertex, T_Edge> edge) throws TreeException {
-		if(edges.contains(edge))
+		if(edges.contains(edge) || isEdgeExistBetween(edge.getFirstVertex(), edge.getSecondVertex()))
 			throw new TreeException("Edge already in the Tree");
 		else 
 			edges.add(edge);
@@ -80,6 +80,20 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 	 * @return le nombre d'arc de l'arbre
 	 */
 	public int getEdgeNumber() { return edges.size(); }
+	
+	/**
+	 * Teste s'il existe un arc entre le premier sommet et le second
+	 * @param firstVertex : le premier sommet
+	 * @param secondVertex : le second sommet
+	 * @return <code>true</code> si un arc existe, <code>false</code> sinon
+	 */
+	public boolean isEdgeExistBetween(T_Vertex firstVertex, T_Vertex secondVertex) {
+		for(Edge<T_Vertex, T_Edge> edge : edges) {
+			if(edge.getFirstVertex() == firstVertex && edge.getSecondVertex() == secondVertex)
+				return true;
+		}
+		return false;
+	}
 	
 	@Override
 	public String toString() {

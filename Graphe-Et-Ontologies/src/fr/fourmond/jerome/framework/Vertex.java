@@ -6,6 +6,7 @@ package fr.fourmond.jerome.framework;
  * @author jfourmond
  */
 public interface Vertex {
+	
 	/**
 	 * Devrait afficher lors du "clic" sur le sommet
 	 * @return description complète du sommet
