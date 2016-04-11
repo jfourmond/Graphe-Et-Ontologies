@@ -42,18 +42,24 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 	/**
 	 * Ajoute un sommet dans l'arbre
 	 * @param vertex : le {@link Vertex} à ajouter
+	 * @throws TreeException si le sommet est déjà dans l'arbre
 	 */
-	public void addVertex(T_Vertex vertex) {
-		if(!vertices.contains(vertex))
+	public void addVertex(T_Vertex vertex) throws TreeException{
+		if(vertices.contains(vertex))
+			throw new TreeException("Vertex already in the Tree");
+		else
 			vertices.add(vertex);
 	}
 	
 	/**
 	 * Ajoute un arc dans l'arbre
 	 * @param edge : le {@link Edge} à ajouter
+	 * @throws TreeException si l'arc est déjà dans l'arbre
 	 */
-	public void addEdges(Edge<T_Vertex, T_Edge> edge) {
-		if(!edges.contains(edge))
+	public void addEdges(Edge<T_Vertex, T_Edge> edge) throws TreeException {
+		if(edges.contains(edge))
+			throw new TreeException("Edge already in the Tree");
+		else 
 			edges.add(edge);
 	}
 	

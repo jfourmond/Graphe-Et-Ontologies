@@ -2,6 +2,7 @@ import javax.swing.UIManager;
 
 import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
+import fr.fourmond.jerome.framework.TreeException;
 import fr.fourmond.jerome.view.MainView;
 import fr.fourmond.jerome.view.TreeView;
 
@@ -21,12 +22,18 @@ public class Main {
 		
 		OtherVertex C = new OtherVertex("hello");
 		
-		t.addVertex(A);
-		t.addVertex(B);
-		// t.add(C);	ERREUR
-		
-		t.addEdges(new Edge<DefaultVertex, Integer>(A, B, 10));
-		// t.addEdges(new Edge<DefaultVertex, Integer>(A, C, 10));	ERREUR
+		try {
+			t.addVertex(A);
+			// t.addVertex(A);	ERREUR
+			t.addVertex(B);
+			// t.add(C);	ERREUR
+			
+			t.addEdges(new Edge<DefaultVertex, Integer>(A, B, 10));
+			t.addEdges(new Edge<DefaultVertex, Integer>(A, B, 10));
+			// t.addEdges(new Edge<DefaultVertex, Integer>(A, C, 10));	ERREUR
+		} catch(TreeException TE) {
+			TE.printStackTrace();
+		}
 		
 		System.out.println(t);
 		TreeView<DefaultVertex, Integer> treeView = new TreeView<>(t);

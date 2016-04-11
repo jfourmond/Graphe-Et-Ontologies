@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
+import fr.fourmond.jerome.framework.TreeException;
 
 public class TreeTest {
 
@@ -81,14 +82,24 @@ public class TreeTest {
 	@Test
 	public void testAddVertex() {
 		assertEquals(expectedVerticesNumber, treeTest.getVertexNumber());
-		treeTest.addVertex(new VertexForTest(40));
+		try {
+			treeTest.addVertex(new VertexForTest(40));
+		} catch (TreeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals(expectedVerticesNumber+1, treeTest.getVertexNumber());
 	}
 
 	@Test
 	public void testAddEdges() {
 		assertEquals(expectedEdgesNumber, treeTest.getEdgeNumber());
-		treeTest.addEdges(new Edge<VertexForTest, Integer>(vertex1, vertex3, 13));
+		try {
+			treeTest.addEdges(new Edge<VertexForTest, Integer>(vertex1, vertex3, 13));
+		} catch (TreeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals(expectedEdgesNumber+1, treeTest.getEdgeNumber());
 	}
 }
