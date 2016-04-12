@@ -30,10 +30,10 @@ public class Main {
 			// t.add(C);	ERREUR
 			t.addVertex(D);
 			
-			t.addEdges(new Edge<DefaultVertex, Integer>(A, B, 10));
+			t.addEdge(new Edge<DefaultVertex, Integer>(A, B, 10));
 			// t.addEdges(new Edge<DefaultVertex, Integer>(A, B, 10));	ERREUR
 			// t.addEdges(new Edge<DefaultVertex, Integer>(A, C, 10));	ERREUR
-			t.addEdges(new Edge<DefaultVertex, Integer>(A, D, 22));
+			t.addEdge(new Edge<DefaultVertex, Integer>(A, D, 22));
 		} catch(TreeException TE) {
 			TE.printStackTrace();
 		}

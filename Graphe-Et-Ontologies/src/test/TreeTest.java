@@ -56,7 +56,7 @@ public class TreeTest {
 			treeTest.addVertex(vertex);
 		}
 		for(Edge<VertexForTest, Integer> edge : edges) {
-			treeTest.addEdges(edge);
+			treeTest.addEdge(edge);
 		}
 	}
 
@@ -95,7 +95,7 @@ public class TreeTest {
 	public void testAddEdges() {
 		assertEquals(expectedEdgesNumber, treeTest.getEdgeNumber());
 		try {
-			treeTest.addEdges(new Edge<VertexForTest, Integer>(vertex1, vertex3, 13));
+			treeTest.addEdge(new Edge<VertexForTest, Integer>(vertex1, vertex3, 13));
 		} catch (TreeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
