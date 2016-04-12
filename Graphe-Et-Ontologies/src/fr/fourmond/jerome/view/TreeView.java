@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -33,7 +35,8 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	
 	private static JPanel center_panel;
 	private static JPanel east_panel;
-		private static JTextArea info_area;
+	private static JTextArea info_area;
+		private static JLabel info_label;
 	
 	// Attribut pour le déplacement
 	private static VertexView vertexPressedOn;
@@ -72,6 +75,8 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 			center_panel.setLayout(null);
 			
 			east_panel = new JPanel();
+			east_panel.setLayout(new BoxLayout(east_panel, BoxLayout.Y_AXIS));
+				info_label = new JLabel("Informations");
 				info_area = new JTextArea();
 				info_area.setEditable(false);
 				info_area.setText(tree.toString());
@@ -81,9 +86,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		//	Build VertexView
 		vertices = new ArrayList<VertexView>();
 		for(T_Vertex vertex : tree.getVertices()) {
-			VertexView vertexView = new VertexView(vertex, rand.nextInt(100), rand.nextInt(100));
-			vertexView.addMouseListener(this);
-			vertexView.addMouseMotionListener(this);
+			VertexView vertexView = new VertexView(vertex, rand.nextInt(500), rand.nextInt(500));
 			vertices.add(vertexView);
 		}
 		// Build EdgeView
@@ -107,10 +110,8 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		drawVertices();
 		drawEdges();
 		
+		east_panel.add(info_label);
 		east_panel.add(info_area);
-		//Size and display the window.
-		// insets = getInsets();
-		// setSize(300 + insets.left + insets.right, 125 + insets.top + insets.bottom);
 		
 		add(center_panel, BorderLayout.CENTER);
 		add(east_panel, BorderLayout.EAST);
@@ -150,6 +151,10 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 			vertex.addMouseListener(this);
 			vertex.addMouseMotionListener(this);
 		}
+		
+		for(EdgeView<T_Vertex, T_Edge> edge : edges) {
+			edge.addMouseListener(this);
+		}
 	}
 	
 	@Override
@@ -178,18 +183,27 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		VertexView vertexView = (VertexView) e.getSource();
-		Vertex vertex = vertexView.getVertex();
-		info_area.setText(vertex.fullData());
+		Object O = e.getSource();
+		if(O.getClass() == VertexView.class) {
+			VertexView vertexView = (VertexView) O;
+			Vertex vertex = vertexView.getVertex();
+			info_area.setText(vertex.fullData());
+		} else if(O.getClass() == EdgeView.class) {
+			// TODO On click -> Show info EdgeView
+			System.err.println("NON IMPLEMENTÉ");
+		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		VertexView vertexView = (VertexView) e.getSource();
-		if(!pressed) {
-			decalage = e;
-			vertexPressedOn = vertexView;
-			pressed = true;
+		Object O = e.getSource();
+		if(O.getClass() == VertexView.class) {
+			VertexView vertexView = (VertexView) O;
+			if(!pressed) {
+				decalage = e;
+				vertexPressedOn = vertexView;
+				pressed = true;
+			}
 		}
 	}
 

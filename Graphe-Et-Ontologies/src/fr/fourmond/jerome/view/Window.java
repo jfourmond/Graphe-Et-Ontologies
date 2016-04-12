@@ -90,6 +90,7 @@ public class Window extends JFrame implements ActionListener {
 				System.exit(EXIT_ON_CLOSE);
 			else if(MI == item_open) {
 				//TODO implement
+				System.err.println("NON IMPLEMENTÉ");
 			}
 		}
 	}

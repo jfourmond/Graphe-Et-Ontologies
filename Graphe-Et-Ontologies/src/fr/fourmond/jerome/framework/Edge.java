@@ -54,6 +54,18 @@ public class Edge<T_Vertex extends Vertex, T_Value> {
 		this.value = value;
 	}
 	
+	/**
+	 * @return une chaîne de caractère "human-readable"
+	 */
+	public String humanData() {
+		String ch = "";
+		ch += "Arc : \n ";
+		ch += "\tDu sommet : \"" + firstVertex.briefData() + "\"\n";
+		ch += "\tAu sommet : \"" + secondVertex.briefData() + "\"\n";
+		ch += "\tAvec valeur : \"" + value + "\"\n";
+		return ch;
+	}
+	
 	@Override
 	public String toString() {
 		return "(" + firstVertex.briefData() + " , " + secondVertex.briefData() + " , " + value + ")";
