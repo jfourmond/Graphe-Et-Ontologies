@@ -3,7 +3,6 @@ package fr.fourmond.jerome.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -134,9 +133,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-	}
+	public void actionPerformed(ActionEvent e) { }
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -163,7 +160,11 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	public void mouseMoved(MouseEvent e) { }
 
 	@Override
-	public void mouseClicked(MouseEvent e) { }
+	public void mouseClicked(MouseEvent e) {
+		VertexView vertexView = (VertexView) e.getSource();
+		Vertex vertex = vertexView.getVertex();
+		info_area.setText(vertex.fullData());
+	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
