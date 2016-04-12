@@ -26,7 +26,6 @@ On désire créer une application en Java pour la navigation dans un document é
 - [ ] Framework pour la gestion de graphe :package: 
 - [ ] Visualisation
 
-
 ---
 
 ## Compilation & Exécution
@@ -35,7 +34,7 @@ On désire créer une application en Java pour la navigation dans un document é
 
 	ant build
 	
-La javadoc est disponible en exécutant la cible :
+La génération de la javadoc est disponible en exécutant la cible :
 
 	ant javadoc
 

@@ -132,15 +132,15 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 			size = edge.getPreferredSize();
 			if(edge.getGapY() < 0) {
 				if(edge.getGapX() < 0) {
-					edge.setBounds(edge.getEnd().getX(), edge.getEnd().getY(), size.width, size.height);
+					edge.setBounds(edge.getEnd().getX() + VertexView.getRadius()/2, edge.getEnd().getY() + VertexView.getRadius()/2, size.width, size.height);
 				} else {
-					edge.setBounds(edge.getStart().getX(), edge.getEnd().getY(), size.width, size.height);
+					edge.setBounds(edge.getStart().getX() + VertexView.getRadius()/2, edge.getEnd().getY() + VertexView.getRadius()/2, size.width, size.height);
 				}
 			} else {
 				if(edge.getGapX() < 0) {
-					edge.setBounds(edge.getEnd().getX(), edge.getStart().getY(), size.width, size.height);
+					edge.setBounds(edge.getEnd().getX() + VertexView.getRadius()/2, edge.getStart().getY() + VertexView.getRadius()/2, size.width, size.height);
 				} else {
-					edge.setBounds(edge.getStart().getX(), edge.getStart().getY(), size.width, size.height);
+					edge.setBounds(edge.getStart().getX() + VertexView.getRadius()/2, edge.getStart().getY() + VertexView.getRadius()/2, size.width, size.height);
 				}
 			}
 		}

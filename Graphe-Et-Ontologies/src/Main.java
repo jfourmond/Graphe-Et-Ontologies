@@ -22,6 +22,8 @@ public class Main {
 		DefaultVertex D = new DefaultVertex(32);
 		DefaultVertex E = new DefaultVertex(5);
 		DefaultVertex F = new DefaultVertex(18);
+		DefaultVertex G = new DefaultVertex(78);
+		DefaultVertex K = new DefaultVertex(42);
 		
 		// OtherVertex C = new OtherVertex("hello");
 		
@@ -33,6 +35,8 @@ public class Main {
 			t.addVertex(D);
 			t.addVertex(E);
 			t.addVertex(F);
+			t.addVertex(G);
+			t.addVertex(K);
 			
 			t.addEdge(new Edge<DefaultVertex, Integer>(A, B, 10));
 			// t.addEdges(new Edge<DefaultVertex, Integer>(A, B, 10));	ERREUR
@@ -40,6 +44,7 @@ public class Main {
 			t.addEdge(new Edge<DefaultVertex, Integer>(A, D, 22));
 			t.addEdge(new Edge<DefaultVertex, Integer>(A, E, 44));
 			t.addEdge(new Edge<DefaultVertex, Integer>(A, F, 5));
+			t.addEdge(new Edge<DefaultVertex, Integer>(G, K, 2));
 		} catch(TreeException TE) {
 			TE.printStackTrace();
 		}

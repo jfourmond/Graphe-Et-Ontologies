@@ -38,6 +38,8 @@ public class VertexView extends JComponent {
 	//	GETTERS
 	public Vertex getVertex() { return vertex; }
 	
+	public static int getRadius() { return radius; }
+	
 	//	SETTERS
 	public void setVertex(Vertex vertex) { this.vertex = vertex; }
 	
