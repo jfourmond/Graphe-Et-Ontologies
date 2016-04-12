@@ -42,7 +42,7 @@ Par exemple :
 	DefaultVertex sommet2 = new DefaultVertex(22);
 
 ### Arc -> *Edge*
-La classe de l'implémentation de **Vertex** et le type du libellé de l'arc sont requis dans la déclaration de **Edge**.
+La classe de l'implémentation de **Vertex** et le type du libellé de l'arc sont requis dans la déclaration de [Edge](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Edge.java).
 Par exemple, en conservant l'implémentation précédente :
 
 	Edge<DefaultVertex, Integer> arc = new Edge<>(sommet1, sommet2, 33);
@@ -50,7 +50,7 @@ Par exemple, en conservant l'implémentation précédente :
 Ce qui déclare et définit un arc entre le *sommet1* et le *sommet2*, ayant pour libellé *33*.
 
 ### Graphe -> *Tree*
-Dans la déclaration de ce dernier, deux types doivent être précisés : la classe de l'implémentation du Vertex, et le type du libellé de l'arc.
+Dans la déclaration de [Tree](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Tree.java], deux types doivent être précisés : la classe de l'implémentation du Vertex, et le type du libellé de l'arc.
 L'ajout d'un sommet dans le graphe s'effectue grâce à la méthode : **addVertex**.
 L'ajout d'un arc dans le graphe s'effectue grâce à la méthode : **addEdge**
 Par exemple :
