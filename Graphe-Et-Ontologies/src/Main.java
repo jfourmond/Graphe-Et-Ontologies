@@ -20,6 +20,8 @@ public class Main {
 		DefaultVertex A = new DefaultVertex(20);
 		DefaultVertex B = new DefaultVertex(15);
 		DefaultVertex D = new DefaultVertex(32);
+		DefaultVertex E = new DefaultVertex(5);
+		DefaultVertex F = new DefaultVertex(18);
 		
 		// OtherVertex C = new OtherVertex("hello");
 		
@@ -29,11 +31,15 @@ public class Main {
 			t.addVertex(B);
 			// t.add(C);	ERREUR
 			t.addVertex(D);
+			t.addVertex(E);
+			t.addVertex(F);
 			
 			t.addEdge(new Edge<DefaultVertex, Integer>(A, B, 10));
 			// t.addEdges(new Edge<DefaultVertex, Integer>(A, B, 10));	ERREUR
 			// t.addEdges(new Edge<DefaultVertex, Integer>(A, C, 10));	ERREUR
 			t.addEdge(new Edge<DefaultVertex, Integer>(A, D, 22));
+			t.addEdge(new Edge<DefaultVertex, Integer>(A, E, 44));
+			t.addEdge(new Edge<DefaultVertex, Integer>(A, F, 5));
 		} catch(TreeException TE) {
 			TE.printStackTrace();
 		}
