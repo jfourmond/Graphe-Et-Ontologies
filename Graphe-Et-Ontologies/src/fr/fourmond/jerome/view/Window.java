@@ -3,7 +3,9 @@ package fr.fourmond.jerome.view;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -26,6 +28,8 @@ public class Window extends JFrame implements ActionListener {
 			private JMenuItem item_close;
 	private TreeView treeView;
 			
+	private JFileChooser fileChooser;
+	
 	public Window() {
 		super(title);
 		
@@ -58,6 +62,7 @@ public class Window extends JFrame implements ActionListener {
 	
 	private void buildComposants() {
 		// treeView = new TreeView(tree);
+		fileChooser = new JFileChooser(new File("~"));
 		
 		menu_bar = new JMenuBar();
 		file = new JMenu("Fichier");
@@ -89,8 +94,15 @@ public class Window extends JFrame implements ActionListener {
 			if(MI == item_close)
 				System.exit(EXIT_ON_CLOSE);
 			else if(MI == item_open) {
-				//TODO implement
-				System.err.println("NON IMPLEMENTÉ");
+				File file;
+				if (fileChooser.showOpenDialog(null)== 
+					JFileChooser.APPROVE_OPTION) {
+					file = fileChooser.getSelectedFile();
+					// TODO implement
+					System.err.println("NON IMPLEMENTÉ");
+					System.err.println("Fichier : " + file.getAbsolutePath());
+					
+				}
 			}
 		}
 	}
