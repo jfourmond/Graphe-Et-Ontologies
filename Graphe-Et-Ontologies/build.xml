@@ -78,4 +78,7 @@
             <report format="frames" todir="${junit.output.dir}"/>
         </junitreport>
     </target>
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="fr.fourmond.jerome.framework,fr.fourmond.jerome.view" source="1.8" sourcefiles="src/Main.java,src/OtherVertex.java,src/DefaultVertex.java" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
 </project>
