@@ -2,7 +2,6 @@ package fr.fourmond.jerome.framework;
 
 /**
  * {@link Edge} représente un arc
- * @param <T> Valeur de retour de l'arc
  * @param <T_Vertex> Type des sommets, sous contraintes qu'il etende {@link Vertex}
  * @param <T_Value> Type du libellé de l'arc 
  * @author jfourmond
@@ -64,6 +63,10 @@ public class Edge<T_Vertex extends Vertex, T_Value> {
 		ch += "\tAu sommet : \"" + secondVertex.briefData() + "\"\n";
 		ch += "\tAvec valeur : \"" + value + "\"\n";
 		return ch;
+	}
+	
+	public String data() {
+		return "" + value;
 	}
 	
 	@Override

@@ -66,18 +66,18 @@ public class EdgeView<T_Vertex extends Vertex, T_Value> extends JComponent {
 		if(gapY < 0) {
 			if(gapX < 0) {
 				g.drawLine(0, 0, -gapX, -gapY);
-				g.drawString(Integer.toString((int) edge.getValue()), -gapX/2, -gapY/2);
+				g.drawString(edge.data(), -gapX/2, -gapY/2);
 			} else {
 				g.drawLine(0, -gapY, gapX, 0);
-				g.drawString(Integer.toString((int) edge.getValue()), gapX/2, -gapY/2);
+				g.drawString(edge.data(), gapX/2, -gapY/2);
 			}
 		} else {
 			if(gapX < 0) {
 				g.drawLine(-gapX, 0, 0, gapY);
-				g.drawString(Integer.toString((int) edge.getValue()), -gapX/2, gapY/2);
+				g.drawString(edge.data(), -gapX/2, gapY/2);
 			} else {
 				g.drawLine(0, 0, gapX, gapY);
-				g.drawString(Integer.toString((int) edge.getValue()), gapX/2, gapY/2);
+				g.drawString(edge.data(), gapX/2, gapY/2);
 			}
 		}
 	}
