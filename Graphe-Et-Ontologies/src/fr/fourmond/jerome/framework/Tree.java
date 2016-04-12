@@ -56,8 +56,10 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 	 * @param edge : le {@link Edge} à ajouter
 	 * @throws TreeException si l'arc est déjà dans l'arbre
 	 */
-	public void addEdges(Edge<T_Vertex, T_Edge> edge) throws TreeException {
-		if(edges.contains(edge) || isEdgeExistBetween(edge.getFirstVertex(), edge.getSecondVertex()))
+	public void addEdge(Edge<T_Vertex, T_Edge> edge) throws TreeException {
+		if(!isVertexExist(edge.getFirstVertex()) || !isVertexExist(edge.getSecondVertex())) {
+			throw new TreeException("Vertex undefined in the Tree");
+		} else if(edges.contains(edge) || isEdgeExistBetween(edge.getFirstVertex(), edge.getSecondVertex()))
 			throw new TreeException("Edge already in the Tree");
 		else 
 			edges.add(edge);
@@ -91,6 +93,18 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 		for(Edge<T_Vertex, T_Edge> edge : edges) {
 			if(edge.getFirstVertex() == firstVertex && edge.getSecondVertex() == secondVertex)
 				return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Teste si le sommet existe dans l'arbre
+	 * @param vertex : le sommet à rechercher
+	 * @return <code>true</code> si le sommet existe, <code>false</code> sinon
+	 */
+	public boolean isVertexExist(T_Vertex vertex) {
+		for(T_Vertex v : vertices) {
+			if(v == vertex) return true;
 		}
 		return false;
 	}
