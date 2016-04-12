@@ -29,6 +29,24 @@ On désire créer une application en Java pour la navigation dans un document é
 
 ---
 
+## Compilation & Exécution
+
+### Compilation
+
+	ant build
+	
+La javadoc est disponible en exécutant la cible :
+
+	ant javadoc
+
+### Exécution
+
+L'exécution s'effectue (*pour le moment*) ainsi, en ligne de commande :
+
+	java -cp bin Main
+
+---
+
 ## Le Frawework pour la gestion de graphe
 
 L'utilisation du **framework** s'effectue aisément.
@@ -50,7 +68,7 @@ Par exemple, en conservant l'implémentation précédente :
 Ce qui déclare et définit un arc entre le *sommet1* et le *sommet2*, ayant pour libellé *33*.
 
 ### Graphe -> *Tree*
-Dans la déclaration de [Tree](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Tree.java], deux types doivent être précisés : la classe de l'implémentation du Vertex, et le type du libellé de l'arc.
+Dans la déclaration de [Tree](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Tree.java), deux types doivent être précisés : la classe de l'implémentation du Vertex, et le type du libellé de l'arc.
 L'ajout d'un sommet dans le graphe s'effectue grâce à la méthode : **addVertex**.
 L'ajout d'un arc dans le graphe s'effectue grâce à la méthode : **addEdge**
 Par exemple :
