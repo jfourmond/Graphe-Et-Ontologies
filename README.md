@@ -9,6 +9,9 @@ Sous la supervision de :
 Par :
 * [FOURMOND Jérôme](https://github.com/jfourmond)
 
+En développement sous la version :
+	- 1.8.0_77 de **Java**
+
 ---
 
 ## L'objectif
