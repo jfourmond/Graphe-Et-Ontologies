@@ -15,6 +15,10 @@ public class EdgeView<T_Vertex extends Vertex, T_Value> extends JComponent {
 	private Edge<T_Vertex, T_Value> edge;
 	private VertexView start;
 	private VertexView end;
+	private int gapX;
+	private int gapY;
+	
+	// private static double distance;
 	
 	public EdgeView(Edge<T_Vertex, T_Value> edge) {
 		this.edge = edge;
@@ -24,6 +28,8 @@ public class EdgeView<T_Vertex extends Vertex, T_Value> extends JComponent {
 		this.edge = edge;
 		this.start = start;
 		this.end = end;
+	
+		computeDistance();
 	}
 	
 	//	GETTERS
@@ -33,6 +39,10 @@ public class EdgeView<T_Vertex extends Vertex, T_Value> extends JComponent {
 	
 	public VertexView getEnd() { return end; }
 	
+	public int getGapX() { return gapX; }
+	
+	public int getGapY() { return gapY; }
+	
 	//	SETTERS
 	public void setEdge(Edge<T_Vertex, T_Value> edge) { this.edge = edge; }
 	
@@ -40,16 +50,35 @@ public class EdgeView<T_Vertex extends Vertex, T_Value> extends JComponent {
 	
 	public void setEnd(VertexView end) { this.end = end; }
 	
+	private void computeDistance() {
+		// distance = Math.sqrt(Math.pow(start.getX() - end.getX(), 2)+ Math.pow(start.getY() - end.getY(), 2));
+		gapX = end.getX() - start.getX();
+		gapY = end.getY() - start.getY();
+	}
+	
 	@Override
-	public Dimension getPreferredSize() { return new Dimension(500, 500); }
+	public Dimension getPreferredSize() { return new Dimension(1000, 1000); }
 	
 	@Override
 	public void paint(Graphics g) {
-		int ecartX = end.getX() - start.getX();
-		int ecartY = end.getY() - start.getY();
-		System.out.println("Ecart X : " + ecartX);
-		System.out.println("Ecart Y : " + ecartY);
-		g.drawLine(0, 0, ecartX, ecartY);
-		g.drawString(Integer.toString((int) edge.getValue()), ecartX/2, ecartY/2);
+		computeDistance();
+		
+		if(gapY < 0) {
+			if(gapX < 0) {
+				g.drawLine(0, 0, -gapX, -gapY);
+				g.drawString(Integer.toString((int) edge.getValue()), -gapX/2, -gapY/2);
+			} else {
+				g.drawLine(0, -gapY, gapX, 0);
+				g.drawString(Integer.toString((int) edge.getValue()), gapX/2, -gapY/2);
+			}
+		} else {
+			if(gapX < 0) {
+				g.drawLine(-gapX, 0, 0, gapY);
+				g.drawString(Integer.toString((int) edge.getValue()), -gapX/2, gapY/2);
+			} else {
+				g.drawLine(0, 0, gapX, gapY);
+				g.drawString(Integer.toString((int) edge.getValue()), gapX/2, gapY/2);
+			}
+		}
 	}
 }

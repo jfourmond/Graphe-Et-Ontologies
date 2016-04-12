@@ -90,7 +90,6 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		edges = new ArrayList<>();
 		for(Edge<T_Vertex, T_Edge> edge : tree.getEdges()) {
 			EdgeView<T_Vertex, T_Edge> edgeView = new EdgeView<>(edge, getVertexViewFrom(edge.getFirstVertex()), getVertexViewFrom(edge.getSecondVertex()));
-			System.out.println(getVertexViewFrom(edge.getFirstVertex()));
 			edges.add(edgeView);
 		}
 	}
@@ -105,16 +104,8 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 			center_panel.add(edge);
 		}
 		
-		Insets insets = center_panel.getInsets();
-		Dimension size;
-		for(VertexView vertex : vertices) {
-			size = vertex.getPreferredSize();
-			vertex.setBounds(vertex.getX() + insets.left, vertex.getY() + insets.top, size.width, size.height);
-		} 
-		for(EdgeView<T_Vertex, T_Edge> edge : edges) {
-			size = edge.getPreferredSize();
-			edge.setBounds(edge.getStart().getX(), edge.getStart().getY(), size.width, size.height);
-		}
+		drawVertices();
+		drawEdges();
 		
 		east_panel.add(info_area);
 		//Size and display the window.
@@ -123,6 +114,35 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		
 		add(center_panel, BorderLayout.CENTER);
 		add(east_panel, BorderLayout.EAST);
+	}
+	
+	private void drawVertices() {
+		Insets insets = center_panel.getInsets();
+		Dimension size;
+		for(VertexView vertex : vertices) {
+			size = vertex.getPreferredSize();
+			vertex.setBounds(vertex.getX() + insets.left, vertex.getY() + insets.top, size.width, size.height);
+		}
+	}
+	
+	private void drawEdges() {
+		Dimension size;
+		for(EdgeView<T_Vertex, T_Edge> edge : edges) {
+			size = edge.getPreferredSize();
+			if(edge.getGapY() < 0) {
+				if(edge.getGapX() < 0) {
+					edge.setBounds(edge.getEnd().getX(), edge.getEnd().getY(), size.width, size.height);
+				} else {
+					edge.setBounds(edge.getStart().getX(), edge.getEnd().getY(), size.width, size.height);
+				}
+			} else {
+				if(edge.getGapX() < 0) {
+					edge.setBounds(edge.getEnd().getX(), edge.getStart().getY(), size.width, size.height);
+				} else {
+					edge.setBounds(edge.getStart().getX(), edge.getStart().getY(), size.width, size.height);
+				}
+			}
+		}
 	}
 	
 	private void buildEvents() {
@@ -138,7 +158,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if(pressed) {
-			Insets insets = getInsets();
+			Insets insets = center_panel.getInsets();
 			Dimension size = vertexPressedOn.getPreferredSize();
 			
 			double posX = e.getX() + vertexPressedOn.getX() - decalage.getX();
@@ -147,10 +167,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 			actual = new Point((int)posX,(int)posY);
 			vertexPressedOn.setBounds(actual.x + insets.left, actual.y + insets.top, size.width, size.height);
 			
-			for(EdgeView<T_Vertex, T_Edge> edge : edges) {
-				size = edge.getPreferredSize();
-				edge.setBounds(edge.getStart().getX(), edge.getStart().getY(), size.width, size.height);
-			}
+			drawEdges();
 			
 			repaint();
 		}
@@ -190,6 +207,8 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 			pressed = false;
 			vertexPressedOn = null;
 		}
+		
+		repaint();
 	}
 
 	@Override
