@@ -2,6 +2,8 @@ import fr.fourmond.jerome.example.CityVertex;
 import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.TreeException;
+import fr.fourmond.jerome.view.TreeView;
+import fr.fourmond.jerome.view.Window;
 
 public class CityExample {
 
@@ -33,6 +35,10 @@ public class CityExample {
 		}
 		
 		System.out.println(region);
+		
+		TreeView<CityVertex, Double> view = new TreeView<>(region);
+		
+		new Window(view);
 	}
 
 }

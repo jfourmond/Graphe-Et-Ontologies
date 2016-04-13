@@ -35,15 +35,33 @@ On désire créer une application en Java pour la navigation dans un document é
 
 	ant build
 	
+### 2. Exécution
+
+L'exécution s'effectue ainsi, en ligne de commande :
+- pour le Main basique
+
+	ant run-main
+
+- pour le CityExample, exemple concret du programme :
+	
+	ant run-city
+	
+### 3. Javadoc
+
 La génération de la javadoc est disponible en exécutant la cible :
 
 	ant javadoc
 
-### 2. Exécution
+### 4. Java Archive
 
-L'exécution s'effectue (*pour le moment*) ainsi, en ligne de commande :
+La génération d'une archive jar exécutable en exécutant la cible :
+- pour le Main basique :
 
-	java -cp bin Main
+	ant jar-main
+	
+- pour le CityExample, exemple concret du programme :
+
+	ant jar-city
 
 ---
 

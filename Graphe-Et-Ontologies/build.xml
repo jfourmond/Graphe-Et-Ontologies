@@ -40,9 +40,17 @@
 		</javac>
 	</target>
 
-	<!--  run app -->
-	<target name="run">
+	<!--  run -->
+		<!-- run Main -->
+	<target name="run-main">
 		<java classname="Main" fork="true"
+			classpathref="run.classpath" >
+		</java>
+	</target>
+	
+		<!-- run CityExample -->
+	<target name="run-city">
+		<java classname="CityExample" fork="true"
 			classpathref="run.classpath" >
 		</java>
 	</target>
@@ -58,12 +66,23 @@
 		</javadoc>
 	</target>
 
-	<!--  generate jar file -->
-	<target name="jar" depends="build" description="generate jar file">
+	<!-- generate jar files -->
+		<!-- for Main -->
+	<target name="jar-main" depends="build" description="generate jar file for Main">
 		<jar destfile="${jar.file}" basedir="${bin.dir}">
 			<manifest>
 				<attribute name="Main-Class" value="Main"/>
 			</manifest>
 		</jar>
 	</target>
+	
+		<!-- for CityExample -->
+	<target name="jar-city" depends="build" description="generate jar file for CityExample">
+		<jar destfile="${jar.file}" basedir="${bin.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="CityExample" />
+			</manifest>
+		</jar>
+	</target>
+
 </project>

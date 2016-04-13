@@ -1,3 +1,4 @@
+
 import fr.fourmond.jerome.framework.Vertex;
 
 public class OtherVertex implements Vertex {
