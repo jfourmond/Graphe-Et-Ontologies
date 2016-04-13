@@ -1,84 +1,72 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="Graphe-Et-Ontologies">
-    <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../Outils/eclipse/eclipse/"/>
-    <property name="junit.output.dir" value="junit"/>
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.8"/>
-    <property name="source" value="1.8"/>
-    <path id="Graphe-Et-Ontologies.classpath">
-        <pathelement location="bin"/>
-    </path>
-    <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="clean">
-        <delete dir="bin"/>
-    </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
-    <target name="build-subprojects"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-            <src path="src"/>
-            <classpath refid="Graphe-Et-Ontologies.classpath"/>
-        </javac>
-    </target>
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-        <copy todir="${ant.library.dir}">
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </copy>
-        <unzip dest="${ant.library.dir}">
-            <patternset includes="jdtCompilerAdapter.jar"/>
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </unzip>
-    </target>
-    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-        <antcall target="build"/>
-    </target>
-    <target name="Main (15)">
-        <java classname="Main" failonerror="true" fork="yes">
-            <classpath refid="Graphe-Et-Ontologies.classpath"/>
-        </java>
-    </target>
-    <target name="DefaultVertexTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="test.DefaultVertexTest" todir="${junit.output.dir}"/>
-            <classpath refid="Graphe-Et-Ontologies.classpath"/>
-        </junit>
-    </target>
-    <target name="TreeTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="test.TreeTest" todir="${junit.output.dir}"/>
-            <classpath refid="Graphe-Et-Ontologies.classpath"/>
-        </junit>
-    </target>
-    <target name="junitreport">
-        <junitreport todir="${junit.output.dir}">
-            <fileset dir="${junit.output.dir}">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="frames" todir="${junit.output.dir}"/>
-        </junitreport>
-    </target>
-    <target name="javadoc">
-        <javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="fr.fourmond.jerome.framework,fr.fourmond.jerome.view" source="1.8" sourcefiles="src/Main.java,src/OtherVertex.java,src/DefaultVertex.java" sourcepath="src" splitindex="true" use="true" version="true"/>
-    </target>
+
+<project name="Graphe-Et-Ontologies" basedir="." default="build" >
+  <!-- properties -->
+  <property name="project.version" value="1.0" />
+  <property name="jar.file" value="${ant.project.name}-${project.version}.jar" />
+
+  <property name="src.dir" value="src" />
+  <property name="bin.dir" value="bin" />
+
+  <property name="doc.dir" value="doc" />
+
+  <property name="target" value="1.8"/>
+  <property name="source" value="1.8"/>
+
+  <!--  paths -->
+  <path id="src.compile.classpath">
+    <pathelement location="${bin.dir}" />
+  </path>
+
+  <path id="run.classpath">
+    <pathelement path="${bin.dir}" />
+  </path>
+
+  <!-- targets  -->
+    <!--  clean -->
+  <target name="clean" description="clean project">
+      <delete dir="${bin.dir}"/>
+  </target>
+
+    <!--  initialize  -->
+  <target name="init" description="create directories">
+    <mkdir dir="${bin.dir}" />
+  </target>
+
+    <!--  compile -->
+  <target name="build" depends="init  " description="source compilation">
+    <javac srcdir="${src.dir}" destdir="${bin.dir}" fork="true"
+        classpathref="src.compile.classpath" includeantruntime="false" >
+    </javac>
+  </target>
+
+  <!--  run app -->
+  <target name="run">
+    <delete>
+        <fileset dir="." includes="*.log" />
+    </delete>
+    <java classname="Main" fork="true"
+      classpathref="run.classpath" >
+    </java>
+  </target>
+
+  <!--  javadoc -->
+  <target name="javadoc">
+    <mkdir dir="${doc.dir}" />
+    <javadoc sourcepath="${src.dir}" destdir="${doc.dir}"
+      author="true" version="true"
+      windowtitle="${ant.project.name} API">
+      <doctitle><![CDATA[<h1>${ant.project.name}</h1>]]></doctitle>
+      <bottom><![CDATA[Copyright &#169; 2012 ALl Rights Reserved]]></bottom>
+    </javadoc>
+  </target>
+
+  <!--  generate jar file -->
+  <target name="jar" depends="build" description="generate jar file">
+    <jar destfile="${jar.file}" basedir="${src.dir}">
+      <manifest>
+        <attribute name="Main" value="" />
+      </manifest>
+    </jar>
+  </target>
 </project>
