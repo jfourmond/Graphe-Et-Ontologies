@@ -11,9 +11,9 @@ public class CityVertex implements Vertex, Comparable<CityVertex> {
 	private String name;
 	private String postalCode;
 	private int population;
-	private int area;
+	private double area;
 	
-	public CityVertex(String name, String postalCode, int population, int area) {
+	public CityVertex(String name, String postalCode, int population, double area) {
 		this.name = name;
 		this.postalCode = postalCode;
 		this.population = population;
@@ -23,7 +23,7 @@ public class CityVertex implements Vertex, Comparable<CityVertex> {
 	//	GETTERS
 	public String getName() { return name; }
 	
-	public int getArea() { return area; }
+	public double getArea() { return area; }
 	
 	public int getPopulation() { return population; }
 	
@@ -32,7 +32,7 @@ public class CityVertex implements Vertex, Comparable<CityVertex> {
 	//	SETTERS
 	public void setName(String name) { this.name = name; }
 	
-	public void setArea(int area) { this.area = area; }
+	public void setArea(double area) { this.area = area; }
 	
 	public void setPopulation(int population) { this.population = population; }
 	
@@ -43,7 +43,7 @@ public class CityVertex implements Vertex, Comparable<CityVertex> {
 		String ch = postalCode + " \t";
 		ch += name + " \t";
 		ch += population + " \t";
-		ch += area;
+		ch += area + "\n";
 		return ch;
 	}
 	
@@ -51,9 +51,9 @@ public class CityVertex implements Vertex, Comparable<CityVertex> {
 	public String fullData() {
 		String ch = "Ville ; ";
 		ch += "\tCode postal : " + postalCode + " \n";
-		ch += "\tNom : " + name + " \t";
-		ch += "\tPopulation : " + population + " \t";
-		ch += "\tSuperficie : " + area;
+		ch += "\tNom : " + name + " \n";
+		ch += "\tPopulation : " + population + " \n";
+		ch += "\tSuperficie : " + area + "\n";
 		return ch;
 	}
 

@@ -1,3 +1,4 @@
+
 import javax.swing.UIManager;
 
 import fr.fourmond.jerome.framework.Edge;
