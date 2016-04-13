@@ -1,72 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <project name="Graphe-Et-Ontologies" basedir="." default="build" >
-  <!-- properties -->
-  <property name="project.version" value="1.0" />
-  <property name="jar.file" value="${ant.project.name}-${project.version}.jar" />
+	<!-- properties -->
+	<property name="project.version" value="1.0" />
+	<property name="jar.file" value="${ant.project.name}-${project.version}.jar" />
 
-  <property name="src.dir" value="src" />
-  <property name="bin.dir" value="bin" />
+	<property name="src.dir" value="src" />
+	<property name="bin.dir" value="bin" />
 
-  <property name="doc.dir" value="doc" />
+	<property name="doc.dir" value="doc" />
 
-  <property name="target" value="1.8"/>
-  <property name="source" value="1.8"/>
+	<property name="target" value="1.8"/>
+	<property name="source" value="1.8"/>
 
-  <!--  paths -->
-  <path id="src.compile.classpath">
-    <pathelement location="${bin.dir}" />
-  </path>
+	<!--  paths -->
+	<path id="src.compile.classpath">
+		<pathelement location="${bin.dir}" />
+	</path>
 
-  <path id="run.classpath">
-    <pathelement path="${bin.dir}" />
-  </path>
+	<path id="run.classpath">
+		<pathelement path="${bin.dir}" />
+	</path>
 
-  <!-- targets  -->
-    <!--  clean -->
-  <target name="clean" description="clean project">
-      <delete dir="${bin.dir}"/>
-  </target>
+	<!-- targets  -->
+		<!--  clean -->
+	<target name="clean" description="clean project">
+		<delete dir="${bin.dir}"/>
+	</target>
 
-    <!--  initialize  -->
-  <target name="init" description="create directories">
-    <mkdir dir="${bin.dir}" />
-  </target>
+	<!--  initialize  -->
+	<target name="init" description="create directories">
+		<mkdir dir="${bin.dir}" />
+	</target>
 
-    <!--  compile -->
-  <target name="build" depends="init  " description="source compilation">
-    <javac srcdir="${src.dir}" destdir="${bin.dir}" fork="true"
-        classpathref="src.compile.classpath" includeantruntime="false" >
-    </javac>
-  </target>
+	<!--  compile -->
+	<target name="build" depends="init  " description="source compilation">
+		<javac srcdir="${src.dir}" destdir="${bin.dir}" fork="true"
+			classpathref="src.compile.classpath" includeantruntime="false" >
+		</javac>
+	</target>
 
-  <!--  run app -->
-  <target name="run">
-    <delete>
-        <fileset dir="." includes="*.log" />
-    </delete>
-    <java classname="Main" fork="true"
-      classpathref="run.classpath" >
-    </java>
-  </target>
+	<!--  run app -->
+	<target name="run">
+		<java classname="Main" fork="true"
+			classpathref="run.classpath" >
+		</java>
+	</target>
 
-  <!--  javadoc -->
-  <target name="javadoc">
-    <mkdir dir="${doc.dir}" />
-    <javadoc sourcepath="${src.dir}" destdir="${doc.dir}"
-      author="true" version="true"
-      windowtitle="${ant.project.name} API">
-      <doctitle><![CDATA[<h1>${ant.project.name}</h1>]]></doctitle>
-      <bottom><![CDATA[Copyright &#169; 2012 ALl Rights Reserved]]></bottom>
-    </javadoc>
-  </target>
+	<!--  javadoc -->
+	<target name="javadoc">
+		<mkdir dir="${doc.dir}" />
+		<javadoc sourcepath="${src.dir}" destdir="${doc.dir}"
+				author="true" version="true"
+				windowtitle="${ant.project.name} API">
+			<doctitle><![CDATA[<h1>${ant.project.name}</h1>]]></doctitle>
+			<bottom><![CDATA[Copyright &#169; 2012 ALl Rights Reserved]]></bottom>
+		</javadoc>
+	</target>
 
-  <!--  generate jar file -->
-  <target name="jar" depends="build" description="generate jar file">
-    <jar destfile="${jar.file}" basedir="${src.dir}">
-      <manifest>
-        <attribute name="Main" value="" />
-      </manifest>
-    </jar>
-  </target>
+	<!--  generate jar file -->
+	<target name="jar" depends="build" description="generate jar file">
+		<jar destfile="${jar.file}" basedir="${bin.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="Main"/>
+			</manifest>
+		</jar>
+	</target>
 </project>
