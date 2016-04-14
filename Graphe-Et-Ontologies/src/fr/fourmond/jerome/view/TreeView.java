@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -16,8 +18,10 @@ import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 
 import fr.fourmond.jerome.framework.Edge;
@@ -33,10 +37,11 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	private List<VertexView> vertices;
 	private List<EdgeView<T_Vertex, T_Edge>> edges;
 	
-	private static JPanel center_panel;
-	private static JPanel east_panel;
-	private static JTextArea info_area;
-		private static JLabel info_label;
+	private JSplitPane main_panel;
+		private static JPanel center_panel;
+		private static JPanel east_panel;
+			private static JTextArea info_area;
+				private static JLabel info_label;
 	
 	// Attribut pour le déplacement
 	private static VertexView vertexPressedOn;
@@ -113,8 +118,11 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		east_panel.add(info_label);
 		east_panel.add(info_area);
 		
-		add(center_panel, BorderLayout.CENTER);
-		add(east_panel, BorderLayout.EAST);
+		main_panel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, center_panel, east_panel);
+		main_panel.setDividerSize(3);
+		main_panel.setDividerLocation((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 300);
+		
+		add(main_panel);
 	}
 	
 	private void drawVertices() {
