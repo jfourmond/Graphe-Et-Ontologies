@@ -49,7 +49,7 @@ public class CityVertex implements Vertex, Comparable<CityVertex> {
 	
 	@Override
 	public String fullData() {
-		String ch = "Ville ; ";
+		String ch = "Ville : \n";
 		ch += "\tCode postal : " + postalCode + " \n";
 		ch += "\tNom : " + name + " \n";
 		ch += "\tPopulation : " + population + " \n";

@@ -12,7 +12,7 @@ import java.util.List;
  * @author jfourmond
  */
 public class Tree<T_Vertex extends Vertex, T_Edge > {
-
+	
 	private List<T_Vertex> vertices;
 	private List<Edge<T_Vertex, T_Edge>> edges;
 	
@@ -111,11 +111,11 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 	
 	@Override
 	public String toString() {
-		String ch = "Sommets : \n";
+		String ch = "Sommets (" + vertices.size() + ") : \n";
 		for(T_Vertex vertex : vertices) {
 			ch += "\t" + vertex.fullData();
 		}
-		ch += "Edges : \n";
+		ch += "Edges ( " + edges.size() + ") : \n";
 		for(Edge<T_Vertex, T_Edge> edge : edges) {
 			ch += "\t" + edge + "\n";
 		}

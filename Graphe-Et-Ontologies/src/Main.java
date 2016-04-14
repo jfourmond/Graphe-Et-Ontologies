@@ -52,6 +52,7 @@ public class Main {
 		}
 		
 		System.out.println(t);
+		
 		TreeView<DefaultVertex, Integer> treeView = new TreeView<>(t);
 		
 		new Window(treeView);
