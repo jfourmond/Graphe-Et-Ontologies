@@ -10,7 +10,6 @@ import fr.fourmond.jerome.view.TreeView;
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("Test...");
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception E) {

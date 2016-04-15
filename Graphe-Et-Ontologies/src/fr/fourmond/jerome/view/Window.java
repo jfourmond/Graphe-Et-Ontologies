@@ -26,6 +26,9 @@ public class Window extends JFrame implements ActionListener {
 		private JMenu file;
 			private JMenuItem item_open;
 			private JMenuItem item_close;
+		private JMenu edition;
+			private JMenuItem item_edit_vertices;
+			private JMenuItem item_edit_edges;
 	private TreeView treeView;
 			
 	private JFileChooser fileChooser;
@@ -65,15 +68,22 @@ public class Window extends JFrame implements ActionListener {
 		fileChooser = new JFileChooser(new File("~"));
 		
 		menu_bar = new JMenuBar();
-		file = new JMenu("Fichier");
-			item_open = new JMenuItem("Ouvrir");
-			item_close = new JMenuItem("Quitter");
+			file = new JMenu("Fichier");
+				item_open = new JMenuItem("Ouvrir");
+				item_close = new JMenuItem("Quitter");
+			edition = new JMenu("Edition");
+				item_edit_vertices = new JMenuItem("Sommets");
+				item_edit_edges = new JMenuItem("Arcs");
+		
 	}
 	
 	private void buildInterface() {
-		file.add(item_open);
-		file.add(item_close);
+			file.add(item_open);
+			file.add(item_close);
 		menu_bar.add(file);
+			edition.add(item_edit_vertices);
+			edition.add(item_edit_edges);
+		menu_bar.add(edition);
 
 		setJMenuBar(menu_bar);
 		setContentPane(treeView);
@@ -82,6 +92,9 @@ public class Window extends JFrame implements ActionListener {
 	private void buildEvents() {
 		item_open.addActionListener(this);
 		item_close.addActionListener(this);
+		
+		item_edit_vertices.addActionListener(this);
+		item_edit_edges.addActionListener(this);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
@@ -101,8 +114,13 @@ public class Window extends JFrame implements ActionListener {
 					// TODO implement
 					System.err.println("NON IMPLEMENTÉ");
 					System.err.println("Fichier : " + file.getAbsolutePath());
-					
 				}
+			} else if(MI == item_edit_vertices) {
+				// TODO implement
+				System.err.println("NON IMPLEMENTÉ");
+			} else if(MI == item_edit_edges) {
+				// TODO implement
+				System.err.println("NON IMPLEMENTÉ");
 			}
 		}
 	}

@@ -1,3 +1,5 @@
+import javax.swing.UIManager;
+
 import fr.fourmond.jerome.example.CityVertex;
 import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
@@ -8,6 +10,11 @@ import fr.fourmond.jerome.view.Window;
 public class CityExample {
 
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception E) {
+			E.printStackTrace();
+		}
 		Tree<CityVertex, Double> region = new Tree<>();
 		
 		CityVertex villeA = new CityVertex("Angers", "49000", 147571, 42.7);
