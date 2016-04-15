@@ -13,22 +13,22 @@ import fr.fourmond.jerome.framework.Vertex;
  * un sommet du graphe
  * @author jfourmond
  */
-public class VertexView extends JComponent {
+public class VertexView<T extends Vertex> extends JComponent {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private static int radius = 25;
 	
-	public Vertex vertex;
+	public T vertex;
 	
 	//	CONSTRUCTEURS
-	public VertexView(Vertex vertex) {
+	public VertexView(T vertex) {
 		this.vertex = vertex;
 		setLocation(0, 0);
 		setBackground(Color.BLUE);
 	}
 	
-	public VertexView(Vertex vertex, int x, int y) {
+	public VertexView(T vertex, int x, int y) {
 		this.vertex = vertex;
 		// position = new Point(x, y);
 		setLocation(x, y);
@@ -36,12 +36,12 @@ public class VertexView extends JComponent {
 	}
 	
 	//	GETTERS
-	public Vertex getVertex() { return vertex; }
+	public T getVertex() { return vertex; }
 	
 	public static int getRadius() { return radius; }
 	
 	//	SETTERS
-	public void setVertex(Vertex vertex) { this.vertex = vertex; }
+	public void setVertex(T vertex) { this.vertex = vertex; }
 	
 	@Override
 	public Dimension getPreferredSize() { return new Dimension(radius * 2, radius * 2); }

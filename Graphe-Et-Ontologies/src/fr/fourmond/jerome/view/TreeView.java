@@ -33,7 +33,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 
 	private Tree<T_Vertex, T_Edge> tree;
 
-	private List<VertexView> vertices;
+	private List<VertexView<T_Vertex>> vertices;
 	private List<EdgeView<T_Vertex, T_Edge>> edges;
 	
 	private JSplitPane main_panel;
@@ -46,8 +46,8 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 				private static JButton info_delete;
 	
 	// Attribut pour le déplacement
-	private static VertexView vertexPressedOn;
-	private static VertexView vertexClickedOn;
+	private VertexView<T_Vertex> vertexPressedOn;
+	private VertexView<T_Vertex> vertexClickedOn;
 	private static boolean pressed = false;
 	private static MouseEvent decalage;
 	private static Point actual;
@@ -66,8 +66,8 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	 * @param T : le sommet à rechercher
 	 * @return le {@link VertexView} correspondant
 	 */
-	public VertexView getVertexViewFrom(Vertex T) {
-		for(VertexView vertex : vertices) {
+	public VertexView<T_Vertex> getVertexViewFrom(Vertex T) {
+		for(VertexView<T_Vertex> vertex : vertices) {
 			if(vertex.getVertex() == T)
 				return vertex;
 		}
@@ -97,9 +97,9 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 			
 		// setLayout(null);
 		//	Build VertexView
-		vertices = new ArrayList<VertexView>();
+		vertices = new ArrayList<VertexView<T_Vertex>>();
 		for(T_Vertex vertex : tree.getVertices()) {
-			VertexView vertexView = new VertexView(vertex, rand.nextInt(500), rand.nextInt(500));
+			VertexView<T_Vertex> vertexView = new VertexView<>(vertex, rand.nextInt(500), rand.nextInt(500));
 			vertices.add(vertexView);
 		}
 		// Build EdgeView
@@ -112,7 +112,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	
 	private void buildInterface() {
 		// Print VertexView
-		for(VertexView vertex : vertices) {
+		for(VertexView<T_Vertex> vertex : vertices) {
 			center_panel.add(vertex);
 		}
 		// Print EdgeView
@@ -140,7 +140,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	private void drawVertices() {
 		Insets insets = center_panel.getInsets();
 		Dimension size;
-		for(VertexView vertex : vertices) {
+		for(VertexView<T_Vertex> vertex : vertices) {
 			size = vertex.getPreferredSize();
 			vertex.setBounds(vertex.getX() + insets.left, vertex.getY() + insets.top, size.width, size.height);
 		}
@@ -167,7 +167,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	}
 	
 	private void buildEvents() {
-		for(VertexView vertex : vertices) {
+		for(VertexView<T_Vertex> vertex : vertices) {
 			vertex.addMouseListener(this);
 			vertex.addMouseMotionListener(this);
 		}
@@ -186,8 +186,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		if(O.getClass() == JButton.class) {
 			JButton B = (JButton) O;
 			if(B == info_edit) {
-				// TODO implement
-				System.err.println("NON IMPLEMENTÉ");
+				EditVertexView<T_Vertex> evv = new EditVertexView<T_Vertex>(vertexClickedOn.getVertex());
 			} else if(B == info_delete) {
 				// TODO implement
 				System.err.println("NON IMPLEMENTÉ");
@@ -220,7 +219,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	public void mouseClicked(MouseEvent e) {
 		Object O = e.getSource();
 		if(O.getClass() == VertexView.class) {
-			vertexClickedOn = (VertexView) O;
+			vertexClickedOn = (VertexView<T_Vertex>) O;
 			Vertex vertex = vertexClickedOn.getVertex();
 			info_area.setText(vertex.fullData());
 			info_delete.setVisible(true);
@@ -235,7 +234,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	public void mousePressed(MouseEvent e) {
 		Object O = e.getSource();
 		if(O.getClass() == VertexView.class) {
-			VertexView vertexView = (VertexView) O;
+			VertexView<T_Vertex> vertexView = (VertexView<T_Vertex>) O;
 			if(!pressed) {
 				decalage = e;
 				vertexPressedOn = vertexView;
