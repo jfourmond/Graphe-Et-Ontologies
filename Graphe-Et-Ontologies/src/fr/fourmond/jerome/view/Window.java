@@ -29,6 +29,9 @@ public class Window extends JFrame implements ActionListener {
 		private JMenu edition;
 			private JMenuItem item_edit_vertices;
 			private JMenuItem item_edit_edges;
+		private JMenu show;
+			private JMenuItem item_show_vertices;
+			private JMenuItem item_show_edges;
 	private TreeView treeView;
 			
 	private JFileChooser fileChooser;
@@ -74,6 +77,9 @@ public class Window extends JFrame implements ActionListener {
 			edition = new JMenu("Edition");
 				item_edit_vertices = new JMenuItem("Sommets");
 				item_edit_edges = new JMenuItem("Arcs");
+			show = new JMenu("Affichage");
+				item_show_vertices = new JMenuItem("Sommets");
+				item_show_edges = new JMenuItem("Arcs");
 		
 	}
 	
@@ -84,6 +90,9 @@ public class Window extends JFrame implements ActionListener {
 			edition.add(item_edit_vertices);
 			edition.add(item_edit_edges);
 		menu_bar.add(edition);
+			show.add(item_show_vertices);
+			show.add(item_show_edges);
+		menu_bar.add(show);
 
 		setJMenuBar(menu_bar);
 		setContentPane(treeView);
@@ -95,6 +104,9 @@ public class Window extends JFrame implements ActionListener {
 		
 		item_edit_vertices.addActionListener(this);
 		item_edit_edges.addActionListener(this);
+		
+		item_show_edges.addActionListener(this);
+		item_show_edges.addActionListener(this);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
@@ -119,6 +131,12 @@ public class Window extends JFrame implements ActionListener {
 				// TODO implement
 				System.err.println("NON IMPLEMENTÉ");
 			} else if(MI == item_edit_edges) {
+				// TODO implement
+				System.err.println("NON IMPLEMENTÉ");
+			} else if(MI == item_show_vertices) {
+				// TODO implement
+				System.err.println("NON IMPLEMENTÉ");
+			} else if(MI == item_show_edges) {
 				// TODO implement
 				System.err.println("NON IMPLEMENTÉ");
 			}
