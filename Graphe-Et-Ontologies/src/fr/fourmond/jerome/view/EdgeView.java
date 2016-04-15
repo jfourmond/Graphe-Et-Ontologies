@@ -13,8 +13,8 @@ public class EdgeView<T_Vertex extends Vertex, T_Value> extends JComponent {
 	private static final long serialVersionUID = 1L;
 	
 	private Edge<T_Vertex, T_Value> edge;
-	private VertexView start;
-	private VertexView end;
+	private VertexView<T_Vertex> start;
+	private VertexView<T_Vertex> end;
 	private int gapX;
 	private int gapY;
 	
@@ -24,7 +24,7 @@ public class EdgeView<T_Vertex extends Vertex, T_Value> extends JComponent {
 		this.edge = edge;
 	}
 	
-	public EdgeView(Edge<T_Vertex, T_Value> edge, VertexView start, VertexView end) {
+	public EdgeView(Edge<T_Vertex, T_Value> edge, VertexView<T_Vertex> start, VertexView<T_Vertex> end) {
 		this.edge = edge;
 		this.start = start;
 		this.end = end;
@@ -35,9 +35,9 @@ public class EdgeView<T_Vertex extends Vertex, T_Value> extends JComponent {
 	//	GETTERS
 	public Edge<T_Vertex, T_Value> getEdge() { return edge; }
 	
-	public VertexView getStart() { return start; }
+	public VertexView<T_Vertex> getStart() { return start; }
 	
-	public VertexView getEnd() { return end; }
+	public VertexView<T_Vertex> getEnd() { return end; }
 	
 	public int getGapX() { return gapX; }
 	
@@ -46,9 +46,9 @@ public class EdgeView<T_Vertex extends Vertex, T_Value> extends JComponent {
 	//	SETTERS
 	public void setEdge(Edge<T_Vertex, T_Value> edge) { this.edge = edge; }
 	
-	public void setStart(VertexView start) { this.start = start; }
+	public void setStart(VertexView<T_Vertex> start) { this.start = start; }
 	
-	public void setEnd(VertexView end) { this.end = end; }
+	public void setEnd(VertexView<T_Vertex> end) { this.end = end; }
 	
 	private void computeDistance() {
 		// distance = Math.sqrt(Math.pow(start.getX() - end.getX(), 2)+ Math.pow(start.getY() - end.getY(), 2));

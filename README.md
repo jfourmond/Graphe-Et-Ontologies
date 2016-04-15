@@ -40,11 +40,11 @@ On désire créer une application en Java pour la navigation dans un document é
 L'exécution s'effectue ainsi, en ligne de commande :
 - pour le Main basique
 
-	ant run-main
+		ant run-main
 
 - pour le CityExample, exemple concret du programme :
 	
-	ant run-city
+		ant run-city
 	
 ### 3. Javadoc
 

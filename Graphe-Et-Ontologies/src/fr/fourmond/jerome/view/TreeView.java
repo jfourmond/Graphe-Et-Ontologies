@@ -17,7 +17,6 @@ import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -28,7 +27,6 @@ import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 
 public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements ActionListener, MouseListener, MouseMotionListener{
-
 	private static final long serialVersionUID = 1L;
 
 	private Tree<T_Vertex, T_Edge> tree;
@@ -41,9 +39,6 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		private static JPanel east_panel;
 			private static JLabel info_label;
 			private static JTextArea info_area;
-			private static JPanel info_button;
-				private static JButton info_edit;
-				private static JButton info_delete;
 	
 	// Attribut pour le déplacement
 	private VertexView<T_Vertex> vertexPressedOn;
@@ -88,14 +83,8 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 				info_area = new JTextArea();
 					info_area.setEditable(false);
 					info_area.setText(tree.toString());
-				info_button = new JPanel();
-					info_edit = new JButton("Editer");
-					info_edit.setVisible(false);
-					info_delete = new JButton("Supprimer");
-					info_delete.setVisible(false);
 			east_panel.setBorder(BorderFactory.createLineBorder(Color.black));
-			
-		// setLayout(null);
+		
 		//	Build VertexView
 		vertices = new ArrayList<VertexView<T_Vertex>>();
 		for(T_Vertex vertex : tree.getVertices()) {
@@ -123,12 +112,8 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		drawVertices();
 		drawEdges();
 		
-		info_button.add(info_edit);
-		info_button.add(info_delete);
-		
 		east_panel.add(info_label);
 		east_panel.add(info_area);
-		east_panel.add(info_button);
 		
 		main_panel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, center_panel, east_panel);
 		main_panel.setDividerSize(3);
@@ -175,23 +160,11 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		for(EdgeView<T_Vertex, T_Edge> edge : edges) {
 			edge.addMouseListener(this);
 		}
-		
-		info_edit.addActionListener(this);
-		info_delete.addActionListener(this);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Object O = e.getSource();
-		if(O.getClass() == JButton.class) {
-			JButton B = (JButton) O;
-			if(B == info_edit) {
-				EditVertexView<T_Vertex> evv = new EditVertexView<T_Vertex>(vertexClickedOn.getVertex());
-			} else if(B == info_delete) {
-				// TODO implement
-				System.err.println("NON IMPLEMENTÉ");
-			}
-		}
+		// Object O = e.getSource();
 	}
 
 	@Override
@@ -222,8 +195,6 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 			vertexClickedOn = (VertexView<T_Vertex>) O;
 			Vertex vertex = vertexClickedOn.getVertex();
 			info_area.setText(vertex.fullData());
-			info_delete.setVisible(true);
-			info_edit.setVisible(true);
 		} else if(O.getClass() == EdgeView.class) {
 			// TODO On click -> Show info EdgeView
 			System.err.println("NON IMPLEMENTÉ");
