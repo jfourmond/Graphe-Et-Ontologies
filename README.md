@@ -40,7 +40,7 @@ On désire créer une application en Java pour la navigation dans un document é
 L'exécution s'effectue ainsi, en ligne de commande :
 - pour le Main basique
 
-		ant run-main
+		ant run-default
 
 - pour le CityExample, exemple concret du programme :
 	
@@ -57,7 +57,7 @@ La génération de la javadoc est disponible en exécutant la cible :
 La génération d'une archive jar exécutable en exécutant la cible :
 - pour le Main basique :
 
-	ant jar-main
+	ant jar-default
 	
 - pour le CityExample, exemple concret du programme :
 
