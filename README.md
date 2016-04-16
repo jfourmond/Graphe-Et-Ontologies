@@ -24,8 +24,12 @@ On désire créer une application en Java pour la navigation dans un document é
 ### 1. Première étape
 
 - [x] [Diagramme de classe](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/class_diagram)
-- [ ] Framework pour la gestion de graphe :package: 
-- [ ] Visualisation
+- [x] Framework pour la gestion de graphe :package: 
+- [x] Visualisation
+
+### 2. Seconde étape
+
+...
 
 ---
 
@@ -57,11 +61,11 @@ La génération de la javadoc est disponible en exécutant la cible :
 La génération d'une archive jar exécutable en exécutant la cible :
 - pour le Main basique :
 
-	ant jar-default
+		ant jar-default
 	
 - pour le CityExample, exemple concret du programme :
 
-	ant jar-city
+		ant jar-city
 
 ---
 
@@ -70,6 +74,7 @@ La génération d'une archive jar exécutable en exécutant la cible :
 L'utilisation du **framework** s'effectue aisément.
 
 ### 1. Sommet - *Vertex*
+
 Dans un premier temps, il est nécessaire d'implémenter l'interface [Vertex](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Vertex.java).
 Cette nouvelle classe sera utilisé dans l'utilisation du graphe.
 Par exemple :
@@ -78,6 +83,7 @@ Par exemple :
 	DefaultVertex sommet2 = new DefaultVertex(22);
 
 ### 2. Arc - *Edge*
+
 La classe de l'implémentation de **Vertex** et le type du libellé de l'arc sont requis dans la déclaration de [Edge](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Edge.java).
 Par exemple, en conservant l'implémentation précédente :
 
@@ -86,6 +92,7 @@ Par exemple, en conservant l'implémentation précédente :
 Ce qui déclare et définit un arc entre le *sommet1* et le *sommet2*, ayant pour libellé *33*.
 
 ### 3. Graphe - *Tree*
+
 Dans la déclaration de [Tree](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Tree.java), deux types doivent être précisés : la classe de l'implémentation du Vertex, et le type du libellé de l'arc.
 L'ajout d'un sommet dans le graphe s'effectue grâce à la méthode : **addVertex**.
 L'ajout d'un arc dans le graphe s'effectue grâce à la méthode : **addEdge**
@@ -95,3 +102,34 @@ Par exemple :
 	tree.addVertex(sommet1);
 	tree.addVertex(sommet2);
 	tree.addEdge(arc);
+	
+---
+
+## V. L'Affichage
+
+L'affichage d'un arbre est basique.
+
+### 1. Sommet - *VertexView*
+
+Un sommet est représenté par un **JComponent**. Ce dernier dessine un cercle et lui accorde un espace en accord avec le rayon du cercle (d'où l'affichage limité des informations brèves du sommet).
+
+### 2. Arc - *EdgeView*
+
+Un arc est représenté par un **JComponent**. Ce dernier dessigne une ligne entre deux **VertexView**, son espace est calculé en fonction de l'écart entre les deux sommets.
+
+Il est à noter qu'à proprement parlé la ligne n'est pas placé par cette classe mais bien par **TreeView**.
+
+### 3. Graphe - *TreeView*
+
+L'arbre est dessiné comme un ensemble de **VertexView** et de **EdgeView**, dans un JPanel. **TreeView** affiche l'arbre au centre, ainsi que des informations sur ce dernier ou le dernier sommet *cliqué* à droite dans un **JTextArea**.
+Cette classe place les sommets en leur associant des coordonnées aléatoires, pouvant donner un affichage satisfaisant comme un affichage illisible. **Ce point est donc à retravailler.**
+Les sommets sont cliquables et peuvent être déplacées, contrairement aux arcs.
+
+### 4. La Fenêtre - *Window*
+
+Le tout est contenu dans un **JFrame** possédant différents menus :
+- Fichier
+	* Ouvrir : permet d'ouvrir un fichier représentant une ontologie.
+	* Quitter : quitte l'application.
+- Edition
+	* Ontologie : ouvre l'éditeur par défaut du système sur le fichier actuellement ouvert, pour modification.
