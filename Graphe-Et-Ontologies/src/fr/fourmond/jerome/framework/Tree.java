@@ -115,7 +115,7 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 		for(T_Vertex vertex : vertices) {
 			ch += "\t" + vertex.fullData();
 		}
-		ch += "Edges ( " + edges.size() + ") : \n";
+		ch += "Arcs (" + edges.size() + ") : \n";
 		for(Edge<T_Vertex, T_Edge> edge : edges) {
 			ch += "\t" + edge + "\n";
 		}

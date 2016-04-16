@@ -1,11 +1,15 @@
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+
 import javax.swing.UIManager;
 
 import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.TreeException;
-import fr.fourmond.jerome.view.Window;
 import fr.fourmond.jerome.view.TreeView;
+import fr.fourmond.jerome.view.Window;
 
 public class Main {
 
