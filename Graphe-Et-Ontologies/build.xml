@@ -54,6 +54,13 @@
 			classpathref="run.classpath" >
 		</java>
 	</target>
+	
+		<!-- run FxCityExample -->
+	<target name="run-cityfx">
+		<java classname="FxCityExample" fork="true"
+			classpathref="run.classpath" >
+		</java>
+	</target>
 
 	<!--  javadoc -->
 	<target name="javadoc">
@@ -81,6 +88,15 @@
 		<jar destfile="${jar.file}" basedir="${bin.dir}">
 			<manifest>
 				<attribute name="Main-Class" value="CityExample" />
+			</manifest>
+		</jar>
+	</target>
+	
+	<!-- for FxCityExample -->
+	<target name="jar-cityfx" depends="build" description="generate jar file for FxCityExample">
+		<jar destfile="${jar.file}" basedir="${bin.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="FxCityExample" />
 			</manifest>
 		</jar>
 	</target>
