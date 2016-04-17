@@ -49,7 +49,11 @@ L'exécution s'effectue ainsi, en ligne de commande :
 - pour le CityExample, exemple concret du programme :
 	
 		ant run-city
-	
+
+- pour le FxCityExample, exemple concret du programme sous JavaFX :
+
+		ant run-cityfx
+		
 ### 3. Javadoc
 
 La génération de la javadoc est disponible en exécutant la cible :
@@ -66,6 +70,10 @@ La génération d'une archive jar exécutable en exécutant la cible :
 - pour le CityExample, exemple concret du programme :
 
 		ant jar-city
+
+- pour le FxCityExample, exemple concret du programme sous JavaFX :
+
+		ant jar-cityfx
 
 ---
 
@@ -107,25 +115,27 @@ Par exemple :
 
 ## V. L'Affichage
 
-L'affichage d'un arbre est basique.
+L'affichage d'un arbre peut s'effectuer sous Swing ou sous JavaFX.
 
-### 1. Sommet - *VertexView*
+### 1. Swing
+
+#### a. Sommet - *VertexView*
 
 Un sommet est représenté par un **JComponent**. Ce dernier dessine un cercle et lui accorde un espace en accord avec le rayon du cercle (d'où l'affichage limité des informations brèves du sommet).
 
-### 2. Arc - *EdgeView*
+#### b. Arc - *EdgeView*
 
 Un arc est représenté par un **JComponent**. Ce dernier dessigne une ligne entre deux **VertexView**, son espace est calculé en fonction de l'écart entre les deux sommets.
 
 Il est à noter qu'à proprement parlé la ligne n'est pas placé par cette classe mais bien par **TreeView**.
 
-### 3. Graphe - *TreeView*
+#### c. Graphe - *TreeView*
 
 L'arbre est dessiné comme un ensemble de **VertexView** et de **EdgeView**, dans un JPanel. **TreeView** affiche l'arbre au centre, ainsi que des informations sur ce dernier ou le dernier sommet *cliqué* à droite dans un **JTextArea**.
 Cette classe place les sommets en leur associant des coordonnées aléatoires, pouvant donner un affichage satisfaisant comme un affichage illisible. **Ce point est donc à retravailler.**
 Les sommets sont cliquables et peuvent être déplacées, contrairement aux arcs.
 
-### 4. La Fenêtre - *Window*
+#### d. La Fenêtre - *Window*
 
 Le tout est contenu dans un **JFrame** possédant différents menus :
 - Fichier
@@ -133,3 +143,18 @@ Le tout est contenu dans un **JFrame** possédant différents menus :
 	* Quitter : quitte l'application.
 - Edition
 	* Ontologie : ouvre l'éditeur par défaut du système sur le fichier actuellement ouvert, pour modification.
+	
+### 2. JavaFX
+
+#### a. Sommet - *VertexFxView*
+
+Un sommet est représenté par un **Group**. Ce dernier contient et dessine un cercle et un label, contenant la description brève du sommet correspondant.
+
+#### b. Arc - *EdgeFxView*
+
+Un arc est représenté par un **Group**. Ce dernier contient et dessine une ligne entre deux **VertexView** et un label, contenant la valeur de l'arc correspondant.
+
+#### c. Graphe - *TreeFxView*
+
+L'arbre contient l'ensemble des **Group** (**VertexFxView** & **EdgeFxView**) et est lui-même un **Group**. En fonction de la variable de type **Tree** passée en paramètre, il construit ses sommets et ses arcs et leur accorde différents *listeners*.
+Les sommets sont cliquables (l'affichage s'effectue, pour le moment dans la console).

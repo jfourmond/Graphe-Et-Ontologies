@@ -8,15 +8,15 @@ import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
- * {@link TreeFxView} est un {@link Group} représentant
+ * {@link TreeFxView} est un {@link BorderPane} représentant
  * la totalité du graphe
  * @param <T_Vertex> : type implémentant l'interface {@link Vertex}
  * @param <T_Edge> : type de la valeur de {@link Edge}
@@ -31,8 +31,9 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	private Pane center;
 		private List<VertexFxView<T_Vertex>> verticesView;
 		private List<EdgeFxView<T_Edge>> edgesView;
-	private VBox east;
-				private TextArea textArea;
+	private Pane east;
+		private VBox vbox;
+			private TextArea textArea;
 	
 	public TreeFxView(Tree<T_Vertex, T_Edge> tree) {
 		super();
@@ -48,9 +49,10 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	
 	private void buildComposants() {
 		center = new Pane();
-		east = new VBox();
-			textArea = new TextArea(tree.toString());
-			textArea.setEditable(false);
+		east = new Pane();
+			vbox = new VBox();
+				textArea = new TextArea(tree.toString());
+				textArea.setEditable(false);
 		verticesView = new ArrayList<>();
 		edgesView = new ArrayList<>();
 		
@@ -63,7 +65,8 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 		drawVertices();
 		drawEdges();
 		
-		east.getChildren().add(textArea);
+		vbox.getChildren().add(textArea);
+		east.getChildren().add(vbox);
 		
 		setCenter(center);
 		setRight(east);
