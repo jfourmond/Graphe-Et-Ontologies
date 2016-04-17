@@ -4,8 +4,8 @@ import fr.fourmond.jerome.example.CityVertex;
 import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.TreeException;
-import fr.fourmond.jerome.view.TreeView;
-import fr.fourmond.jerome.view.Window;
+import fr.fourmond.jerome.view.swing.TreeView;
+import fr.fourmond.jerome.view.swing.Window;
 
 public class CityExample {
 

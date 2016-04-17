@@ -1,4 +1,4 @@
-package fr.fourmond.jerome.view;
+package fr.fourmond.jerome.view.swing;
 
 import java.awt.Desktop;
 import java.awt.Dimension;
