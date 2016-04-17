@@ -9,7 +9,11 @@ import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * {@link TreeFxView} est un {@link Group} représentant
@@ -18,14 +22,17 @@ import javafx.scene.input.MouseEvent;
  * @param <T_Edge> : type de la valeur de {@link Edge}
  * @author jfourmond
  */
-public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends Group {
+public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 
 	private static Random rand;
 	
 	private Tree<T_Vertex, T_Edge> tree;
 	
-	private List<VertexFxView<T_Vertex>> verticesView;
-	private List<EdgeFxView<T_Edge>> edgesView;
+	private Pane center;
+		private List<VertexFxView<T_Vertex>> verticesView;
+		private List<EdgeFxView<T_Edge>> edgesView;
+	private VBox east;
+				private TextArea textArea;
 	
 	public TreeFxView(Tree<T_Vertex, T_Edge> tree) {
 		super();
@@ -33,17 +40,37 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends Group {
 		
 		rand = new Random();
 		
-		buildVertices();
-		buildEdges();
-		drawVertices();
-		drawEdges();
+		buildComposants();
+		buildInterface();
 		
 		addEvents();
 	}
 	
-	private void buildVertices() {
+	private void buildComposants() {
+		center = new Pane();
+		east = new VBox();
+			textArea = new TextArea(tree.toString());
+			textArea.setEditable(false);
 		verticesView = new ArrayList<>();
+		edgesView = new ArrayList<>();
 		
+		buildVertices();
+		buildEdges();
+	}
+	
+	private void buildInterface() {
+		
+		drawVertices();
+		drawEdges();
+		
+		east.getChildren().add(textArea);
+		
+		setCenter(center);
+		setRight(east);
+	}
+	
+	private void buildVertices() {
+		verticesView.clear();
 		List<T_Vertex> vertices = tree.getVertices();
 		VertexFxView<T_Vertex> vertexView;
 		for(T_Vertex vertex : vertices) {
@@ -53,8 +80,7 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends Group {
 	}
 	
 	private void buildEdges() {
-		edgesView = new ArrayList<>();
-		
+		edgesView.clear();
 		List<Edge<T_Vertex, T_Edge>> edges = tree.getEdges();
 		EdgeFxView<T_Edge> edgeView;
 		VertexFxView<T_Vertex> start, end;
@@ -67,16 +93,12 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends Group {
 		}
 	}
 	
-	private void drawVertices() {
-		this.getChildren().addAll(verticesView);
-	}
+	private void drawVertices() { center.getChildren().addAll(verticesView); }
 	
-	private void drawEdges() {
-		this.getChildren().addAll(edgesView);
-	}
+	private void drawEdges() { center.getChildren().addAll(edgesView); }
 	
 	private void redrawLines() {
-		this.getChildren().removeAll(edgesView);
+		center.getChildren().removeAll(edgesView);
 		buildEdges();
 		drawEdges();
 	}
@@ -86,7 +108,8 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends Group {
 			vertex.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					System.out.println("Clicked : " + vertex.getVertex());
+					T_Vertex v = vertex.getVertex();
+					textArea.setText(v.fullData());
 				}
 			});
 			vertex.setOnMouseDragged(new EventHandler<MouseEvent>() {
@@ -96,8 +119,6 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends Group {
 					vertex.setCenterY(event.getY());
 					
 					redrawLines();
-					
-					// root.requestLayout();
 				}
 			});
 		}
