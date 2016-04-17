@@ -26,6 +26,13 @@ import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 
+/**
+ * {@link TreeView} est un {@link JPanel} représentant
+ * la totalité du graphe
+ * @param <T_Vertex> : type implémentant l'interface {@link Vertex}
+ * @param <T_Edge> : type de la valeur de {@link Edge}
+ * @author jfourmond
+ */
 public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements ActionListener, MouseListener, MouseMotionListener{
 	private static final long serialVersionUID = 1L;
 

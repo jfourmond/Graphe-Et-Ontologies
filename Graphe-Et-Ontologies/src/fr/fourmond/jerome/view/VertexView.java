@@ -11,6 +11,7 @@ import fr.fourmond.jerome.framework.Vertex;
 /**
  * {@link VertexView} est un {@link JComponent} dessinant
  * un sommet du graphe
+ * @param <T> : le type implémentant l'interface {@link Vertex}
  * @author jfourmond
  */
 public class VertexView<T extends Vertex> extends JComponent {

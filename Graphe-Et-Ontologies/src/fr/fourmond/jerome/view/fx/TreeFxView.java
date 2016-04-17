@@ -11,6 +11,13 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * {@link TreeFxView} est un {@link Group} représentant
+ * la totalité du graphe
+ * @param <T_Vertex> : type implémentant l'interface {@link Vertex}
+ * @param <T_Edge> : type de la valeur de {@link Edge}
+ * @author jfourmond
+ */
 public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends Group {
 
 	private static Random rand;

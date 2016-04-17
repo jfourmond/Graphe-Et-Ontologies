@@ -1,7 +1,14 @@
 package fr.fourmond.jerome.view.fx;
 
+import fr.fourmond.jerome.framework.Edge;
 import javafx.scene.shape.Line;
 
+/**
+ * {@link EdgeFxView} est une {@link Line} représentant
+ * un arc du graphe
+ * @param <T> : type de la valeur de {@link Edge}
+ * @author jfourmond
+ */
 public class EdgeFxView<T> extends Line {
 	private T value;
 	

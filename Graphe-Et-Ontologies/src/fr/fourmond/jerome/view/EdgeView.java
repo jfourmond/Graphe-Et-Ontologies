@@ -8,6 +8,13 @@ import javax.swing.JComponent;
 import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Vertex;
 
+/**
+ * {@link EdgeView} est un {@link JComponent} représentant
+ * un arc du graphe
+ * @param <T_Vertex> : type du sommet implémentant l'interface {@link Vertex}
+ * @param <T_Value> : type de la valeur de {@link Edge}
+ * @author jfourmond
+ */
 public class EdgeView<T_Vertex extends Vertex, T_Value> extends JComponent {
 
 	private static final long serialVersionUID = 1L;
@@ -17,8 +24,6 @@ public class EdgeView<T_Vertex extends Vertex, T_Value> extends JComponent {
 	private VertexView<T_Vertex> end;
 	private int gapX;
 	private int gapY;
-	
-	// private static double distance;
 	
 	public EdgeView(Edge<T_Vertex, T_Value> edge) {
 		this.edge = edge;

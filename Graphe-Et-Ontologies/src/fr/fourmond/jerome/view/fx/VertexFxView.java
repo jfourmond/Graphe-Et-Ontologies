@@ -5,6 +5,12 @@ import fr.fourmond.jerome.framework.Vertex;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+/**
+ * {@link VertexFxView} est un cercle représentant
+ * un sommet du graphe
+ * @param <T> : le type implémentant l'interface {@link Vertex}
+ * @author jfourmond
+ */
 public class VertexFxView<T extends Vertex> extends Circle {
 	private static int diameter = 25;
 	
