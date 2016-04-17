@@ -8,11 +8,13 @@ import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
 /**
  * {@link TreeFxView} est un {@link BorderPane} représentant
@@ -32,7 +34,8 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 		private List<EdgeFxView<T_Edge>> edgesView;
 	private Pane east;
 		private VBox vbox;
-			private TextArea textArea;
+			private Label info_label;
+			private TextArea info_area;
 	
 	public TreeFxView(Tree<T_Vertex, T_Edge> tree) {
 		super();
@@ -47,11 +50,13 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	}
 	
 	private void buildComposants() {
+		
 		center = new Pane();
 		east = new Pane();
 			vbox = new VBox();
-				textArea = new TextArea(tree.toString());
-				textArea.setEditable(false);
+				info_label = new Label("Informations");
+				info_area = new TextArea(tree.toString());
+				info_area.setEditable(false);
 		verticesView = new ArrayList<>();
 		edgesView = new ArrayList<>();
 		
@@ -64,7 +69,7 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 		drawVertices();
 		drawEdges();
 		
-		vbox.getChildren().add(textArea);
+		vbox.getChildren().addAll(info_label, info_area);
 		east.getChildren().add(vbox);
 		
 		setCenter(center);
@@ -111,7 +116,7 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 				@Override
 				public void handle(MouseEvent event) {
 					T_Vertex v = vertex.getVertex();
-					textArea.setText(v.fullData());
+					info_area.setText(v.fullData());
 				}
 			});
 			vertex.setOnMouseDragged(new EventHandler<MouseEvent>() {
