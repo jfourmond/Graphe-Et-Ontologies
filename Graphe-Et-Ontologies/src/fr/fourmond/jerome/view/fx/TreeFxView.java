@@ -24,7 +24,7 @@ import javafx.scene.layout.VBox;
  * @author jfourmond
  */
 public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
-	final double SCALE_DELTA = 1.1;
+	private final double SCALE_DELTA = 1.1;
 	private static Random rand;
 	
 	private Tree<T_Vertex, T_Edge> tree;
@@ -50,23 +50,6 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	
 	private void buildComposants() {
 		center = new Pane();
-		center.setOnScroll(new EventHandler<ScrollEvent>() {
-			@Override
-			public void handle(ScrollEvent event) {
-				//  event.consume();
-				System.out.println("SCROLLED : DeltaX " + event.getDeltaX() + " DeltaY " + event.getDeltaY() +
-						"\n X " + event.getX() + " Y " + event.getY());
-				
-				if (event.getDeltaY() == 0) {
-					return;
-				}
-
-				double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA : 1/SCALE_DELTA;
-
-				center.setScaleX(center.getScaleX() * scaleFactor);
-				center.setScaleY(center.getScaleY() * scaleFactor);
-			}
-		});
 
 		east = new VBox();
 		east.setPrefHeight(east.getMaxHeight());
@@ -127,10 +110,25 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	}
 	
 	private void addEvents() {
+		center.setOnScroll(new EventHandler<ScrollEvent>() {
+			@Override
+			public void handle(ScrollEvent event) {
+				System.out.println("SCROLLED : DeltaX " + event.getDeltaX() + " DeltaY " + event.getDeltaY() +
+						"\n X " + event.getX() + " Y " + event.getY());
+				if (event.getDeltaY() == 0) {
+					return;
+				}
+				double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA : 1/SCALE_DELTA;
+				center.setScaleX(center.getScaleX() * scaleFactor);
+				center.setScaleY(center.getScaleY() * scaleFactor);
+			}
+		});
+		
 		for(VertexFxView<T_Vertex> vertex : verticesView) {
 			vertex.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
+					event.consume();
 					T_Vertex v = vertex.getVertex();
 					info_area.setText(v.fullData());
 				}
@@ -138,9 +136,9 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 			vertex.setOnMouseDragged(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
+					event.consume();
 					vertex.setCenterX(event.getX());
 					vertex.setCenterY(event.getY());
-					
 					redrawLines();
 				}
 			});

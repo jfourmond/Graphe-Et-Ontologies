@@ -93,34 +93,42 @@ public class FxCityExample extends Application {
 	public static void main(String[] args) {
 		region = new Tree<>();
 		
-		CityVertex villeA = new CityVertex("Angers", "49000", 147571, 42.7);
-		CityVertex villeB = new CityVertex("Nantes", "44000", 294970, 65.19);
-		CityVertex villeC = new CityVertex("Cholet", "49300", 56761, 87.47);
-		CityVertex villeD = new CityVertex("Chemillé", "49120", 7028, 71.9);
+		CityVertex angers = new CityVertex("Angers", "49000", 147571, 42.7);
+		CityVertex nantes = new CityVertex("Nantes", "44000", 294970, 65.19);
+		CityVertex cholet = new CityVertex("Cholet", "49300", 56761, 87.47);
+		CityVertex chemille = new CityVertex("Chemillé", "49120", 7028, 71.9);
+		CityVertex saumur = new CityVertex("Saumur", "49400", 27413, 66.25);
 		
 		try {
-			region.addVertex(villeA);
-			region.addVertex(villeB);
-			region.addVertex(villeC);
+			region.addVertex(angers);
+			region.addVertex(nantes);
+			region.addVertex(cholet);
+			region.addVertex(chemille);
+			region.addVertex(saumur);
 		} catch (TreeException e) {
 			e.printStackTrace();
 		}
 		
-		Edge<CityVertex, Double> AtoB = new Edge<>(villeA, villeB, 91.4);
-		Edge<CityVertex, Double> AtoC = new Edge<>(villeA, villeC, 69.0);
-		Edge<CityVertex, Double> BtoC = new Edge<>(villeB, villeC, 69.4);
-		Edge<CityVertex, Double> AtoD = new Edge<>(villeA, villeD, 45.0);
-		Edge<CityVertex, Double> BtoD = new Edge<>(villeB, villeD, 75.0);
-		Edge<CityVertex, Double> CtoD = new Edge<>(villeC, villeD, 25.0);
-		
+		Edge<CityVertex, Double> AtoN = new Edge<>(angers, nantes, 91.4);
+		Edge<CityVertex, Double> AtoC = new Edge<>(angers, cholet, 69.0);
+		Edge<CityVertex, Double> AtoCh = new Edge<>(angers, chemille, 45.0);
+		Edge<CityVertex, Double> CtoCh = new Edge<>(cholet, chemille, 25.0);
+		Edge<CityVertex, Double> NtoC = new Edge<>(nantes, cholet, 69.4);
+		Edge<CityVertex, Double> NtoCh = new Edge<>(nantes, chemille, 75.0);
+		Edge<CityVertex, Double> StoA= new Edge<>(saumur, angers, 68.2);
+		Edge<CityVertex, Double> StoC = new Edge<>(saumur, cholet, 74.2);
+		Edge<CityVertex, Double> StoCh = new Edge<>(saumur, chemille, 60.0);
 		
 		try {
-			region.addEdge(AtoB);
+			region.addEdge(AtoN);
 			region.addEdge(AtoC);
-			region.addEdge(BtoC);
-			region.addEdge(AtoD);
-			region.addEdge(BtoD);
-			region.addEdge(CtoD);
+			region.addEdge(NtoC);
+			region.addEdge(AtoCh);
+			region.addEdge(NtoCh);
+			region.addEdge(CtoCh);
+			region.addEdge(StoA);
+			region.addEdge(StoC);
+			region.addEdge(StoCh);
 		} catch(TreeException e) {
 			e.printStackTrace();
 		}
