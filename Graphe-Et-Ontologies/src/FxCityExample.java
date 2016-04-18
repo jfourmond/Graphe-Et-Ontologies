@@ -1,5 +1,7 @@
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 
 import fr.fourmond.jerome.example.CityVertex;
 import fr.fourmond.jerome.framework.Edge;
@@ -7,6 +9,7 @@ import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.TreeException;
 import fr.fourmond.jerome.view.fx.TreeFxView;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -25,9 +28,10 @@ public class FxCityExample extends Application {
 	
 	private MenuBar menuBar;
 		private Menu menu_file;
-			private MenuItem open;
-			private MenuItem quit;
-		private Menu edit;
+			private MenuItem item_open;
+			private MenuItem item_quit;
+		private Menu menu_edit;
+			private MenuItem item_ontologie;
 	
 	private FileChooser fileChooser;
 		
@@ -41,21 +45,47 @@ public class FxCityExample extends Application {
 		
 		menuBar = new MenuBar();
 			menu_file = new Menu("Fichier");
-				open = new MenuItem("Ouvrir");
-				open.setOnAction(new EventHandler<ActionEvent>() {
+				item_open = new MenuItem("Ouvrir");
+				item_open.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						file = fileChooser.showOpenDialog(primaryStage);
+						File F;
+						F = fileChooser.showOpenDialog(primaryStage);
+						if(F != null) {
+							file = F;
+							System.out.println(file);
+						}
 					}
 				});
-				quit = new MenuItem("Quitter");
-			menu_file.getItems().addAll(open, quit);
-			edit = new Menu("Edition");
+				item_quit = new MenuItem("Quitter");
+				item_quit.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						Platform.exit();
+					}
+				});
+			menu_file.getItems().addAll(item_open, item_quit);
+			menu_edit = new Menu("Edition");
+				item_ontologie = new MenuItem("Ontologie");
+				item_ontologie.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						try {
+							if(file != null && file.exists()) {
+								Desktop desktop = Desktop.getDesktop();
+								desktop.open(file);
+							} else System.err.println("File don't exist");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			menu_edit.getItems().add(item_ontologie);
 			
-		menuBar.getMenus().addAll(menu_file, edit);
+		menuBar.getMenus().addAll(menu_file, menu_edit);
 		
 		treeView.setTop(menuBar);
-				
+		
 		primaryStage.setScene(new Scene(treeView));
 		primaryStage.show();
 	}
