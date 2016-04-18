@@ -8,13 +8,18 @@ import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
+import javafx.scene.paint.Color;
 
 /**
  * {@link TreeFxView} est un {@link BorderPane} représentant
@@ -24,7 +29,7 @@ import javafx.stage.FileChooser;
  * @author jfourmond
  */
 public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
-
+	final double SCALE_DELTA = 1.1;
 	private static Random rand;
 	
 	private Tree<T_Vertex, T_Edge> tree;
@@ -32,10 +37,9 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	private Pane center;
 		private List<VertexFxView<T_Vertex>> verticesView;
 		private List<EdgeFxView<T_Edge>> edgesView;
-	private Pane east;
-		private VBox vbox;
-			private Label info_label;
-			private TextArea info_area;
+	private VBox east;
+		private Label info_label;
+		private TextArea info_area;
 	
 	public TreeFxView(Tree<T_Vertex, T_Edge> tree) {
 		super();
@@ -50,13 +54,33 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	}
 	
 	private void buildComposants() {
-		
 		center = new Pane();
-		east = new Pane();
-			vbox = new VBox();
-				info_label = new Label("Informations");
-				info_area = new TextArea(tree.toString());
-				info_area.setEditable(false);
+		center.setOnScroll(new EventHandler<ScrollEvent>() {
+			@Override
+			public void handle(ScrollEvent event) {
+				//  event.consume();
+				System.out.println("SCROLLED : DeltaX " + event.getDeltaX() + " DeltaY " + event.getDeltaY() +
+						"\n X " + event.getX() + " Y " + event.getY());
+				
+				if (event.getDeltaY() == 0) {
+					return;
+				}
+
+				double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA : 1/SCALE_DELTA;
+
+				center.setScaleX(center.getScaleX() * scaleFactor);
+				center.setScaleY(center.getScaleY() * scaleFactor);
+			}
+		});
+
+		east = new VBox();
+		east.setPrefHeight(east.getMaxHeight());
+			info_label = new Label("Informations");
+			info_area = new TextArea(tree.toString());
+			info_area.setWrapText(true);
+			info_area.setPrefWidth(200);
+			
+			info_area.setEditable(false);
 		verticesView = new ArrayList<>();
 		edgesView = new ArrayList<>();
 		
@@ -69,8 +93,9 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 		drawVertices();
 		drawEdges();
 		
-		vbox.getChildren().addAll(info_label, info_area);
-		east.getChildren().add(vbox);
+		east.getChildren().addAll(info_label, info_area);
+		
+		east.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
 		
 		setCenter(center);
 		setRight(east);
