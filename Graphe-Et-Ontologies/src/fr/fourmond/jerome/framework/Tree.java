@@ -109,6 +109,21 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 		return false;
 	}
 	
+	/**
+	 * @return un {@link String} décrivant brièvement l'arbre
+	 */
+	public String info() {
+		String ch = "Sommets (" + vertices.size() + ") : \n";
+		for(T_Vertex vertex : vertices) {
+			ch += "\t" + vertex.briefData() + "\n";
+		}
+		ch += "Arcs (" + edges.size() + ") : \n";
+		for(Edge<T_Vertex, T_Edge> edge : edges) {
+			ch += "\t" + edge + "\n";
+		}
+		return ch;
+	}
+	
 	@Override
 	public String toString() {
 		String ch = "Sommets (" + vertices.size() + ") : \n";

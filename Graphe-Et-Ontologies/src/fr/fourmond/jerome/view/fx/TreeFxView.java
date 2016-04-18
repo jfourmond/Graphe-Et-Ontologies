@@ -8,18 +8,13 @@ import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 /**
  * {@link TreeFxView} est un {@link BorderPane} représentant
@@ -76,8 +71,7 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 		east = new VBox();
 		east.setPrefHeight(east.getMaxHeight());
 			info_label = new Label("Informations");
-			info_area = new TextArea(tree.toString());
-			info_area.setWrapText(true);
+			info_area = new TextArea(tree.info());
 			info_area.setPrefWidth(200);
 			
 			info_area.setEditable(false);
@@ -89,13 +83,10 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	}
 	
 	private void buildInterface() {
-		
 		drawVertices();
 		drawEdges();
 		
 		east.getChildren().addAll(info_label, info_area);
-		
-		east.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
 		
 		setCenter(center);
 		setRight(east);

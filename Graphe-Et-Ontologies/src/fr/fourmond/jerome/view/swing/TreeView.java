@@ -89,7 +89,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 				info_label = new JLabel("Informations");
 				info_area = new JTextArea();
 					info_area.setEditable(false);
-					info_area.setText(tree.toString());
+					info_area.setText(tree.info());
 			east_panel.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		//	Build VertexView
