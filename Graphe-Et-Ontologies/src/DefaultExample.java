@@ -1,6 +1,8 @@
 
+
 import javax.swing.UIManager;
 
+import fr.fourmond.jerome.example.DefaultVertex;
 import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.TreeException;

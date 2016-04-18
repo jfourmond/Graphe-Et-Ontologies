@@ -1,3 +1,4 @@
+package fr.fourmond.jerome.example;
 
 import fr.fourmond.jerome.framework.Vertex;
 
