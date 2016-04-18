@@ -96,6 +96,7 @@ public class FxCityExample extends Application {
 		CityVertex villeA = new CityVertex("Angers", "49000", 147571, 42.7);
 		CityVertex villeB = new CityVertex("Nantes", "44000", 294970, 65.19);
 		CityVertex villeC = new CityVertex("Cholet", "49300", 56761, 87.47);
+		CityVertex villeD = new CityVertex("Chemillé", "49120", 7028, 71.9);
 		
 		try {
 			region.addVertex(villeA);
@@ -108,11 +109,18 @@ public class FxCityExample extends Application {
 		Edge<CityVertex, Double> AtoB = new Edge<>(villeA, villeB, 91.4);
 		Edge<CityVertex, Double> AtoC = new Edge<>(villeA, villeC, 69.0);
 		Edge<CityVertex, Double> BtoC = new Edge<>(villeB, villeC, 69.4);
+		Edge<CityVertex, Double> AtoD = new Edge<>(villeA, villeD, 45.0);
+		Edge<CityVertex, Double> BtoD = new Edge<>(villeB, villeD, 75.0);
+		Edge<CityVertex, Double> CtoD = new Edge<>(villeC, villeD, 25.0);
+		
 		
 		try {
 			region.addEdge(AtoB);
 			region.addEdge(AtoC);
 			region.addEdge(BtoC);
+			region.addEdge(AtoD);
+			region.addEdge(BtoD);
+			region.addEdge(CtoD);
 		} catch(TreeException e) {
 			e.printStackTrace();
 		}

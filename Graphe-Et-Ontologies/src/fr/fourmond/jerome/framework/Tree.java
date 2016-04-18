@@ -44,7 +44,7 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 	 * @param vertex : le {@link Vertex} à ajouter
 	 * @throws TreeException si le sommet est déjà dans l'arbre
 	 */
-	public void addVertex(T_Vertex vertex) throws TreeException{
+	public void addVertex(T_Vertex vertex) throws TreeException {
 		if(vertices.contains(vertex))
 			throw new TreeException("Vertex already in the Tree");
 		else
@@ -52,9 +52,20 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 	}
 	
 	/**
+	 * Ajoute une collection de sommets dans l'arbre 
+	 * @param vertices : la {@link List} de {@link Vertex} à ajouter
+	 * @throws TreeException si un des sommets est déjà dans l'arbre
+	 */
+	public void addVertices(List<T_Vertex> vertices) throws TreeException {
+		for(T_Vertex vertex : vertices) {
+			addVertex(vertex);
+		}
+	}
+	
+	/**
 	 * Ajoute un arc dans l'arbre
 	 * @param edge : le {@link Edge} à ajouter
-	 * @throws TreeException si l'arc est déjà dans l'arbre
+	 * @throws TreeException si l'arc est déjà dans l'arbre OU si un des sommets de l'arc n'est pas défini
 	 */
 	public void addEdge(Edge<T_Vertex, T_Edge> edge) throws TreeException {
 		if(!isVertexExist(edge.getFirstVertex()) || !isVertexExist(edge.getSecondVertex())) {
@@ -63,6 +74,17 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 			throw new TreeException("Edge already in the Tree");
 		else 
 			edges.add(edge);
+	}
+	
+	/**
+	 * Ajoute une collection d'arcs dans l'arbre
+	 * @param edges : la {@link List} de {@link Edge} à ajouter
+	 * @throws TreeException si un des arcs est déjà dans l'arbre ou si un des sommets des arcs n'est pas défini
+	 */
+	public void addEdges(List<Edge<T_Vertex, T_Edge>> edges) throws TreeException {
+		for(Edge<T_Vertex, T_Edge> edge : edges) {
+			addEdge(edge);
+		}
 	}
 	
 	/**
