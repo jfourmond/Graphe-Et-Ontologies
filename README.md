@@ -110,7 +110,12 @@ Par exemple :
 	tree.addVertex(sommet1);
 	tree.addVertex(sommet2);
 	tree.addEdge(arc);
-	
+
+### 4. Positionnement - *Placement*
+
+[Placement](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Placement.java) est une classe reprenant le concept de Random de Java. A chaque appel de sa méthode next(), l'instance de la classe retourne le Point suivant contenu dans un tableau. Lorsque ce dernier est vide, un appel à next() générera aléatoirement un Point.
+**Placement** contient, pour le moment, 24 Point *statiques*. 
+
 ---
 
 ## V. L'Affichage
