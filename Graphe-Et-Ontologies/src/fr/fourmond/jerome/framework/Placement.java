@@ -3,6 +3,11 @@ package fr.fourmond.jerome.framework;
 import java.awt.Point;
 import java.util.Random;
 
+/**
+ * {@link Placement} est une classe reprenant (dans le concept) la classe {@link Random}.
+ * Elle permet de créer un {@link Object} envoyant différentes positions à chaque appel de next().
+ * @author jfourmond
+ */
 public class Placement {
 	public final static Point[] positions = {
 		// First Rectangle
@@ -40,6 +45,10 @@ public class Placement {
 		rand = new Random();
 	}
 	
+	/**
+	 * @return the next {@link Point} in the positions tab
+	 * unless all the tab have been browsed, it return a random {@link Point}
+	 */
 	public Point next() {
 		Point p;
 		if(current >= positions.length) {
