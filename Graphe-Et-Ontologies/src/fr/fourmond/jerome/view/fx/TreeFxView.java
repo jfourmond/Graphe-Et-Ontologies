@@ -2,9 +2,9 @@ package fr.fourmond.jerome.view.fx;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import fr.fourmond.jerome.framework.Edge;
+import fr.fourmond.jerome.framework.Placement;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 import javafx.event.EventHandler;
@@ -25,7 +25,7 @@ import javafx.scene.layout.VBox;
  */
 public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	private final double SCALE_DELTA = 1.1;
-	private static Random rand;
+	private Placement placement;
 	
 	private Tree<T_Vertex, T_Edge> tree;
 	
@@ -40,8 +40,6 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 		super();
 		this.tree = tree;
 		
-		rand = new Random();
-		
 		buildComposants();
 		buildInterface();
 		
@@ -49,6 +47,7 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	}
 	
 	private void buildComposants() {
+		placement = new Placement();
 		center = new Pane();
 
 		east = new VBox();
@@ -80,7 +79,7 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 		List<T_Vertex> vertices = tree.getVertices();
 		VertexFxView<T_Vertex> vertexView;
 		for(T_Vertex vertex : vertices) {
-			vertexView = new VertexFxView<T_Vertex>(vertex, rand.nextInt(500), rand.nextInt(500));
+			vertexView = new VertexFxView<T_Vertex>(vertex, placement.next());
 			verticesView.add(vertexView);
 		}
 	}

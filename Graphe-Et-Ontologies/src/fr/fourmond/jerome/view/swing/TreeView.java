@@ -13,7 +13,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -23,6 +22,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 
 import fr.fourmond.jerome.framework.Edge;
+import fr.fourmond.jerome.framework.Placement;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 
@@ -36,6 +36,8 @@ import fr.fourmond.jerome.framework.Vertex;
 public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements ActionListener, MouseListener, MouseMotionListener{
 	private static final long serialVersionUID = 1L;
 
+	public Placement placement;
+	
 	private Tree<T_Vertex, T_Edge> tree;
 
 	private List<VertexView<T_Vertex>> vertices;
@@ -77,7 +79,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 	}
 	
 	private void buildComposants() {
-		Random rand = new Random();
+		placement = new Placement();
 		
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createLineBorder(Color.black));
@@ -95,7 +97,7 @@ public class TreeView<T_Vertex extends Vertex, T_Edge> extends JPanel implements
 		//	Build VertexView
 		vertices = new ArrayList<VertexView<T_Vertex>>();
 		for(T_Vertex vertex : tree.getVertices()) {
-			VertexView<T_Vertex> vertexView = new VertexView<>(vertex, rand.nextInt(500), rand.nextInt(500));
+			VertexView<T_Vertex> vertexView = new VertexView<>(vertex, placement.next());
 			vertices.add(vertexView);
 		}
 		// Build EdgeView

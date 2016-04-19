@@ -1,8 +1,8 @@
 package fr.fourmond.jerome.view.swing;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 
 import javax.swing.JComponent;
 
@@ -26,14 +26,16 @@ public class VertexView<T extends Vertex> extends JComponent {
 	public VertexView(T vertex) {
 		this.vertex = vertex;
 		setLocation(0, 0);
-		setBackground(Color.BLUE);
 	}
 	
 	public VertexView(T vertex, int x, int y) {
 		this.vertex = vertex;
-		// position = new Point(x, y);
 		setLocation(x, y);
-		setBackground(Color.BLUE);
+	}
+	
+	public VertexView(T vertex, Point p) {
+		this.vertex = vertex;
+		setLocation(p.x, p.y);
 	}
 	
 	//	GETTERS

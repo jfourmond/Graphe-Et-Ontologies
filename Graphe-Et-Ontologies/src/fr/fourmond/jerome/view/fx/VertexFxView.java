@@ -1,6 +1,8 @@
 package fr.fourmond.jerome.view.fx;
 
 
+import java.awt.Point;
+
 import fr.fourmond.jerome.framework.Vertex;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -25,6 +27,21 @@ public class VertexFxView<T extends Vertex> extends Group {
 		this.vertex = vertex;
 		
 		circle = new Circle(x, y, diameter, Color.TRANSPARENT);
+		circle.setStroke(Color.BLACK);
+		
+		label = new Label(vertex.briefData());
+		label.setTranslateX(circle.getCenterX());
+		label.setTranslateY(circle.getCenterY());
+		
+		getChildren().add(circle);
+		getChildren().add(label);
+	}
+	
+	public VertexFxView(T vertex, Point p) {
+		super();
+		this.vertex = vertex;
+		
+		circle = new Circle(p.x, p.y, diameter, Color.TRANSPARENT);
 		circle.setStroke(Color.BLACK);
 		
 		label = new Label(vertex.briefData());
