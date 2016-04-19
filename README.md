@@ -158,3 +158,12 @@ Un arc est représenté par un **Group**. Ce dernier contient et dessine une lig
 
 L'arbre contient l'ensemble des **Group** (**VertexFxView** & **EdgeFxView**) et est lui-même un **Group**. En fonction de la variable de type **Tree** passée en paramètre, il construit ses sommets et ses arcs et leur accorde différents *listeners*.
 Les sommets sont cliquables (l'affichage s'effectue, pour le moment dans la console).
+
+#### d. Application - *FxCityExample*
+
+Cette classe permet d'ouvrir l'application, d'y créer la fenêtre ainsi que le menu. Elle possède différents menus :
+- Fichier
+	* Ouvrir : permet d'ouvrir un fichier représentant une ontologie.
+	* Quitter : quitte l'application.
+- Edition
+	* Ontologie : ouvre l'éditeur par défaut du système sur le fichier actuellement ouvert, pour modification.
