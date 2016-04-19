@@ -2,6 +2,8 @@
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.fourmond.jerome.example.CityVertex;
 import fr.fourmond.jerome.framework.Edge;
@@ -93,11 +95,15 @@ public class FxCityExample extends Application {
 	public static void main(String[] args) {
 		region = new Tree<>();
 		
+		List<Edge<CityVertex, Double>> edges = new ArrayList<>();
+		
 		CityVertex angers = new CityVertex("Angers", "49000", 147571, 42.7);
 		CityVertex nantes = new CityVertex("Nantes", "44000", 294970, 65.19);
 		CityVertex cholet = new CityVertex("Cholet", "49300", 56761, 87.47);
 		CityVertex chemille = new CityVertex("Chemillé", "49120", 7028, 71.9);
 		CityVertex saumur = new CityVertex("Saumur", "49400", 27413, 66.25);
+		CityVertex leMans = new CityVertex("Le Mans", "72000", 142626, 52.81);
+		CityVertex laRocheSurYon = new CityVertex("La Roche sur Yon", "85000", 52732, 87.52);
 		
 		try {
 			region.addVertex(angers);
@@ -105,30 +111,28 @@ public class FxCityExample extends Application {
 			region.addVertex(cholet);
 			region.addVertex(chemille);
 			region.addVertex(saumur);
+			region.addVertex(leMans);
+			region.addVertex(laRocheSurYon);
 		} catch (TreeException e) {
 			e.printStackTrace();
 		}
 		
-		Edge<CityVertex, Double> AtoN = new Edge<>(angers, nantes, 91.4);
-		Edge<CityVertex, Double> AtoC = new Edge<>(angers, cholet, 69.0);
-		Edge<CityVertex, Double> AtoCh = new Edge<>(angers, chemille, 45.0);
-		Edge<CityVertex, Double> CtoCh = new Edge<>(cholet, chemille, 25.0);
-		Edge<CityVertex, Double> NtoC = new Edge<>(nantes, cholet, 69.4);
-		Edge<CityVertex, Double> NtoCh = new Edge<>(nantes, chemille, 75.0);
-		Edge<CityVertex, Double> StoA= new Edge<>(saumur, angers, 68.2);
-		Edge<CityVertex, Double> StoC = new Edge<>(saumur, cholet, 74.2);
-		Edge<CityVertex, Double> StoCh = new Edge<>(saumur, chemille, 60.0);
+		edges.add(new Edge<>(angers, nantes, 91.4));
+		edges.add(new Edge<>(angers, cholet, 69.0));
+		edges.add(new Edge<>(angers, chemille, 45.0));
+		edges.add(new Edge<>(angers, leMans, 101.0));
+		edges.add(new Edge<>(cholet, chemille, 25.0));
+		edges.add(new Edge<>(cholet, laRocheSurYon, 74.9));
+		edges.add(new Edge<>(nantes, cholet, 69.4));
+		edges.add(new Edge<>(nantes, chemille, 75.0));
+		edges.add(new Edge<>(nantes, laRocheSurYon, 69.1));
+		edges.add(new Edge<>(saumur, angers, 68.2));
+		edges.add(new Edge<>(saumur, cholet, 74.2));
+		edges.add(new Edge<>(saumur, chemille, 60.0));
+		edges.add(new Edge<>(saumur, leMans, 95.3));
 		
 		try {
-			region.addEdge(AtoN);
-			region.addEdge(AtoC);
-			region.addEdge(NtoC);
-			region.addEdge(AtoCh);
-			region.addEdge(NtoCh);
-			region.addEdge(CtoCh);
-			region.addEdge(StoA);
-			region.addEdge(StoC);
-			region.addEdge(StoCh);
+			region.addEdges(edges);
 		} catch(TreeException e) {
 			e.printStackTrace();
 		}

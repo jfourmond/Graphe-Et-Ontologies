@@ -43,7 +43,7 @@ public class CityVertex implements Vertex, Comparable<CityVertex> {
 		String ch = postalCode + " \t";
 		ch += name + " \t";
 		ch += population + " \t";
-		ch += area + "\n";
+		ch += area + " km²\n";
 		return ch;
 	}
 	
@@ -53,7 +53,7 @@ public class CityVertex implements Vertex, Comparable<CityVertex> {
 		ch += "\tCode postal :\t" + postalCode + " \n";
 		ch += "\tNom :\t" + name + " \n";
 		ch += "\tPopulation :\t" + population + " \n";
-		ch += "\tSuperficie :\t" + area + "\n";
+		ch += "\tSuperficie :\t" + area + " km²\n";
 		return ch;
 	}
 
