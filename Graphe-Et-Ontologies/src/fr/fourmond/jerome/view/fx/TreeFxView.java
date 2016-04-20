@@ -12,20 +12,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 /**
@@ -195,6 +190,8 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 					VertexFxView<T_Vertex> oldValue, VertexFxView<T_Vertex> newValue) {
 						T_Vertex vertex = newValue.getVertex();
 						info_area.setText(vertex.fullData());
+						newValue.setSelected(true);
+						if(oldValue != null) oldValue.setSelected(false);
 			}
 		});
 	}

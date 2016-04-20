@@ -158,4 +158,9 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 		}
 		return ch;
 	}
+	
+	public static Tree readFromFile(String pathToFile) {
+		return null;
+		
+	}
 }
