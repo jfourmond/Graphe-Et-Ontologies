@@ -34,14 +34,14 @@ public class FxCityExample extends Application {
 			private MenuItem item_quit;
 		private Menu menu_edit;
 			private MenuItem item_ontologie;
+		private Menu menu_view;
+			private MenuItem item_reset;
 	
 	private FileChooser fileChooser;
 		
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Graphe Et Ontologies");
-		
-		treeView = new TreeFxView<>(region);
 		
 		fileChooser = new FileChooser();
 		
@@ -83,8 +83,21 @@ public class FxCityExample extends Application {
 					}
 				});
 			menu_edit.getItems().add(item_ontologie);
-			
-		menuBar.getMenus().addAll(menu_file, menu_edit);
+			menu_view = new Menu("Affichage");
+				item_reset = new MenuItem("Réinitialiser");
+				item_reset.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						// TODO correctly hangle
+						System.err.println("A IMPLEMENTÉ");
+						// treeView = new TreeFxView<>(region);
+						// primaryStage.setScene(new Scene(treeView));
+					}
+				});
+			menu_view.getItems().add(item_reset);
+		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
+		
+		treeView = new TreeFxView<>(region);
 		
 		treeView.setTop(menuBar);
 		

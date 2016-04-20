@@ -12,15 +12,20 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 /**
@@ -32,6 +37,7 @@ import javafx.util.Callback;
  */
 public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	private final double SCALE_DELTA = 1.1;
+	
 	private Placement placement;
 	
 	private Tree<T_Vertex, T_Edge> tree;
@@ -45,6 +51,8 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 		private ListView<VertexFxView<T_Vertex>> info_list;
 			private ObservableList<VertexFxView<T_Vertex>> verticesViewForList;
 	
+	private static MouseEvent pressed;
+			
 	public TreeFxView(Tree<T_Vertex, T_Edge> tree) {
 		super();
 		this.tree = tree;
@@ -67,7 +75,6 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 		verticesViewForList = FXCollections.observableArrayList(verticesView);
 		
 		center = new Pane();
-
 		east = new VBox();
 		east.setPrefHeight(east.getMaxHeight());
 			info_label = new Label("Informations");
@@ -80,14 +87,6 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 				@Override
 				public ListCell<VertexFxView<T_Vertex>> call(ListView<VertexFxView<T_Vertex>> param) {
 					return new VertexFxList<T_Vertex>();
-				}
-			});
-			info_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<VertexFxView<T_Vertex>>() {
-				@Override
-				public void changed(ObservableValue<? extends VertexFxView<T_Vertex>> observable,
-						VertexFxView<T_Vertex> oldValue, VertexFxView<T_Vertex> newValue) {
-							T_Vertex vertex = newValue.getVertex();
-							info_area.setText(vertex.fullData());
 				}
 			});
 	}
@@ -140,8 +139,6 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 		center.setOnScroll(new EventHandler<ScrollEvent>() {
 			@Override
 			public void handle(ScrollEvent event) {
-				System.out.println("SCROLLED : DeltaX " + event.getDeltaX() + " DeltaY " + event.getDeltaY() +
-						"\n X " + event.getX() + " Y " + event.getY());
 				if (event.getDeltaY() == 0) {
 					return;
 				}
@@ -150,7 +147,24 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 				center.setScaleY(center.getScaleY() * scaleFactor);
 			}
 		});
-		
+		center.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				double ecartx = event.getX() + center.getTranslateX() - pressed.getX();
+				double ecarty = event.getY() + center.getTranslateY() - pressed.getY();
+				System.out.println("Ecart : " + ecartx + " " + ecarty);
+				
+				// TODO ajouter une sécurité
+				center.setTranslateX(ecartx);
+				center.setTranslateY(ecarty);
+			}
+		});
+		center.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				pressed = event;
+			}
+		});
 		for(VertexFxView<T_Vertex> vertex : verticesView) {
 			vertex.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
@@ -175,6 +189,14 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 				}
 			});
 		}
+		info_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<VertexFxView<T_Vertex>>() {
+			@Override
+			public void changed(ObservableValue<? extends VertexFxView<T_Vertex>> observable,
+					VertexFxView<T_Vertex> oldValue, VertexFxView<T_Vertex> newValue) {
+						T_Vertex vertex = newValue.getVertex();
+						info_area.setText(vertex.fullData());
+			}
+		});
 	}
 	
 	private VertexFxView<T_Vertex> getViewFromVertex(T_Vertex vertex) {
