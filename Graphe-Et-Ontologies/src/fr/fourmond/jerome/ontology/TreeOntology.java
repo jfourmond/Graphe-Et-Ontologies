@@ -244,6 +244,7 @@ public class TreeOntology {
 								String linkNodeName = linkNode.getNodeName();
 								String linkNodeValue = linkNode.getTextContent();
 								addEdge(relationName, vertexKey, linkNodeValue);
+								// TODO Corriger
 							}
 						}
 					}
