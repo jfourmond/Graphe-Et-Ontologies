@@ -82,7 +82,6 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 					return new VertexFxList<T_Vertex>();
 				}
 			});
-			
 			info_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<VertexFxView<T_Vertex>>() {
 				@Override
 				public void changed(ObservableValue<? extends VertexFxView<T_Vertex>> observable,
