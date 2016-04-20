@@ -158,6 +158,11 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 					event.consume();
 					T_Vertex v = vertex.getVertex();
 					info_area.setText(v.fullData());
+					vertex.setSelected(true);
+					for(VertexFxView<T_Vertex> other: verticesView) {
+						if(other != vertex) other.setSelected(false);
+					}
+					info_list.getSelectionModel().select(vertex);
 				}
 			});
 			vertex.setOnMouseDragged(new EventHandler<MouseEvent>() {

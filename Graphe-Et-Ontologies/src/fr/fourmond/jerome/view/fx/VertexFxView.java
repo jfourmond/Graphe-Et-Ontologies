@@ -20,7 +20,9 @@ public class VertexFxView<T extends Vertex> extends Group {
 	
 	private Circle circle;
 	private Label label;
+	
 	private T vertex;
+	private boolean selected;
 	
 	public VertexFxView(T vertex, int x, int y) {
 		super();
@@ -35,6 +37,8 @@ public class VertexFxView<T extends Vertex> extends Group {
 		
 		getChildren().add(circle);
 		getChildren().add(label);
+		
+		selected = false;
 	}
 	
 	public VertexFxView(T vertex, Point p) {
@@ -50,6 +54,8 @@ public class VertexFxView<T extends Vertex> extends Group {
 		
 		getChildren().add(circle);
 		getChildren().add(label);
+		
+		selected = false;
 	}
 	
 	//	GETTERS
@@ -59,10 +65,18 @@ public class VertexFxView<T extends Vertex> extends Group {
 	
 	public static int getDiameter() { return diameter; }
 	
+	public boolean isSelected() { return selected; }
+	
 	//	SETTERS
 	public void setVertex(T vertex) { this.vertex = vertex; }
 	
 	public void setCircle(Circle circle) { this.circle = circle; }
+	
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+		if(this.selected) circle.setStroke(Color.RED);
+		else circle.setStroke(Color.BLACK);
+	}
 	
 	public double getCenterX() { return circle.getCenterX(); }
 	
