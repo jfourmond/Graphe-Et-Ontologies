@@ -7,14 +7,21 @@ import fr.fourmond.jerome.framework.Edge;
 import fr.fourmond.jerome.framework.Placement;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 
 /**
  * {@link TreeFxView} est un {@link BorderPane} représentant
@@ -35,6 +42,8 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	private VBox east;
 		private Label info_label;
 		private TextArea info_area;
+		private ListView<VertexFxView<T_Vertex>> info_list;
+			private ObservableList<VertexFxView<T_Vertex>> verticesViewForList;
 	
 	public TreeFxView(Tree<T_Vertex, T_Edge> tree) {
 		super();
@@ -48,6 +57,15 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 	
 	private void buildComposants() {
 		placement = new Placement();
+		
+		verticesView = new ArrayList<>();
+		edgesView = new ArrayList<>();
+		
+		buildVertices();
+		buildEdges();
+		
+		verticesViewForList = FXCollections.observableArrayList(verticesView);
+		
 		center = new Pane();
 
 		east = new VBox();
@@ -55,20 +73,31 @@ public class TreeFxView<T_Vertex extends Vertex, T_Edge> extends BorderPane {
 			info_label = new Label("Informations");
 			info_area = new TextArea(tree.info());
 			info_area.setPrefWidth(200);
-			
 			info_area.setEditable(false);
-		verticesView = new ArrayList<>();
-		edgesView = new ArrayList<>();
-		
-		buildVertices();
-		buildEdges();
+			info_list = new ListView<>();
+			info_list.setItems(verticesViewForList);
+			info_list.setCellFactory(new Callback<ListView<VertexFxView<T_Vertex>>, ListCell<VertexFxView<T_Vertex>>>() {
+				@Override
+				public ListCell<VertexFxView<T_Vertex>> call(ListView<VertexFxView<T_Vertex>> param) {
+					return new VertexFxList<T_Vertex>();
+				}
+			});
+			
+			info_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<VertexFxView<T_Vertex>>() {
+				@Override
+				public void changed(ObservableValue<? extends VertexFxView<T_Vertex>> observable,
+						VertexFxView<T_Vertex> oldValue, VertexFxView<T_Vertex> newValue) {
+							T_Vertex vertex = newValue.getVertex();
+							info_area.setText(vertex.fullData());
+				}
+			});
 	}
 	
 	private void buildInterface() {
 		drawVertices();
 		drawEdges();
 		
-		east.getChildren().addAll(info_label, info_area);
+		east.getChildren().addAll(info_label, info_area, info_list);
 		
 		setCenter(center);
 		setRight(east);
