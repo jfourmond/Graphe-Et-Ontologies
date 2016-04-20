@@ -18,5 +18,4 @@ public class Pair<T_First, T_Second> {
 	public void setFirst(T_First first) { this.first = first; }
 	
 	public void setSecond(T_Second second) { this.second = second; }
-
 }

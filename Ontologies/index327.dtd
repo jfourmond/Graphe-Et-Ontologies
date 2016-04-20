@@ -6,7 +6,7 @@
 
 
 <!ATTLIST IndexSource corpus CDATA #IMPLIED >
-<!ATTLIST ENTREE terme		CDATA 	#REQUIRED
-				 validite 	CDATA 	#REQUIRED
-				 id			CDATA	#REQUIRED >
+<!ATTLIST ENTREE id			CDATA	#REQUIRED
+				 terme		CDATA 	#REQUIRED
+				 validite 	CDATA 	#REQUIRED >
 <!ATTLIST RELATION	nom		CDATA	#REQUIRED >

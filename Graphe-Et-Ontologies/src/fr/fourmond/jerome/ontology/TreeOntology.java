@@ -1,5 +1,6 @@
 package fr.fourmond.jerome.ontology;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,19 +8,38 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
 /**
  * {@link TreeOntology} représente le graphe d'une ontologie.
  * @author etudiant
  */
 public class TreeOntology {
+	private static DocumentBuilderFactory domFactory;
+	private static DocumentBuilder builder;
+	
 	// Association < Identifiant du Sommet, < Attribut, Valeur d'attribut > >
 	private Map<String, Map<String, String>> vertices;
 	// Association < Identifiant relation, < Sommet, Sommet >
 	private Map<String, List<Pair<String, String>>> relations;
 	
+	private Document document;
+	
 	public TreeOntology() {
 		vertices = new HashMap<>();
 		relations = new HashMap<>();
+		document = null;
 	}
 	
 	//	GETTERS
@@ -117,6 +137,122 @@ public class TreeOntology {
 		if(getRelation(relation) != null)
 			getRelation(relation).add(new Pair<>(vertex1, vertex2));
 		else throw new TreeOntologyException("La relation n'existe pas.");
+	}
+	
+	public void readFromFile(String filename) throws TreeOntologyException {
+		vertices.clear();
+		relations.clear();
+		
+		buildDocument(filename);
+		
+		Element element = document.getDocumentElement();
+		element.normalize();
+
+		if (document.hasChildNodes()) {
+			buildTree(document.getChildNodes());
+		}
+	}
+	
+	private void buildDocument(String filename) {
+		domFactory = DocumentBuilderFactory.newInstance();
+		domFactory.setValidating(true);
+		builder = null;
+		try {
+			builder = domFactory.newDocumentBuilder();
+			builder.setErrorHandler(new ErrorHandler() {
+				@Override
+				public void warning(SAXParseException exception) throws SAXException { System.out.println("Warning : " + exception.getMessage()); }
+				@Override
+				public void fatalError(SAXParseException exception) throws SAXException {
+					System.err.println("FATAL : " + exception.getMessage());
+					throw exception;
+				}
+				@Override
+				public void error(SAXParseException exception) throws SAXException {
+					System.err.println("ERROR : " + exception.getMessage());
+					throw exception;
+				}
+			});
+			document = builder.parse("../Ontologies/Index327.xml");
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void printNode(NodeList nodeList) {
+		 for (int count = 0; count < nodeList.getLength(); count++) {
+			Node tempNode = nodeList.item(count);
+			// make sure it's element node.
+			if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+				// get node name and value
+				System.out.println("\nNode Name =" + tempNode.getNodeName() + " [OPEN]");
+				System.out.println("Node Value =" + tempNode.getTextContent());
+				if (tempNode.hasAttributes()) {
+					// get attributes names and values
+					NamedNodeMap nodeMap = tempNode.getAttributes();
+					for (int i = 0; i < nodeMap.getLength(); i++) {
+						Node node = nodeMap.item(i);
+						System.out.println("attr name : " + node.getNodeName());
+						System.out.println("attr value : " + node.getNodeValue());
+					}
+				}
+				if (tempNode.hasChildNodes()) {
+					// loop again if has child nodes
+					printNode(tempNode.getChildNodes());
+				}
+				System.out.println("Node Name =" + tempNode.getNodeName() + " [CLOSE]");
+			}
+		 }
+	}
+	
+	private void buildTree(NodeList nodeList) throws TreeOntologyException {
+		for (int count = 0; count < nodeList.getLength(); count++) {
+			Node tempNode = nodeList.item(count);
+			if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+				String nodeName = tempNode.getNodeName();
+				if(nodeName.equals("ENTREE")) {
+					Element element = (Element) tempNode;
+					String vertexKey = element.getAttribute("id"); // La clé du sommet
+					createVertex(vertexKey);
+					if (tempNode.hasAttributes()) {
+						NamedNodeMap nodeMap = tempNode.getAttributes();
+						for (int i = 0; i < nodeMap.getLength(); i++) {
+							Node node = nodeMap.item(i);
+							String name = node.getNodeName();
+							if(!name.equals("id")) {
+								String value = node.getNodeValue();
+								addAttribute(vertexKey, name, value);
+							}
+						}
+					}
+				}
+				if(nodeName.equals("RELATION")) {
+					Element element = (Element) tempNode;
+					String relationName = element.getAttribute("nom");
+					if(!relations.containsKey(relationName)) {
+						createRelation(relationName);
+					}
+					if (tempNode.hasChildNodes()) {
+						NodeList childNodes = tempNode.getChildNodes();
+						for(int j=0 ; j<childNodes.getLength() ; j++) {
+							Node linkNode = childNodes.item(j);
+							if (linkNode.getNodeType() == Node.ELEMENT_NODE) {
+								String linkNodeName = linkNode.getNodeName();
+								String linkNodeValue = linkNode.getTextContent();
+								addEdge(relationName, vertexKey, linkNodeValue);
+							}
+						}
+					}
+				}
+				if (tempNode.hasChildNodes()) {
+					buildTree(tempNode.getChildNodes());
+				}
+			}
+		 }
 	}
 	
 	@Override
