@@ -62,7 +62,6 @@ public class OntologyFxView extends BorderPane {
 	
 	private void buildComposants() {
 		placement = new Placement();
-		colorDistribution = new ColorDistribution();
 		
 		verticesView = new ArrayList<>();
 		edgesView = new HashMap<>();
@@ -112,7 +111,7 @@ public class OntologyFxView extends BorderPane {
 	private void buildEdges() {
 		edgesView.clear();
 		Map<String, List<Pair<String, String>>> relations = ontology.getRelations();
-		
+		colorDistribution = new ColorDistribution();
 		Set<String> relationSet = relations.keySet();
 		List<Pair<String, String>> relationVertices;
 		VertexFxView<VertexOntology> start, end;

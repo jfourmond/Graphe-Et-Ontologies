@@ -319,7 +319,7 @@ public class TreeOntology {
 		List<Pair<String, String>> relationVertices;
 		for(String relation : relationSet) {
 			relationVertices = relations.get(relation);
-			ch += "\t" + relation + " : \n";
+			ch += "\t" + relation + "(" + relationVertices.size() + ") : \n";
 			for(Pair<String, String> vertices : relationVertices) {
 				ch += "\t\t" + vertices.getFirst() + " -> " + vertices.getSecond() + "\n";
 			}

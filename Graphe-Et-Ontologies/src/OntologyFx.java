@@ -6,6 +6,7 @@ import java.io.IOException;
 import fr.fourmond.jerome.ontology.TreeOntology;
 import fr.fourmond.jerome.ontology.TreeOntologyException;
 import fr.fourmond.jerome.view.fx.ontology.OntologyFxView;
+import fr.fourmond.jerome.view.fx.ontology.OntologyStage;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -48,14 +49,16 @@ public class OntologyFx extends Application {
 					@Override
 					public void handle(ActionEvent event) {
 						File F;
-						F = fileChooser.showOpenDialog(primaryStage);
+						TreeOntology newOntology;
+						F = fileChooser.showOpenDialog(null);
 						if(F != null) {
 							file = F;
 							System.out.println(file);
 							try {
-								ontology.readFromFile(F.getAbsolutePath());
-								System.out.println(ontology);
-								new OntologyFx();
+								newOntology = new TreeOntology();
+								newOntology.readFromFile(F.getAbsolutePath());
+								System.out.println(newOntology);
+								new OntologyStage(newOntology);
 							} catch (TreeOntologyException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -103,9 +106,10 @@ public class OntologyFx extends Application {
 		try {
 			ontology.readFromFile("../Ontologies/Villes.xml");
 		} catch (TreeOntologyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(ontology);
+		System.out.println(ontology.getVertexID("Terme42"));
 		launch(args);
 	}
 }
