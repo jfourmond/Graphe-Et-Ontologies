@@ -285,6 +285,27 @@ public class TreeOntology {
 		}
 	}
 	
+	/**
+	 * @return un {@link String} décrivant brièvement l'arbre
+	 */
+	public String info() {
+		String ch = "Sommets (" + vertices.size() + ") : \n";
+		for(VertexOntology vertex : vertices) {
+			ch += "\t" + vertex.briefData();
+		}
+		ch += "Relations (" + relations.size() + ") : \n";
+		Set<String> relationSet = relations.keySet();
+		List<Pair<String, String>> relationVertices;
+		for(String relation : relationSet) {
+			relationVertices = relations.get(relation);
+			ch += "\t" + relation + " : \n";
+			for(Pair<String, String> vertices : relationVertices) {
+				ch += "\t\t" + vertices.getFirst() + " -> " + vertices.getSecond() + "\n";
+			}
+		}
+		return ch;
+	}
+	
 	@Override
 	public String toString() {
 		String ch = "Sommets (" + vertices.size() + ") : \n";
