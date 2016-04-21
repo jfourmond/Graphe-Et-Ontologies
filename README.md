@@ -29,7 +29,9 @@ On désire créer une application en Java pour la navigation dans un document é
 
 ### 2. Seconde étape
 
-...
+- [ ] Lecture d'Ontologies
+- [ ] Visualisation d'Ontologies
+- [ ] Interaction avec l'Ontologie
 
 ---
 
@@ -172,3 +174,13 @@ Cette classe permet d'ouvrir l'application, d'y créer la fenêtre ainsi que le 
 	* Quitter : quitte l'application.
 - Edition
 	* Ontologie : ouvre l'éditeur par défaut du système sur le fichier actuellement ouvert, pour modification.
+	
+--- 
+
+## VI. Les Ontologies
+
+### 1. La DTD (*Document Type Definition*)
+
+### 2. Le Fichier XML
+
+### 3. Le Chargement
