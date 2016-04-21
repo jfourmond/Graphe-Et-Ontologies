@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import fr.fourmond.jerome.example.CityVertex;
 import fr.fourmond.jerome.framework.Edge;
@@ -109,19 +106,6 @@ public class FxCityExample extends Application {
 	}
 	
 	public static void main(String[] args) {
-		// création d'un Logger et d'un Handler
-		Logger monLog = Logger.getLogger(FxCityExample.class.getName());
-		monLog.setLevel(Level.ALL); //pour envoyer les messages de tous les niveaux
-		monLog.setUseParentHandlers(false); // pour supprimer la console par défaut
-		ConsoleHandler ch = new ConsoleHandler();
-		ch.setLevel(Level.INFO); // pour n'accepter que les message de niveau &Ge; INFO
-		monLog.addHandler(ch);
-		
-
-		// envoi de messages ...
-		monLog.log(Level.WARNING," le message ");
-		// monLog.log(Level.SEVERE," le message ", new Exception());// les messages + la pile d'exécution
-		
 		region = new Tree<>();
 		
 		List<Edge<CityVertex, Double>> edges = new ArrayList<>();
