@@ -12,7 +12,6 @@ import java.util.List;
  * @author jfourmond
  */
 public class Tree<T_Vertex extends Vertex, T_Edge > {
-	
 	private List<T_Vertex> vertices;
 	private List<Edge<T_Vertex, T_Edge>> edges;
 	
@@ -157,10 +156,5 @@ public class Tree<T_Vertex extends Vertex, T_Edge > {
 			ch += "\t" + edge + "\n";
 		}
 		return ch;
-	}
-	
-	public static Tree readFromFile(String pathToFile) {
-		return null;
-		
 	}
 }

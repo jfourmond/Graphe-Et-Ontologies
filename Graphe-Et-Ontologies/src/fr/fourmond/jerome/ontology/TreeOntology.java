@@ -30,82 +30,92 @@ public class TreeOntology {
 	private static DocumentBuilder builder;
 	
 	// Association < Identifiant du Sommet, < Attribut, Valeur d'attribut > >
-	private Map<String, Map<String, String>> vertices;
+	private List<VertexOntology> vertices;
 	// Association < Identifiant relation, < Sommet, Sommet >
 	private Map<String, List<Pair<String, String>>> relations;
 	
 	private Document document;
 	
 	public TreeOntology() {
-		vertices = new HashMap<>();
+		vertices = new ArrayList<>();
 		relations = new HashMap<>();
 		document = null;
 	}
 	
 	//	GETTERS
-	public Map<String, Map<String, String>> getVertices() { return vertices; }
+	public List<VertexOntology> getVertices() { return vertices; }
 	
 	public Map<String, List<Pair<String, String>>> getRelations() { return relations; }
 	
 	//	SETTERS
-	public void setVertices(Map<String, Map<String, String>> vertices) { this.vertices = vertices; }
+	public void setVertices(List<VertexOntology> vertices) { this.vertices = vertices; }
 	
 	public void setRelations(Map<String, List<Pair<String, String>>> relations) { this.relations = relations; }
 	
 	//	METHODES
 	/**
 	 * Crée un sommet (sans attribut)
-	 * @param vertex : identifiant unique du sommet
+	 * @param vertexID : identifiant unique du sommet
 	 * @throws TreeOntologyException si le sommet existe déjà
 	 */
-	public void createVertex(String vertex) throws TreeOntologyException {
-		if(getVertex(vertex) == null)
-			vertices.put(vertex, new HashMap<>());
-		else throw new TreeOntologyException("Le sommet existe déjà.");
+	public void createVertex(String vertexID) throws TreeOntologyException {
+		if(getVertex(vertexID) == null) {
+			VertexOntology vertex = new VertexOntology(vertexID);
+			vertices.add(vertex);
+		} else throw new TreeOntologyException("Le sommet existe déjà.");
 	}
 	
 	/**
 	 * Retourne les attributs du sommet
-	 * @param vertex : identifiant unique du sommet
+	 * @param vertexID : identifiant unique du sommet
 	 * @return les attributs du sommet
 	 */
-	public Map<String, String> getVertex(String vertex) { return vertices.get(vertex); }
+	public VertexOntology getVertex(String vertexID) {
+		for(VertexOntology vertex : vertices) {
+			if(vertex.getID().equals(vertexID))
+				return vertex;
+		}
+		return null;
+	}
 	
 	/**
-	 * Crée un attribut associé au sommet
-	 * @param vertex : identifiant unique du sommet
-	 * @param attribute : identifiant unique de l'attribut
-	 * @throws TreeOntologyException si l'attribut existe déjà
+	 * Crée un attribut au sommet
+	 * @param vertexID : identifiant unique du sommet
+	 * @param attributeID : identifiant unique de l'attribut
+	 * @throws TreeOntologyException si le sommet n'existe pas ou si l'attribut existe déjà
 	 */
-	public void createAttribute(String vertex, String attribute) throws TreeOntologyException {
-		if(getVertex(vertex).get(attribute) == null) {
-			getVertex(vertex).put(attribute, null);
-		} else throw new TreeOntologyException("L'attribut existe déjà.");
-		
+	public void createAttribute(String vertexID, String attributeID) throws TreeOntologyException {
+		VertexOntology vertex = getVertex(vertexID);
+		if(vertex != null)
+			vertex.add(attributeID);
+		else throw new TreeOntologyException("Le sommet n'existe pas.");
 	}
 	
 	/**
 	 * Remplace la valeur de l'attribut associé au sommet
-	 * @param vertex : identifiant unique du sommet
-	 * @param attribute : identifiant unique de l'attribut
+	 * @param vertexID : identifiant unique du sommet
+	 * @param attributeID : identifiant unique de l'attribut
 	 * @param value : valeur de l'attribut
-	 * @throws TreeOntologyException : si l'attribute n'existe pas 
+	 * @throws TreeOntologyException : si le sommet, ou l'attribut, n'existe pas 
 	 */
-	public void setAttribute(String vertex, String attribute, String value) throws TreeOntologyException {
-		if(getVertex(vertex).containsKey(attribute))
-			getVertex(vertex).replace(attribute, value);
-		else throw new TreeOntologyException("L'attribut n'existe pas");
+	public void setAttribute(String vertexID, String attributeID, String value) throws TreeOntologyException {
+		VertexOntology vertex = getVertex(vertexID);
+		if(vertex != null) {
+			if(vertex.containsAttribute(attributeID))
+				vertex.set(attributeID, value);
+			else throw new TreeOntologyException("L'attribut n'existe pas");
+		} else throw new TreeOntologyException("Le sommet n'existe pas.");
 	}
 	
 	/**
 	 * Association d'un attribut et de sa valeur correspondante avec un sommet
-	 * @param vertex : identifiant unique du sommet
-	 * @param attribute : identifiant unique de l'attribut
+	 * @param vertexID : identifiant unique du sommet
+	 * @param attributeID : identifiant unique de l'attribut
 	 * @param value : valeur de l'attribut
 	 */
-	public void addAttribute(String vertex, String attribute, String value) throws TreeOntologyException {
-		createAttribute(vertex, attribute);
-		setAttribute(vertex, attribute, value);
+	public void addAttribute(String vertexID, String attributeID, String value) throws TreeOntologyException {
+		createAttribute(vertexID, attributeID);
+		setAttribute(vertexID, attributeID, value);
 	}
 	
 	/**
@@ -243,7 +253,7 @@ public class TreeOntology {
 							if (linkNode.getNodeType() == Node.ELEMENT_NODE) {
 								String linkNodeName = linkNode.getNodeName();
 								String linkNodeValue = linkNode.getTextContent();
-								addEdge(relationName, vertexKey, linkNodeValue);
+								// addEdge(relationName, vertexKey, linkNodeValue);
 								// TODO Corriger
 							}
 						}
@@ -258,19 +268,11 @@ public class TreeOntology {
 	
 	@Override
 	public String toString() {
-		String ch = "Sommets : \n";
-		// Affichage des sommets
-		Set<String> vertexSet = vertices.keySet();
-		Map<String, String> vertexAttributes;
-		Set<Entry<String, String>> attributes;
-		for(String vertex : vertexSet) {
-			vertexAttributes = vertices.get(vertex);
-			attributes = vertexAttributes.entrySet();
-			ch += "\t" + vertex + " : \n";
-			for(Entry<String, String> attribute : attributes) {
-				ch += "\t\t" + attribute.getKey() + " = " + attribute.getValue() + "\n";
-			}
+		String ch = "Sommets (" + vertices.size() + " ) : \n";
+		for(VertexOntology vertex : vertices) {
+			ch += "\t" + vertex.fullData();
 		}
+		
 		ch += "Relations : \n";
 		// Affichage des relations
 		Set<String> relationSet = relations.keySet();
