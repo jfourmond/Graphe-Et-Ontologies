@@ -64,6 +64,14 @@ public class VertexOntology implements Vertex {
 		else attributes.put(attributeID, null);
 	}
 	
+	public boolean isValueOfAttribute(String value) {
+		for(Entry<String, String> attribute : attributes.entrySet()) {
+			if(attribute.getValue().equals(value))
+				return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public String fullData() {
 		return toString();

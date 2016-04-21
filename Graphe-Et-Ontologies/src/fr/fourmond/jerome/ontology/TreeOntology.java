@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -29,9 +28,10 @@ public class TreeOntology {
 	private static DocumentBuilderFactory domFactory;
 	private static DocumentBuilder builder;
 	
-	// Association < Identifiant du Sommet, < Attribut, Valeur d'attribut > >
+	private static String vertexKey;
+	
 	private List<VertexOntology> vertices;
-	// Association < Identifiant relation, < Sommet, Sommet >
+	
 	private Map<String, List<Pair<String, String>>> relations;
 	
 	private Document document;
@@ -76,6 +76,27 @@ public class TreeOntology {
 				return vertex;
 		}
 		return null;
+	}
+	
+	/**
+	 * Retourne l'identifiant unique du sommet ayant pour valeur d'attribut
+	 * @param value : la valeur d'attribut à rechercher
+	 * @return l'identifiant unique du sommet, ou null
+	 */
+	public String getVertexID(String value) {
+		for(VertexOntology vertex : vertices) {
+			if(vertex.isValueOfAttribute(value))
+				return vertex.getID();
+		}
+		return null;
+	}
+	
+	public boolean isID(String id) {
+		for(VertexOntology vertex : vertices) {
+			if(vertex.getID().equals(id))
+				return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -161,8 +182,15 @@ public class TreeOntology {
 		if (document.hasChildNodes()) {
 			buildTree(document.getChildNodes());
 		}
+		
+		correctRelations();
 	}
 	
+	/**
+	 * Charge le fichier spécifié
+	 * Si le fichier n'est pas valide avec la dtd une exception interrompt le chargement
+	 * @param filename : chemin vers le document
+	 */
 	private void buildDocument(String filename) {
 		domFactory = DocumentBuilderFactory.newInstance();
 		domFactory.setValidating(true);
@@ -183,7 +211,7 @@ public class TreeOntology {
 					throw exception;
 				}
 			});
-			document = builder.parse("../Ontologies/Index327.xml");
+			document = builder.parse(filename);
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
@@ -193,32 +221,6 @@ public class TreeOntology {
 		}
 	}
 	
-	private void printNode(NodeList nodeList) {
-		 for (int count = 0; count < nodeList.getLength(); count++) {
-			Node tempNode = nodeList.item(count);
-			// make sure it's element node.
-			if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
-				// get node name and value
-				System.out.println("\nNode Name =" + tempNode.getNodeName() + " [OPEN]");
-				System.out.println("Node Value =" + tempNode.getTextContent());
-				if (tempNode.hasAttributes()) {
-					// get attributes names and values
-					NamedNodeMap nodeMap = tempNode.getAttributes();
-					for (int i = 0; i < nodeMap.getLength(); i++) {
-						Node node = nodeMap.item(i);
-						System.out.println("attr name : " + node.getNodeName());
-						System.out.println("attr value : " + node.getNodeValue());
-					}
-				}
-				if (tempNode.hasChildNodes()) {
-					// loop again if has child nodes
-					printNode(tempNode.getChildNodes());
-				}
-				System.out.println("Node Name =" + tempNode.getNodeName() + " [CLOSE]");
-			}
-		 }
-	}
-	
 	private void buildTree(NodeList nodeList) throws TreeOntologyException {
 		for (int count = 0; count < nodeList.getLength(); count++) {
 			Node tempNode = nodeList.item(count);
@@ -226,7 +228,7 @@ public class TreeOntology {
 				String nodeName = tempNode.getNodeName();
 				if(nodeName.equals("ENTREE")) {
 					Element element = (Element) tempNode;
-					String vertexKey = element.getAttribute("id"); // La clé du sommet
+					vertexKey = element.getAttribute("id"); // La clé du sommet
 					createVertex(vertexKey);
 					if (tempNode.hasAttributes()) {
 						NamedNodeMap nodeMap = tempNode.getAttributes();
@@ -251,10 +253,10 @@ public class TreeOntology {
 						for(int j=0 ; j<childNodes.getLength() ; j++) {
 							Node linkNode = childNodes.item(j);
 							if (linkNode.getNodeType() == Node.ELEMENT_NODE) {
-								String linkNodeName = linkNode.getNodeName();
 								String linkNodeValue = linkNode.getTextContent();
-								// addEdge(relationName, vertexKey, linkNodeValue);
-								// TODO Corriger
+								if(!linkNodeValue.isEmpty()) {
+									addEdge(relationName, vertexKey, linkNodeValue);
+								}
 							}
 						}
 					}
@@ -266,14 +268,31 @@ public class TreeOntology {
 		 }
 	}
 	
+	/**
+	 * Prévu pour corriger les relations de l'arbre après lecture
+	 * d'un document
+	 */
+	private void correctRelations() {
+		Set<String> relationSet = relations.keySet();
+		List<Pair<String, String>> relationVertices;
+		for(String relation : relationSet) {
+			relationVertices = relations.get(relation);
+			for(Pair<String, String> vertices : relationVertices) {
+				String second = vertices.getSecond();
+				if(!isID(second))
+					vertices.setSecond(getVertexID(second));
+			}
+		}
+	}
+	
 	@Override
 	public String toString() {
-		String ch = "Sommets (" + vertices.size() + " ) : \n";
+		String ch = "Sommets (" + vertices.size() + ") : \n";
 		for(VertexOntology vertex : vertices) {
 			ch += "\t" + vertex.fullData();
 		}
 		
-		ch += "Relations : \n";
+		ch += "Relations (" + relations.size() + ") : \n";
 		// Affichage des relations
 		Set<String> relationSet = relations.keySet();
 		List<Pair<String, String>> relationVertices;
