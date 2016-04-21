@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import fr.fourmond.jerome.ontology.TreeOntology;
-import fr.fourmond.jerome.view.fx.TreeFxView;
+import fr.fourmond.jerome.ontology.TreeOntologyException;
 import fr.fourmond.jerome.view.fx.ontology.OntologyFxView;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -19,9 +19,11 @@ import javafx.stage.Stage;
 
 public class OntologyFx extends Application {
 	
-	TreeOntology ontology;
+	private static TreeOntology ontology;
 	
 	private OntologyFxView ontologyView;
+	
+	private File file;
 	
 	private MenuBar menuBar;
 	private Menu menu_file;
@@ -50,6 +52,14 @@ public class OntologyFx extends Application {
 						if(F != null) {
 							file = F;
 							System.out.println(file);
+							try {
+								ontology.readFromFile(F.getAbsolutePath());
+								System.out.println(ontology);
+								new OntologyFx();
+							} catch (TreeOntologyException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 					}
 				});
@@ -80,15 +90,22 @@ public class OntologyFx extends Application {
 			menu_view = new Menu("Affichage");
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
 		
-		treeView = new TreeFxView<>(region);
+		ontologyView = new OntologyFxView(ontology);
 		
-		treeView.setTop(menuBar);
+		ontologyView.setTop(menuBar);
 		
-		primaryStage.setScene(new Scene(treeView));
+		primaryStage.setScene(new Scene(ontologyView));
 		primaryStage.show();
 	}
 
 	public static void main(String[] args) {
+		ontology = new TreeOntology();
+		try {
+			ontology.readFromFile("../Ontologies/Villes.xml");
+		} catch (TreeOntologyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		launch(args);
 	}
 }

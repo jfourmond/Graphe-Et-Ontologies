@@ -1,16 +1,17 @@
 package fr.fourmond.jerome.view.fx.ontology;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
-import fr.fourmond.jerome.framework.Edge;
+import fr.fourmond.jerome.framework.ColorDistribution;
 import fr.fourmond.jerome.framework.Placement;
-import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.ontology.Pair;
 import fr.fourmond.jerome.ontology.TreeOntology;
 import fr.fourmond.jerome.ontology.VertexOntology;
-import fr.fourmond.jerome.view.fx.EdgeFxView;
 import fr.fourmond.jerome.view.fx.VertexFxList;
 import fr.fourmond.jerome.view.fx.VertexFxView;
 import javafx.beans.value.ChangeListener;
@@ -27,18 +28,20 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class OntologyFxView extends BorderPane {
-private final double SCALE_DELTA = 1.1;
+	private final double SCALE_DELTA = 1.1;
 	
 	private Placement placement;
+	private ColorDistribution colorDistribution;
 	
 	private TreeOntology ontology;
 	
 	private Pane center;
 		private List<VertexFxView<VertexOntology>> verticesView;
-		private List<EdgeOntologyFxView> edgesView;
+		private Map<String, List<EdgeOntologyFxView>> edgesView;
 	private VBox east;
 		private Label info_label;
 		private TextArea info_area;
@@ -59,9 +62,10 @@ private final double SCALE_DELTA = 1.1;
 	
 	private void buildComposants() {
 		placement = new Placement();
+		colorDistribution = new ColorDistribution();
 		
 		verticesView = new ArrayList<>();
-		edgesView = new ArrayList<>();
+		edgesView = new HashMap<>();
 		
 		buildVertices();
 		buildEdges();
@@ -109,23 +113,44 @@ private final double SCALE_DELTA = 1.1;
 		edgesView.clear();
 		Map<String, List<Pair<String, String>>> relations = ontology.getRelations();
 		
-		EdgeFxView<String> edgeView;
+		Set<String> relationSet = relations.keySet();
+		List<Pair<String, String>> relationVertices;
 		VertexFxView<VertexOntology> start, end;
-		for(Edge<VertexOntology, T_Edge> edge : edges) {
-			start = getViewFromVertex(edge.getFirstVertex());
-			end = getViewFromVertex(edge.getSecondVertex());
-			edgeView = new EdgeFxView<T_Edge>(edge.getValue(), start.getCenterX(), start.getCenterY(),
-					end.getCenterX(), end.getCenterY());
-			edgesView.add(edgeView);
+		EdgeOntologyFxView edgeView;
+		Color color;
+		for(String relation : relationSet) {
+			List<EdgeOntologyFxView> relationEdges = new ArrayList<>();
+			color = colorDistribution.next();
+			relationVertices = relations.get(relation);
+			for(Pair<String, String> p : relationVertices) {
+				start = getViewFromVertex(ontology.getVertex(p.getFirst()));
+				end = getViewFromVertex(ontology.getVertex(p.getSecond()));
+				edgeView = new EdgeOntologyFxView(relation, start.getCenterX(), start.getCenterY(),
+						end.getCenterX(), end.getCenterY(), color);
+				relationEdges.add(edgeView);
+			}
+			edgesView.put(relation, relationEdges);
 		}
 	}
 	
 	private void drawVertices() { center.getChildren().addAll(verticesView); }
 	
-	private void drawEdges() { center.getChildren().addAll(edgesView); }
+	private void drawEdges() {
+		Set<Entry<String, List<EdgeOntologyFxView>>> relationSet = edgesView.entrySet();
+		for(Entry<String, List<EdgeOntologyFxView>> entry : relationSet) {
+			center.getChildren().addAll(entry.getValue());
+		}
+	}
+	
+	private void removeEdges() {
+		Set<Entry<String, List<EdgeOntologyFxView>>> relationSet = edgesView.entrySet();
+		for(Entry<String, List<EdgeOntologyFxView>> entry : relationSet) {
+			center.getChildren().removeAll(entry.getValue());
+		}
+	}
 	
 	private void redrawLines() {
-		center.getChildren().removeAll(edgesView);
+		removeEdges();
 		buildEdges();
 		drawEdges();
 	}
