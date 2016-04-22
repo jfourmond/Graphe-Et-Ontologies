@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IndexSource corpus="htl.seq">
 
 <!DOCTYPE IndexSource SYSTEM "index327.dtd" >
 
-<IndexSource corpus="htl.seq">
-
-<ENTREE  terme =  "abc�s" validite = "Neutre"  id="1">
+<ENTREE  terme =  "abcès" validite = "Neutre"  id="1">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>abc�s proth�tique</LIEN>
+          <LIEN>abcès prothétique</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -20,14 +19,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "abc�s proth�tique" validite = "Neutre"  id="2">
+<ENTREE  terme =  "abcès prothétique" validite = "Neutre"  id="2">
    <RELATION nom="Tete">
-          <LIEN>abc�s</LIEN>
+          <LIEN>abcès</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>abc�s</LIEN>
+          <LIEN>abcès</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -39,7 +38,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "abim�" validite = "Neutre"  id="3">
+<ENTREE  terme =  "abimé" validite = "Neutre"  id="3">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE"  />
@@ -57,7 +56,7 @@
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>ablation de le D�silet</LIEN>
+          <LIEN>ablation de le Désilet</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -69,7 +68,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "ablation de le D�silet" validite = "Neutre"  id="5">
+<ENTREE  terme =  "ablation de le Désilet" validite = "Neutre"  id="5">
    <RELATION nom="Tete">
           <LIEN>ablation</LIEN>
    </RELATION>
@@ -147,7 +146,7 @@
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>abouchement de le vert�bral gauche</LIEN>
+          <LIEN>abouchement de le vertébral gauche</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -159,7 +158,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "abouchement de le vert�bral gauche" validite = "Neutre"  id="10">
+<ENTREE  terme =  "abouchement de le vertébral gauche" validite = "Neutre"  id="10">
    <RELATION nom="Tete">
           <LIEN>abouchement</LIEN>
    </RELATION>
@@ -231,38 +230,38 @@
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence bilat�ral</LIEN>
-          <LIEN>absence de alt�ration</LIEN>
-          <LIEN>absence de anomalie de cin�tique segmentaire</LIEN>
+          <LIEN>absence bilatéral</LIEN>
+          <LIEN>absence de altération</LIEN>
+          <LIEN>absence de anomalie de cinétique segmentaire</LIEN>
           <LIEN>absence de argument</LIEN>
           <LIEN>absence de arythmie de perfusion</LIEN>
-          <LIEN>absence de ath�romatose coronarien significatif</LIEN>
-          <LIEN>absence de ath�roscl�rose significatif</LIEN>
-          <LIEN>absence de cardiom�galie</LIEN>
-          <LIEN>absence de dysfonction proth�tique notable</LIEN>
-          <LIEN>absence de d�fect transitoire</LIEN>
+          <LIEN>absence de athéromatose coronarien significatif</LIEN>
+          <LIEN>absence de athérosclérose significatif</LIEN>
+          <LIEN>absence de cardiomégalie</LIEN>
+          <LIEN>absence de dysfonction prothétique notable</LIEN>
+          <LIEN>absence de défect transitoire</LIEN>
           <LIEN>absence de fixation</LIEN>
           <LIEN>absence de infarctus important apical</LIEN>
-          <LIEN>absence de insuffisance r�nal</LIEN>
-          <LIEN>absence de isch�mie</LIEN>
+          <LIEN>absence de insuffisance rénal</LIEN>
+          <LIEN>absence de ischémie</LIEN>
           <LIEN>absence de leucocyturie</LIEN>
           <LIEN>absence de lit de aval abordable</LIEN>
-          <LIEN>absence de l�sion significatif</LIEN>
+          <LIEN>absence de lésion significatif</LIEN>
           <LIEN>absence de modification important</LIEN>
           <LIEN>absence de mouvement</LIEN>
           <LIEN>absence de onde r initial</LIEN>
           <LIEN>absence de palpitation cardiaque</LIEN>
-          <LIEN>absence de pathologie associ�</LIEN>
+          <LIEN>absence de pathologie associé</LIEN>
           <LIEN>absence de potentiel tardif</LIEN>
           <LIEN>absence de progression</LIEN>
           <LIEN>absence de restenose</LIEN>
-          <LIEN>absence de r�cidive angineux</LIEN>
-          <LIEN>absence de r�ponse</LIEN>
+          <LIEN>absence de récidive angineux</LIEN>
+          <LIEN>absence de réponse</LIEN>
           <LIEN>absence de signe de defaillance cardiaque</LIEN>
-          <LIEN>absence de st�nose</LIEN>
+          <LIEN>absence de sténose</LIEN>
           <LIEN>absence de syndrome grippal</LIEN>
           <LIEN>absence de trouble</LIEN>
-          <LIEN>absence de �l�vation</LIEN>
+          <LIEN>absence de élévation</LIEN>
           <LIEN>absence total</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
@@ -275,13 +274,13 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence bilat�ral" validite = "Neutre"  id="15">
+<ENTREE  terme =  "absence bilatéral" validite = "Neutre"  id="15">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence bilat�ral de le pouls poplit�</LIEN>
+          <LIEN>absence bilatéral de le pouls poplité</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -296,14 +295,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence bilat�ral de le pouls poplit�" validite = "Neutre"  id="16">
+<ENTREE  terme =  "absence bilatéral de le pouls poplité" validite = "Neutre"  id="16">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence bilat�ral</LIEN>
+          <LIEN>absence bilatéral</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -315,13 +314,13 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de alt�ration" validite = "Neutre"  id="17">
+<ENTREE  terme =  "absence de altération" validite = "Neutre"  id="17">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de alt�ration de le r�seau art�riel</LIEN>
+          <LIEN>absence de altération de le réseau artériel</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -336,14 +335,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de alt�ration de le r�seau art�riel" validite = "Neutre"  id="18">
+<ENTREE  terme =  "absence de altération de le réseau artériel" validite = "Neutre"  id="18">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de alt�ration</LIEN>
+          <LIEN>absence de altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -355,7 +354,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de anomalie de cin�tique segmentaire" validite = "Neutre"  id="19">
+<ENTREE  terme =  "absence de anomalie de cinétique segmentaire" validite = "Neutre"  id="19">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -380,7 +379,7 @@
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de anomalie segmentaire de le cin�tique</LIEN>
+          <LIEN>absence de anomalie segmentaire de le cinétique</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -392,7 +391,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de anomalie segmentaire de le cin�tique" validite = "Neutre"  id="21">
+<ENTREE  terme =  "absence de anomalie segmentaire de le cinétique" validite = "Neutre"  id="21">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -466,7 +465,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de ath�romatose coronarien significatif" validite = "Neutre"  id="25">
+<ENTREE  terme =  "absence de athéromatose coronarien significatif" validite = "Neutre"  id="25">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -485,13 +484,13 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de ath�roscl�rose significatif" validite = "Neutre"  id="26">
+<ENTREE  terme =  "absence de athérosclérose significatif" validite = "Neutre"  id="26">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de ath�roscl�rose significatif de le art�re coronarien</LIEN>
+          <LIEN>absence de athérosclérose significatif de le artère coronarien</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -506,14 +505,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de ath�roscl�rose significatif de le art�re coronarien" validite = "Neutre"  id="27">
+<ENTREE  terme =  "absence de athérosclérose significatif de le artère coronarien" validite = "Neutre"  id="27">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de ath�roscl�rose significatif</LIEN>
+          <LIEN>absence de athérosclérose significatif</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -525,13 +524,13 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de cardiom�galie" validite = "Neutre"  id="28">
+<ENTREE  terme =  "absence de cardiomégalie" validite = "Neutre"  id="28">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de cardiom�galie significatif</LIEN>
+          <LIEN>absence de cardiomégalie significatif</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -546,14 +545,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de cardiom�galie significatif" validite = "Neutre"  id="29">
+<ENTREE  terme =  "absence de cardiomégalie significatif" validite = "Neutre"  id="29">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de cardiom�galie</LIEN>
+          <LIEN>absence de cardiomégalie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -565,7 +564,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de dysfonction proth�tique notable" validite = "Neutre"  id="30">
+<ENTREE  terme =  "absence de dysfonction prothétique notable" validite = "Neutre"  id="30">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -584,7 +583,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de d�fect transitoire" validite = "Neutre"  id="31">
+<ENTREE  terme =  "absence de défect transitoire" validite = "Neutre"  id="31">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -662,7 +661,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de insuffisance r�nal" validite = "Neutre"  id="35">
+<ENTREE  terme =  "absence de insuffisance rénal" validite = "Neutre"  id="35">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -681,14 +680,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de isch�mie" validite = "Neutre"  id="36">
+<ENTREE  terme =  "absence de ischémie" validite = "Neutre"  id="36">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de isch�mie myocardique</LIEN>
-          <LIEN>absence de isch�mie r�siduel</LIEN>
+          <LIEN>absence de ischémie myocardique</LIEN>
+          <LIEN>absence de ischémie résiduel</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -698,7 +697,7 @@
    <RELATION nom="SYNONYMIE"  />
    <RELATION nom="SPECIALISATION">
           <LIEN></LIEN>
-          <LIEN>absence de argument pour un isch�mie</LIEN>
+          <LIEN>absence de argument pour un ischémie</LIEN>
    </RELATION>
    <RELATION nom="DERIVES"  />
    <RELATION nom="AUTRE"  />
@@ -706,14 +705,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de isch�mie myocardique" validite = "Neutre"  id="37">
+<ENTREE  terme =  "absence de ischémie myocardique" validite = "Neutre"  id="37">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de isch�mie</LIEN>
+          <LIEN>absence de ischémie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -725,14 +724,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de isch�mie r�siduel" validite = "Neutre"  id="38">
+<ENTREE  terme =  "absence de ischémie résiduel" validite = "Neutre"  id="38">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de isch�mie</LIEN>
+          <LIEN>absence de ischémie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -782,7 +781,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de l�sion significatif" validite = "Neutre"  id="41">
+<ENTREE  terme =  "absence de lésion significatif" validite = "Neutre"  id="41">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -953,7 +952,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de pathologie associ�" validite = "Neutre"  id="50">
+<ENTREE  terme =  "absence de pathologie associé" validite = "Neutre"  id="50">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -1029,7 +1028,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de r�cidive angineux" validite = "Neutre"  id="54">
+<ENTREE  terme =  "absence de récidive angineux" validite = "Neutre"  id="54">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -1048,7 +1047,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de r�cidive de arythmie ventriculaire malin" validite = "Neutre"  id="55">
+<ENTREE  terme =  "absence de récidive de arythmie ventriculaire malin" validite = "Neutre"  id="55">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -1064,7 +1063,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de r�cidive douloureux" validite = "Neutre"  id="56">
+<ENTREE  terme =  "absence de récidive douloureux" validite = "Neutre"  id="56">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -1081,7 +1080,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de r�ponse" validite = "Neutre"  id="57">
+<ENTREE  terme =  "absence de réponse" validite = "Neutre"  id="57">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -1188,16 +1187,16 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de st�nose" validite = "Neutre"  id="63">
+<ENTREE  terme =  "absence de sténose" validite = "Neutre"  id="63">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de st�nose angiographiquement significatif</LIEN>
-          <LIEN>absence de st�nose coronarien</LIEN>
-          <LIEN>absence de st�nose IVA</LIEN>
-          <LIEN>absence de st�nose r�siduel</LIEN>
+          <LIEN>absence de sténose angiographiquement significatif</LIEN>
+          <LIEN>absence de sténose coronarien</LIEN>
+          <LIEN>absence de sténose IVA</LIEN>
+          <LIEN>absence de sténose résiduel</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -1207,7 +1206,7 @@
    <RELATION nom="SYNONYMIE"  />
    <RELATION nom="SPECIALISATION">
           <LIEN></LIEN>
-          <LIEN>absence de argument pour un st�nose</LIEN>
+          <LIEN>absence de argument pour un sténose</LIEN>
    </RELATION>
    <RELATION nom="DERIVES"  />
    <RELATION nom="AUTRE"  />
@@ -1215,14 +1214,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de st�nose angiographiquement significatif" validite = "Neutre"  id="64">
+<ENTREE  terme =  "absence de sténose angiographiquement significatif" validite = "Neutre"  id="64">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de st�nose</LIEN>
+          <LIEN>absence de sténose</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -1234,14 +1233,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de st�nose coronarien" validite = "Neutre"  id="65">
+<ENTREE  terme =  "absence de sténose coronarien" validite = "Neutre"  id="65">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de st�nose</LIEN>
+          <LIEN>absence de sténose</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -1253,14 +1252,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de st�nose IVA" validite = "Neutre"  id="66">
+<ENTREE  terme =  "absence de sténose IVA" validite = "Neutre"  id="66">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de st�nose</LIEN>
+          <LIEN>absence de sténose</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -1272,14 +1271,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de st�nose r�siduel" validite = "Neutre"  id="67">
+<ENTREE  terme =  "absence de sténose résiduel" validite = "Neutre"  id="67">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de st�nose</LIEN>
+          <LIEN>absence de sténose</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -1333,7 +1332,7 @@
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de trouble de le cin�tique segmentaire de le VG</LIEN>
+          <LIEN>absence de trouble de le cinétique segmentaire de le VG</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -1348,7 +1347,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de trouble de le cin�tique segmentaire de le VG" validite = "Neutre"  id="71">
+<ENTREE  terme =  "absence de trouble de le cinétique segmentaire de le VG" validite = "Neutre"  id="71">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -1367,13 +1366,13 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de �l�vation" validite = "Neutre"  id="72">
+<ENTREE  terme =  "absence de élévation" validite = "Neutre"  id="72">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de �l�vation de le enzyme sp�cifique</LIEN>
+          <LIEN>absence de élévation de le enzyme spécifique</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -1388,14 +1387,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence de �l�vation de le enzyme sp�cifique" validite = "Neutre"  id="73">
+<ENTREE  terme =  "absence de élévation de le enzyme spécifique" validite = "Neutre"  id="73">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence de �l�vation</LIEN>
+          <LIEN>absence de élévation</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -1413,7 +1412,7 @@
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>absence total de excitabilit� ventriculaire</LIEN>
+          <LIEN>absence total de excitabilité ventriculaire</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -1428,7 +1427,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "absence total de excitabilit� ventriculaire" validite = "Neutre"  id="75">
+<ENTREE  terme =  "absence total de excitabilité ventriculaire" validite = "Neutre"  id="75">
    <RELATION nom="Tete">
           <LIEN>absence</LIEN>
    </RELATION>
@@ -1447,11 +1446,11 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "ab�rration" validite = "Neutre"  id="76">
+<ENTREE  terme =  "abérration" validite = "Neutre"  id="76">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>ab�rration de conduction</LIEN>
+          <LIEN>abérration de conduction</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -1463,14 +1462,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "ab�rration de conduction" validite = "Neutre"  id="77">
+<ENTREE  terme =  "abérration de conduction" validite = "Neutre"  id="77">
    <RELATION nom="Tete">
-          <LIEN>ab�rration</LIEN>
+          <LIEN>abérration</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>ab�rration</LIEN>
+          <LIEN>abérration</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -1500,8 +1499,8 @@
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>accentuation de le dyspn�e</LIEN>
-          <LIEN>accentuation de le modification isch�mique de le polarisation ventriculaire en territoire lat�ral</LIEN>
+          <LIEN>accentuation de le dyspnée</LIEN>
+          <LIEN>accentuation de le modification ischémique de le polarisation ventriculaire en territoire latéral</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -1513,7 +1512,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "accentuation de le dyspn�e" validite = "Neutre"  id="80">
+<ENTREE  terme =  "accentuation de le dyspnée" validite = "Neutre"  id="80">
    <RELATION nom="Tete">
           <LIEN>accentuation</LIEN>
    </RELATION>
@@ -1532,7 +1531,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "accentuation de le modification isch�mique de le polarisation ventriculaire en territoire lat�ral" validite = "Neutre"  id="81">
+<ENTREE  terme =  "accentuation de le modification ischémique de le polarisation ventriculaire en territoire latéral" validite = "Neutre"  id="81">
    <RELATION nom="Tete">
           <LIEN>accentuation</LIEN>
    </RELATION>
@@ -1556,9 +1555,9 @@
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
           <LIEN>accident coronarien</LIEN>
-          <LIEN>accident c�r�brovasculaires</LIEN>
-          <LIEN>accident h�morragique</LIEN>
-          <LIEN>accident isch�mique</LIEN>
+          <LIEN>accident cérébrovasculaires</LIEN>
+          <LIEN>accident hémorragique</LIEN>
+          <LIEN>accident ischémique</LIEN>
           <LIEN>accident neurologique</LIEN>
           <LIEN>accident thrombo- emboliques</LIEN>
           <LIEN>accident thrombo-emboliques</LIEN>
@@ -1586,8 +1585,8 @@
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE">
           <LIEN></LIEN>
-          <LIEN>l�sion coronaire</LIEN>
-          <LIEN>l�sion coronarien</LIEN>
+          <LIEN>lésion coronaire</LIEN>
+          <LIEN>lésion coronarien</LIEN>
    </RELATION>
    <RELATION nom="SPECIALISATION"  />
    <RELATION nom="DERIVES"  />
@@ -1597,7 +1596,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "accident c�r�brovasculaires" validite = "Neutre"  id="84">
+<ENTREE  terme =  "accident cérébrovasculaires" validite = "Neutre"  id="84">
    <RELATION nom="Tete">
           <LIEN>accident</LIEN>
    </RELATION>
@@ -1616,7 +1615,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "accident h�morragique" validite = "Neutre"  id="85">
+<ENTREE  terme =  "accident hémorragique" validite = "Neutre"  id="85">
    <RELATION nom="Tete">
           <LIEN>accident</LIEN>
    </RELATION>
@@ -1635,13 +1634,13 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "accident isch�mique" validite = "Neutre"  id="86">
+<ENTREE  terme =  "accident ischémique" validite = "Neutre"  id="86">
    <RELATION nom="Tete">
           <LIEN>accident</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>accident isch�mique transitoire</LIEN>
+          <LIEN>accident ischémique transitoire</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -1656,17 +1655,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "accident isch�mique transitoire" validite = "Neutre"  id="87">
+<ENTREE  terme =  "accident ischémique transitoire" validite = "Neutre"  id="87">
    <RELATION nom="Tete">
           <LIEN>accident</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>accident isch�mique transitoire r�cidivant</LIEN>
+          <LIEN>accident ischémique transitoire récidivant</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>accident isch�mique</LIEN>
+          <LIEN>accident ischémique</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -1677,14 +1676,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "accident isch�mique transitoire r�cidivant" validite = "Neutre"  id="88">
+<ENTREE  terme =  "accident ischémique transitoire récidivant" validite = "Neutre"  id="88">
    <RELATION nom="Tete">
           <LIEN>accident</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>accident isch�mique transitoire</LIEN>
+          <LIEN>accident ischémique transitoire</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -1702,7 +1701,7 @@
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>accident neurologique de type isch�mique par l�sion vert�bral</LIEN>
+          <LIEN>accident neurologique de type ischémique par lésion vertébral</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -1717,7 +1716,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "accident neurologique de type isch�mique par l�sion vert�bral" validite = "Neutre"  id="90">
+<ENTREE  terme =  "accident neurologique de type ischémique par lésion vertébral" validite = "Neutre"  id="90">
    <RELATION nom="Tete">
           <LIEN>accident</LIEN>
    </RELATION>
@@ -1781,8 +1780,8 @@
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>accident vasculaire c�r�bral</LIEN>
-          <LIEN>accident vasculaire p�riph�rique</LIEN>
+          <LIEN>accident vasculaire cérébral</LIEN>
+          <LIEN>accident vasculaire périphérique</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -1797,13 +1796,13 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "accident vasculaire c�r�bral" validite = "Neutre"  id="94">
+<ENTREE  terme =  "accident vasculaire cérébral" validite = "Neutre"  id="94">
    <RELATION nom="Tete">
           <LIEN>accident</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>accident vasculaire c�r�bral essentiellement thalamique</LIEN>
+          <LIEN>accident vasculaire cérébral essentiellement thalamique</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -1818,14 +1817,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "accident vasculaire c�r�bral essentiellement thalamique" validite = "Neutre"  id="95">
+<ENTREE  terme =  "accident vasculaire cérébral essentiellement thalamique" validite = "Neutre"  id="95">
    <RELATION nom="Tete">
           <LIEN>accident</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>accident vasculaire c�r�bral</LIEN>
+          <LIEN>accident vasculaire cérébral</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -1837,7 +1836,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "accident vasculaire p�riph�rique" validite = "Neutre"  id="96">
+<ENTREE  terme =  "accident vasculaire périphérique" validite = "Neutre"  id="96">
    <RELATION nom="Tete">
           <LIEN>accident</LIEN>
    </RELATION>
@@ -1944,12 +1943,12 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "acc�s" validite = "Neutre"  id="102">
+<ENTREE  terme =  "accès" validite = "Neutre"  id="102">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>acc�s documenter</LIEN>
-          <LIEN>acc�s dyspn�ique</LIEN>
+          <LIEN>accès documenter</LIEN>
+          <LIEN>accès dyspnéique</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -1961,17 +1960,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "acc�s documenter" validite = "Neutre"  id="103">
+<ENTREE  terme =  "accès documenter" validite = "Neutre"  id="103">
    <RELATION nom="Tete">
-          <LIEN>acc�s</LIEN>
+          <LIEN>accès</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>acc�s documenter de TV</LIEN>
+          <LIEN>accès documenter de TV</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>acc�s</LIEN>
+          <LIEN>accès</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -1982,14 +1981,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "acc�s documenter de TV" validite = "Neutre"  id="104">
+<ENTREE  terme =  "accès documenter de TV" validite = "Neutre"  id="104">
    <RELATION nom="Tete">
-          <LIEN>acc�s</LIEN>
+          <LIEN>accès</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>acc�s documenter</LIEN>
+          <LIEN>accès documenter</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2001,14 +2000,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "acc�s dyspn�ique" validite = "Neutre"  id="105">
+<ENTREE  terme =  "accès dyspnéique" validite = "Neutre"  id="105">
    <RELATION nom="Tete">
-          <LIEN>acc�s</LIEN>
+          <LIEN>accès</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>acc�s</LIEN>
+          <LIEN>accès</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2021,11 +2020,11 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "acc�l�ration" validite = "Neutre"  id="106">
+<ENTREE  terme =  "accélération" validite = "Neutre"  id="106">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>acc�l�ration de le fr�quence cardiaque</LIEN>
+          <LIEN>accélération de le fréquence cardiaque</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -2037,14 +2036,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "acc�l�ration de le fr�quence cardiaque" validite = "Neutre"  id="107">
+<ENTREE  terme =  "accélération de le fréquence cardiaque" validite = "Neutre"  id="107">
    <RELATION nom="Tete">
-          <LIEN>acc�l�ration</LIEN>
+          <LIEN>accélération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>acc�l�ration</LIEN>
+          <LIEN>accélération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2072,11 +2071,11 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "acm�" validite = "Neutre"  id="109">
+<ENTREE  terme =  "acmé" validite = "Neutre"  id="109">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>acm� de le effort</LIEN>
+          <LIEN>acmé de le effort</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -2088,14 +2087,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "acm� de le effort" validite = "Neutre"  id="110">
+<ENTREE  terme =  "acmé de le effort" validite = "Neutre"  id="110">
    <RELATION nom="Tete">
-          <LIEN>acm�</LIEN>
+          <LIEN>acmé</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>acm�</LIEN>
+          <LIEN>acmé</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2107,11 +2106,11 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "acm�e" validite = "Neutre"  id="111">
+<ENTREE  terme =  "acmée" validite = "Neutre"  id="111">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>acm�e de le effort</LIEN>
+          <LIEN>acmée de le effort</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -2123,14 +2122,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "acm�e de le effort" validite = "Neutre"  id="112">
+<ENTREE  terme =  "acmée de le effort" validite = "Neutre"  id="112">
    <RELATION nom="Tete">
-          <LIEN>acm�e</LIEN>
+          <LIEN>acmée</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>acm�e</LIEN>
+          <LIEN>acmée</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2181,7 +2180,7 @@
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>ACT compliqu�</LIEN>
+          <LIEN>ACT compliqué</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -2193,7 +2192,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "ACT compliqu�" validite = "Neutre"  id="116">
+<ENTREE  terme =  "ACT compliqué" validite = "Neutre"  id="116">
    <RELATION nom="Tete">
           <LIEN>act</LIEN>
    </RELATION>
@@ -2233,7 +2232,7 @@
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
           <LIEN>ACTILYSE intraveineux</LIEN>
-          <LIEN>ACTILYSE sans crit�re franc de perfusion</LIEN>
+          <LIEN>ACTILYSE sans critère franc de perfusion</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -2264,7 +2263,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "ACTILYSE sans crit�re franc de perfusion" validite = "Neutre"  id="120">
+<ENTREE  terme =  "ACTILYSE sans critère franc de perfusion" validite = "Neutre"  id="120">
    <RELATION nom="Tete">
           <LIEN>actilyse</LIEN>
    </RELATION>
@@ -2311,7 +2310,7 @@
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE">
           <LIEN></LIEN>
-          <LIEN>efficacit� � court</LIEN>
+          <LIEN>efficacité à court</LIEN>
    </RELATION>
    <RELATION nom="SPECIALISATION"  />
    <RELATION nom="DERIVES"  />
@@ -2379,18 +2378,18 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit�" validite = "Neutre"  id="126">
+<ENTREE  terme =  "activité" validite = "Neutre"  id="126">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit� bronchique</LIEN>
-          <LIEN>activit� de le unit�</LIEN>
-          <LIEN>activit� m�canique</LIEN>
-          <LIEN>activit� physique</LIEN>
-          <LIEN>activit� professionnel</LIEN>
-          <LIEN>activit� quotidien</LIEN>
-          <LIEN>activit� sympathique</LIEN>
-          <LIEN>activit� �lectrique</LIEN>
+          <LIEN>activité bronchique</LIEN>
+          <LIEN>activité de le unité</LIEN>
+          <LIEN>activité mécanique</LIEN>
+          <LIEN>activité physique</LIEN>
+          <LIEN>activité professionnel</LIEN>
+          <LIEN>activité quotidien</LIEN>
+          <LIEN>activité sympathique</LIEN>
+          <LIEN>activité électrique</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -2402,21 +2401,21 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� bronchique" validite = "Neutre"  id="127">
+<ENTREE  terme =  "activité bronchique" validite = "Neutre"  id="127">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit� bronchique secondaire</LIEN>
+          <LIEN>activité bronchique secondaire</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
           <LIEN></LIEN>
-          <LIEN>r�activit� bronchique</LIEN>
+          <LIEN>réactivité bronchique</LIEN>
    </RELATION>
    <RELATION nom="SYNONYMIE"  />
    <RELATION nom="SPECIALISATION"  />
@@ -2426,14 +2425,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� bronchique secondaire" validite = "Neutre"  id="128">
+<ENTREE  terme =  "activité bronchique secondaire" validite = "Neutre"  id="128">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit� bronchique</LIEN>
+          <LIEN>activité bronchique</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2445,14 +2444,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� de le unit�" validite = "Neutre"  id="129">
+<ENTREE  terme =  "activité de le unité" validite = "Neutre"  id="129">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2464,17 +2463,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� m�canique" validite = "Neutre"  id="130">
+<ENTREE  terme =  "activité mécanique" validite = "Neutre"  id="130">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit� m�canique efficace</LIEN>
+          <LIEN>activité mécanique efficace</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2485,14 +2484,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� m�canique efficace" validite = "Neutre"  id="131">
+<ENTREE  terme =  "activité mécanique efficace" validite = "Neutre"  id="131">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit� m�canique</LIEN>
+          <LIEN>activité mécanique</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2504,18 +2503,18 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� physique" validite = "Neutre"  id="132">
+<ENTREE  terme =  "activité physique" validite = "Neutre"  id="132">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit� physique mod�r�</LIEN>
-          <LIEN>activit� physique r�gulier</LIEN>
+          <LIEN>activité physique modéré</LIEN>
+          <LIEN>activité physique régulier</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2539,14 +2538,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� physique mod�r�" validite = "Neutre"  id="134">
+<ENTREE  terme =  "activité physique modéré" validite = "Neutre"  id="134">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit� physique</LIEN>
+          <LIEN>activité physique</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2558,17 +2557,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� physique r�gulier" validite = "Neutre"  id="135">
+<ENTREE  terme =  "activité physique régulier" validite = "Neutre"  id="135">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit� physique r�gulier contr�ler</LIEN>
+          <LIEN>activité physique régulier contrôler</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit� physique</LIEN>
+          <LIEN>activité physique</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2579,14 +2578,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� physique r�gulier contr�ler" validite = "Neutre"  id="136">
+<ENTREE  terme =  "activité physique régulier contrôler" validite = "Neutre"  id="136">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit� physique r�gulier</LIEN>
+          <LIEN>activité physique régulier</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2598,14 +2597,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� professionnel" validite = "Neutre"  id="137">
+<ENTREE  terme =  "activité professionnel" validite = "Neutre"  id="137">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2618,14 +2617,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� quotidien" validite = "Neutre"  id="138">
+<ENTREE  terme =  "activité quotidien" validite = "Neutre"  id="138">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2638,14 +2637,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� sympathique" validite = "Neutre"  id="139">
+<ENTREE  terme =  "activité sympathique" validite = "Neutre"  id="139">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2657,14 +2656,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "activit� �lectrique" validite = "Neutre"  id="140">
+<ENTREE  terme =  "activité électrique" validite = "Neutre"  id="140">
    <RELATION nom="Tete">
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>activit�</LIEN>
+          <LIEN>activité</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2733,7 +2732,7 @@
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>actuellement aucun preuve concluant de le efficacit�</LIEN>
+          <LIEN>actuellement aucun preuve concluant de le efficacité</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -2748,7 +2747,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "actuellement aucun preuve concluant de le efficacit�" validite = "Neutre"  id="145">
+<ENTREE  terme =  "actuellement aucun preuve concluant de le efficacité" validite = "Neutre"  id="145">
    <RELATION nom="Tete">
           <LIEN>actuellement</LIEN>
    </RELATION>
@@ -2832,7 +2831,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "acutis�" validite = "Neutre"  id="150">
+<ENTREE  terme =  "acutisé" validite = "Neutre"  id="150">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE"  />
@@ -2846,11 +2845,11 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "ac�thylcholine" validite = "Neutre"  id="151">
+<ENTREE  terme =  "acéthylcholine" validite = "Neutre"  id="151">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>ac�thylcholine n�gatif</LIEN>
+          <LIEN>acéthylcholine négatif</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -2862,14 +2861,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "ac�thylcholine n�gatif" validite = "Neutre"  id="152">
+<ENTREE  terme =  "acéthylcholine négatif" validite = "Neutre"  id="152">
    <RELATION nom="Tete">
-          <LIEN>ac�thylcholine</LIEN>
+          <LIEN>acéthylcholine</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>ac�thylcholine</LIEN>
+          <LIEN>acéthylcholine</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -2881,7 +2880,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "ac�tylcholine" validite = "Neutre"  id="153">
+<ENTREE  terme =  "acétylcholine" validite = "Neutre"  id="153">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE"  />
@@ -2962,8 +2961,8 @@
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>adjonction de d�riv� nitr�</LIEN>
-          <LIEN>adjonction de un th�rapeutique hypolip�miante</LIEN>
+          <LIEN>adjonction de dérivé nitré</LIEN>
+          <LIEN>adjonction de un thérapeutique hypolipémiante</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -2975,7 +2974,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "adjonction de d�riv� nitr�" validite = "Neutre"  id="159">
+<ENTREE  terme =  "adjonction de dérivé nitré" validite = "Neutre"  id="159">
    <RELATION nom="Tete">
           <LIEN>adjonction</LIEN>
    </RELATION>
@@ -2994,7 +2993,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "adjonction de un th�rapeutique hypolip�miante" validite = "Neutre"  id="160">
+<ENTREE  terme =  "adjonction de un thérapeutique hypolipémiante" validite = "Neutre"  id="160">
    <RELATION nom="Tete">
           <LIEN>adjonction</LIEN>
    </RELATION>
@@ -3018,15 +3017,15 @@
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
           <LIEN>administration de atropine</LIEN>
-          <LIEN>administration de h�parine intraveineux</LIEN>
+          <LIEN>administration de héparine intraveineux</LIEN>
           <LIEN>administration de le laboratoire</LIEN>
-          <LIEN>administration de le m�dicament</LIEN>
+          <LIEN>administration de le médicament</LIEN>
           <LIEN>administration de NATISPRAY</LIEN>
           <LIEN>administration de routine</LIEN>
-          <LIEN>administration de un bouff�e de NATISPRAY</LIEN>
+          <LIEN>administration de un bouffée de NATISPRAY</LIEN>
           <LIEN>administration hospitalier</LIEN>
           <LIEN>administration oral</LIEN>
-          <LIEN>administration syst�matique</LIEN>
+          <LIEN>administration systématique</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -3060,7 +3059,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "administration de h�parine intraveineux" validite = "Neutre"  id="163">
+<ENTREE  terme =  "administration de héparine intraveineux" validite = "Neutre"  id="163">
    <RELATION nom="Tete">
           <LIEN>administration</LIEN>
    </RELATION>
@@ -3099,7 +3098,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "administration de le m�dicament" validite = "Neutre"  id="165">
+<ENTREE  terme =  "administration de le médicament" validite = "Neutre"  id="165">
    <RELATION nom="Tete">
           <LIEN>administration</LIEN>
    </RELATION>
@@ -3114,7 +3113,7 @@
    <RELATION nom="DERIVES"  />
    <RELATION nom="AUTRE">
           <LIEN></LIEN>
-          <LIEN>administration de les m�dicament</LIEN>
+          <LIEN>administration de les médicament</LIEN>
    </RELATION>
    <RENVOIS>
           <LIEN>COR_73-2</LIEN>
@@ -3183,7 +3182,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "administration de un bouff�e de NATISPRAY" validite = "Neutre"  id="169">
+<ENTREE  terme =  "administration de un bouffée de NATISPRAY" validite = "Neutre"  id="169">
    <RELATION nom="Tete">
           <LIEN>administration</LIEN>
    </RELATION>
@@ -3261,13 +3260,13 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "administration syst�matique" validite = "Neutre"  id="173">
+<ENTREE  terme =  "administration systématique" validite = "Neutre"  id="173">
    <RELATION nom="Tete">
           <LIEN>administration</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>administration syst�matique de h�parine par voie intraveineux</LIEN>
+          <LIEN>administration systématique de héparine par voie intraveineux</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -3282,14 +3281,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "administration syst�matique de h�parine par voie intraveineux" validite = "Neutre"  id="174">
+<ENTREE  terme =  "administration systématique de héparine par voie intraveineux" validite = "Neutre"  id="174">
    <RELATION nom="Tete">
           <LIEN>administration</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>administration syst�matique</LIEN>
+          <LIEN>administration systématique</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -3346,11 +3345,11 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "ad�nome" validite = "Neutre"  id="177">
+<ENTREE  terme =  "adénome" validite = "Neutre"  id="177">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>ad�nome prostatique</LIEN>
+          <LIEN>adénome prostatique</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -3362,14 +3361,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "ad�nome prostatique" validite = "Neutre"  id="178">
+<ENTREE  terme =  "adénome prostatique" validite = "Neutre"  id="178">
    <RELATION nom="Tete">
-          <LIEN>ad�nome</LIEN>
+          <LIEN>adénome</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>ad�nome</LIEN>
+          <LIEN>adénome</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -3399,7 +3398,7 @@
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>afflux de le mat�riel de contraste</LIEN>
+          <LIEN>afflux de le matériel de contraste</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -3411,7 +3410,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "afflux de le mat�riel de contraste" validite = "Neutre"  id="181">
+<ENTREE  terme =  "afflux de le matériel de contraste" validite = "Neutre"  id="181">
    <RELATION nom="Tete">
           <LIEN>afflux</LIEN>
    </RELATION>
@@ -3491,12 +3490,12 @@
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
           <LIEN>aggravation de le angor de effort</LIEN>
-          <LIEN>aggravation de le anomalie de cin�tique segmentaire</LIEN>
+          <LIEN>aggravation de le anomalie de cinétique segmentaire</LIEN>
           <LIEN>aggravation de le dysfonction ventriculaire gauche</LIEN>
-          <LIEN>aggravation de le l�sion ath�romateux</LIEN>
+          <LIEN>aggravation de le lésion athéromateux</LIEN>
           <LIEN>aggravation de le symptomatologie angineux de effort</LIEN>
           <LIEN>aggravation progressif</LIEN>
-          <LIEN>aggravation r�cent</LIEN>
+          <LIEN>aggravation récent</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -3527,7 +3526,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "aggravation de le anomalie de cin�tique segmentaire" validite = "Neutre"  id="187">
+<ENTREE  terme =  "aggravation de le anomalie de cinétique segmentaire" validite = "Neutre"  id="187">
    <RELATION nom="Tete">
           <LIEN>aggravation</LIEN>
    </RELATION>
@@ -3565,7 +3564,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "aggravation de le l�sion ath�romateux" validite = "Neutre"  id="189">
+<ENTREE  terme =  "aggravation de le lésion athéromateux" validite = "Neutre"  id="189">
    <RELATION nom="Tete">
           <LIEN>aggravation</LIEN>
    </RELATION>
@@ -3623,7 +3622,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "aggravation r�cent" validite = "Neutre"  id="192">
+<ENTREE  terme =  "aggravation récent" validite = "Neutre"  id="192">
    <RELATION nom="Tete">
           <LIEN>aggravation</LIEN>
    </RELATION>
@@ -3670,7 +3669,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "ag�" validite = "Neutre"  id="195">
+<ENTREE  terme =  "agé" validite = "Neutre"  id="195">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE"  />
@@ -3684,7 +3683,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "ag�e" validite = "Neutre"  id="196">
+<ENTREE  terme =  "agée" validite = "Neutre"  id="196">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE"  />
@@ -3770,11 +3769,11 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "aigu�" validite = "Neutre"  id="201">
+<ENTREE  terme =  "aiguê" validite = "Neutre"  id="201">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>aigu� de infarctus</LIEN>
+          <LIEN>aiguê de infarctus</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -3786,14 +3785,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "aigu� de infarctus" validite = "Neutre"  id="202">
+<ENTREE  terme =  "aiguê de infarctus" validite = "Neutre"  id="202">
    <RELATION nom="Tete">
-          <LIEN>aigu�</LIEN>
+          <LIEN>aiguê</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>aigu�</LIEN>
+          <LIEN>aiguê</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -3875,25 +3874,25 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie" validite = "Neutre"  id="207">
+<ENTREE  terme =  "akinésie" validite = "Neutre"  id="207">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie ant�rieur</LIEN>
-          <LIEN>akin�sie ant�ro</LIEN>
-          <LIEN>akin�sie apical</LIEN>
-          <LIEN>akin�sie assez localis�</LIEN>
-          <LIEN>akin�sie basal</LIEN>
-          <LIEN>akin�sie de le apex</LIEN>
-          <LIEN>akin�sie de le paroi ventriculaire</LIEN>
-          <LIEN>akin�sie de le segment apical</LIEN>
-          <LIEN>akin�sie diaphragmatique</LIEN>
-          <LIEN>akin�sie inf�rieur</LIEN>
-          <LIEN>akin�sie lat�ral</LIEN>
-          <LIEN>akin�sie localis�</LIEN>
-          <LIEN>akin�sie post�rieur</LIEN>
-          <LIEN>akin�sie tout � fait localis�</LIEN>
-          <LIEN>akin�sie tr�s localis�</LIEN>
+          <LIEN>akinésie antérieur</LIEN>
+          <LIEN>akinésie antéro</LIEN>
+          <LIEN>akinésie apical</LIEN>
+          <LIEN>akinésie assez localisé</LIEN>
+          <LIEN>akinésie basal</LIEN>
+          <LIEN>akinésie de le apex</LIEN>
+          <LIEN>akinésie de le paroi ventriculaire</LIEN>
+          <LIEN>akinésie de le segment apical</LIEN>
+          <LIEN>akinésie diaphragmatique</LIEN>
+          <LIEN>akinésie inférieur</LIEN>
+          <LIEN>akinésie latéral</LIEN>
+          <LIEN>akinésie localisé</LIEN>
+          <LIEN>akinésie postérieur</LIEN>
+          <LIEN>akinésie tout à fait localisé</LIEN>
+          <LIEN>akinésie très localisé</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -3905,17 +3904,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie ant�rieur" validite = "Neutre"  id="208">
+<ENTREE  terme =  "akinésie antérieur" validite = "Neutre"  id="208">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie ant�rieur peu �tendu</LIEN>
+          <LIEN>akinésie antérieur peu étendu</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -3926,14 +3925,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie ant�rieur peu �tendu" validite = "Neutre"  id="209">
+<ENTREE  terme =  "akinésie antérieur peu étendu" validite = "Neutre"  id="209">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie ant�rieur</LIEN>
+          <LIEN>akinésie antérieur</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -3945,17 +3944,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie ant�ro" validite = "Neutre"  id="210">
+<ENTREE  terme =  "akinésie antéro" validite = "Neutre"  id="210">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie ant�ro lat�ral</LIEN>
+          <LIEN>akinésie antéro latéral</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -3966,17 +3965,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie ant�ro lat�ral" validite = "Neutre"  id="211">
+<ENTREE  terme =  "akinésie antéro latéral" validite = "Neutre"  id="211">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie ant�ro lat�ral de le ventricule gauche secondaire</LIEN>
+          <LIEN>akinésie antéro latéral de le ventricule gauche secondaire</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie ant�ro</LIEN>
+          <LIEN>akinésie antéro</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -3987,14 +3986,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie ant�ro lat�ral de le ventricule gauche secondaire" validite = "Neutre"  id="212">
+<ENTREE  terme =  "akinésie antéro latéral de le ventricule gauche secondaire" validite = "Neutre"  id="212">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie ant�ro lat�ral</LIEN>
+          <LIEN>akinésie antéro latéral</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4006,43 +4005,43 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie apical" validite = "Neutre"  id="213">
+<ENTREE  terme =  "akinésie apical" validite = "Neutre"  id="213">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie apical de le VD</LIEN>
-          <LIEN>akin�sie apical de le ventricule gauche tr�s franc</LIEN>
-          <LIEN>akin�sie apical net</LIEN>
+          <LIEN>akinésie apical de le VD</LIEN>
+          <LIEN>akinésie apical de le ventricule gauche très franc</LIEN>
+          <LIEN>akinésie apical net</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
    <RELATION nom="SPECIALISATION">
           <LIEN></LIEN>
-          <LIEN>akin�sie de le segment apical</LIEN>
+          <LIEN>akinésie de le segment apical</LIEN>
    </RELATION>
    <RELATION nom="DERIVES"  />
    <RELATION nom="AUTRE">
           <LIEN></LIEN>
-          <LIEN>akin�sie lat�ral et apical</LIEN>
+          <LIEN>akinésie latéral et apical</LIEN>
    </RELATION>
    <RENVOIS>
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie apical de le VD" validite = "Neutre"  id="214">
+<ENTREE  terme =  "akinésie apical de le VD" validite = "Neutre"  id="214">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie apical</LIEN>
+          <LIEN>akinésie apical</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4054,14 +4053,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie apical de le ventricule gauche tr�s franc" validite = "Neutre"  id="215">
+<ENTREE  terme =  "akinésie apical de le ventricule gauche très franc" validite = "Neutre"  id="215">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie apical</LIEN>
+          <LIEN>akinésie apical</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4073,14 +4072,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie apical net" validite = "Neutre"  id="216">
+<ENTREE  terme =  "akinésie apical net" validite = "Neutre"  id="216">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie apical</LIEN>
+          <LIEN>akinésie apical</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4092,17 +4091,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie assez localis�" validite = "Neutre"  id="217">
+<ENTREE  terme =  "akinésie assez localisé" validite = "Neutre"  id="217">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie assez localis� de le segment inf�rieur</LIEN>
+          <LIEN>akinésie assez localisé de le segment inférieur</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4113,14 +4112,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie assez localis� de le segment inf�rieur" validite = "Neutre"  id="218">
+<ENTREE  terme =  "akinésie assez localisé de le segment inférieur" validite = "Neutre"  id="218">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie assez localis�</LIEN>
+          <LIEN>akinésie assez localisé</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4132,17 +4131,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie basal" validite = "Neutre"  id="219">
+<ENTREE  terme =  "akinésie basal" validite = "Neutre"  id="219">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie basal et basal</LIEN>
+          <LIEN>akinésie basal et basal</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4153,14 +4152,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie basal et basal" validite = "Neutre"  id="220">
+<ENTREE  terme =  "akinésie basal et basal" validite = "Neutre"  id="220">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie basal</LIEN>
+          <LIEN>akinésie basal</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4172,14 +4171,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie de le apex" validite = "Neutre"  id="221">
+<ENTREE  terme =  "akinésie de le apex" validite = "Neutre"  id="221">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4191,14 +4190,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie de le paroi ventriculaire" validite = "Neutre"  id="222">
+<ENTREE  terme =  "akinésie de le paroi ventriculaire" validite = "Neutre"  id="222">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4210,20 +4209,20 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie de le segment apical" validite = "Neutre"  id="223">
+<ENTREE  terme =  "akinésie de le segment apical" validite = "Neutre"  id="223">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
    <RELATION nom="SPECIALISATION">
           <LIEN></LIEN>
-          <LIEN>akin�sie apical</LIEN>
+          <LIEN>akinésie apical</LIEN>
    </RELATION>
    <RELATION nom="DERIVES"  />
    <RELATION nom="AUTRE"  />
@@ -4232,14 +4231,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie diaphragmatique" validite = "Neutre"  id="224">
+<ENTREE  terme =  "akinésie diaphragmatique" validite = "Neutre"  id="224">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4252,17 +4251,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie inf�rieur" validite = "Neutre"  id="225">
+<ENTREE  terme =  "akinésie inférieur" validite = "Neutre"  id="225">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie inf�rieur localis�</LIEN>
+          <LIEN>akinésie inférieur localisé</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4273,14 +4272,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie inf�rieur localis�" validite = "Neutre"  id="226">
+<ENTREE  terme =  "akinésie inférieur localisé" validite = "Neutre"  id="226">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie inf�rieur</LIEN>
+          <LIEN>akinésie inférieur</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4292,19 +4291,19 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie lat�ral" validite = "Neutre"  id="227">
+<ENTREE  terme =  "akinésie latéral" validite = "Neutre"  id="227">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie lat�ral et apical</LIEN>
-          <LIEN>akin�sie lat�ral limit�</LIEN>
-          <LIEN>akin�sie lat�ral net</LIEN>
+          <LIEN>akinésie latéral et apical</LIEN>
+          <LIEN>akinésie latéral limité</LIEN>
+          <LIEN>akinésie latéral net</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4315,14 +4314,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie lat�ral et apical" validite = "Neutre"  id="228">
+<ENTREE  terme =  "akinésie latéral et apical" validite = "Neutre"  id="228">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie lat�ral</LIEN>
+          <LIEN>akinésie latéral</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4330,21 +4329,21 @@
    <RELATION nom="DERIVES"  />
    <RELATION nom="AUTRE">
           <LIEN></LIEN>
-          <LIEN>akin�sie apical</LIEN>
+          <LIEN>akinésie apical</LIEN>
    </RELATION>
    <RENVOIS>
           <LIEN>MO1_62-6</LIEN>
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie lat�ral limit�" validite = "Neutre"  id="229">
+<ENTREE  terme =  "akinésie latéral limité" validite = "Neutre"  id="229">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie lat�ral</LIEN>
+          <LIEN>akinésie latéral</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4356,14 +4355,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie lat�ral net" validite = "Neutre"  id="230">
+<ENTREE  terme =  "akinésie latéral net" validite = "Neutre"  id="230">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie lat�ral</LIEN>
+          <LIEN>akinésie latéral</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4375,17 +4374,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie localis�" validite = "Neutre"  id="231">
+<ENTREE  terme =  "akinésie localisé" validite = "Neutre"  id="231">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie localis� de le segment post�rieur de le bord inf�rieur</LIEN>
+          <LIEN>akinésie localisé de le segment postérieur de le bord inférieur</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4396,14 +4395,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie localis� de le segment post�rieur de le bord inf�rieur" validite = "Neutre"  id="232">
+<ENTREE  terme =  "akinésie localisé de le segment postérieur de le bord inférieur" validite = "Neutre"  id="232">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie localis�</LIEN>
+          <LIEN>akinésie localisé</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4415,14 +4414,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie post�rieur" validite = "Neutre"  id="233">
+<ENTREE  terme =  "akinésie postérieur" validite = "Neutre"  id="233">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4430,24 +4429,24 @@
    <RELATION nom="DERIVES"  />
    <RELATION nom="AUTRE">
           <LIEN></LIEN>
-          <LIEN>akin�sie inf�rieur et post�rieur</LIEN>
+          <LIEN>akinésie inférieur et postérieur</LIEN>
    </RELATION>
    <RENVOIS>
           <LIEN>MENSUITE_0_p1032-2</LIEN>
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie tout � fait localis�" validite = "Neutre"  id="234">
+<ENTREE  terme =  "akinésie tout à fait localisé" validite = "Neutre"  id="234">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie tout � fait localis� de le paroi apical</LIEN>
+          <LIEN>akinésie tout à fait localisé de le paroi apical</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4458,14 +4457,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie tout � fait localis� de le paroi apical" validite = "Neutre"  id="235">
+<ENTREE  terme =  "akinésie tout à fait localisé de le paroi apical" validite = "Neutre"  id="235">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie tout � fait localis�</LIEN>
+          <LIEN>akinésie tout à fait localisé</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4477,17 +4476,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie tr�s localis�" validite = "Neutre"  id="236">
+<ENTREE  terme =  "akinésie très localisé" validite = "Neutre"  id="236">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie tr�s localis� de le segment lat�ral</LIEN>
+          <LIEN>akinésie très localisé de le segment latéral</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4498,14 +4497,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�sie tr�s localis� de le segment lat�ral" validite = "Neutre"  id="237">
+<ENTREE  terme =  "akinésie très localisé de le segment latéral" validite = "Neutre"  id="237">
    <RELATION nom="Tete">
-          <LIEN>akin�sie</LIEN>
+          <LIEN>akinésie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>akin�sie tr�s localis�</LIEN>
+          <LIEN>akinésie très localisé</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4517,7 +4516,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "akin�tique" validite = "Neutre"  id="238">
+<ENTREE  terme =  "akinétique" validite = "Neutre"  id="238">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE"  />
@@ -4645,7 +4644,7 @@
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alimentation �quilibrer</LIEN>
+          <LIEN>alimentation équilibrer</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -4657,13 +4656,13 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alimentation �quilibrer" validite = "Neutre"  id="247">
+<ENTREE  terme =  "alimentation équilibrer" validite = "Neutre"  id="247">
    <RELATION nom="Tete">
           <LIEN>alimentation</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alimentation �quilibrer pauvre</LIEN>
+          <LIEN>alimentation équilibrer pauvre</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
@@ -4678,17 +4677,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alimentation �quilibrer pauvre" validite = "Neutre"  id="248">
+<ENTREE  terme =  "alimentation équilibrer pauvre" validite = "Neutre"  id="248">
    <RELATION nom="Tete">
           <LIEN>alimentation</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alimentation �quilibrer pauvre en graisse satur�</LIEN>
+          <LIEN>alimentation équilibrer pauvre en graisse saturé</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alimentation �quilibrer</LIEN>
+          <LIEN>alimentation équilibrer</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4699,14 +4698,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alimentation �quilibrer pauvre en graisse satur�" validite = "Neutre"  id="249">
+<ENTREE  terme =  "alimentation équilibrer pauvre en graisse saturé" validite = "Neutre"  id="249">
    <RELATION nom="Tete">
           <LIEN>alimentation</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alimentation �quilibrer pauvre</LIEN>
+          <LIEN>alimentation équilibrer pauvre</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -4775,7 +4774,7 @@
           <LIEN>allure coronarien</LIEN>
           <LIEN>allure identique</LIEN>
           <LIEN>allure malin</LIEN>
-          <LIEN>allure r�cent</LIEN>
+          <LIEN>allure récent</LIEN>
           <LIEN>allure sinemateria paroxystique</LIEN>
           <LIEN>allure thrombotique</LIEN>
           <LIEN>allure vagal</LIEN>
@@ -4842,8 +4841,8 @@
    <RELATION nom="SYNONYMIE">
           <LIEN></LIEN>
           <LIEN>aspect identique</LIEN>
-          <LIEN>m�me aspect</LIEN>
-          <LIEN>m�me fa�on</LIEN>
+          <LIEN>même aspect</LIEN>
+          <LIEN>même façon</LIEN>
    </RELATION>
    <RELATION nom="SPECIALISATION"  />
    <RELATION nom="DERIVES"  />
@@ -4872,7 +4871,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "allure r�cent" validite = "Neutre"  id="258">
+<ENTREE  terme =  "allure récent" validite = "Neutre"  id="258">
    <RELATION nom="Tete">
           <LIEN>allure</LIEN>
    </RELATION>
@@ -4884,7 +4883,7 @@
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE">
           <LIEN></LIEN>
-          <LIEN>caract�re r�cent</LIEN>
+          <LIEN>caractère récent</LIEN>
    </RELATION>
    <RELATION nom="SPECIALISATION"  />
    <RELATION nom="DERIVES"  />
@@ -4972,11 +4971,11 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "all�gement" validite = "Neutre"  id="263">
+<ENTREE  terme =  "allègement" validite = "Neutre"  id="263">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>all�gement de le th�rapeutique</LIEN>
+          <LIEN>allègement de le thérapeutique</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -4988,14 +4987,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "all�gement de le th�rapeutique" validite = "Neutre"  id="264">
+<ENTREE  terme =  "allègement de le thérapeutique" validite = "Neutre"  id="264">
    <RELATION nom="Tete">
-          <LIEN>all�gement</LIEN>
+          <LIEN>allègement</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>all�gement</LIEN>
+          <LIEN>allègement</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5007,11 +5006,11 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alop�cie" validite = "Neutre"  id="265">
+<ENTREE  terme =  "alopécie" validite = "Neutre"  id="265">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alop�cie partiel</LIEN>
+          <LIEN>alopécie partiel</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -5023,14 +5022,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alop�cie partiel" validite = "Neutre"  id="266">
+<ENTREE  terme =  "alopécie partiel" validite = "Neutre"  id="266">
    <RELATION nom="Tete">
-          <LIEN>alop�cie</LIEN>
+          <LIEN>alopécie</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alop�cie</LIEN>
+          <LIEN>alopécie</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5042,25 +5041,25 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration" validite = "Neutre"  id="267">
+<ENTREE  terme =  "altération" validite = "Neutre"  id="267">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration assez important</LIEN>
-          <LIEN>alt�ration de le contractilit� global</LIEN>
-          <LIEN>alt�ration de le fonction ventriculaire gauche</LIEN>
-          <LIEN>alt�ration de le fraction de �jection</LIEN>
-          <LIEN>alt�ration de le tension art�rielle</LIEN>
-          <LIEN>alt�ration de le �lectrocardiogramme</LIEN>
-          <LIEN>alt�ration de le �tat g�n�ral</LIEN>
-          <LIEN>alt�ration important</LIEN>
-          <LIEN>alt�ration marqu�</LIEN>
-          <LIEN>alt�ration mod�r�</LIEN>
-          <LIEN>alt�ration pari�tal</LIEN>
-          <LIEN>alt�ration significatif</LIEN>
-          <LIEN>alt�ration s�v�re</LIEN>
-          <LIEN>alt�ration typique</LIEN>
-          <LIEN>alt�ration �lectrocardiographiques</LIEN>
+          <LIEN>altération assez important</LIEN>
+          <LIEN>altération de le contractilité global</LIEN>
+          <LIEN>altération de le fonction ventriculaire gauche</LIEN>
+          <LIEN>altération de le fraction de éjection</LIEN>
+          <LIEN>altération de le tension artérielle</LIEN>
+          <LIEN>altération de le électrocardiogramme</LIEN>
+          <LIEN>altération de le état général</LIEN>
+          <LIEN>altération important</LIEN>
+          <LIEN>altération marqué</LIEN>
+          <LIEN>altération modéré</LIEN>
+          <LIEN>altération pariétal</LIEN>
+          <LIEN>altération significatif</LIEN>
+          <LIEN>altération sévère</LIEN>
+          <LIEN>altération typique</LIEN>
+          <LIEN>altération électrocardiographiques</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -5072,17 +5071,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration assez important" validite = "Neutre"  id="268">
+<ENTREE  terme =  "altération assez important" validite = "Neutre"  id="268">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration assez important de le fonction ventriculaire gauche</LIEN>
+          <LIEN>altération assez important de le fonction ventriculaire gauche</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
           <LIEN></LIEN>
@@ -5091,7 +5090,7 @@
    <RELATION nom="SYNONYMIE"  />
    <RELATION nom="SPECIALISATION">
           <LIEN></LIEN>
-          <LIEN>alt�ration important</LIEN>
+          <LIEN>altération important</LIEN>
    </RELATION>
    <RELATION nom="DERIVES"  />
    <RELATION nom="AUTRE"  />
@@ -5099,14 +5098,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration assez important de le fonction ventriculaire gauche" validite = "Neutre"  id="269">
+<ENTREE  terme =  "altération assez important de le fonction ventriculaire gauche" validite = "Neutre"  id="269">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration assez important</LIEN>
+          <LIEN>altération assez important</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5118,14 +5117,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration de le contractilit� global" validite = "Neutre"  id="270">
+<ENTREE  terme =  "altération de le contractilité global" validite = "Neutre"  id="270">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5137,14 +5136,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration de le fonction ventriculaire gauche" validite = "Neutre"  id="271">
+<ENTREE  terme =  "altération de le fonction ventriculaire gauche" validite = "Neutre"  id="271">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5158,9 +5157,9 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration de le fonction VG" validite = "Neutre"  id="272">
+<ENTREE  terme =  "altération de le fonction VG" validite = "Neutre"  id="272">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE"  />
@@ -5174,14 +5173,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration de le fraction de �jection" validite = "Neutre"  id="273">
+<ENTREE  terme =  "altération de le fraction de éjection" validite = "Neutre"  id="273">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5193,14 +5192,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration de le tension art�rielle" validite = "Neutre"  id="274">
+<ENTREE  terme =  "altération de le tension artérielle" validite = "Neutre"  id="274">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5212,19 +5211,19 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration de le �lectrocardiogramme" validite = "Neutre"  id="275">
+<ENTREE  terme =  "altération de le électrocardiogramme" validite = "Neutre"  id="275">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
           <LIEN></LIEN>
-          <LIEN>modification sur le �lectrocardiogramme</LIEN>
-          <LIEN>modification sur le �lectrocardiogramme</LIEN>
+          <LIEN>modification sur le électrocardiogramme</LIEN>
+          <LIEN>modification sur le électrocardiogramme</LIEN>
    </RELATION>
    <RELATION nom="SYNONYMIE"  />
    <RELATION nom="SPECIALISATION"  />
@@ -5235,14 +5234,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration de le �tat g�n�ral" validite = "Neutre"  id="276">
+<ENTREE  terme =  "altération de le état général" validite = "Neutre"  id="276">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5254,24 +5253,24 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration important" validite = "Neutre"  id="277">
+<ENTREE  terme =  "altération important" validite = "Neutre"  id="277">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration important de le Fe</LIEN>
-          <LIEN>alt�ration important de le fonction ventriculaire gauche</LIEN>
+          <LIEN>altération important de le Fe</LIEN>
+          <LIEN>altération important de le fonction ventriculaire gauche</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
           <LIEN></LIEN>
           <LIEN>modification important</LIEN>
           <LIEN>modification important</LIEN>
-          <LIEN>alt�ration pari�tal majeur</LIEN>
+          <LIEN>altération pariétal majeur</LIEN>
    </RELATION>
    <RELATION nom="SYNONYMIE">
           <LIEN></LIEN>
@@ -5279,7 +5278,7 @@
    </RELATION>
    <RELATION nom="SPECIALISATION">
           <LIEN></LIEN>
-          <LIEN>alt�ration assez important</LIEN>
+          <LIEN>altération assez important</LIEN>
    </RELATION>
    <RELATION nom="DERIVES"  />
    <RELATION nom="AUTRE"  />
@@ -5287,14 +5286,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration important de le Fe" validite = "Neutre"  id="278">
+<ENTREE  terme =  "altération important de le Fe" validite = "Neutre"  id="278">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration important</LIEN>
+          <LIEN>altération important</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5306,14 +5305,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration important de le fonction ventriculaire gauche" validite = "Neutre"  id="279">
+<ENTREE  terme =  "altération important de le fonction ventriculaire gauche" validite = "Neutre"  id="279">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration important</LIEN>
+          <LIEN>altération important</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5325,17 +5324,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration marqu�" validite = "Neutre"  id="280">
+<ENTREE  terme =  "altération marqué" validite = "Neutre"  id="280">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration marqu� de le fonction ventriculaire gauche</LIEN>
+          <LIEN>altération marqué de le fonction ventriculaire gauche</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5346,14 +5345,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration marqu� de le fonction ventriculaire gauche" validite = "Neutre"  id="281">
+<ENTREE  terme =  "altération marqué de le fonction ventriculaire gauche" validite = "Neutre"  id="281">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration marqu�</LIEN>
+          <LIEN>altération marqué</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5366,17 +5365,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration mod�r�" validite = "Neutre"  id="282">
+<ENTREE  terme =  "altération modéré" validite = "Neutre"  id="282">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration mod�r� de le fonction ventriculaire gauche</LIEN>
+          <LIEN>altération modéré de le fonction ventriculaire gauche</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5387,14 +5386,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration mod�r� de le fonction ventriculaire gauche" validite = "Neutre"  id="283">
+<ENTREE  terme =  "altération modéré de le fonction ventriculaire gauche" validite = "Neutre"  id="283">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration mod�r�</LIEN>
+          <LIEN>altération modéré</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5406,17 +5405,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration pari�tal" validite = "Neutre"  id="284">
+<ENTREE  terme =  "altération pariétal" validite = "Neutre"  id="284">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration pari�tal majeur</LIEN>
+          <LIEN>altération pariétal majeur</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5427,18 +5426,18 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration pari�tal majeur" validite = "Neutre"  id="285">
+<ENTREE  terme =  "altération pariétal majeur" validite = "Neutre"  id="285">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration pari�tal</LIEN>
+          <LIEN>altération pariétal</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
           <LIEN></LIEN>
-          <LIEN>alt�ration important</LIEN>
+          <LIEN>altération important</LIEN>
           <LIEN>modification majeur</LIEN>
    </RELATION>
    <RELATION nom="SYNONYMIE"  />
@@ -5450,23 +5449,23 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration significatif" validite = "Neutre"  id="286">
+<ENTREE  terme =  "altération significatif" validite = "Neutre"  id="286">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration significatif de le fraction de �jection global</LIEN>
+          <LIEN>altération significatif de le fraction de éjection global</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
           <LIEN></LIEN>
           <LIEN>modification significatif</LIEN>
           <LIEN>modification significatif</LIEN>
-          <LIEN>alt�ration typique</LIEN>
+          <LIEN>altération typique</LIEN>
    </RELATION>
    <RELATION nom="SYNONYMIE">
           <LIEN></LIEN>
@@ -5480,14 +5479,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration significatif de le fraction de �jection global" validite = "Neutre"  id="287">
+<ENTREE  terme =  "altération significatif de le fraction de éjection global" validite = "Neutre"  id="287">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration significatif</LIEN>
+          <LIEN>altération significatif</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5499,17 +5498,17 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration s�v�re" validite = "Neutre"  id="288">
+<ENTREE  terme =  "altération sévère" validite = "Neutre"  id="288">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration s�v�re de le fonction ventriculaire gauche</LIEN>
+          <LIEN>altération sévère de le fonction ventriculaire gauche</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5520,14 +5519,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration s�v�re de le fonction ventriculaire gauche" validite = "Neutre"  id="289">
+<ENTREE  terme =  "altération sévère de le fonction ventriculaire gauche" validite = "Neutre"  id="289">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration s�v�re</LIEN>
+          <LIEN>altération sévère</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5539,25 +5538,25 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration typique" validite = "Neutre"  id="290">
+<ENTREE  terme =  "altération typique" validite = "Neutre"  id="290">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration typique de le segment St de le �lectrocardiogramme</LIEN>
+          <LIEN>altération typique de le segment St de le électrocardiogramme</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
           <LIEN></LIEN>
-          <LIEN>alt�ration significatif</LIEN>
+          <LIEN>altération significatif</LIEN>
    </RELATION>
    <RELATION nom="SYNONYMIE">
           <LIEN></LIEN>
-          <LIEN>trouble sp�cifique</LIEN>
+          <LIEN>trouble spécifique</LIEN>
    </RELATION>
    <RELATION nom="SPECIALISATION"  />
    <RELATION nom="DERIVES"  />
@@ -5566,14 +5565,14 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration typique de le segment St de le �lectrocardiogramme" validite = "Neutre"  id="291">
+<ENTREE  terme =  "altération typique de le segment St de le électrocardiogramme" validite = "Neutre"  id="291">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration typique</LIEN>
+          <LIEN>altération typique</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
@@ -5585,19 +5584,19 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�ration �lectrocardiographiques" validite = "Neutre"  id="292">
+<ENTREE  terme =  "altération électrocardiographiques" validite = "Neutre"  id="292">
    <RELATION nom="Tete">
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE">
           <LIEN></LIEN>
-          <LIEN>alt�ration</LIEN>
+          <LIEN>altération</LIEN>
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE">
           <LIEN></LIEN>
-          <LIEN>anomalie �lectrocardiographiques</LIEN>
+          <LIEN>anomalie électrocardiographiques</LIEN>
    </RELATION>
    <RELATION nom="SPECIALISATION"  />
    <RELATION nom="DERIVES"  />
@@ -5607,7 +5606,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "alt�re" validite = "Neutre"  id="293">
+<ENTREE  terme =  "altére" validite = "Neutre"  id="293">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE"  />
    <RELATION nom="MERONYMIE"  />
@@ -5625,7 +5624,7 @@
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>amaigrissement r�cent</LIEN>
+          <LIEN>amaigrissement récent</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -5637,7 +5636,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "amaigrissement r�cent" validite = "Neutre"  id="295">
+<ENTREE  terme =  "amaigrissement récent" validite = "Neutre"  id="295">
    <RELATION nom="Tete">
           <LIEN>amaigrissement</LIEN>
    </RELATION>
@@ -5709,7 +5708,7 @@
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE">
           <LIEN></LIEN>
-          <LIEN>amolioration de le manifestation dyspn�ique</LIEN>
+          <LIEN>amolioration de le manifestation dyspnéique</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -5721,7 +5720,7 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "amolioration de le manifestation dyspn�ique" validite = "Neutre"  id="300">
+<ENTREE  terme =  "amolioration de le manifestation dyspnéique" validite = "Neutre"  id="300">
    <RELATION nom="Tete">
           <LIEN>amolioration</LIEN>
    </RELATION>
@@ -5743,38 +5742,38 @@
 <ENTREE  terme="Terme11" validite="Neutre" id="301">
    <RELATION nom="Tete"/>
    <RELATION nom="HYPERONYMIE">
-
+        
 <LIEN>Terme42</LIEN>
-<LIEN>Terme72</LIEN>
+<LIEN>Terme72</LIEN> 
 <LIEN>Terme152</LIEN>
 <LIEN>Terme162</LIEN>
-
+   		
    </RELATION>
    <RELATION nom="MERONYMIE">
 <LIEN>TermeM42</LIEN>
-<LIEN>TermeM72</LIEN>
+<LIEN>TermeM72</LIEN> 
 <LIEN>TermeM152</LIEN>
 <LIEN>TermeM162</LIEN>
-
+   		
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
 <LIEN>TermeV42</LIEN>
-<LIEN>TermeV72</LIEN>
+<LIEN>TermeV72</LIEN> 
 
-
+   		
    </RELATION>
    <RELATION nom="SYNONYMIE">
-<LIEN>TermeS72</LIEN>
+<LIEN>TermeS72</LIEN> 
 <LIEN>TermeS152</LIEN>
 <LIEN>TermeS162</LIEN>
-
+   		
    </RELATION>
    <RELATION nom="SPECIALISATION">
 <LIEN>TermeSP42</LIEN>
-<LIEN>TermeSP72</LIEN>
+<LIEN>TermeSP72</LIEN> 
 <LIEN>TermeSP152</LIEN>
 <LIEN>TermeSP162</LIEN>
-
+   		
    </RELATION>
    <RELATION nom="DERIVES"/>
    <RELATION nom="AUTRE"/>
@@ -5784,38 +5783,38 @@
 <ENTREE  terme="Terme42" validite="Neutre" id="302">
    <RELATION nom="Tete"/>
    <RELATION nom="HYPERONYMIE">
-
+        
 <LIEN>Terme34</LIEN>
-<LIEN>Terme43</LIEN>
+<LIEN>Terme43</LIEN> 
 <LIEN>Terme52</LIEN>
 <LIEN>Terme62</LIEN>
-
+   		
    </RELATION>
    <RELATION nom="MERONYMIE">
 <LIEN>TermeM41</LIEN>
-<LIEN>TermeM72</LIEN>
+<LIEN>TermeM72</LIEN> 
 <LIEN>TermeM150</LIEN>
 <LIEN>TermeM165</LIEN>
-
+   		
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
 <LIEN>TermeV42</LIEN>
-<LIEN>TermeV72</LIEN>
+<LIEN>TermeV72</LIEN> 
 
-
+   		
    </RELATION>
    <RELATION nom="SYNONYMIE">
-<LIEN>TermeS72</LIEN>
+<LIEN>TermeS72</LIEN> 
 <LIEN>TermeS152</LIEN>
 <LIEN>TermeS162</LIEN>
-
+   		
    </RELATION>
    <RELATION nom="SPECIALISATION">
 <LIEN>TermeSP42</LIEN>
-<LIEN>TermeSP72</LIEN>
+<LIEN>TermeSP72</LIEN> 
 <LIEN>TermeSP152</LIEN>
 <LIEN>TermeSP162</LIEN>
-
+   		
    </RELATION>
    <RELATION nom="DERIVES"/>
    <RELATION nom="AUTRE"/>
@@ -5828,38 +5827,38 @@
 <ENTREE terme="Terme34" validite="Neutre" id="303">
    <RELATION nom="Tete"/>
    <RELATION nom="HYPERONYMIE">
-
+        
 <LIEN>Terme38</LIEN>
-<LIEN>Terme45</LIEN>
+<LIEN>Terme45</LIEN> 
 <LIEN>Terme52</LIEN>
 <LIEN>Terme62</LIEN>
-
+   		
    </RELATION>
    <RELATION nom="MERONYMIE">
 <LIEN>TermeM41</LIEN>
-<LIEN>TermeM72</LIEN>
+<LIEN>TermeM72</LIEN> 
 <LIEN>TermeM150</LIEN>
 <LIEN>TermeM165</LIEN>
-
+   		
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
 <LIEN>TermeV42</LIEN>
-<LIEN>TermeV72</LIEN>
+<LIEN>TermeV72</LIEN> 
 
-
+   		
    </RELATION>
    <RELATION nom="SYNONYMIE">
-<LIEN>TermeS72</LIEN>
+<LIEN>TermeS72</LIEN> 
 <LIEN>TermeS152</LIEN>
 <LIEN>TermeS162</LIEN>
-
+   		
    </RELATION>
    <RELATION nom="SPECIALISATION">
 <LIEN>TermeSP42</LIEN>
-<LIEN>TermeSP72</LIEN>
+<LIEN>TermeSP72</LIEN> 
 <LIEN>TermeSP152</LIEN>
 <LIEN>TermeSP162</LIEN>
-
+   		
    </RELATION>
    <RELATION nom="DERIVES"/>
    <RELATION nom="AUTRE"/>
@@ -6186,4 +6185,8 @@
      </RENVOIS>
  </ENTREE>
 
+
+
+
 </IndexSource>
+
