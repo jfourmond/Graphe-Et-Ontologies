@@ -291,7 +291,7 @@ public class TreeOntology {
 	public String info() {
 		String ch = "Sommets (" + vertices.size() + ") : \n";
 		for(VertexOntology vertex : vertices) {
-			ch += "\t" + vertex.briefData();
+			ch += "\t" + vertex.briefData() + "\n";
 		}
 		ch += "Relations (" + relations.size() + ") : \n";
 		Set<String> relationSet = relations.keySet();

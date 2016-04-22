@@ -79,7 +79,8 @@ public class VertexOntology implements Vertex {
 
 	@Override
 	public String briefData() {
-		return this.ID;
+		String terme = get("terme");
+		return terme;
 	}
 	
 	@Override
@@ -87,7 +88,9 @@ public class VertexOntology implements Vertex {
 		String ch = "ID : " + ID + "\n";
 		Set<Entry<String, String>> attributes = this.attributes.entrySet();
 		for(Entry<String, String> attribute : attributes) {
-			ch += "\t" + attribute.getKey() + " = " + attribute.getValue() + "\n";
+			String readAttribute = attribute.getKey();
+			readAttribute = readAttribute.substring(0, 1).toUpperCase() + readAttribute.substring(1);
+			ch += "\t" + readAttribute + " = " + attribute.getValue() + "\n";
 		}
 		return ch;
 	}
