@@ -279,8 +279,11 @@ public class TreeOntology {
 			relationVertices = relations.get(relation);
 			for(Pair<String, String> vertices : relationVertices) {
 				String second = vertices.getSecond();
-				if(!isID(second))
-					vertices.setSecond(getVertexID(second));
+				if(!isID(second)) {
+					String vertexID = getVertexID(second);
+					if(vertexID != null)
+						vertices.setSecond(vertexID);
+				}
 			}
 		}
 	}

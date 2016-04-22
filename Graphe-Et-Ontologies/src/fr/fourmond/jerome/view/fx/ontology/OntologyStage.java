@@ -89,7 +89,7 @@ public class OntologyStage extends Stage {
 			menu_view = new Menu("Affichage");
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
 		
-		ontologyView = new OntologyFxView(ontology);
+		ontologyView = new OntologyFxView(this.ontology);
 		
 		ontologyView.setTop(menuBar);
 		

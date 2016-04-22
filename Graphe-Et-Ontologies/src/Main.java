@@ -7,7 +7,7 @@ public class Main {
 		TreeOntology tree = new TreeOntology();
 		
 		try {
-			tree.readFromFile("../Ontologies/Villes.xml");
+			tree.readFromFile("../Ontologies/Index327.xml");
 		} catch(TreeOntologyException E) {
 			E.printStackTrace();
 		}
