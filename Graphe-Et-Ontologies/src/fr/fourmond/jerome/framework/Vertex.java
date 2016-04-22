@@ -16,7 +16,9 @@ public class Vertex {
 	private Map<String, String> attributes;
 	
 	//	CONSTRUCTEURS
-	public Vertex(String ID) {
+	public Vertex(String ID) throws VertexException {
+		if(ID == null || ID.isEmpty())
+			throw new VertexException("Aucun ID spécifié.");
 		this.ID = ID;
 		attributes = new HashMap<>();
 	}

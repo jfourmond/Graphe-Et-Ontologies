@@ -13,7 +13,9 @@ public class Relation {
 	private List<Pair<Vertex, Vertex>> pairs;
 	
 	//	CONSTRUCTEURS
-	public Relation(String name) {
+	public Relation(String name) throws RelationException {
+		if(name == null || name.isEmpty())
+			throw new RelationException("Aucune nom spécifié.");
 		this.name = name;
 		this.pairs = new ArrayList<>();
 	}
