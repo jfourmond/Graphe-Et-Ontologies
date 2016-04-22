@@ -1,7 +1,7 @@
 package fr.fourmond.jerome.framework;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * {@link Relation} représente une relation.
@@ -10,31 +10,31 @@ import java.util.TreeSet;
  */
 public class Relation {
 	private String name;
-	private Set<Pair<Vertex, Vertex>> pairs;
+	private List<Pair<Vertex, Vertex>> pairs;
 	
 	//	CONSTRUCTEURS
 	public Relation(String name) {
 		this.name = name;
-		this.pairs = new TreeSet<>();
+		this.pairs = new ArrayList<>();
 	}
 	
 	//	GETTERS
 	public String getName() { return name; }
 	
-	public Set<Pair<Vertex, Vertex>> getPairs() { return pairs; }
+	public List<Pair<Vertex, Vertex>> getPairs() { return pairs; }
 	
 	//	SETTERS
 	public void setName(String name) { this.name = name; }
 	
-	public void setPairs(Set<Pair<Vertex, Vertex>> pairs) { this.pairs = pairs; }
+	public void setPairs(List<Pair<Vertex, Vertex>> pairs) { this.pairs = pairs; }
 	
 	//	METHODES
 	/**
 	 * Ajoute une paire
 	 * @param pair : paire à ajouter
-	 * @throws RelationException si la pair existe déjà dans la relation
+	 * @throws RelationException si la pair, dans cet ordre précis, existe déjà dans la relation
 	 */
-	public void addPair(Pair<Vertex, Vertex> pair) throws RelationException {
+	public void add(Pair<Vertex, Vertex> pair) throws RelationException {
 		boolean b = pairs.add(pair);
 		if(!b) throw new RelationException("La pair existe déjà.");
 	}
