@@ -5,8 +5,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+/**
+ * {@link Vertex} représente un sommet.
+ * Il est composé d'un ID, un {@link String},
+ * et d'une {@link Map} associant attributs et valeurs
+ * @author jfourmond
+ */
 public class Vertex {
-	
 	private String ID;
 	private Map<String, String> attributes;
 	
