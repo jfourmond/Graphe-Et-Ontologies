@@ -19,13 +19,10 @@ public class TestPair {
 			private static String setSecondValue="Second";
 	
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		pair = new Pair<>();
-	}
+	public static void setUpBeforeClass() throws Exception { }
 
 	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+	public static void tearDownAfterClass() throws Exception { }
 
 	@Before
 	public void setUp() throws Exception {
@@ -33,8 +30,7 @@ public class TestPair {
 	}
 
 	@After
-	public void tearDown() throws Exception {
-	}
+	public void tearDown() throws Exception { }
 
 	@Test
 	public void testPair() {

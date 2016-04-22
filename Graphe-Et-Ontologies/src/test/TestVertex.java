@@ -15,10 +15,6 @@ import org.junit.Test;
 import fr.fourmond.jerome.framework.Vertex;
 import fr.fourmond.jerome.framework.VertexException;
 
-/**
- * @author Jérôme
- *
- */
 public class TestVertex {
 
 	private static Vertex vertex;
@@ -28,56 +24,31 @@ public class TestVertex {
 			private static String setNameValue="Vertex";
 		private static String age="age";
 		
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		vertex = new Vertex(ID);
 		vertex.add(name);
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+	public static void tearDownAfterClass() throws Exception { }
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Before
-	public void setUp() throws Exception {
-		vertex.set(name, nameValue);
-	}
+	public void setUp() throws Exception { vertex.set(name, nameValue); }
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@After
-	public void tearDown() throws Exception {
-	}
+	public void tearDown() throws Exception {}
 
-	/**
-	 * Test method for {@link fr.fourmond.jerome.framework.Vertex#Vertex(java.lang.String)}.
-	 */
 	@Test
 	public void testVertex() {
 		assertEquals("L'ID est incorrect.", ID, vertex.getID());
 	}
 
-	/**
-	 * Test method for {@link fr.fourmond.jerome.framework.Vertex#get(java.lang.String)}.
-	 */
 	@Test
 	public void testGet() {
 		assertEquals("L'attribut " + name + " est incorrect.", nameValue, vertex.get(name));
 	}
 
-	/**
-	 * Test method for {@link fr.fourmond.jerome.framework.Vertex#set(java.lang.String, java.lang.String)}.
-	 */
 	@Test
 	public void testSet() {
 		try {
@@ -89,17 +60,11 @@ public class TestVertex {
 		}
 	}
 
-	/**
-	 * Test method for {@link fr.fourmond.jerome.framework.Vertex#containsAttribute(java.lang.String)}.
-	 */
 	@Test
 	public void testContainsAttribute() {
 		assertTrue(vertex.containsAttribute(name));
 	}
 
-	/**
-	 * Test method for {@link fr.fourmond.jerome.framework.Vertex#add(java.lang.String)}.
-	 */
 	@Test
 	public void testAdd() {
 		try {
@@ -111,17 +76,11 @@ public class TestVertex {
 		}
 	}
 
-	/**
-	 * Test method for {@link fr.fourmond.jerome.framework.Vertex#isValueOfAttribute(java.lang.String)}.
-	 */
 	@Test
 	public void testIsValueOfAttribute() {
 		assertTrue(vertex.isValueOfAttribute(nameValue));
 	}
 
-	/**
-	 * Test method for {@link fr.fourmond.jerome.framework.Vertex#equals(java.lang.Object)}.
-	 */
 	@Test
 	public void testEqualsObject() {
 		try {
