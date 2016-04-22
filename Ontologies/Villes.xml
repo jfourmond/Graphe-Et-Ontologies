@@ -3,23 +3,26 @@
 <!DOCTYPE IndexSource SYSTEM "villes.dtd" >
 
 <IndexSource>
-	<ENTREE  id="1" terme="Maine-Et-Loire">
-   		<RELATION nom="est département de">
-			<LIEN>Cholet</LIEN>
-			<LIEN>Chemillé</LIEN>
+	<ENTREE id="1" terme="Pays-De-La-Loire">
+		<RELATION nom="appartient à la région" />
+		<RELATION nom="appartient au département du" />
+	</ENTREE>
+
+	<ENTREE  id="2" terme="Maine-Et-Loire">
+		<RELATION nom="appartient à la région">
+			<LIEN>1</LIEN>
 		</RELATION>
 		<RELATION nom="appartient au département du" />
 	</ENTREE>
 
-	<ENTREE  id="2" terme="Pays-De-La-Loire">
-   		<RELATION nom="est département de">
-			<LIEN>Nantes</LIEN>
+	<ENTREE id="3" terme="Loire-Atlantique">
+		<RELATION nom="appartient à la région">
+			<LIEN>1</LIEN>
 		</RELATION>
 		<RELATION nom="appartient au département du" />
 	</ENTREE>
 
-	<ENTREE id="3" terme="Cholet" code-postal="49300" population="56761" superficie="87.47">
-		<RELATION nom="est département de"  />
+	<ENTREE id="4" terme="Cholet" code-postal="49300" population="56761" superficie="87.47">
 		<RELATION nom="appartient au département du">
 			<LIEN>Maine-Et-Loire</LIEN>
 		</RELATION>
@@ -28,8 +31,7 @@
 		</RELATION>
 	</ENTREE>
 
-	<ENTREE id="4" terme="Chemillé" code-postal="49120" population="7028" superficie="71.09">
-		<RELATION nom="est département de"  />
+	<ENTREE id="5" terme="Chemillé" code-postal="49120" population="7028" superficie="71.09">
 		<RELATION nom="appartient au département du">
 			<LIEN>Maine-Et-Loire</LIEN>
 		</RELATION>
@@ -38,10 +40,9 @@
 		</RELATION>
 	</ENTREE>
 
-	<ENTREE id="5" terme="Nantes" code-postal="44000" population="147571" superficie="65.19">
-		<RELATION nom="est département de"  />
+	<ENTREE id="6" terme="Nantes" code-postal="44000" population="147571" superficie="65.19">
 		<RELATION nom="appartient au département du" >
-			<LIEN>Pays-De-La-Loire</LIEN>
+			<LIEN>Loire-Atlantique</LIEN>
 		</RELATION>
 		<RELATION nom="a proximite de" />
 	</ENTREE>
