@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 
 /**
  * {@link Vertex} représente un sommet.
- * Il est composé d'un ID, un {@link String},
+ * Il est composé d'un ID, un {@link String}, devant être unique
  * et d'une {@link Map} associant attributs et valeurs
  * @author jfourmond
  */
@@ -91,5 +91,15 @@ public class Vertex {
 			ch += "\t" + readAttribute + " = " + attribute.getValue() + "\n";
 		}
 		return ch;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (getClass() != obj.getClass())
+			return false;
+		else {
+			Vertex vertex = (Vertex) obj;
+			return this.ID.equals(vertex.ID);
+		}
 	}
 }
