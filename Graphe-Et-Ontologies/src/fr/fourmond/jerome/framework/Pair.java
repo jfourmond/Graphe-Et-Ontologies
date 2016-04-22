@@ -31,4 +31,14 @@ public class Pair<T_First, T_Second> {
 	
 	@Override
 	public String toString() { return "( " + first + " , " + second + " )"; }
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (getClass() != obj.getClass())
+			return false;
+		else {
+			Pair<T_First, T_Second> pair = (Pair<T_First, T_Second>) obj;
+			return (first.equals(pair.first) && second.equals(pair.second));
+		}
+	}
 }
