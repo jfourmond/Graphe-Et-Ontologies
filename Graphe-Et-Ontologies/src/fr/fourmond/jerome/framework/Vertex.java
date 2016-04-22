@@ -19,8 +19,10 @@ public class Vertex {
 	public Vertex(String ID) throws VertexException {
 		if(ID == null || ID.isEmpty())
 			throw new VertexException("Aucun ID spécifié.");
-		this.ID = ID;
-		attributes = new HashMap<>();
+		else {
+			this.ID = ID;
+			attributes = new HashMap<>();
+		}
 	}
 	
 	//	GETTERS
@@ -29,7 +31,12 @@ public class Vertex {
 	public Map<String, String> getAttributes() { return attributes; }
 	
 	//	SETTERS
-	public void setID(String iD) { ID = iD; }
+	public void setID(String iD) throws VertexException {
+		if(iD == null || iD.isEmpty())
+			throw new VertexException("Aucun ID spécifié");
+		else 
+			ID = iD;
+	}
 	
 	public void setAttributes(Map<String, String> attributes) { this.attributes = attributes; }
 	

@@ -26,7 +26,11 @@ public class Relation {
 	public List<Pair<Vertex, Vertex>> getPairs() { return pairs; }
 	
 	//	SETTERS
-	public void setName(String name) { this.name = name; }
+	public void setName(String name) throws RelationException {
+		if(name == null || name.isEmpty())
+			throw new RelationException("Aucun nom spécifié.");
+		else this.name = name;
+	}
 	
 	public void setPairs(List<Pair<Vertex, Vertex>> pairs) { this.pairs = pairs; }
 	
