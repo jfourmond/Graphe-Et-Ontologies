@@ -57,6 +57,8 @@ private final double SCALE_DELTA = 1.1;
 		buildInterface();
 		
 		addEvents();
+		
+		setMinSize(800, 400);
 	}
 	
 	private void buildComposants() {
