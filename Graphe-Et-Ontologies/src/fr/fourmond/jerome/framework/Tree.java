@@ -18,6 +18,12 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+/**
+ * {@link Tree} représente un arbre/graphe (non orienté).
+ * Il est composé d'une {@link List} de {@link Vertex}, 
+ * et d'une {@link List} de {@link Relation}.
+ * @author jfourmond
+ */
 public class Tree implements ErrorHandler {
 	private static final String ENTREE = "ENTREE";
 		private static final String ID = "id";
@@ -214,6 +220,16 @@ public class Tree implements ErrorHandler {
 		} else throw new TreeException("La relation n'existe pas.");
 	}
 	
+	/**
+	 * Lecture d'un fichier XML pour construire un arbre
+	 * @param filename : chemin vers le fichier XML
+	 * @throws TreeException
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws RelationException
+	 * @throws VertexException
+	 */
 	public void readFromFile(String filename) throws TreeException, ParserConfigurationException, SAXException, IOException, RelationException, VertexException {
 		vertices.clear();
 		relations.clear();
