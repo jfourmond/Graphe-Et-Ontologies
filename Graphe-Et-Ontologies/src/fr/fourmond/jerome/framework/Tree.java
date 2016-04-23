@@ -310,7 +310,6 @@ public class Tree implements ErrorHandler {
 		}
 	}
 	
-	
 	@Override
 	public String toString() {
 		String ch = "Sommets (" + vertices.size() + ") : \n";
