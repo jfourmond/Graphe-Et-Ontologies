@@ -1,4 +1,4 @@
-package fr.fourmond.jerome.view.fx.ontology;
+package fr.fourmond.jerome.view;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,10 +10,9 @@ import java.util.Set;
 import fr.fourmond.jerome.framework.ColorDistribution;
 import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Placement;
-import fr.fourmond.jerome.ontology.TreeOntology;
-import fr.fourmond.jerome.ontology.VertexOntology;
-import fr.fourmond.jerome.view.fx.VertexFxList;
-import fr.fourmond.jerome.view.fx.VertexFxView;
+import fr.fourmond.jerome.framework.Relation;
+import fr.fourmond.jerome.framework.Tree;
+import fr.fourmond.jerome.framework.Vertex;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -31,28 +30,28 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
-public class OntologyFxView extends BorderPane {
-	private final double SCALE_DELTA = 1.1;
+public class TreeView extends BorderPane {
+private final double SCALE_DELTA = 1.1;
 	
 	private Placement placement;
 	private ColorDistribution colorDistribution;
 	
-	private TreeOntology ontology;
+	private Tree tree;
 	
 	private Pane center;
-		private List<VertexFxView<VertexOntology>> verticesView;
-		private Map<String, List<EdgeOntologyFxView>> edgesView;
+		private List<VertexView> verticesView;
+		private Map<String, List<EdgeView>> edgesView;
 	private VBox east;
 		private Label info_label;
 		private TextArea info_area;
-		private ListView<VertexFxView<VertexOntology>> info_list;
-			private ObservableList<VertexFxView<VertexOntology>> verticesViewForList;
+		private ListView<VertexView> info_list;
+			private ObservableList<VertexView> verticesViewForList;
 	
 	private static MouseEvent pressed;
 			
-	public OntologyFxView(TreeOntology ontology) {
+	public TreeView(Tree tree) {
 		super();
-		this.ontology = ontology;
+		this.tree = tree;
 		
 		buildComposants();
 		buildInterface();
@@ -75,15 +74,15 @@ public class OntologyFxView extends BorderPane {
 		east = new VBox();
 		east.setPrefHeight(east.getMaxHeight());
 			info_label = new Label("Informations");
-			info_area = new TextArea(ontology.info());
+			info_area = new TextArea(tree.toString());
 			info_area.setPrefWidth(200);
 			info_area.setEditable(false);
 			info_list = new ListView<>();
 			info_list.setItems(verticesViewForList);
-			info_list.setCellFactory(new Callback<ListView<VertexFxView<VertexOntology>>, ListCell<VertexFxView<VertexOntology>>>() {
+			info_list.setCellFactory(new Callback<ListView<VertexView>, ListCell<VertexView>>() {
 				@Override
-				public ListCell<VertexFxView<VertexOntology>> call(ListView<VertexFxView<VertexOntology>> param) {
-					return new VertexFxList<VertexOntology>();
+				public ListCell<VertexView> call(ListView<VertexView> param) {
+					return new VertexList();
 				}
 			});
 	}
@@ -100,50 +99,49 @@ public class OntologyFxView extends BorderPane {
 	
 	private void buildVertices() {
 		verticesView.clear();
-		List<VertexOntology> vertices = ontology.getVertices();
-		VertexFxView<VertexOntology> vertexView;
-		for(VertexOntology vertex : vertices) {
-			vertexView = new VertexFxView<VertexOntology>(vertex, placement.next());
+		List<Vertex> vertices = tree.getVertices();
+		VertexView vertexView;
+		for(Vertex vertex : vertices) {
+			vertexView = new VertexView(vertex, placement.next());
 			verticesView.add(vertexView);
 		}
 	}
 	
 	private void buildEdges() {
 		edgesView.clear();
-		Map<String, List<Pair<String, String>>> relations = ontology.getRelations();
+		List<Relation> relations = tree.getRelations();
 		colorDistribution = new ColorDistribution();
-		Set<String> relationSet = relations.keySet();
-		List<Pair<String, String>> relationVertices;
-		VertexFxView<VertexOntology> start, end;
-		EdgeOntologyFxView edgeView;
 		Color color;
-		for(String relation : relationSet) {
-			List<EdgeOntologyFxView> relationEdges = new ArrayList<>();
+		VertexView start, end;
+		EdgeView edgeView;
+		for(Relation relation : relations) {
+			List<EdgeView> relationEdges = new ArrayList<>();
 			color = colorDistribution.next();
-			relationVertices = relations.get(relation);
-			for(Pair<String, String> p : relationVertices) {
-				start = getViewFromVertex(ontology.getVertex(p.getFirst()));
-				end = getViewFromVertex(ontology.getVertex(p.getSecond()));
-				edgeView = new EdgeOntologyFxView(relation, start.getCenterX(), start.getCenterY(),
+			String relationName = relation.getName();
+			List<Pair<Vertex, Vertex>> pairs = relation.getPairs();
+			for(Pair<Vertex, Vertex> pair : pairs) {
+				start = getViewFromVertex(pair.getFirst());
+				end = getViewFromVertex(pair.getSecond());
+				edgeView = new EdgeView(relationName, start.getCenterX(), start.getCenterY(),
 						end.getCenterX(), end.getCenterY(), color);
 				relationEdges.add(edgeView);
 			}
-			edgesView.put(relation, relationEdges);
+			edgesView.put(relationName, relationEdges);
 		}
 	}
 	
 	private void drawVertices() { center.getChildren().addAll(verticesView); }
 	
 	private void drawEdges() {
-		Set<Entry<String, List<EdgeOntologyFxView>>> relationSet = edgesView.entrySet();
-		for(Entry<String, List<EdgeOntologyFxView>> entry : relationSet) {
+		Set<Entry<String, List<EdgeView>>> relationSet = edgesView.entrySet();
+		for(Entry<String, List<EdgeView>> entry : relationSet) {
 			center.getChildren().addAll(entry.getValue());
 		}
 	}
 	
 	private void removeEdges() {
-		Set<Entry<String, List<EdgeOntologyFxView>>> relationSet = edgesView.entrySet();
-		for(Entry<String, List<EdgeOntologyFxView>> entry : relationSet) {
+		Set<Entry<String, List<EdgeView>>> relationSet = edgesView.entrySet();
+		for(Entry<String, List<EdgeView>> entry : relationSet) {
 			center.getChildren().removeAll(entry.getValue());
 		}
 	}
@@ -184,15 +182,15 @@ public class OntologyFxView extends BorderPane {
 				pressed = event;
 			}
 		});
-		for(VertexFxView<VertexOntology> vertex : verticesView) {
+		for(VertexView vertex : verticesView) {
 			vertex.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
 					event.consume();
-					VertexOntology v = vertex.getVertex();
-					info_area.setText(v.fullData());
+					Vertex v = vertex.getVertex();
+					info_area.setText(v.toString());
 					vertex.setSelected(true);
-					for(VertexFxView<VertexOntology> other: verticesView) {
+					for(VertexView other: verticesView) {
 						if(other != vertex) other.setSelected(false);
 					}
 					info_list.getSelectionModel().select(vertex);
@@ -208,20 +206,20 @@ public class OntologyFxView extends BorderPane {
 				}
 			});
 		}
-		info_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<VertexFxView<VertexOntology>>() {
+		info_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<VertexView>() {
 			@Override
-			public void changed(ObservableValue<? extends VertexFxView<VertexOntology>> observable,
-					VertexFxView<VertexOntology> oldValue, VertexFxView<VertexOntology> newValue) {
-						VertexOntology vertex = newValue.getVertex();
-						info_area.setText(vertex.fullData());
+			public void changed(ObservableValue<? extends VertexView> observable,
+					VertexView oldValue, VertexView newValue) {
+						Vertex vertex = newValue.getVertex();
+						info_area.setText(vertex.toString());
 						newValue.setSelected(true);
 						if(oldValue != null) oldValue.setSelected(false);
 			}
 		});
 	}
 	
-	private VertexFxView<VertexOntology> getViewFromVertex(VertexOntology vertex) {
-		for(VertexFxView<VertexOntology> vertexView : verticesView) {
+	private VertexView getViewFromVertex(Vertex vertex) {
+		for(VertexView vertexView : verticesView) {
 			if(vertexView.getVertex() == vertex)
 				return vertexView;
 		}
