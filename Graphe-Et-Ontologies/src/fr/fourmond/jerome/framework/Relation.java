@@ -49,7 +49,7 @@ public class Relation {
 	public String toString() {
 		String ch = name + " : \n";
 		for(Pair<Vertex, Vertex> pair : pairs) {
-			ch += pair.getFirst() + " -> " + pair.getSecond();
+			ch += "\t\t" + pair.getFirst().getID() + " -> " + pair.getSecond().getID() + "\n";
 		}
 		return ch;
 	}
