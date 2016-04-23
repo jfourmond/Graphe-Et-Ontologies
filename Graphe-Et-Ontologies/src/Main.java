@@ -1,14 +1,13 @@
-import fr.fourmond.jerome.ontology.TreeOntology;
-import fr.fourmond.jerome.ontology.TreeOntologyException;
+import fr.fourmond.jerome.framework.Tree;
 
 public class Main {
 
 	public static void main(String[] args) {
-		TreeOntology tree = new TreeOntology();
+		Tree tree = new Tree();
 		
 		try {
-			tree.readFromFile("../Ontologies/Index327.xml");
-		} catch(TreeOntologyException E) {
+			tree.readFromFile("../Ontologies/Villes.xml");
+		} catch(Exception E) {
 			E.printStackTrace();
 		}
 		

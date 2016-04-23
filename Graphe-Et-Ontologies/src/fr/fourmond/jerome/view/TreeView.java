@@ -1,26 +1,42 @@
 package fr.fourmond.jerome.view;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import java.util.Set;
 
 import fr.fourmond.jerome.framework.ColorDistribution;
 import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Placement;
 import fr.fourmond.jerome.framework.Relation;
+import fr.fourmond.jerome.framework.RelationException;
 import fr.fourmond.jerome.framework.Tree;
+import fr.fourmond.jerome.framework.TreeException;
 import fr.fourmond.jerome.framework.Vertex;
+import fr.fourmond.jerome.framework.VertexException;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -28,6 +44,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
 public class TreeView extends BorderPane {
@@ -46,7 +63,16 @@ private final double SCALE_DELTA = 1.1;
 		private TextArea info_area;
 		private ListView<VertexView> info_list;
 			private ObservableList<VertexView> verticesViewForList;
-	
+	private MenuBar menuBar;
+		private Menu menu_file;
+			private MenuItem item_open;
+			private MenuItem item_quit;
+		private Menu menu_edit;
+			private MenuItem item_ontologie;
+		private Menu menu_view;
+			
+	private FileChooser fileChooser;
+			
 	private static MouseEvent pressed;
 			
 	public TreeView(Tree tree) {
@@ -55,14 +81,14 @@ private final double SCALE_DELTA = 1.1;
 		
 		buildComposants();
 		buildInterface();
-		
-		addEvents();
+		buildEvents();
 		
 		setMinSize(800, 400);
 	}
 	
 	private void buildComposants() {
 		placement = new Placement();
+		fileChooser = new FileChooser();
 		
 		verticesView = new ArrayList<>();
 		edgesView = new HashMap<>();
@@ -72,6 +98,14 @@ private final double SCALE_DELTA = 1.1;
 		
 		verticesViewForList = FXCollections.observableArrayList(verticesView);
 		
+		menuBar = new MenuBar();
+		menu_file = new Menu("Fichier");
+			item_open = new MenuItem("Ouvrir");
+			item_quit = new MenuItem("Quitter");
+		menu_edit = new Menu("Edition");
+			item_ontologie = new MenuItem("Ontologie");
+		menu_view = new Menu("Affichage");
+
 		center = new Pane();
 		east = new VBox();
 		east.setPrefHeight(east.getMaxHeight());
@@ -90,11 +124,15 @@ private final double SCALE_DELTA = 1.1;
 	}
 	
 	private void buildInterface() {
+			menu_file.getItems().addAll(item_open, item_quit);
+			menu_edit.getItems().add(item_ontologie);
+		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
 		drawVertices();
 		drawEdges();
 		
 		east.getChildren().addAll(info_label, info_area, info_list);
 		
+		setTop(menuBar);
 		setCenter(center);
 		setRight(east);
 	}
@@ -154,7 +192,55 @@ private final double SCALE_DELTA = 1.1;
 		drawEdges();
 	}
 	
-	private void addEvents() {
+	private void buildEvents() {
+		item_open.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				File F;
+				Tree newOntology;
+				F = fileChooser.showOpenDialog(null);
+				if(F != null) {
+					tree.setFile(F);
+					System.out.println(tree.getFile());
+					try {
+						newOntology = new Tree();
+						newOntology.readFromFile(F.getAbsolutePath());
+						new OntologyStage(newOntology);
+					} catch (TreeException e) {
+						e.printStackTrace();
+					} catch (ParserConfigurationException e) {
+						e.printStackTrace();
+					} catch (SAXException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (RelationException e) {
+						e.printStackTrace();
+					} catch (VertexException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		item_quit.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Platform.exit();
+			}
+		});
+		item_ontologie.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					if(tree.getFile() != null && tree.getFile().exists()) {
+						Desktop desktop = Desktop.getDesktop();
+						desktop.open(tree.getFile());
+					} else System.err.println("File don't exist");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		center.setOnScroll(new EventHandler<ScrollEvent>() {
 			@Override
 			public void handle(ScrollEvent event) {
