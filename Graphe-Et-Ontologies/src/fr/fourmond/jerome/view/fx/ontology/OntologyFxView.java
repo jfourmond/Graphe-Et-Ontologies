@@ -8,8 +8,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import fr.fourmond.jerome.framework.ColorDistribution;
+import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Placement;
-import fr.fourmond.jerome.ontology.Pair;
 import fr.fourmond.jerome.ontology.TreeOntology;
 import fr.fourmond.jerome.ontology.VertexOntology;
 import fr.fourmond.jerome.view.fx.VertexFxList;
