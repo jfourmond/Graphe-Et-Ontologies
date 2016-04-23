@@ -11,16 +11,16 @@ import javafx.scene.shape.Line;
  * @author jfourmond
  */
 public class EdgeView extends Group {
-private String relation;
+	private String relationName;
 	
 	private Color color;
 	
 	private Line line;
 	private Label label;
 	
-	public EdgeView(String relation, double startx, double starty, double endx, double endy) {
+	public EdgeView(String relationName, double startx, double starty, double endx, double endy) {
 		super();
-		this.relation = relation;
+		this.relationName = relationName;
 		
 		double middleX = (startx + endx) / 2;
 		double middleY = (starty + endy) / 2;
@@ -29,7 +29,7 @@ private String relation;
 		
 		line = new Line(startx, starty, endx, endy);
 		line.setStroke(color);
-		label = new Label("" + relation);
+		label = new Label("" + relationName);
 			label.setTranslateX(middleX);
 			label.setTranslateY(middleY);
 		
@@ -37,9 +37,9 @@ private String relation;
 		this.getChildren().add(label);
 	}
 	
-	public EdgeView(String relation, double startx, double starty, double endx, double endy, Color color) {
+	public EdgeView(String relationName, double startx, double starty, double endx, double endy, Color color) {
 		super();
-		this.relation = relation;
+		this.relationName = relationName;
 		
 		double middleX = (startx + endx) / 2;
 		double middleY = (starty + endy) / 2;
@@ -48,7 +48,7 @@ private String relation;
 		
 		line = new Line(startx, starty, endx, endy);
 		line.setStroke(color);
-		label = new Label("" + relation);
+		label = new Label("" + relationName);
 			label.setTranslateX(middleX);
 			label.setTranslateY(middleY);
 		
@@ -57,7 +57,7 @@ private String relation;
 	}
 
 	//	GETTERS
-	public String getRelation() { return relation; }
+	public String getRelation() { return relationName; }
 	
 	public Color getColor() { return color; }
 	
@@ -66,7 +66,7 @@ private String relation;
 	public Label getLabel() { return label; }
 	
 	//	SETTERS
-	public void setRelation(String relation) { this.relation = relation; }
+	public void setRelation(String relation) { this.relationName = relation; }
 	
 	public void setColor(Color color) { this.color = color; }
 	
