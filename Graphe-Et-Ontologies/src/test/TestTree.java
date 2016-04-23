@@ -29,7 +29,7 @@ public class TestTree {
 	private static DocumentBuilderFactory domFactory;
 	private static DocumentBuilder domBuilder;
 	
-	private static final String testFileName="../Villes.xml";
+	private static final String testFileName="../Ontologies/Villes.xml";
 	
 	private Tree tree;
 	
@@ -181,7 +181,7 @@ public class TestTree {
 			tree.createVertex("vertex");
 			tree.createAttribute("vertex", "attribut");
 			tree.setAttribute("vertex", "attribut", "un");
-			assertTrue(tree.getVertex("vertex").get("vertex").equals("un"));
+			assertTrue(tree.getVertex("vertex").get("attribut").equals("un"));
 		} catch (TreeException e) {
 			e.printStackTrace();
 		} catch (VertexException e) {
@@ -195,7 +195,7 @@ public class TestTree {
 			tree.createVertex("vertex");
 			tree.createAttribute("vertex", "attribut");
 			tree.setAttribute("vertex", "attribut", "un");
-			assertTrue(tree.getVertex("vertex").get("vertex").equals("un"));
+			assertTrue(tree.getVertex("vertex").get("attribut").equals("un"));
 		} catch (TreeException e) {
 			e.printStackTrace();
 		} catch (VertexException e) {
@@ -208,7 +208,7 @@ public class TestTree {
 		try {
 			tree.createVertex("vertex");
 			tree.addAttribute("vertex", "attribut", "un");
-			assertTrue(tree.getVertex("vertex").get("vertex").equals("un"));
+			assertTrue(tree.getVertex("vertex").get("attribut").equals("un"));
 		} catch (TreeException e) {
 			e.printStackTrace();
 		} catch (VertexException e) {
