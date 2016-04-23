@@ -5,6 +5,11 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
+/**
+ * {@link EdgeView} est un {@link Group} représentant 
+ * un arc du graphe
+ * @author jfourmond
+ */
 public class EdgeView extends Group {
 private String relation;
 	
