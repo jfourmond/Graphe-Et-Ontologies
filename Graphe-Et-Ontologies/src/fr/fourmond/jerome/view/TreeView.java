@@ -70,6 +70,7 @@ public class TreeView extends BorderPane {
 			private MenuItem item_quit;
 		private Menu menu_edit;
 			private MenuItem item_ontologie;
+			private MenuItem item_add_vertex;
 		private Menu menu_view;
 			
 	private FileChooser fileChooser;
@@ -108,6 +109,7 @@ public class TreeView extends BorderPane {
 			item_quit = new MenuItem("Quitter");
 		menu_edit = new Menu("Edition");
 			item_ontologie = new MenuItem("Ontologie");
+			item_add_vertex = new MenuItem("Nouveau sommet");
 		menu_view = new Menu("Affichage");
 
 		center = new Pane();
@@ -129,7 +131,7 @@ public class TreeView extends BorderPane {
 	
 	private void buildInterface() {
 			menu_file.getItems().addAll(item_new, item_open, item_quit);
-			menu_edit.getItems().add(item_ontologie);
+			menu_edit.getItems().addAll(item_ontologie, item_add_vertex);
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
 		drawVertices();
 		drawEdges();
@@ -246,6 +248,12 @@ public class TreeView extends BorderPane {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			}
+		});
+		item_add_vertex.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				new AddVertexStage(tree);
 			}
 		});
 		center.setOnScroll(new EventHandler<ScrollEvent>() {
