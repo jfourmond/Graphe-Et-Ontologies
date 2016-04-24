@@ -5,15 +5,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class AppStage extends Stage {
-	private Tree ontology;
+	private Tree tree;
 	
 	private TreeView treeView;
 	
-	public AppStage(Tree ontology) {
+	public AppStage(Tree tree) {
 		this.setTitle("Graphe Et Ontologies");
-		this.ontology = ontology;
+		this.tree= tree;
 		
-		treeView = new TreeView(this.ontology);
+		treeView = new TreeView(this.tree);
 		
 		this.setScene(new Scene(treeView));
 		this.show();
