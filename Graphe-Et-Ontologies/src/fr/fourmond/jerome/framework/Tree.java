@@ -85,6 +85,17 @@ public class Tree implements ErrorHandler {
 	}
 	
 	/**
+	 * Crée un sommet
+	 * @param vertex : le sommet à ajouter
+	 * @throws TreeException si le sommet existe déjà
+	 */
+	public void createVertex(Vertex vertex) throws TreeException {
+		if(getVertex(vertex.getID()) == null) {
+			vertices.add(vertex);
+		} else throw new TreeException("Le sommet existe déjà.");
+	}
+	
+	/**
 	 * Retourne les attributs du sommet
 	 * @param vertexID : identifiant unique du sommet
 	 * @return les attributs du sommet
