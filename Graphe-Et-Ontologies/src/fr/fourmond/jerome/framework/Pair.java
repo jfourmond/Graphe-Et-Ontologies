@@ -37,6 +37,7 @@ public class Pair<T_First, T_Second> {
 		if (getClass() != obj.getClass())
 			return false;
 		else {
+			@SuppressWarnings("unchecked")
 			Pair<T_First, T_Second> pair = (Pair<T_First, T_Second>) obj;
 			return (first.equals(pair.first) && second.equals(pair.second));
 		}
