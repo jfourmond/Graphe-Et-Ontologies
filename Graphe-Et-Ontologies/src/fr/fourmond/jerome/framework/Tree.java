@@ -248,6 +248,34 @@ public class Tree implements ErrorHandler {
 		buildRelations();
 	}
 	
+	/**
+	 * Lecture d'un fichier XML pour construire un arbre
+	 * @param F : le fichier XML
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws TreeException
+	 * @throws VertexException
+	 * @throws RelationException
+	 */
+	public void readFromFile(File F) throws ParserConfigurationException, SAXException, IOException, TreeException, VertexException, RelationException {
+		vertices.clear();
+		relations.clear();
+		
+		file = F;
+		domFactory = DocumentBuilderFactory.newInstance();
+		domFactory.setValidating(true);
+		
+		domBuilder = domFactory.newDocumentBuilder();
+		domBuilder.setErrorHandler(this);
+		
+		document = domBuilder.parse(file);
+		document.getDocumentElement().normalize();
+
+		buildVertices();
+		buildRelations();
+	}
+	
 	private void buildRelations() throws TreeException, RelationException, VertexException {
 		String vertex1ID;
 		NodeList entreeList = document.getElementsByTagName(ENTREE);

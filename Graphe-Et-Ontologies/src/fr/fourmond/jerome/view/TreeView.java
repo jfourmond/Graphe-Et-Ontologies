@@ -48,7 +48,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
 public class TreeView extends BorderPane {
-private final double SCALE_DELTA = 1.1;
+	private final double SCALE_DELTA = 1.1;
 	
 	private Placement placement;
 	private ColorDistribution colorDistribution;
@@ -65,6 +65,7 @@ private final double SCALE_DELTA = 1.1;
 			private ObservableList<VertexView> verticesViewForList;
 	private MenuBar menuBar;
 		private Menu menu_file;
+			private MenuItem item_new;
 			private MenuItem item_open;
 			private MenuItem item_quit;
 		private Menu menu_edit;
@@ -78,12 +79,14 @@ private final double SCALE_DELTA = 1.1;
 	public TreeView(Tree tree) {
 		super();
 		this.tree = tree;
-		
+		build();
+		setMinSize(800, 400);
+	}
+	
+	private void build() {
 		buildComposants();
 		buildInterface();
 		buildEvents();
-		
-		setMinSize(800, 400);
 	}
 	
 	private void buildComposants() {
@@ -100,6 +103,7 @@ private final double SCALE_DELTA = 1.1;
 		
 		menuBar = new MenuBar();
 		menu_file = new Menu("Fichier");
+			item_new = new MenuItem("Nouveau");
 			item_open = new MenuItem("Ouvrir");
 			item_quit = new MenuItem("Quitter");
 		menu_edit = new Menu("Edition");
@@ -124,7 +128,7 @@ private final double SCALE_DELTA = 1.1;
 	}
 	
 	private void buildInterface() {
-			menu_file.getItems().addAll(item_open, item_quit);
+			menu_file.getItems().addAll(item_new, item_open, item_quit);
 			menu_edit.getItems().add(item_ontologie);
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
 		drawVertices();
@@ -193,19 +197,22 @@ private final double SCALE_DELTA = 1.1;
 	}
 	
 	private void buildEvents() {
+		item_new.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				tree = new Tree();
+				build();
+			}
+		});
 		item_open.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				File F;
-				Tree newOntology;
-				F = fileChooser.showOpenDialog(null);
+				File F = fileChooser.showOpenDialog(null);
 				if(F != null) {
-					tree.setFile(F);
-					System.out.println(tree.getFile());
+					new TreeView(tree);
 					try {
-						newOntology = new Tree();
-						newOntology.readFromFile(F.getAbsolutePath());
-						new OntologyStage(newOntology);
+						tree.readFromFile(F);
+						build();
 					} catch (TreeException e) {
 						e.printStackTrace();
 					} catch (ParserConfigurationException e) {

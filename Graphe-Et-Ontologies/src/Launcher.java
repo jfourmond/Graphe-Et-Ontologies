@@ -1,6 +1,6 @@
 
 import fr.fourmond.jerome.framework.Tree;
-import fr.fourmond.jerome.view.OntologyStage;
+import fr.fourmond.jerome.view.AppStage;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -10,7 +10,7 @@ public class Launcher extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		new OntologyStage(tree);
+		new AppStage(tree);
 	}
 
 	public static void main(String[] args) {
