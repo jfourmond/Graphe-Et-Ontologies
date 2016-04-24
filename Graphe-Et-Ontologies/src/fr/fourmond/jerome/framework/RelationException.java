@@ -1,5 +1,10 @@
 package fr.fourmond.jerome.framework;
 
+/**
+ * {@link Exception} dans le cas d'opérations non autorisées ou dangereuses
+ * sur une {@link Relation}
+ * @author jfourmond
+ */
 public class RelationException extends Exception {
 	private static final long serialVersionUID = 1L;
 
