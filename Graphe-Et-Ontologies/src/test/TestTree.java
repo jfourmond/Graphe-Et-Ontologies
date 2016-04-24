@@ -2,7 +2,6 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -271,7 +270,11 @@ public class TestTree {
 
 	@Test
 	public void testReadFromFile() {
-		fail("Not yet implemented"); // TODO
+		try {
+			tree.readFromFile(testFileName);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
