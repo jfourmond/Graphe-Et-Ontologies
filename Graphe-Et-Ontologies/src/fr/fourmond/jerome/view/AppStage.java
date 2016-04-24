@@ -4,12 +4,12 @@ import fr.fourmond.jerome.framework.Tree;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class OntologyStage extends Stage {
+public class AppStage extends Stage {
 	private Tree ontology;
 	
 	private TreeView treeView;
 	
-	public OntologyStage(Tree ontology) {
+	public AppStage(Tree ontology) {
 		this.setTitle("Graphe Et Ontologies");
 		this.ontology = ontology;
 		
