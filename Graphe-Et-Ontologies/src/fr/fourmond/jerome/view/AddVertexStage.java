@@ -1,13 +1,19 @@
 package fr.fourmond.jerome.view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
 import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Tree;
+import fr.fourmond.jerome.framework.TreeException;
+import fr.fourmond.jerome.framework.Vertex;
+import fr.fourmond.jerome.framework.VertexException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -38,7 +44,10 @@ public class AddVertexStage extends Stage {
 		
 	private Set<String> attributes;
 	private List<Pair<Label, TextField>> attributesView;
-		
+	
+	private String text_id;
+	private Map<String, String> text_attributes;
+	
 	private int currentRow;
 	private int currentCol;
 	
@@ -48,12 +57,11 @@ public class AddVertexStage extends Stage {
 		
 		attributes = new HashSet<>();
 		attributesView = new ArrayList<>();
+		text_attributes = new HashMap<>();
 		
 		buildComposants();
 		buildInterface();
 		buildEvents();
-		
-		this.show();
 	}
 	
 	private void buildComposants() {
@@ -67,14 +75,15 @@ public class AddVertexStage extends Stage {
 		
 		title = new Text("Nouveau sommet");
 		ID = new Label("Identifiant");
-		IDField = new TextField();
+		IDField = new TextField(text_id);
 		addAttribute = new Button("Ajouter attribut");
 		add = new Button("Ajouter sommet");
 		
 		// Construction des attributs
 		for(String attribute : attributes) {
 			Label label = new Label(attribute);
-			TextField textField = new TextField();
+			String value = getValue(attribute);
+			TextField textField = new TextField(value);
 			Pair<Label, TextField> pair = new Pair<Label, TextField>(label, textField);
 			attributesView.add(pair);
 		}
@@ -89,9 +98,23 @@ public class AddVertexStage extends Stage {
 		currentCol = 0;
 		
 		for(Pair<Label, TextField> pair : attributesView) {
-			gridPane.add(pair.getFirst(), currentCol, currentRow);
-			currentCol++;
-			gridPane.add(pair.getSecond(), currentCol, currentRow);
+			Label label = pair.getFirst();
+			TextField textField = pair.getSecond();
+			Button button = new Button("Supprimer");
+			button.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					String attribute = label.getText();
+					attributes.remove(attribute);
+					text_attributes.remove(attribute);
+					gridPane.getChildren().removeAll(label, textField, button);
+					currentRow--;
+				}
+			});
+			textField.requestFocus();
+			gridPane.add(label, currentCol++, currentRow);
+			gridPane.add(textField, currentCol++, currentRow);
+			gridPane.add(button, currentCol++, currentRow);
 			currentRow++;
 			currentCol = 0;
 		}
@@ -104,6 +127,13 @@ public class AddVertexStage extends Stage {
 		
 		Scene scene = new Scene(gridPane, 400, 300);
 		this.setScene(scene);
+		
+		// For focus
+		if(!attributesView.isEmpty()) {
+			Pair<Label, TextField> p = attributesView.get(attributesView.size()-1);
+			if(p != null)
+				p.getSecond().requestFocus();
+		}
 	}
 	
 	private void buildEvents() {
@@ -119,7 +149,6 @@ public class AddVertexStage extends Stage {
 				Optional<String> result = dialog.showAndWait();
 				if (result.isPresent()){
 					String s = result.get();
-					System.out.println("Attribut : " + s);
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Erreur");
 					alert.initStyle(StageStyle.UTILITY);
@@ -131,11 +160,10 @@ public class AddVertexStage extends Stage {
 						alert.setContentText("L'attribut existe déjà.");
 						alert.showAndWait();
 					} else {
-						gridPane.add(new Label(s), currentCol, currentRow);
-						currentCol++;
-						gridPane.add(new TextField(), currentCol, currentRow);
-						currentRow++;
-						currentCol = 0;
+						saveBeforeBuild();
+						buildComposants();
+						buildInterface();
+						buildEvents();
 					}
 				}
 			}
@@ -143,9 +171,52 @@ public class AddVertexStage extends Stage {
 		add.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Construire le sommet et l'ajouter à l'arbre
-				System.err.println("NON IMPLEMENTE");
+				saveBeforeBuild();
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erreur");
+				alert.setHeaderText("Ajout du sommet impossible.");
+				try {
+					Vertex vertex = getVertex();
+					tree.createVertex(vertex);
+					close();
+				} catch (VertexException e) {
+					e.printStackTrace();
+					alert.setContentText(e.getMessage());
+					alert.showAndWait();
+				} catch (TreeException e) {
+					e.printStackTrace();
+					alert.setContentText(e.getMessage());
+					alert.showAndWait();
+				}
 			}
 		});
+	}
+	
+	private void saveBeforeBuild() {
+		text_id = IDField.getText();
+		for(Pair<Label, TextField> pair : attributesView) {
+			Label label = pair.getFirst();
+			TextField textField = pair.getSecond();
+			System.out.println(label.getText() + " = " + textField.getText());
+			text_attributes.put(label.getText(), textField.getText());
+		}
+	}
+	
+	private String getValue(String attribute) {
+		String ch = "";
+		if(text_attributes.containsKey(attribute))
+			ch = text_attributes.get(attribute);
+		return ch;
+	}
+	
+	private Vertex getVertex() throws VertexException {
+		Vertex vertex = new Vertex(text_id);
+		for(Entry<String, String> entry : text_attributes.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			vertex.add(key);
+			vertex.set(key, value);
+		}
+		return vertex;
 	}
 }
