@@ -135,6 +135,14 @@ public class Tree implements ErrorHandler {
 	}
 	
 	/**
+	 * Teste s'il n'existe pas des sommets dans l'arbre
+	 * @return : <code>true</code> si il n'y a pas de sommet, <code>false</code> sinon
+	 */
+	public boolean isVerticesEmpty() {
+		return vertices.isEmpty();
+	}
+	
+	/**
 	 * Crée un attribut au sommet
 	 * @param vertexID : identifiant unique du sommet
 	 * @param attributeID : identifiant unique de l'attribut
