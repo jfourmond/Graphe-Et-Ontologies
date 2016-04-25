@@ -193,6 +193,17 @@ public class Tree implements ErrorHandler {
 	}
 	
 	/**
+	 * Crée une relation
+	 * @param relation : la relation à ajouter
+	 * @throws TreeException si la relation existe déjà
+	 */
+	public void createRelation(Relation relation) throws TreeException {
+		if(getRelation(relation.getName()) == null) {
+			relations.add(relation);
+		} else throw new TreeException("La relation existe déjà.");
+	}
+	
+	/**
 	 * Retourne la relation portant le nom
 	 * @param name : nom de la relation
 	 * @return la relation portant le nom
