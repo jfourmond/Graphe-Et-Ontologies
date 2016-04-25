@@ -15,7 +15,7 @@ public class Relation {
 	//	CONSTRUCTEURS
 	public Relation(String name) throws RelationException {
 		if(name == null || name.isEmpty())
-			throw new RelationException("Aucune nom spécifié.");
+			throw new RelationException("Aucun nom spécifié.");
 		this.name = name;
 		this.pairs = new ArrayList<>();
 	}

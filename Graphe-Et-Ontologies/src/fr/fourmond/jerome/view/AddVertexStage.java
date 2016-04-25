@@ -186,12 +186,7 @@ public class AddVertexStage extends Stage {
 					Vertex vertex = getVertex();
 					tree.createVertex(vertex);
 					close();
-				} catch (VertexException e) {
-					e.printStackTrace();
-					alert.setContentText(e.getMessage());
-					alert.showAndWait();
-				} catch (TreeException e) {
-					e.printStackTrace();
+				} catch (Exception e) {
 					alert.setContentText(e.getMessage());
 					alert.showAndWait();
 				}
