@@ -38,6 +38,8 @@ import javafx.stage.StageStyle;
  */
 public class AddVertexStage extends Stage {
 	
+	private final static String TITLE = "Graphe Et Ontologies - Nouveau sommet";
+	
 	private Tree tree;
 	
 	private GridPane gridPane;
@@ -57,7 +59,7 @@ public class AddVertexStage extends Stage {
 	private int currentCol;
 	
 	public AddVertexStage(Tree tree) {
-		this.setTitle("Graphe Et Ontologies - Nouveau sommet");
+		this.setTitle(TITLE);
 		this.tree = tree;
 		
 		attributes = new HashSet<>();
