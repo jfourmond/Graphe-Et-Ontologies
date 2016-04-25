@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class AddRelationStage extends Stage {
 
@@ -74,6 +75,7 @@ public class AddRelationStage extends Stage {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Erreur");
 				alert.setHeaderText("Ajout du sommet impossible.");
+				alert.initStyle(StageStyle.UTILITY);
 				try {
 					Relation relation = getRelation();
 					tree.createRelation(relation);

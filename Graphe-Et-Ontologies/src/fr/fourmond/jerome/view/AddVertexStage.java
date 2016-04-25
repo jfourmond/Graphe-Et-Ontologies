@@ -11,7 +11,6 @@ import java.util.Set;
 
 import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Tree;
-import fr.fourmond.jerome.framework.TreeException;
 import fr.fourmond.jerome.framework.Vertex;
 import fr.fourmond.jerome.framework.VertexException;
 import javafx.event.ActionEvent;
@@ -182,6 +181,7 @@ public class AddVertexStage extends Stage {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Erreur");
 				alert.setHeaderText("Ajout du sommet impossible.");
+				alert.initStyle(StageStyle.UTILITY);
 				try {
 					Vertex vertex = getVertex();
 					tree.createVertex(vertex);
