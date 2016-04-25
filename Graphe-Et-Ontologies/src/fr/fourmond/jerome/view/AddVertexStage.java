@@ -31,6 +31,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * {@link AddVertexStage} est un {@link Stage} permettant de créer
+ * un {@link Vertex}, et ses différents attributs, qui sera ajouter à l'arbre
+ * @author jfourmond
+ */
 public class AddVertexStage extends Stage {
 	
 	private Tree tree;

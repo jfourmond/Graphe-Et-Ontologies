@@ -47,6 +47,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
+/**
+ * {@link TreeView} est un {@link BorderPane} affichant le graphe et ses informations.
+ * En son centre se place un {@link Pane} composé de {@link VertexView} et de {@link EdgeView}.
+ * A droite se place un {@link TextArea} affichant les informations du graphe, ainsi qu'une
+ * liste des sommets cliquables.
+ * @author jfourmond
+ */
 public class TreeView extends BorderPane {
 	private final double SCALE_DELTA = 1.1;
 	
@@ -63,6 +70,7 @@ public class TreeView extends BorderPane {
 		private TextArea info_area;
 		private ListView<VertexView> info_list;
 			private ObservableList<VertexView> verticesViewForList;
+			
 	private MenuBar menuBar;
 		private Menu menu_file;
 			private MenuItem item_new;
