@@ -251,6 +251,21 @@ public class Tree implements ErrorHandler {
 	}
 	
 	/**
+	 * Ajoute une paire à la relation
+	 * @param name : nom de la relation
+	 * @param vertex1 : premier sommet
+	 * @param vertex2 : second sommet
+	 * @throws RelationException si la paire, dans cet ordre précis, existe déjà
+	 * @throws TreeException si la relation n'existe pas
+	 */
+	public void addPair(String name, Vertex vertex1, Vertex vertex2) throws RelationException, TreeException {
+		Relation relation = getRelation(name);
+		if(relation != null)
+			relation.add(new Pair<>(vertex1, vertex2));
+		else throw new TreeException("La relation n'existe pas.");
+	}
+	
+	/**
 	 * Lecture d'un fichier XML pour construire un arbre
 	 * @param filename : chemin vers le fichier XML
 	 * @throws TreeException

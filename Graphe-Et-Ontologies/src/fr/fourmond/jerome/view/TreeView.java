@@ -80,6 +80,8 @@ public class TreeView extends BorderPane {
 			private MenuItem item_ontologie;
 			private MenuItem item_add_vertex;
 			private MenuItem item_add_relation;
+			private Menu menu_add_edge;
+				private List<MenuItem> item_add_edge_relations;
 		private Menu menu_view;
 			
 	private FileChooser fileChooser;
@@ -103,6 +105,8 @@ public class TreeView extends BorderPane {
 		placement = new Placement();
 		fileChooser = new FileChooser();
 		
+		item_add_edge_relations = new ArrayList<>();
+		
 		verticesView = new ArrayList<>();
 		edgesView = new HashMap<>();
 		
@@ -120,8 +124,12 @@ public class TreeView extends BorderPane {
 			item_ontologie = new MenuItem("Ontologie");
 			item_add_vertex = new MenuItem("Nouveau sommet");
 			item_add_relation = new MenuItem("Nouvelle relation");
+			menu_add_edge = new Menu("Nouvel arc");
 		menu_view = new Menu("Affichage");
 
+		for(Relation relation : tree.getRelations())
+			item_add_edge_relations.add(new MenuItem(relation.getName()));
+		
 		center = new Pane();
 		east = new VBox();
 		east.setPrefHeight(east.getMaxHeight());
@@ -134,14 +142,15 @@ public class TreeView extends BorderPane {
 			info_list.setCellFactory(new Callback<ListView<VertexView>, ListCell<VertexView>>() {
 				@Override
 				public ListCell<VertexView> call(ListView<VertexView> param) {
-					return new VertexList();
+					return new VertexViewList();
 				}
 			});
 	}
 	
 	private void buildInterface() {
 			menu_file.getItems().addAll(item_new, item_open, item_quit);
-			menu_edit.getItems().addAll(item_ontologie, item_add_vertex, item_add_relation);
+				menu_add_edge.getItems().addAll(item_add_edge_relations);
+			menu_edit.getItems().addAll(item_ontologie, item_add_vertex, item_add_relation, menu_add_edge);
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
 		drawVertices();
 		drawEdges();
@@ -276,6 +285,19 @@ public class TreeView extends BorderPane {
 				build();
 			}
 		});
+		for(MenuItem item : item_add_edge_relations) {
+			String text = item.getText();
+			item.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					if(!tree.isVerticesEmpty()) {
+						AddEdgeToRelation addEdge = new AddEdgeToRelation(tree, text);
+						addEdge.showAndWait();
+						build();
+					} else System.err.println("Pas de sommets");
+				}
+			});
+		}
 		center.setOnScroll(new EventHandler<ScrollEvent>() {
 			@Override
 			public void handle(ScrollEvent event) {

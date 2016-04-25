@@ -19,6 +19,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * {@link AddRelationStage} est un {@link Stage} permettant de créer 
+ * une {@link Relation} qui sera ajoutée à l'arbre
+ * @author jfourmond
+ */
 public class AddRelationStage extends Stage {
 
 	private final static String TITLE = "Graphe Et Ontologies - Nouvelle relation";
@@ -74,7 +79,7 @@ public class AddRelationStage extends Stage {
 			public void handle(ActionEvent event) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Erreur");
-				alert.setHeaderText("Ajout du sommet impossible.");
+				alert.setHeaderText("Ajout de la relation impossible.");
 				alert.initStyle(StageStyle.UTILITY);
 				try {
 					Relation relation = getRelation();
