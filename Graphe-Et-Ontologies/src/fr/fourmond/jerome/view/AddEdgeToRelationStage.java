@@ -23,11 +23,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- * {@link AddEdgeToRelation} est un {@link Stage} permettant de créer
+ * {@link AddEdgeToRelationStage} est un {@link Stage} permettant de créer
  * un arc pour une relation précise, qui sera ajouté à l'arbre
  * @author jfourmond
  */
-public class AddEdgeToRelation extends Stage {
+public class AddEdgeToRelationStage extends Stage {
 
 	private static final String TITLE = "Graphe Et Ontologies - Relation ";
 	
@@ -47,7 +47,7 @@ public class AddEdgeToRelation extends Stage {
 		private ComboBox<String> CB2;
 	private Button add;
 	
-	public AddEdgeToRelation(Tree tree, String relationName) {
+	public AddEdgeToRelationStage(Tree tree, String relationName) {
 		setTitle(TITLE + relationName + " - Nouvel Arc");
 		
 		this.tree = tree;
