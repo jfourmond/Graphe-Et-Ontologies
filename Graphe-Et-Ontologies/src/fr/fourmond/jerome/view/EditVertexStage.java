@@ -25,6 +25,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * {@link EditVertexStage} est un {@link Stage} permettant d'éditer
+ * un {@link Vertex} et ses différents attributs
+ * @author jfourmond
+ */
 public class EditVertexStage extends Stage {
 	private final static String TITLE = "Graphe Et Ontologies - Edition sommet";
 	
