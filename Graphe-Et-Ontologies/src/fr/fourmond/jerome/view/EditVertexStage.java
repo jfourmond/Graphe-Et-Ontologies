@@ -89,8 +89,10 @@ public class EditVertexStage extends Stage {
 				public void handle(ActionEvent event) {
 					String attribute = label.getText();
 					attributes.remove(attribute);
+					attributesView.remove(pair);
 					gridPane.getChildren().removeAll(label, textField, button);
 					currentRow--;
+					save();
 				}
 			});
 			textField.requestFocus();
@@ -144,7 +146,6 @@ public class EditVertexStage extends Stage {
 								alert.showAndWait();
 						} else {
 							attributes.put(s, "");
-							save();
 							buildComposants();
 							buildInterface();
 							buildEvents();
