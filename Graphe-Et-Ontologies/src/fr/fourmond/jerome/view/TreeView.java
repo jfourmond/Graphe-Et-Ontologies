@@ -31,13 +31,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
@@ -78,11 +81,17 @@ public class TreeView extends BorderPane {
 			private MenuItem item_quit;
 		private Menu menu_edit;
 			private MenuItem item_ontologie;
+			private SeparatorMenuItem separator;
 			private MenuItem item_add_vertex;
 			private MenuItem item_add_relation;
 			private Menu menu_add_edge;
 				private List<MenuItem> item_add_edge_relations;
 		private Menu menu_view;
+		
+	private ContextMenu vertexContextMenu;
+		private MenuItem item_edit;
+		// private MenuItem item_add_vertex;
+		// private MenuItem item_add_relation;
 			
 	private FileChooser fileChooser;
 			
@@ -122,11 +131,15 @@ public class TreeView extends BorderPane {
 			item_quit = new MenuItem("Quitter");
 		menu_edit = new Menu("Edition");
 			item_ontologie = new MenuItem("Ontologie");
+			separator = new SeparatorMenuItem();
 			item_add_vertex = new MenuItem("Nouveau sommet");
 			item_add_relation = new MenuItem("Nouvelle relation");
 			menu_add_edge = new Menu("Nouvel arc");
 		menu_view = new Menu("Affichage");
 
+		vertexContextMenu = new ContextMenu();
+			item_edit = new MenuItem("Editer");
+		
 		for(Relation relation : tree.getRelations())
 			item_add_edge_relations.add(new MenuItem(relation.getName()));
 		
@@ -150,8 +163,12 @@ public class TreeView extends BorderPane {
 	private void buildInterface() {
 			menu_file.getItems().addAll(item_new, item_open, item_quit);
 				menu_add_edge.getItems().addAll(item_add_edge_relations);
-			menu_edit.getItems().addAll(item_ontologie, item_add_vertex, item_add_relation, menu_add_edge);
+			menu_edit.getItems().addAll(item_ontologie, separator, item_add_vertex, item_add_relation, menu_add_edge);
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
+		menuBar.setUseSystemMenuBar(true);
+		
+		vertexContextMenu.getItems().addAll(item_edit, separator, item_add_vertex, item_add_relation);
+		
 		drawVertices();
 		drawEdges();
 		
@@ -312,6 +329,8 @@ public class TreeView extends BorderPane {
 		center.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				if(event.getButton() == MouseButton.SECONDARY)
+					return;
 				double ecartx = event.getX() + center.getTranslateX() - pressed.getX();
 				double ecarty = event.getY() + center.getTranslateY() - pressed.getY();
 				System.out.println("Ecart : " + ecartx + " " + ecarty);
@@ -332,22 +351,28 @@ public class TreeView extends BorderPane {
 				@Override
 				public void handle(MouseEvent event) {
 					event.consume();
-					Vertex v = vertex.getVertex();
-					info_area.setText(v.toString());
-					vertex.setSelected(true);
-					for(VertexView other: verticesView) {
-						if(other != vertex) other.setSelected(false);
+					if(event.getButton() == MouseButton.PRIMARY) {
+						Vertex v = vertex.getVertex();
+						info_area.setText(v.toString());
+						vertex.setSelected(true);
+						for(VertexView other: verticesView) {
+							if(other != vertex) other.setSelected(false);
+						}
+						info_list.getSelectionModel().select(vertex);
+					} else if(event.getButton() == MouseButton.SECONDARY) {
+						vertexContextMenu.show(vertex, event.getScreenX(), event.getScreenY());
 					}
-					info_list.getSelectionModel().select(vertex);
 				}
 			});
 			vertex.setOnMouseDragged(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
 					event.consume();
-					vertex.setCenterX(event.getX());
-					vertex.setCenterY(event.getY());
-					redrawLines();
+					if(event.getButton() == MouseButton.PRIMARY) {
+						vertex.setCenterX(event.getX());
+						vertex.setCenterY(event.getY());
+						redrawLines();
+					}
 				}
 			});
 		}
