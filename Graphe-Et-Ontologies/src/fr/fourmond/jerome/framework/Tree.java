@@ -122,6 +122,14 @@ public class Tree implements ErrorHandler {
 	}
 	
 	/**
+	 * Supprime le sommet 
+	 * @param vertex : sommet à supprimer
+	 */
+	public void removeVertex(Vertex vertex) {
+		// TODO
+	}
+	
+	/**
 	 * Teste si l'identifiant est l'identifiant d'un {@link Vertex} de l'arbre
 	 * @param id : identifiant
 	 * @return <code>true</code> si l'identifiant correspond à un {@link Vertex}, <code>false</code> sinon
@@ -263,6 +271,16 @@ public class Tree implements ErrorHandler {
 		if(relation != null)
 			relation.add(new Pair<>(vertex1, vertex2));
 		else throw new TreeException("La relation n'existe pas.");
+	}
+	
+	/**
+	 * Supprime les paires des relations lié au sommet
+	 * @param vertex : sommet à rechercher
+	 */
+	public void removeRelatedPair(Vertex vertex) {
+		for(Relation relation : relations) {
+			relation.removeRelatedPair(vertex);
+		}
 	}
 	
 	/**
