@@ -45,6 +45,18 @@ public class Relation {
 		if(!b) throw new RelationException("La pair existe déjà.");
 	}
 	
+	/**
+	 * Supprime les paires ayant ce sommet =
+	 * @param vertex : sommet à rechercher
+	 */
+	public void removeRelatedPair(Vertex vertex) {
+		for(Pair<Vertex, Vertex> pair : pairs) {
+			if(pair.getFirst().equals(vertex) || pair.getSecond().equals(vertex)) {
+				pairs.remove(pair);
+			}
+		}
+	}
+	
 	@Override
 	public String toString() {
 		String ch = name + " : \n";
