@@ -126,7 +126,8 @@ public class Tree implements ErrorHandler {
 	 * @param vertex : sommet à supprimer
 	 */
 	public void removeVertex(Vertex vertex) {
-		// TODO
+		vertices.remove(vertex);
+		removeRelatedPair(vertex);
 	}
 	
 	/**
