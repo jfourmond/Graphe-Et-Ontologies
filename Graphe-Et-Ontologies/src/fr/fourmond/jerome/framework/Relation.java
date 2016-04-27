@@ -46,14 +46,47 @@ public class Relation {
 	}
 	
 	/**
-	 * Supprime les paires ayant ce sommet =
+	 * Retourne la première occurence de la paire composée du sommet
+	 * @param vertex : sommet à recherche
+	 * @return la première occurence de la paire composée du sommet ou <code>null</code>
+	 */
+	public Pair<Vertex, Vertex> getFirstPair(Vertex vertex) {
+		for(Pair<Vertex, Vertex> pair : pairs) {
+			if(pair.getFirst() == vertex || pair.getSecond() == vertex)
+				return pair;
+		}
+		return null;
+	}
+	
+	/**
+	 * Teste si la paire est présente dans la relation
+	 * @param pair : paire à rechercher
+	 * @return <code>true</code> si la paire est présente dans la relation, <code>false</code> sinon
+	 */
+	public boolean contains(Pair<Vertex, Vertex> pair) { return pairs.contains(pair); }
+	
+	/**
+	 * Teste s'il existe une paire contenant ce sommet
+	 * @param vertex : sommet à rechercher
+	 * @return <code>true</code> s'il existe une paire contenant ce sommet, <code>false</code> sinon
+	 */
+	public boolean containsVertex(Vertex vertex) {
+		for(Pair<Vertex, Vertex> pair : pairs) {
+			if(pair.getFirst().equals(vertex) || pair.getSecond().equals(vertex)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Supprime les paires ayant ce sommet
 	 * @param vertex : sommet à rechercher
 	 */
 	public void removeRelatedPair(Vertex vertex) {
-		for(Pair<Vertex, Vertex> pair : pairs) {
-			if(pair.getFirst().equals(vertex) || pair.getSecond().equals(vertex)) {
-				pairs.remove(pair);
-			}
+		while(containsVertex(vertex)) {
+			Pair<Vertex, Vertex> pair = getFirstPair(vertex);
+			pairs.remove(pair);
 		}
 	}
 	

@@ -90,6 +90,7 @@ public class TreeView extends BorderPane {
 		
 	private ContextMenu vertexContextMenu;
 		private MenuItem vCM_edit;
+		private MenuItem vCM_delete;
 		private SeparatorMenuItem vCM_separator;
 		private MenuItem vCM_add_vertex;
 		private MenuItem vCM_add_relation;
@@ -141,6 +142,7 @@ public class TreeView extends BorderPane {
 
 		vertexContextMenu = new ContextMenu();
 			vCM_edit = new MenuItem("Editer");
+			vCM_delete = new MenuItem("Supprimer");
 			vCM_separator = new SeparatorMenuItem();
 			vCM_add_vertex = new MenuItem("Nouveau sommet");
 			vCM_add_relation = new MenuItem("Nouvelle relation");
@@ -172,7 +174,7 @@ public class TreeView extends BorderPane {
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
 		menuBar.setUseSystemMenuBar(true);
 		
-		vertexContextMenu.getItems().addAll(vCM_edit, vCM_separator, vCM_add_vertex, vCM_add_relation);
+		vertexContextMenu.getItems().addAll(vCM_edit, vCM_delete, vCM_separator, vCM_add_vertex, vCM_add_relation);
 		
 		drawVertices();
 		drawEdges();
@@ -325,6 +327,13 @@ public class TreeView extends BorderPane {
 			public void handle(ActionEvent event) {
 				EditVertexStage editVertexStage = new EditVertexStage(vertexToEdit);
 				editVertexStage.showAndWait();
+				build();
+			}
+		});
+		vCM_delete.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				tree.removeVertex(vertexToEdit);
 				build();
 			}
 		});
