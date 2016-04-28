@@ -42,22 +42,8 @@
 
 	<!--  run -->
 		<!-- run Main -->
-	<target name="run-default">
-		<java classname="DefaultExample" fork="true"
-			classpathref="run.classpath" >
-		</java>
-	</target>
-	
-		<!-- run CityExample -->
-	<target name="run-city">
-		<java classname="CityExample" fork="true"
-			classpathref="run.classpath" >
-		</java>
-	</target>
-	
-		<!-- run FxCityExample -->
-	<target name="run-cityfx">
-		<java classname="FxCityExample" fork="true"
+	<target name="run">
+		<java classname="Launcher" fork="true"
 			classpathref="run.classpath" >
 		</java>
 	</target>
@@ -75,30 +61,11 @@
 
 	<!-- generate jar files -->
 		<!-- for Main -->
-	<target name="jar-default" depends="build" description="generate jar file for Main">
+	<target name="jar" depends="build" description="generate jar file">
 		<jar destfile="${jar.file}" basedir="${bin.dir}">
 			<manifest>
-				<attribute name="Main-Class" value="DefaultExample"/>
+				<attribute name="Main-Class" value="Launcher"/>
 			</manifest>
 		</jar>
 	</target>
-	
-		<!-- for CityExample -->
-	<target name="jar-city" depends="build" description="generate jar file for CityExample">
-		<jar destfile="${jar.file}" basedir="${bin.dir}">
-			<manifest>
-				<attribute name="Main-Class" value="CityExample" />
-			</manifest>
-		</jar>
-	</target>
-	
-	<!-- for FxCityExample -->
-	<target name="jar-cityfx" depends="build" description="generate jar file for FxCityExample">
-		<jar destfile="${jar.file}" basedir="${bin.dir}">
-			<manifest>
-				<attribute name="Main-Class" value="FxCityExample" />
-			</manifest>
-		</jar>
-	</target>
-
 </project>
