@@ -24,13 +24,15 @@ On désire créer une application en Java pour la navigation dans un document é
 ### 1. Première étape
 
 - [x] [Diagramme de classe](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/class_diagram)
-- [x] Framework pour la gestion de graphe :package: 
+- [x] Framework pour la gestion de graphe		:package: 
 - [x] Visualisation
+
+Le développement de cette partie se retrouve dans le commit [suivant](https://github.com/jfourmond/Graphe-Et-Ontologies/commit/9fc66969087589aeebd0c4a2a8ac063c2ddcccdc). Certaines parties ne convenant pas aux besoins nécessaires, le code a été réorganisé et reproduit. L'interface **SWING** a été retirée pour se concentrer essentiellement sur **JavaFX**.
 
 ### 2. Seconde étape
 
-- [ ] Lecture d'Ontologies
-- [ ] Visualisation d'Ontologies
+- [x] Lecture d'Ontologies		:deciduous_tree:
+- [x] Visualisation d'Ontologies
 - [ ] Interaction avec l'Ontologie
 
 ---
@@ -44,18 +46,9 @@ On désire créer une application en Java pour la navigation dans un document é
 ### 2. Exécution
 
 L'exécution s'effectue ainsi, en ligne de commande :
-- pour le Main basique
 
-		ant run-default
+	ant run
 
-- pour le CityExample, exemple concret du programme :
-	
-		ant run-city
-
-- pour le FxCityExample, exemple concret du programme sous JavaFX :
-
-		ant run-cityfx
-		
 ### 3. Javadoc
 
 La génération de la javadoc est disponible en exécutant la cible :
@@ -65,116 +58,114 @@ La génération de la javadoc est disponible en exécutant la cible :
 ### 4. Java Archive
 
 La génération d'une archive jar exécutable en exécutant la cible :
-- pour le Main basique :
 
-		ant jar-default
-	
-- pour le CityExample, exemple concret du programme :
-
-		ant jar-city
-
-- pour le FxCityExample, exemple concret du programme sous JavaFX :
-
-		ant jar-cityfx
+	ant jar
 
 ---
 
 ## IV. Le Frawework pour la gestion de graphe
 
-L'utilisation du **framework** s'effectue aisément.
+L'utilisation du [framework](https://github.com/jfourmond/Graphe-Et-Ontologies/tree/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework) s'effectue aisément. Il est composé de 9 classes, dont 3 pour les exceptions. La plupart sont dépendantes entre elles, mais certaines peuvent s'utiliser en solitaire.
+Un graphe doit pouvoir être crée en lisant un fichier xml avec une dtd reprenant une définition valide pour le programme. Des chaînes de caractère (**String**) sont donc principalement utilisées.
 
-### 1. Sommet - *Vertex*
+### 1. Pair<Type 1, Type 2>
 
-Dans un premier temps, il est nécessaire d'implémenter l'interface [Vertex](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Vertex.java).
-Cette nouvelle classe sera utilisé dans l'utilisation du graphe.
+[Pair](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Pair.java) est une classe générique. Elle permet de manipuler des paires d'*Object*.
 Par exemple :
 
-	DefaultVertex sommet1 = new DefaultVertex(11);
-	DefaultVertex sommet2 = new DefaultVertex(22);
+	Pair<String, Integer> p1 = new Pair<>();					// Création d'une paire
+	p1.setFirst("Population");								// Edition du premier membre
+	p1.setSecond(7348);										// Edition du second membre
+	Pair<Integer, String> p2 = new Pair<>(1, "Numéro 1");	// Création d'une paire, initialisée
 
-### 2. Arc - *Edge*
+### 2. Sommet - *Vertex*
 
-La classe de l'implémentation de **Vertex** et le type du libellé de l'arc sont requis dans la déclaration de [Edge](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Edge.java).
-Par exemple, en conservant l'implémentation précédente :
+[Vertex](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Vertex.java) est une classe représentant un sommet.
+Elle comporte deux attributs :
+- Un *ID* : sous la forme d'un **String**
+- Une **Map<String, String>** associant attributs et valeurs
+Et différentes méthodes pour sa manipulation, ainsi qu'une classe pour la gestion des **Exceptions**.
+Cette classe sera utilisée dans la modélisation du graphe.
+Par exemple :
 
-	Edge<DefaultVertex, Integer> arc = new Edge<>(sommet1, sommet2, 33);
+	Vertex sommet = new Vertex("1");	// Création d'un sommet avec l'ID "1"
+	sommet.add("Nom");					// Création d'un attribut "Nom"
+	sommet.set("Nom", "Jerome");			// Edition de la valeur de l'attribut "Nom"
+	String nom = sommet.get("Nom");		// Récupération de la valeur de l'attribut "Nom"
+
+### 3. Relation - *Relation*
+
+La modélisation d'un graphe utilisée ici peut posséder plusieurs relations (*types d'arcs*). La classe [Relation](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Relation.java) est une classe représentant une *Relation* et les différents arcs en découlant. Elle est composée de deux attributs :
+- Un *nom* : sous la forme d'un **String**, fonctionne comme un identifiant
+- Une Liste de [Pair](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Pair.java)<Vertex, Vertex> représentant les arcs entre les différents sommets
+Bien entendu, la classe contient également différentes méthodes pour la manipulation de ses instances, ainsi qu'une classe pour la gestion des **Exceptions**.
+Cette classe sera utilisée dans la modélisation du graphe.
+Par exemple :
+
+	Vertex v1 = new Vertex("1");
+	Vertex v2 = new Vertex("2");
+	Relation relation = new Relation("est voisin de");		// Création d'une relation
+	Pair<Vertex, Vertex> pair = new Pair<>(v1, v2);
+	relation.add(pair);										// Ajout de la paire à la relation
+
+### 4. Graphe - *Tree*
+
+[Tree](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Tree.java) représente un graphe. Il est composé de deux attributs *principaux* :
+- Une liste de [Vertex](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Vertex.java), dont l'identifiant de chacun doit être unique
+- Une liste de [Relation](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Relation.java), dont le nom de chacune doit être unique
+Il peut être construit dynamiquement, ou lu dans un fichier XML dont la dtd reprend un modèle précis.
+La classe possède également ses propres **Exceptions**.
+
+L'ajout d'un sommet dans le graphe s'effectue grâce à différentes méthodes : 
 	
-Ce qui déclare et définit un arc entre le *sommet1* et le *sommet2*, ayant pour libellé *33*.
+	Tree tree = new Tree();				// Création de l'arbre
+	tree.createVertex("1");				// Création d'un sommet portant l'identifant "1" dans l'arbre
+	Vertex vertex = new Vertex("2");
+	tree.createVertex(vertex);			// Ajout d'un sommet dans l'arbre
 
-### 3. Graphe - *Tree*
+L'ajout d'un arc dans le graphe s'effectue après différentes étapes, il faut créer la relation, puis y ajouter les paires.
 
-Dans la déclaration de [Tree](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Tree.java), deux types doivent être précisés : la classe de l'implémentation du Vertex, et le type du libellé de l'arc.
-L'ajout d'un sommet dans le graphe s'effectue grâce à la méthode : **addVertex**.
-L'ajout d'un arc dans le graphe s'effectue grâce à la méthode : **addEdge**
-Par exemple :
+	tree.createRelation("est voisin de");					// Création d'une relation dans l'arbre
+	tree.addPair("est voisin de", "1", "2");				// Ajout d'une paire dans la relation "est voisin de", entre le sommet portant l'identifiant "1" et le sommet portant l'identifiant "2"
+	
+	Relation relation = new Relation("est parent de");
+	Vertex p1 = new Vertex("3");
+	Vertex p2 = new Vertex("4");
+	Pair<Vertex, Vertex> pair = new Pair<>(p1, p2);
+	relation.add(pair);
+	tree.createRelation(relation);							// Création d'une relation dans l'arbre
 
-	Tree<DefaultVertex, Integer> tree = new Tree<>();
-	tree.addVertex(sommet1);
-	tree.addVertex(sommet2);
-	tree.addEdge(arc);
-
-### 4. Positionnement - *Placement*
+### 5. Positionnement - *Placement*
 
 [Placement](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Placement.java) est une classe reprenant le concept de Random de Java. A chaque appel de sa méthode next(), l'instance de la classe retourne le Point suivant contenu dans un tableau. Lorsque ce dernier est vide, un appel à next() générera aléatoirement un Point.
-**Placement** contient, pour le moment, 24 Point *statiques*. 
+**Placement** contient, pour le moment, 24 Point *statiques*.
+Par exemple :
+
+	Placement p = new Placement();
+	Point point = p.next();
 
 ---
 
 ## V. L'Affichage
 
-L'affichage d'un arbre peut s'effectuer sous Swing ou sous JavaFX.
+L'affichage d'un arbre s'effectue sous JavaFX.
 
-### 1. Swing
-
-#### a. Sommet - *VertexView*
-
-Un sommet est représenté par un **JComponent**. Ce dernier dessine un cercle et lui accorde un espace en accord avec le rayon du cercle (d'où l'affichage limité des informations brèves du sommet).
-
-#### b. Arc - *EdgeView*
-
-Un arc est représenté par un **JComponent**. Ce dernier dessigne une ligne entre deux **VertexView**, son espace est calculé en fonction de l'écart entre les deux sommets.
-
-Il est à noter qu'à proprement parlé la ligne n'est pas placé par cette classe mais bien par **TreeView**.
-
-#### c. Graphe - *TreeView*
-
-L'arbre est dessiné comme un ensemble de **VertexView** et de **EdgeView**, dans un JPanel. **TreeView** affiche l'arbre au centre, ainsi que des informations sur ce dernier ou le dernier sommet *cliqué* à droite dans un **JTextArea**.
-Cette classe place les sommets en leur associant des coordonnées aléatoires, pouvant donner un affichage satisfaisant comme un affichage illisible. **Ce point est donc à retravailler.**
-Les sommets sont cliquables et peuvent être déplacées, contrairement aux arcs.
-
-#### d. La Fenêtre - *Window*
-
-Le tout est contenu dans un **JFrame** possédant différents menus :
-- Fichier
-	* Ouvrir : permet d'ouvrir un fichier représentant une ontologie.
-	* Quitter : quitte l'application.
-- Edition
-	* Ontologie : ouvre l'éditeur par défaut du système sur le fichier actuellement ouvert, pour modification.
-	
-### 2. JavaFX
-
-#### a. Sommet - *VertexFxView*
+### 1. Sommet - *VertexView*
 
 Un sommet est représenté par un **Group**. Ce dernier contient et dessine un cercle et un label, contenant la description brève du sommet correspondant.
 
-#### b. Arc - *EdgeFxView*
+#### b. Arc - *EdgeView*
 
-Un arc est représenté par un **Group**. Ce dernier contient et dessine une ligne entre deux **VertexView** et un label, contenant la valeur de l'arc correspondant.
+Un arc est représenté par un **Group**. Ce dernier contient et dessine une ligne entre deux **VertexView** et un label, contenant le/la nom/valeur de l'arc correspondant.
 
-#### c. Graphe - *TreeFxView*
+#### c. Graphe - *TreeView*
 
-L'arbre contient l'ensemble des **Group** (**VertexFxView** & **EdgeFxView**) et est lui-même un **Group**. En fonction de la variable de type **Tree** passée en paramètre, il construit ses sommets et ses arcs et leur accorde différents *listeners*.
-Les sommets sont cliquables (l'affichage s'effectue, pour le moment dans la console).
+L'arbre contient l'ensemble des **Group** (**VertexView** & **EdgeView**) et est lui-même un **Group**. En fonction de la variable de type **Tree** passée en paramètre, il construit ses sommets et ses arcs et leur accorde différents *listeners*.
 
-#### d. Application - *FxCityExample*
+#### d. Application - *Launcher*
 
-Cette classe permet d'ouvrir l'application, d'y créer la fenêtre ainsi que le menu. Elle possède différents menus :
-- Fichier
-	* Ouvrir : permet d'ouvrir un fichier représentant une ontologie.
-	* Quitter : quitte l'application.
-- Edition
-	* Ontologie : ouvre l'éditeur par défaut du système sur le fichier actuellement ouvert, pour modification.
-	
+Cette classe permet d'ouvrir l'application.
+
 --- 
 
 ## VI. Les Ontologies
