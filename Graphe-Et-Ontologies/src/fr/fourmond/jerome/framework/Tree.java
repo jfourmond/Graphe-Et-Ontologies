@@ -1,14 +1,24 @@
 package fr.fourmond.jerome.framework;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.jdom2.Attribute;
+import org.jdom2.JDOMException;
+import org.jdom2.input.DOMBuilder;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -25,18 +35,21 @@ import org.xml.sax.SAXParseException;
  * @author jfourmond
  */
 public class Tree implements ErrorHandler {
-	private static final String ENTREE = "ENTREE";
-		private static final String ID = "id";
-	private static final String RELATION = "RELATION";
-		private static final String NOM = "nom";
-	private static final String LIEN = "LIEN";
+	private static final String INDEX = "IndexSource";
+		private static final String ENTREE = "ENTREE";
+			private static final String ID = "id";
+		private static final String RELATION = "RELATION";
+			private static final String NOM = "nom";
+		private static final String LIEN = "LIEN";
 	
 	private static DocumentBuilderFactory domFactory;
 	private static DocumentBuilder domBuilder;
 	private static String vertexKey;
 	
-	private File file;
+	private static SAXBuilder saxBuilder;
+	
 	private Document document;
+	private File file;
 	
 	private List<Vertex> vertices;
 	private List<Relation> relations;
@@ -340,6 +353,54 @@ public class Tree implements ErrorHandler {
 		buildRelations();
 	}
 	
+	public void writeInFile() throws FileNotFoundException, IOException, JDOMException {
+		saxBuilder = new SAXBuilder();
+		DOMBuilder builder = new DOMBuilder();
+		org.jdom2.Document documentJDOM;
+		// Racine du document
+		org.jdom2.Element racine = new org.jdom2.Element(INDEX);
+		
+		for(Vertex vertex : vertices) {
+			// Ajout d'une entrée
+			org.jdom2.Element entree = new org.jdom2.Element(ENTREE);
+			racine.addContent(entree);
+			// Ajout de l'id
+			Attribute id = new Attribute(ID, vertex.getID());
+			entree.setAttribute(id);
+			// Ajout de tous les attributs
+			Map<String, String> attributes = vertex.getAttributes();
+			for(Entry<String, String> entry : attributes.entrySet()) {
+				Attribute attribute = new Attribute(entry.getKey(), entry.getValue());
+				entree.setAttribute(attribute);
+			}
+			// Gestion des relations
+			for(Relation r : relations) {
+				org.jdom2.Element relation = new org.jdom2.Element(RELATION);
+				entree.addContent(relation);
+				// Nom de la relation
+				Attribute relationName = new Attribute(NOM, r.getName());
+				relation.setAttribute(relationName);
+				// Liens de la relation
+				List<Pair<Vertex, Vertex>> listPairs = r.getPairs(vertex);
+				for(Pair<Vertex, Vertex> pair : listPairs) {
+					org.jdom2.Element lien = new org.jdom2.Element(LIEN);
+					relation.addContent(lien);
+					lien.setText(pair.getSecond().getID());
+				}
+			}
+		}
+		
+		// Enregistrement
+		if(document != null) {
+			documentJDOM = builder.build(document);
+		} else {
+			documentJDOM = new org.jdom2.Document(racine);
+		}
+		
+		XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
+		sortie.output(documentJDOM, new FileOutputStream(file));
+	}
+	
 	private void buildRelations() throws TreeException, RelationException, VertexException {
 		String vertex1ID;
 		NodeList entreeList = document.getElementsByTagName(ENTREE);
@@ -400,6 +461,14 @@ public class Tree implements ErrorHandler {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Vide l'arbre courant
+	 */
+	public void clear() {
+		vertices.clear();
+		relations.clear();
 	}
 	
 	@Override
