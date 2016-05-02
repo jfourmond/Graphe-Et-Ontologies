@@ -33,6 +33,10 @@ Le développement de cette partie se retrouve dans le commit [suivant](https://g
 
 - [x] Lecture d'Ontologies		:deciduous_tree:
 - [x] Visualisation d'Ontologies
+
+### 3. Troisième étape
+
+- [ ] Sauvegarde d'Ontologies
 - [ ] Interaction avec l'Ontologie
 
 ---

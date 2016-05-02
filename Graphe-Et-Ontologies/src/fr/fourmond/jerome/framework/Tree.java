@@ -15,7 +15,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.jdom2.Attribute;
 import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.w3c.dom.Document;
