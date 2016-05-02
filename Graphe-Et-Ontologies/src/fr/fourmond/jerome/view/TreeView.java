@@ -8,22 +8,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 import java.util.Set;
 
 import fr.fourmond.jerome.framework.ColorDistribution;
 import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Placement;
 import fr.fourmond.jerome.framework.Relation;
-import fr.fourmond.jerome.framework.RelationException;
 import fr.fourmond.jerome.framework.Tree;
-import fr.fourmond.jerome.framework.TreeException;
 import fr.fourmond.jerome.framework.Vertex;
-import fr.fourmond.jerome.framework.VertexException;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -31,6 +23,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -48,6 +42,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 /**
@@ -78,6 +73,8 @@ public class TreeView extends BorderPane {
 		private Menu menu_file;
 			private MenuItem item_new;
 			private MenuItem item_open;
+			private MenuItem item_save;
+			private MenuItem item_save_under;
 			private MenuItem item_quit;
 		private Menu menu_edit;
 			private MenuItem item_ontologie;
@@ -131,6 +128,10 @@ public class TreeView extends BorderPane {
 		menu_file = new Menu("Fichier");
 			item_new = new MenuItem("Nouveau");
 			item_open = new MenuItem("Ouvrir");
+			item_save = new MenuItem("Enregistrer");
+			if(tree.getFile() == null)
+				item_save.setDisable(true);
+			item_save_under = new MenuItem("Enregistrer sous");
 			item_quit = new MenuItem("Quitter");
 		menu_edit = new Menu("Edition");
 			item_ontologie = new MenuItem("Ontologie");
@@ -168,7 +169,7 @@ public class TreeView extends BorderPane {
 	}
 	
 	private void buildInterface() {
-			menu_file.getItems().addAll(item_new, item_open, item_quit);
+			menu_file.getItems().addAll(item_new, item_open, item_save, item_save_under, item_quit);
 				menu_add_edge.getItems().addAll(item_add_edge_relations);
 			menu_edit.getItems().addAll(item_ontologie, item_separator, item_add_vertex, item_add_relation, menu_add_edge);
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
@@ -254,24 +255,34 @@ public class TreeView extends BorderPane {
 			public void handle(ActionEvent event) {
 				File F = fileChooser.showOpenDialog(null);
 				if(F != null) {
-					new TreeView(tree);
+					// TODO supprimer commentaire
+					// new TreeView(tree);
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Erreur");
+					alert.setHeaderText("Erreur dans la lecture du fichier");
+					alert.initStyle(StageStyle.UTILITY);
 					try {
 						tree.readFromFile(F);
 						build();
-					} catch (TreeException e) {
-						e.printStackTrace();
-					} catch (ParserConfigurationException e) {
-						e.printStackTrace();
-					} catch (SAXException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					} catch (RelationException e) {
-						e.printStackTrace();
-					} catch (VertexException e) {
-						e.printStackTrace();
+					} catch (Exception e) {
+						alert.setContentText(e.getMessage());
+						alert.showAndWait();
 					}
 				}
+			}
+		});
+		item_save.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO implement
+				System.err.println("NON IMPLEMENTE");
+			}
+		});
+		item_save_under.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO implement
+				System.err.println("NON IMPLEMENTE");
 			}
 		});
 		item_quit.setOnAction(new EventHandler<ActionEvent>() {
