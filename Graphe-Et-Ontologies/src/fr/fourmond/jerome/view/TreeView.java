@@ -281,8 +281,13 @@ public class TreeView extends BorderPane {
 		item_save_under.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO implement
-				System.err.println("NON IMPLEMENTE");
+				// TODO changement dans l'arbre et enregistrement
+				File file = fileChooser.showSaveDialog(null);
+				if(file != null) {
+					System.out.println(file.getAbsolutePath());
+					tree.setFile(file);
+					tree.writeInFile();
+				}
 			}
 		});
 		item_quit.setOnAction(new EventHandler<ActionEvent>() {
