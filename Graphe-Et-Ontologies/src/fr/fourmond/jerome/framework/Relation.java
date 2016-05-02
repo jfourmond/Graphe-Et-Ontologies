@@ -59,6 +59,22 @@ public class Relation {
 	}
 	
 	/**
+	 * Retourne une liste de {@link Pair} où le sommet passé en paramètre
+	 * est l'origine de l'arc
+	 * @param vertex : sommet à rechercher
+	 * @return une liste de {@link Pair} dont le sommet passé en paramètre est l'origine de l'arc
+	 */
+	public List<Pair<Vertex, Vertex>> getPairs(Vertex vertex) {
+		List<Pair<Vertex, Vertex>> list = new ArrayList<>();
+		for(Pair<Vertex, Vertex> pair : pairs) {
+			if(pair.getFirst().equals(vertex))
+				list.add(pair);
+		}
+		
+		return list;
+	}
+	
+	/**
 	 * Teste si la paire est présente dans la relation
 	 * @param pair : paire à rechercher
 	 * @return <code>true</code> si la paire est présente dans la relation, <code>false</code> sinon
