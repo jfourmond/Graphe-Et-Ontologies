@@ -45,8 +45,6 @@ public class Tree implements ErrorHandler {
 	private static DocumentBuilder domBuilder;
 	private static String vertexKey;
 	
-	private static SAXBuilder saxBuilder;
-	
 	private Document document;
 	private File file;
 	
@@ -357,9 +355,12 @@ public class Tree implements ErrorHandler {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 * @throws JDOMException
+	 * @throws TreeException si aucun fichier n'est associé à l'arbre
 	 */
-	public void writeInFile() throws FileNotFoundException, IOException, JDOMException {
-		saxBuilder = new SAXBuilder();
+	public void writeInFile() throws FileNotFoundException, IOException, JDOMException, TreeException {
+		if(file == null)
+			throw new TreeException("Aucun fichier associé à l'arbre.");
+		
 		org.jdom2.Document documentJDOM;
 		// Racine du document
 		org.jdom2.Element racine = new org.jdom2.Element(INDEX);
