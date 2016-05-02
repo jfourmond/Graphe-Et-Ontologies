@@ -91,7 +91,15 @@ public class TreeView extends BorderPane {
 		private SeparatorMenuItem vCM_separator;
 		private MenuItem vCM_add_vertex;
 		private MenuItem vCM_add_relation;
-			
+		private Menu vCM_add_edge;
+			private List<MenuItem> vCM_add_edge_relations;
+	
+	private ContextMenu treeContextMenu;
+		private MenuItem tCM_add_vertex;
+		private MenuItem tCM_add_relation;
+		private Menu tCM_add_edge;
+			private List<MenuItem> tCM_add_edge_relations;
+		
 	private FileChooser fileChooser;
 			
 	private static MouseEvent pressed;
@@ -115,6 +123,8 @@ public class TreeView extends BorderPane {
 		fileChooser = new FileChooser();
 		
 		item_add_edge_relations = new ArrayList<>();
+		vCM_add_edge_relations = new ArrayList<>();
+		tCM_add_edge_relations = new ArrayList<>();
 		
 		verticesView = new ArrayList<>();
 		edgesView = new HashMap<>();
@@ -147,9 +157,18 @@ public class TreeView extends BorderPane {
 			vCM_separator = new SeparatorMenuItem();
 			vCM_add_vertex = new MenuItem("Nouveau sommet");
 			vCM_add_relation = new MenuItem("Nouvelle relation");
+			vCM_add_edge = new Menu("Nouvel arc");
 		
-		for(Relation relation : tree.getRelations())
+		treeContextMenu = new ContextMenu();
+			tCM_add_vertex = new MenuItem("Nouveau sommet");
+			tCM_add_relation = new MenuItem("Nouvelle relation");
+			tCM_add_edge = new Menu("Nouvel arc");
+		
+		for(Relation relation : tree.getRelations()) {
 			item_add_edge_relations.add(new MenuItem(relation.getName()));
+			vCM_add_edge_relations.add(new MenuItem(relation.getName()));
+			tCM_add_edge_relations.add(new MenuItem(relation.getName()));
+		}
 		
 		center = new Pane();
 		east = new VBox();
@@ -175,7 +194,11 @@ public class TreeView extends BorderPane {
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
 		menuBar.setUseSystemMenuBar(true);
 		
-		vertexContextMenu.getItems().addAll(vCM_edit, vCM_delete, vCM_separator, vCM_add_vertex, vCM_add_relation);
+			vCM_add_edge.getItems().addAll(vCM_add_edge_relations);
+		vertexContextMenu.getItems().addAll(vCM_edit, vCM_delete, vCM_separator, vCM_add_vertex, vCM_add_relation, vCM_add_edge);
+		
+			tCM_add_edge.getItems().addAll(tCM_add_edge_relations);
+		treeContextMenu.getItems().addAll(tCM_add_vertex, tCM_add_relation, tCM_add_edge);
 		
 		drawVertices();
 		drawEdges();
@@ -255,7 +278,7 @@ public class TreeView extends BorderPane {
 			public void handle(ActionEvent event) {
 				File F = fileChooser.showOpenDialog(null);
 				if(F != null) {
-					// TODO supprimer commentaire
+					// TODO Dans le cas d'une ouverture dans une nouvelle fenêtre
 					// new TreeView(tree);
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Erreur");
@@ -265,6 +288,7 @@ public class TreeView extends BorderPane {
 						tree.readFromFile(F);
 						build();
 					} catch (Exception e) {
+						e.printStackTrace();
 						alert.setContentText(e.getMessage());
 						alert.showAndWait();
 					}
@@ -274,19 +298,39 @@ public class TreeView extends BorderPane {
 		item_save.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO implement
-				System.err.println("NON IMPLEMENTE");
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erreur");
+				alert.setHeaderText("Enregistrement impossible.");
+				alert.initStyle(StageStyle.UTILITY);
+				try {
+					tree.writeInFile();
+				} catch (Exception e) {
+					e.printStackTrace();
+					alert.setContentText(e.getMessage());
+					alert.showAndWait();
+				}
 			}
 		});
 		item_save_under.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO changement dans l'arbre et enregistrement
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erreur");
+				alert.setHeaderText("Enregistrement impossible.");
+				alert.initStyle(StageStyle.UTILITY);
 				File file = fileChooser.showSaveDialog(null);
 				if(file != null) {
 					System.out.println(file.getAbsolutePath());
 					tree.setFile(file);
-					tree.writeInFile();
+					try {
+						tree.getFile().createNewFile();
+						tree.writeInFile();
+					} catch (Exception e) {
+						e.printStackTrace();
+						alert.setContentText(e.getMessage());
+						alert.showAndWait();
+					}
+					item_save.setDisable(false);
 				}
 			}
 		});
@@ -338,6 +382,32 @@ public class TreeView extends BorderPane {
 				}
 			});
 		}
+		for(MenuItem item : vCM_add_edge_relations) {
+			String text = item.getText();
+			item.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					if(!tree.isVerticesEmpty()) {
+						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree, text);
+						addEdge.showAndWait();
+						build();
+					} else System.err.println("Pas de sommets");
+				}
+			});
+		}
+		for(MenuItem item : tCM_add_edge_relations) {
+			String text = item.getText();
+			item.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					if(!tree.isVerticesEmpty()) {
+						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree, text);
+						addEdge.showAndWait();
+						build();
+					} else System.err.println("Pas de sommets");
+				}
+			});
+		}
 		vCM_edit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -355,6 +425,8 @@ public class TreeView extends BorderPane {
 		});
 		vCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
 		vCM_add_relation.setOnAction(item_add_relation.getOnAction());
+		tCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
+		tCM_add_relation.setOnAction(item_add_relation.getOnAction());
 		center.setOnScroll(new EventHandler<ScrollEvent>() {
 			@Override
 			public void handle(ScrollEvent event) {
@@ -384,6 +456,13 @@ public class TreeView extends BorderPane {
 			@Override
 			public void handle(MouseEvent event) {
 				pressed = event;
+			}
+		});
+		center.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if(!event.isConsumed() && event.getButton() == MouseButton.SECONDARY)
+					treeContextMenu.show(center, event.getScreenX(), event.getScreenY());
 			}
 		});
 		for(VertexView vertex : verticesView) {

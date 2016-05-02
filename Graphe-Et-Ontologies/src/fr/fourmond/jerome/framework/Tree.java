@@ -15,7 +15,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.jdom2.Attribute;
 import org.jdom2.JDOMException;
-import org.jdom2.input.DOMBuilder;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -361,7 +360,6 @@ public class Tree implements ErrorHandler {
 	 */
 	public void writeInFile() throws FileNotFoundException, IOException, JDOMException {
 		saxBuilder = new SAXBuilder();
-		DOMBuilder builder = new DOMBuilder();
 		org.jdom2.Document documentJDOM;
 		// Racine du document
 		org.jdom2.Element racine = new org.jdom2.Element(INDEX);
@@ -397,11 +395,7 @@ public class Tree implements ErrorHandler {
 		}
 		
 		// Enregistrement
-		if(document != null) {
-			documentJDOM = builder.build(document);
-		} else {
-			documentJDOM = new org.jdom2.Document(racine);
-		}
+		documentJDOM = new org.jdom2.Document(racine);
 		
 		XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 		sortie.output(documentJDOM, new FileOutputStream(file));
