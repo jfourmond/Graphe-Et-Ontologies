@@ -168,10 +168,18 @@ Cette classe permet d'ouvrir l'application.
 
 --- 
 
-## VI. Les Ontologies
+## VI. Les Ontologies, en XML
 
 ### 1. La DTD (*Document Type Definition*)
 
-### 2. Le Fichier XML
+Le fichier XML utilisé dans la construction d'un arbre d'ontologie doit respecter une DTD précise. Elle doit reprendre la construction des fichiers suivants (*Utilisés comme exemple ici*) :
+- [Index327.dtd](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Ontologies/index327.dtd)
+- [Villes.dtd](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Ontologies/villes.dtd)
 
-### 3. Le Chargement
+### 2. Le Chargement
+
+Lors du chargement du fichier, le programme vérifie s'il est valide. Puis crée un [Tree](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Tree.java) manipulable par la suite.
+
+### 3. L'Ecriture
+
+L'écriture du fichier s'effectue grâce à la libraire JDOM. Dans le fichier spécifié par l'attribut *file* de l'instance.
