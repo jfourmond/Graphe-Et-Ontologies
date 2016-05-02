@@ -475,12 +475,12 @@ public class Tree implements ErrorHandler {
 	public String toString() {
 		String ch = "Sommets (" + vertices.size() + ") : \n";
 		for(Vertex vertex : vertices) {
-			ch += "\t" + vertex + "\n";
+			ch += "\t" + vertex;
 		}
 		
 		ch += "Relations (" + relations.size() + ") : \n";
 		for(Relation relation : relations) {
-			ch += "\t" + relation + "\n";
+			ch += "\t" + relation;
 		}
 		return ch;
 	}
