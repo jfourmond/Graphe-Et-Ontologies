@@ -70,7 +70,6 @@ public class Relation {
 			if(pair.getFirst().equals(vertex))
 				list.add(pair);
 		}
-		
 		return list;
 	}
 	

@@ -353,6 +353,12 @@ public class Tree implements ErrorHandler {
 		buildRelations();
 	}
 	
+	/**
+	 * Enregistrement de l'arbre dans un fichier XML
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
 	public void writeInFile() throws FileNotFoundException, IOException, JDOMException {
 		saxBuilder = new SAXBuilder();
 		DOMBuilder builder = new DOMBuilder();
