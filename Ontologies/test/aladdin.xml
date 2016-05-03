@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IndexSource>
+  <ENTREE id="1" Nom="Aladdin">
+    <RELATION nom="amoureux de">
+      <LIEN>2</LIEN>
+    </RELATION>
+  </ENTREE>
+  <ENTREE id="2" Nom="Jasmine">
+    <RELATION nom="amoureux de" />
+  </ENTREE>
+</IndexSource>

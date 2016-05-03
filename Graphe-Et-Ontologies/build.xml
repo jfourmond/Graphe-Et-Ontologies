@@ -5,21 +5,42 @@
 	<property name="project.version" value="1.0" />
 	<property name="jar.file" value="${ant.project.name}-${project.version}.jar" />
 
+	<property name="lib.dir" value="lib" />
+	<property name="doc.dir" value="doc" />
+
 	<property name="src.dir" value="src" />
 	<property name="bin.dir" value="bin" />
+	<property name="tests.dir" value="tests" />
 
-	<property name="doc.dir" value="doc" />
+	<property name="bin.src.dir" value="${bin.dir}/${src.dir}" />
+	<property name="bin.tests.dir" value="${bin.dir}/${tests.dir}" />
+
+	<property name="tests.report.dir" value="report" />
+	<property name="tests.report.html.dir" value="report" />
 
 	<property name="target" value="1.8"/>
 	<property name="source" value="1.8"/>
 
-	<!--  paths -->
+	<!-- =========================== -->
+	<!-- ========== paths ========== -->
+	<!-- =========================== -->
 	<path id="src.compile.classpath">
 		<pathelement location="${bin.dir}" />
+		<fileset dir="${lib.dir}" >
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="tests.compile.classpath">
+		<fileset dir="${lib.dir}" />
+		<pathelement path="${bin.dir}" />
 	</path>
 
 	<path id="run.classpath">
-		<pathelement path="${bin.dir}" />
+		<fileset dir="${lib.dir}" >
+			<filename name="jdom-2.0.6.jar" />
+		</fileset>
+		<pathelement path="${bin.src.dir}" />
 	</path>
 
 	<!-- targets  -->
@@ -28,16 +49,24 @@
 		<delete dir="${bin.dir}"/>
 	</target>
 
-	<!--  initialize  -->
+		<!--  initialize  -->
 	<target name="init" description="create directories">
-		<mkdir dir="${bin.dir}" />
+		<mkdir dir="${bin.src.dir}" />
+		<mkdir dir="${bin.tests.dir}" />
 	</target>
 
-	<!--  compile -->
-	<target name="build" depends="init  " description="source compilation">
-		<javac srcdir="${src.dir}" destdir="${bin.dir}" fork="true"
-			classpathref="src.compile.classpath" includeantruntime="false" >
+		<!--  compile -->
+	<target name="build" depends="init" description="source compilation">
+		<javac srcdir="${src.dir}" destdir="${bin.src.dir}" fork="true"
+			 classpathref="src.compile.classpath" includeantruntime="false" >
 		</javac>
+	</target>
+
+		<!-- compile tests -->
+	<target name="build_tests" depends="build" description="tests compilation">
+	  <javac srcdir="${tests.dir}" destdir="${bin.tests.dir}" fork="true"
+		  classpathref="tests.compile.classpath" includeantruntime="false" >
+	  </javac>
 	</target>
 
 	<!--  run -->
@@ -46,6 +75,32 @@
 		<java classname="Launcher" fork="true"
 			classpathref="run.classpath" >
 		</java>
+	</target>
+
+		<!-- run Tests -->
+	<target name="tests" depends="build">
+  		<mkdir dir="${tests.report.dir}" />
+  		<junit printsummary="true" haltonfailure="true">
+  	        <classpath refid="run.classpath" />
+  	        <classpath>
+  	        	<pathelement location="${bin.dir}" />
+  	        </classpath>
+  	        <formatter type="plain" />
+  	  		<formatter type="xml" />
+  	        <batchtest todir="${tests.report.dir}">
+  	            <fileset dir="${bin.tests.dir}" includes="**/*TestCase.class" />
+  	        </batchtest>
+  	    </junit>
+	</target>
+
+	<target name="tests_report" depends="tests">
+  	    <mkdir dir="${tests.html.dir}" />
+  	    <junitreport todir="${tests.dir}">
+  	    	<fileset dir="${tests.dir}">
+  	        	<include name="TEST-*.xml" />
+  	      	</fileset>
+ 			<report format="noframes" todir="${tests.html.dir}" />
+ 		</junitreport>
 	</target>
 
 	<!--  javadoc -->

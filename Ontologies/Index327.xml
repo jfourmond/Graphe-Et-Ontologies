@@ -5739,40 +5739,40 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme="Terme11" validite="Neutre" id="301">
+<ENTREE  terme="terme11" validite="Neutre" id="301">
    <RELATION nom="Tete"/>
    <RELATION nom="HYPERONYMIE">
         
-<LIEN>Terme42</LIEN>
-<LIEN>Terme72</LIEN> 
-<LIEN>Terme152</LIEN>
-<LIEN>Terme162</LIEN>
+<LIEN>terme42</LIEN>
+<LIEN>terme72</LIEN> 
+<LIEN>terme152</LIEN>
+<LIEN>terme162</LIEN>
    		
    </RELATION>
    <RELATION nom="MERONYMIE">
-<LIEN>TermeM42</LIEN>
-<LIEN>TermeM72</LIEN> 
-<LIEN>TermeM152</LIEN>
-<LIEN>TermeM162</LIEN>
+<LIEN>termeM42</LIEN>
+<LIEN>termeM72</LIEN> 
+<LIEN>termeM152</LIEN>
+<LIEN>termeM162</LIEN>
    		
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
-<LIEN>TermeV42</LIEN>
-<LIEN>TermeV72</LIEN> 
+<LIEN>termeV42</LIEN>
+<LIEN>termeV72</LIEN> 
 
    		
    </RELATION>
    <RELATION nom="SYNONYMIE">
-<LIEN>TermeS72</LIEN> 
-<LIEN>TermeS152</LIEN>
-<LIEN>TermeS162</LIEN>
+<LIEN>termeS72</LIEN> 
+<LIEN>termeS152</LIEN>
+<LIEN>termeS162</LIEN>
    		
    </RELATION>
    <RELATION nom="SPECIALISATION">
-<LIEN>TermeSP42</LIEN>
-<LIEN>TermeSP72</LIEN> 
-<LIEN>TermeSP152</LIEN>
-<LIEN>TermeSP162</LIEN>
+<LIEN>termeSP42</LIEN>
+<LIEN>termeSP72</LIEN> 
+<LIEN>termeSP152</LIEN>
+<LIEN>termeSP162</LIEN>
    		
    </RELATION>
    <RELATION nom="DERIVES"/>
@@ -5780,40 +5780,40 @@
    <RENVOIS>
      </RENVOIS>
  </ENTREE>
-<ENTREE  terme="Terme42" validite="Neutre" id="302">
+<ENTREE  terme="terme42" validite="Neutre" id="302">
    <RELATION nom="Tete"/>
    <RELATION nom="HYPERONYMIE">
         
-<LIEN>Terme34</LIEN>
-<LIEN>Terme43</LIEN> 
-<LIEN>Terme52</LIEN>
-<LIEN>Terme62</LIEN>
+<LIEN>terme34</LIEN>
+<LIEN>terme43</LIEN> 
+<LIEN>terme52</LIEN>
+<LIEN>terme62</LIEN>
    		
    </RELATION>
    <RELATION nom="MERONYMIE">
-<LIEN>TermeM41</LIEN>
-<LIEN>TermeM72</LIEN> 
-<LIEN>TermeM150</LIEN>
-<LIEN>TermeM165</LIEN>
+<LIEN>termeM41</LIEN>
+<LIEN>termeM72</LIEN> 
+<LIEN>termeM150</LIEN>
+<LIEN>termeM165</LIEN>
    		
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
-<LIEN>TermeV42</LIEN>
-<LIEN>TermeV72</LIEN> 
+<LIEN>termeV42</LIEN>
+<LIEN>termeV72</LIEN> 
 
    		
    </RELATION>
    <RELATION nom="SYNONYMIE">
-<LIEN>TermeS72</LIEN> 
-<LIEN>TermeS152</LIEN>
-<LIEN>TermeS162</LIEN>
+<LIEN>termeS72</LIEN> 
+<LIEN>termeS152</LIEN>
+<LIEN>termeS162</LIEN>
    		
    </RELATION>
    <RELATION nom="SPECIALISATION">
-<LIEN>TermeSP42</LIEN>
-<LIEN>TermeSP72</LIEN> 
-<LIEN>TermeSP152</LIEN>
-<LIEN>TermeSP162</LIEN>
+<LIEN>termeSP42</LIEN>
+<LIEN>termeSP72</LIEN> 
+<LIEN>termeSP152</LIEN>
+<LIEN>termeSP162</LIEN>
    		
    </RELATION>
    <RELATION nom="DERIVES"/>
@@ -5824,40 +5824,40 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE terme="Terme34" validite="Neutre" id="303">
+<ENTREE terme="terme34" validite="Neutre" id="303">
    <RELATION nom="Tete"/>
    <RELATION nom="HYPERONYMIE">
         
-<LIEN>Terme38</LIEN>
-<LIEN>Terme45</LIEN> 
-<LIEN>Terme52</LIEN>
-<LIEN>Terme62</LIEN>
+<LIEN>terme38</LIEN>
+<LIEN>terme45</LIEN> 
+<LIEN>terme52</LIEN>
+<LIEN>terme62</LIEN>
    		
    </RELATION>
    <RELATION nom="MERONYMIE">
-<LIEN>TermeM41</LIEN>
-<LIEN>TermeM72</LIEN> 
-<LIEN>TermeM150</LIEN>
-<LIEN>TermeM165</LIEN>
+<LIEN>termeM41</LIEN>
+<LIEN>termeM72</LIEN> 
+<LIEN>termeM150</LIEN>
+<LIEN>termeM165</LIEN>
    		
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
-<LIEN>TermeV42</LIEN>
-<LIEN>TermeV72</LIEN> 
+<LIEN>termeV42</LIEN>
+<LIEN>termeV72</LIEN> 
 
    		
    </RELATION>
    <RELATION nom="SYNONYMIE">
-<LIEN>TermeS72</LIEN> 
-<LIEN>TermeS152</LIEN>
-<LIEN>TermeS162</LIEN>
+<LIEN>termeS72</LIEN> 
+<LIEN>termeS152</LIEN>
+<LIEN>termeS162</LIEN>
    		
    </RELATION>
    <RELATION nom="SPECIALISATION">
-<LIEN>TermeSP42</LIEN>
-<LIEN>TermeSP72</LIEN> 
-<LIEN>TermeSP152</LIEN>
-<LIEN>TermeSP162</LIEN>
+<LIEN>termeSP42</LIEN>
+<LIEN>termeSP72</LIEN> 
+<LIEN>termeSP152</LIEN>
+<LIEN>termeSP162</LIEN>
    		
    </RELATION>
    <RELATION nom="DERIVES"/>

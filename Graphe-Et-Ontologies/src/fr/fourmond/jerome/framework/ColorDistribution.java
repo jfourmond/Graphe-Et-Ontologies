@@ -14,16 +14,20 @@ import javafx.scene.paint.Color;
 /**
  * {@link ColorDistribution} est une classe reprenant (dans le concept) la classe {@link Random}.
  * Elle permet de créer un {@link Object} envoyant différentes {@link Color} à chaque appel de next().
- * 5 {@link Color} peuvent être renvoyés "statiquement" avant d'être générées aléatoirement.
+ * 9 {@link Color} peuvent être renvoyés "statiquement" avant d'être générées aléatoirement.
  * @author jfourmond
  */
 public class ColorDistribution {
 	public final static Color[] colors = {
-		Color.BLACK,
 		Color.RED,
 		Color.BLUE,
 		Color.YELLOW,
 		Color.GREEN,
+		Color.AQUA,
+		Color.BROWN,
+		Color.CRIMSON,
+		Color.CORNFLOWERBLUE,
+		Color.DEEPPINK
 	};
 	
 	public Random rand;
