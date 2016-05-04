@@ -140,6 +140,12 @@ public class Tree implements ErrorHandler {
 	}
 	
 	/**
+	 * Retourne le nombre de sommet
+	 * @return le nombre de sommet
+	 */
+	public int nbVertices() { return vertices.size(); }
+	
+	/**
 	 * Teste si l'identifiant est l'identifiant d'un {@link Vertex} de l'arbre
 	 * @param id : identifiant
 	 * @return <code>true</code> si l'identifiant correspond à un {@link Vertex}, <code>false</code> sinon
@@ -292,6 +298,12 @@ public class Tree implements ErrorHandler {
 			relation.removeRelatedPair(vertex);
 		}
 	}
+	
+	/**
+	 * Retourne le nombre de relation
+	 * @return le nombre de relation
+	 */
+	public int nbRelations() { return relations.size(); }
 	
 	/**
 	 * Lecture d'un fichier XML pour construire un arbre
