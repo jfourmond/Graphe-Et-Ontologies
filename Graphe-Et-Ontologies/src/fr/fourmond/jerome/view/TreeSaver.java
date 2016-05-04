@@ -18,6 +18,11 @@ import fr.fourmond.jerome.framework.TreeException;
 import fr.fourmond.jerome.framework.Vertex;
 import javafx.concurrent.Task;
 
+/**
+ * {@link TreeSaver} est une {@link Task} permettant
+ * de sauvegarder un {@link Tree}
+ * @author jfourmond
+ */
 public class TreeSaver extends Task<Boolean> {
 	private static final String INDEX = "IndexSource";
 	private static final String ENTREE = "ENTREE";
