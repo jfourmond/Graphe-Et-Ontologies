@@ -44,6 +44,9 @@ public class TreeSaver extends Task<Boolean> {
 			throw new TreeException("Aucun fichier associé à l'arbre.");
 		}
 		
+		if(!tree.getFile().exists())
+			tree.getFile().createNewFile();
+		
 		Document documentJDOM;
 		// Racine du document
 		Element racine = new Element(INDEX);
