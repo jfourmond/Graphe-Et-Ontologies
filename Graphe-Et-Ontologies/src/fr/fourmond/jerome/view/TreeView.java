@@ -33,12 +33,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -87,6 +89,9 @@ public class TreeView extends BorderPane {
 		private TextArea info_area;
 		private ListView<VertexView> info_list;
 			private ObservableList<VertexView> verticesViewForList;
+	private HBox bottom;
+		private ProgressBar pb;
+		private Label info_progress;
 		
 	private ContextMenu vertexContextMenu;
 		private MenuItem vCM_edit;
@@ -197,6 +202,11 @@ public class TreeView extends BorderPane {
 					return new VertexViewList();
 				}
 			});
+		bottom = new HBox();
+			pb = new ProgressBar();
+				pb.setDisable(true);
+				pb.setProgress(0);
+			info_progress = new Label();
 	}
 	
 	private void buildInterface() {
@@ -218,10 +228,12 @@ public class TreeView extends BorderPane {
 		drawEdges();
 		
 		east.getChildren().addAll(info_label, info_area, info_list);
+		bottom.getChildren().addAll(pb, info_progress);
 		
 		setTop(menuBar);
 		setCenter(center);
 		setRight(east);
+		setBottom(bottom);
 	}
 	
 	private void buildVertices() {
