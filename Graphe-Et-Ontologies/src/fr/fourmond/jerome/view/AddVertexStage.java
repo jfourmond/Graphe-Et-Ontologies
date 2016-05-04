@@ -154,7 +154,7 @@ public class AddVertexStage extends Stage {
 				
 				Optional<String> result = dialog.showAndWait();
 				if (result.isPresent()){
-					String s = result.get();
+					String s = result.get().trim();
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Erreur");
 					alert.initStyle(StageStyle.UTILITY);
@@ -200,7 +200,7 @@ public class AddVertexStage extends Stage {
 			Label label = pair.getFirst();
 			TextField textField = pair.getSecond();
 			System.out.println(label.getText() + " = " + textField.getText());
-			text_attributes.put(label.getText(), textField.getText());
+			text_attributes.put(label.getText().trim(), textField.getText().trim());
 		}
 	}
 	
@@ -214,8 +214,8 @@ public class AddVertexStage extends Stage {
 	private Vertex getVertex() throws VertexException {
 		Vertex vertex = new Vertex(text_id);
 		for(Entry<String, String> entry : text_attributes.entrySet()) {
-			String key = entry.getKey();
-			String value = entry.getValue();
+			String key = entry.getKey().trim();
+			String value = entry.getValue().trim();
 			vertex.add(key);
 			vertex.set(key, value);
 		}
