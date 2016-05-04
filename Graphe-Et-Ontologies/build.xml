@@ -10,13 +10,14 @@
 
 	<property name="src.dir" value="src" />
 	<property name="bin.dir" value="bin" />
-	<property name="tests.dir" value="tests" />
+	<property name="test.dir" value="test" />
 
-	<property name="bin.src.dir" value="${bin.dir}/${src.dir}" />
-	<property name="bin.tests.dir" value="${bin.dir}/${tests.dir}" />
+	<property name="src.test.dir" value="${src.dir}/${test.dir}" />
 
-	<property name="tests.report.dir" value="report" />
-	<property name="tests.report.html.dir" value="report" />
+	<property name="bin.test.dir" value="${bin.dir}/${test.dir}" />
+
+	<property name="report.dir" value="report" />
+	<property name="report.html.dir" value="report" />
 
 	<property name="target" value="1.8"/>
 	<property name="source" value="1.8"/>
@@ -31,8 +32,10 @@
 		</fileset>
 	</path>
 
-	<path id="tests.compile.classpath">
-		<fileset dir="${lib.dir}" />
+	<path id="test.compile.classpath">
+		<fileset dir="${lib.dir}" >
+			<include name="*.jar" />
+		</fileset>
 		<pathelement path="${bin.dir}" />
 	</path>
 
@@ -40,65 +43,76 @@
 		<fileset dir="${lib.dir}" >
 			<filename name="jdom-2.0.6.jar" />
 		</fileset>
-		<pathelement path="${bin.src.dir}" />
+		<pathelement path="${bin.dir}" />
 	</path>
 
-	<!-- targets  -->
+	<path id="run.test.classpath">
+		<pathelement path="${bin.test.dir}" />
+	</path>
+
+	<!-- =========================== -->
+	<!-- ========= targets ========= -->
+	<!-- =========================== -->
 		<!--  clean -->
 	<target name="clean" description="clean project">
 		<delete dir="${bin.dir}"/>
+		<delete dir="${doc.dir}" />
+		<delete dir="${test.report.dir}" />
 	</target>
 
 		<!--  initialize  -->
-	<target name="init" description="create directories">
-		<mkdir dir="${bin.src.dir}" />
-		<mkdir dir="${bin.tests.dir}" />
+	<target name="init" description="create directory-ies">
+		<mkdir dir="${bin.dir}" />
 	</target>
 
 		<!--  compile -->
 	<target name="build" depends="init" description="source compilation">
-		<javac srcdir="${src.dir}" destdir="${bin.src.dir}" fork="true"
+		<javac srcdir="${src.dir}" destdir="${bin.dir}" fork="true"
 			 classpathref="src.compile.classpath" includeantruntime="false" >
 		</javac>
 	</target>
 
 		<!-- compile tests -->
-	<target name="build_tests" depends="build" description="tests compilation">
-	  <javac srcdir="${tests.dir}" destdir="${bin.tests.dir}" fork="true"
-		  classpathref="tests.compile.classpath" includeantruntime="false" >
+	<target name="build_test" depends="build" description="test compilation">
+	  <javac srcdir="${src.test.dir}" destdir="${bin.dir}" fork="true"
+		  classpathref="test.compile.classpath" includeantruntime="false" >
 	  </javac>
 	</target>
 
-	<!--  run -->
+	<!-- =========================== -->
+	<!-- =========== run =========== -->
+	<!-- =========================== -->
 		<!-- run Main -->
 	<target name="run">
 		<java classname="Launcher" fork="true"
-			classpathref="run.classpath" >
+			 classpathref="run.classpath" >
 		</java>
 	</target>
 
 		<!-- run Tests -->
-	<target name="tests" depends="build">
-  		<mkdir dir="${tests.report.dir}" />
+	<target name="test" depends="build">
+  		<mkdir dir="${report.dir}" />
   		<junit printsummary="true" haltonfailure="true">
-  	        <classpath refid="run.classpath" />
-  	        <classpath>
-  	        	<pathelement location="${bin.dir}" />
-  	        </classpath>
-  	        <formatter type="plain" />
+  			<classpath refid="run.classpath" />
+  			<classpath>
+  				<pathelement location="${bin.dir}" />
+  			</classpath>
+  			<formatter type="plain" />
   	  		<formatter type="xml" />
-  	        <batchtest todir="${tests.report.dir}">
-  	            <fileset dir="${bin.tests.dir}" includes="**/*TestCase.class" />
-  	        </batchtest>
-  	    </junit>
+  			<batchtest todir="${report.dir}">
+  				<fileset dir="${src.test.dir}">
+					 <include name="**/*Test*.java" />
+				</fileset>
+  			</batchtest>
+  		</junit>
 	</target>
 
-	<target name="tests_report" depends="tests">
-  	    <mkdir dir="${tests.html.dir}" />
-  	    <junitreport todir="${tests.dir}">
-  	    	<fileset dir="${tests.dir}">
-  	        	<include name="TEST-*.xml" />
-  	      	</fileset>
+	<target name="test_report" depends="test">
+  		<mkdir dir="${report.html.dir}" />
+  		<junitreport todir="${report.dir}">
+  			<fileset dir="${bin.test.dir}">
+  				<include name="TEST-*.xml" />
+  		  	</fileset>
  			<report format="noframes" todir="${tests.html.dir}" />
  		</junitreport>
 	</target>
@@ -107,15 +121,14 @@
 	<target name="javadoc">
 		<mkdir dir="${doc.dir}" />
 		<javadoc sourcepath="${src.dir}" destdir="${doc.dir}"
-				author="true" version="true"
-				windowtitle="${ant.project.name} API">
+				 author="true" version="true"
+				 windowtitle="${ant.project.name} API">
 			<doctitle><![CDATA[<h1>${ant.project.name}</h1>]]></doctitle>
 			<bottom><![CDATA[Copyright &#169; 2012 ALl Rights Reserved]]></bottom>
 		</javadoc>
 	</target>
 
 	<!-- generate jar files -->
-		<!-- for Main -->
 	<target name="jar" depends="build" description="generate jar file">
 		<jar destfile="${jar.file}" basedir="${bin.dir}">
 			<manifest>
