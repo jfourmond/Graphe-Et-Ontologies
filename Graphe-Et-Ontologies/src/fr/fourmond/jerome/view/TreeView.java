@@ -204,7 +204,6 @@ public class TreeView extends BorderPane {
 			});
 		bottom = new HBox();
 			pb = new ProgressBar();
-				pb.setDisable(true);
 				pb.setProgress(0);
 			info_progress = new Label();
 	}
@@ -329,7 +328,10 @@ public class TreeView extends BorderPane {
 				alert.setHeaderText("Enregistrement impossible.");
 				alert.initStyle(StageStyle.UTILITY);
 				try {
-					tree.writeInFile();
+					TreeSaver saver = new TreeSaver(tree);
+					info_progress.textProperty().bind(saver.messageProperty());
+					pb.progressProperty().bind(saver.progressProperty());
+					new Thread(saver).start();
 				} catch (Exception e) {
 					e.printStackTrace();
 					alert.setContentText(e.getMessage());
