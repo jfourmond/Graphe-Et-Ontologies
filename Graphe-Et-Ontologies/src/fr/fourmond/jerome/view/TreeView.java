@@ -25,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -32,12 +33,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -60,6 +63,24 @@ public class TreeView extends BorderPane {
 	
 	private Tree tree;
 	
+	private MenuBar menuBar;
+	private Menu menu_file;
+		private MenuItem item_new;
+		private MenuItem item_open;
+		private MenuItem item_save;
+		private MenuItem item_save_under;
+		private MenuItem item_quit;
+	private Menu menu_edit;
+		private MenuItem item_ontologie;
+		private SeparatorMenuItem item_separator;
+		private MenuItem item_add_vertex;
+		private MenuItem item_add_relation;
+		private Menu menu_add_edge;
+			private List<MenuItem> item_add_edge_relations;
+	private Menu menu_view;
+		private Menu menu_view_relations;
+		private List<CheckMenuItem> item_view_relations; 
+	
 	private Pane center;
 		private List<VertexView> verticesView;
 		private Map<String, List<EdgeView>> edgesView;
@@ -68,22 +89,9 @@ public class TreeView extends BorderPane {
 		private TextArea info_area;
 		private ListView<VertexView> info_list;
 			private ObservableList<VertexView> verticesViewForList;
-			
-	private MenuBar menuBar;
-		private Menu menu_file;
-			private MenuItem item_new;
-			private MenuItem item_open;
-			private MenuItem item_save;
-			private MenuItem item_save_under;
-			private MenuItem item_quit;
-		private Menu menu_edit;
-			private MenuItem item_ontologie;
-			private SeparatorMenuItem item_separator;
-			private MenuItem item_add_vertex;
-			private MenuItem item_add_relation;
-			private Menu menu_add_edge;
-				private List<MenuItem> item_add_edge_relations;
-		private Menu menu_view;
+	private HBox bottom;
+		private ProgressBar pb;
+		private Label info_progress;
 		
 	private ContextMenu vertexContextMenu;
 		private MenuItem vCM_edit;
@@ -123,6 +131,7 @@ public class TreeView extends BorderPane {
 		fileChooser = new FileChooser();
 		
 		item_add_edge_relations = new ArrayList<>();
+		item_view_relations = new ArrayList<>();
 		vCM_add_edge_relations = new ArrayList<>();
 		tCM_add_edge_relations = new ArrayList<>();
 		
@@ -150,6 +159,11 @@ public class TreeView extends BorderPane {
 			item_add_relation = new MenuItem("Nouvelle relation");
 			menu_add_edge = new Menu("Nouvel arc");
 		menu_view = new Menu("Affichage");
+			if(tree.nbRelations() > 1)
+				menu_view_relations = new Menu("Relations");
+			else
+				menu_view_relations = new Menu("Relation");
+			if(tree.nbRelations() == 0) menu_view_relations.setDisable(true);
 
 		vertexContextMenu = new ContextMenu();
 			vCM_edit = new MenuItem("Editer");
@@ -166,6 +180,9 @@ public class TreeView extends BorderPane {
 		
 		for(Relation relation : tree.getRelations()) {
 			item_add_edge_relations.add(new MenuItem(relation.getName()));
+			CheckMenuItem menuItem = new CheckMenuItem(relation.getName());
+			menuItem.setSelected(true);
+			item_view_relations.add(menuItem);
 			vCM_add_edge_relations.add(new MenuItem(relation.getName()));
 			tCM_add_edge_relations.add(new MenuItem(relation.getName()));
 		}
@@ -185,12 +202,18 @@ public class TreeView extends BorderPane {
 					return new VertexViewList();
 				}
 			});
+		bottom = new HBox();
+			pb = new ProgressBar();
+				pb.setProgress(0);
+			info_progress = new Label();
 	}
 	
 	private void buildInterface() {
 			menu_file.getItems().addAll(item_new, item_open, item_save, item_save_under, item_quit);
 				menu_add_edge.getItems().addAll(item_add_edge_relations);
 			menu_edit.getItems().addAll(item_ontologie, item_separator, item_add_vertex, item_add_relation, menu_add_edge);
+				menu_view_relations.getItems().addAll(item_view_relations);
+			menu_view.getItems().addAll(menu_view_relations);
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
 		menuBar.setUseSystemMenuBar(true);
 		
@@ -204,10 +227,12 @@ public class TreeView extends BorderPane {
 		drawEdges();
 		
 		east.getChildren().addAll(info_label, info_area, info_list);
+		bottom.getChildren().addAll(pb, info_progress);
 		
 		setTop(menuBar);
 		setCenter(center);
 		setRight(east);
+		setBottom(bottom);
 	}
 	
 	private void buildVertices() {
@@ -303,7 +328,10 @@ public class TreeView extends BorderPane {
 				alert.setHeaderText("Enregistrement impossible.");
 				alert.initStyle(StageStyle.UTILITY);
 				try {
-					tree.writeInFile();
+					TreeSaver saver = new TreeSaver(tree);
+					info_progress.textProperty().bind(saver.messageProperty());
+					pb.progressProperty().bind(saver.progressProperty());
+					new Thread(saver).start();
 				} catch (Exception e) {
 					e.printStackTrace();
 					alert.setContentText(e.getMessage());
@@ -379,6 +407,19 @@ public class TreeView extends BorderPane {
 						addEdge.showAndWait();
 						build();
 					} else System.err.println("Pas de sommets");
+				}
+			});
+		}
+		for(CheckMenuItem item : item_view_relations) {
+			String text = item.getText();
+			item.selectedProperty().addListener(new ChangeListener<Boolean>() {
+				@Override
+				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+					List<EdgeView> edges = edgesView.get(text);
+					if(newValue)
+						center.getChildren().addAll(edges);
+					else
+						center.getChildren().removeAll(edges);
 				}
 			});
 		}
