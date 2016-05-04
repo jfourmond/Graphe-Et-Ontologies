@@ -148,8 +148,6 @@ public class TreeView extends BorderPane {
 			item_new = new MenuItem("Nouveau");
 			item_open = new MenuItem("Ouvrir");
 			item_save = new MenuItem("Enregistrer");
-			if(tree.getFile() == null)
-				item_save.setDisable(true);
 			item_save_under = new MenuItem("Enregistrer sous");
 			item_quit = new MenuItem("Quitter");
 		menu_edit = new Menu("Edition");
@@ -159,11 +157,11 @@ public class TreeView extends BorderPane {
 			item_add_relation = new MenuItem("Nouvelle relation");
 			menu_add_edge = new Menu("Nouvel arc");
 		menu_view = new Menu("Affichage");
-			if(tree.nbRelations() > 1)
-				menu_view_relations = new Menu("Relations");
-			else
-				menu_view_relations = new Menu("Relation");
-			if(tree.nbRelations() == 0) menu_view_relations.setDisable(true);
+		
+		if(tree.nbRelations() > 1)
+			menu_view_relations = new Menu("Relations");
+		else
+			menu_view_relations = new Menu("Relation");
 
 		vertexContextMenu = new ContextMenu();
 			vCM_edit = new MenuItem("Editer");
@@ -172,7 +170,7 @@ public class TreeView extends BorderPane {
 			vCM_add_vertex = new MenuItem("Nouveau sommet");
 			vCM_add_relation = new MenuItem("Nouvelle relation");
 			vCM_add_edge = new Menu("Nouvel arc");
-		
+			
 		treeContextMenu = new ContextMenu();
 			tCM_add_vertex = new MenuItem("Nouveau sommet");
 			tCM_add_relation = new MenuItem("Nouvelle relation");
@@ -185,6 +183,18 @@ public class TreeView extends BorderPane {
 			item_view_relations.add(menuItem);
 			vCM_add_edge_relations.add(new MenuItem(relation.getName()));
 			tCM_add_edge_relations.add(new MenuItem(relation.getName()));
+		}
+		
+		if(tree.nbRelations() == 0) {
+			menu_add_edge.setDisable(true);
+			menu_view_relations.setDisable(true);
+			vCM_add_edge.setDisable(true);
+			tCM_add_edge.setDisable(true);
+		}
+		
+		if(tree.getFile() == null) {
+			item_ontologie.setDisable(true);
+			item_save.setDisable(true);
 		}
 		
 		center = new Pane();
@@ -348,11 +358,12 @@ public class TreeView extends BorderPane {
 				alert.initStyle(StageStyle.UTILITY);
 				File file = fileChooser.showSaveDialog(null);
 				if(file != null) {
-					System.out.println(file.getAbsolutePath());
 					tree.setFile(file);
 					try {
-						tree.getFile().createNewFile();
-						tree.writeInFile();
+						TreeSaver saver = new TreeSaver(tree);
+						info_progress.textProperty().bind(saver.messageProperty());
+						pb.progressProperty().bind(saver.progressProperty());
+						new Thread(saver).start();
 					} catch (Exception e) {
 						e.printStackTrace();
 						alert.setContentText(e.getMessage());
@@ -371,10 +382,15 @@ public class TreeView extends BorderPane {
 		item_ontologie.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				if(!Desktop.isDesktopSupported()) {
+					System.err.println("Ouverture non supportée ! ");
+					return;
+				}
 				try {
-					if(tree.getFile() != null && tree.getFile().exists()) {
+					File file = tree.getFile();
+					if(file != null && file.exists()) {
 						Desktop desktop = Desktop.getDesktop();
-						desktop.open(tree.getFile());
+						desktop.open(file);
 					} else System.err.println("File don't exist");
 				} catch (IOException e) {
 					e.printStackTrace();
