@@ -95,6 +95,9 @@ public class TreeSaver extends Task<Boolean> {
 		XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 		sortie.output(documentJDOM, new FileOutputStream(file));
 		
+		// Génération d'une XSD
+		// Process proc = Runtime.getRuntime().exec("java -jar lib//trang.jar " + file.getAbsolutePath() + " " + file.getName() + ".xsd");
+		
 		updateMessage("Sauvegarde effectuée");
 		
 		return true;
