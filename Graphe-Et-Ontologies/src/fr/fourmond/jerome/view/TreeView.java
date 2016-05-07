@@ -15,6 +15,8 @@ import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Placement;
 import fr.fourmond.jerome.framework.Relation;
 import fr.fourmond.jerome.framework.Tree;
+import fr.fourmond.jerome.framework.TreeLoader;
+import fr.fourmond.jerome.framework.TreeSaver;
 import fr.fourmond.jerome.framework.Vertex;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -320,8 +322,11 @@ public class TreeView extends BorderPane {
 					alert.setHeaderText("Erreur dans la lecture du fichier");
 					alert.initStyle(StageStyle.UTILITY);
 					try {
-						tree.readFromFile(F);
-						build();
+						TreeLoader loader = new TreeLoader(tree, F);
+						info_progress.textProperty().bind(loader.messageProperty());
+						pb.progressProperty().bind(loader.progressProperty());
+						new Thread(loader).start();
+						// build();
 					} catch (Exception e) {
 						e.printStackTrace();
 						alert.setContentText(e.getMessage());
