@@ -1,4 +1,4 @@
-package fr.fourmond.jerome.view;
+package fr.fourmond.jerome.framework;
 
 import java.io.FileOutputStream;
 import java.util.List;
@@ -11,11 +11,6 @@ import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-import fr.fourmond.jerome.framework.Pair;
-import fr.fourmond.jerome.framework.Relation;
-import fr.fourmond.jerome.framework.Tree;
-import fr.fourmond.jerome.framework.TreeException;
-import fr.fourmond.jerome.framework.Vertex;
 import javafx.concurrent.Task;
 
 /**
