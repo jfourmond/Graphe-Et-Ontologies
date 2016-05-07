@@ -57,6 +57,8 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 			throw new FileNotFoundException("Le fichier n'existe pas.");
 		}
 		
+		updateMessage("Chargement en cours...");
+		
 		domFactory = DocumentBuilderFactory.newInstance();
 		domFactory.setValidating(true);
 		
@@ -68,6 +70,9 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 		
 		// buildVertices();
 		NodeList nList = document.getElementsByTagName(ENTREE);
+		int indexSize = nList.getLength() * 2;
+		int index = 0;
+		updateProgress(index, indexSize);
 		for(int i=0 ; i<nList.getLength() ; i++) {
 			Node node = nList.item(i);
 			if(node.getNodeType() == Node.ELEMENT_NODE) {
@@ -86,6 +91,7 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 					}
 				}
 			}
+			updateProgress(++index, indexSize);
 		}
 		
 		// buildRelations();
@@ -124,9 +130,14 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 					}
 				}
 			}
+			updateProgress(++index, indexSize);
 		}
 		
 		tree = tmpTree;
+		
+		updateMessage("Chargement terminé.");
+		
+		System.out.println(tree);
 		
 		return true;
 	}
