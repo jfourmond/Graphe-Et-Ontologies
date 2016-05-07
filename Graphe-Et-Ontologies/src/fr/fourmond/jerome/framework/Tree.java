@@ -361,58 +361,6 @@ public class Tree implements ErrorHandler {
 		buildRelations();
 	}
 	
-	/**
-	 * Enregistrement de l'arbre dans un fichier XML
-	 * @throws FileNotFoundException
-	 * @throws IOException
-	 * @throws JDOMException
-	 * @throws TreeException si aucun fichier n'est associé à l'arbre
-	 */
-	public void writeInFile() throws FileNotFoundException, IOException, JDOMException, TreeException {
-		if(file == null)
-			throw new TreeException("Aucun fichier associé à l'arbre.");
-		
-		org.jdom2.Document documentJDOM;
-		// Racine du document
-		org.jdom2.Element racine = new org.jdom2.Element(INDEX);
-		
-		for(Vertex vertex : vertices) {
-			// Ajout d'une entrée
-			org.jdom2.Element entree = new org.jdom2.Element(ENTREE);
-			racine.addContent(entree);
-			// Ajout de l'id
-			Attribute id = new Attribute(ID, vertex.getID());
-			entree.setAttribute(id);
-			// Ajout de tous les attributs
-			Map<String, String> attributes = vertex.getAttributes();
-			for(Entry<String, String> entry : attributes.entrySet()) {
-				Attribute attribute = new Attribute(entry.getKey(), entry.getValue());
-				entree.setAttribute(attribute);
-			}
-			// Gestion des relations
-			for(Relation r : relations) {
-				org.jdom2.Element relation = new org.jdom2.Element(RELATION);
-				entree.addContent(relation);
-				// Nom de la relation
-				Attribute relationName = new Attribute(NOM, r.getName());
-				relation.setAttribute(relationName);
-				// Liens de la relation
-				List<Pair<Vertex, Vertex>> listPairs = r.getPairs(vertex);
-				for(Pair<Vertex, Vertex> pair : listPairs) {
-					org.jdom2.Element lien = new org.jdom2.Element(LIEN);
-					relation.addContent(lien);
-					lien.setText(pair.getSecond().getID());
-				}
-			}
-		}
-		
-		// Enregistrement
-		documentJDOM = new org.jdom2.Document(racine);
-		
-		XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
-		sortie.output(documentJDOM, new FileOutputStream(file));
-	}
-	
 	private void buildRelations() throws TreeException, RelationException, VertexException {
 		String vertex1ID;
 		NodeList entreeList = document.getElementsByTagName(ENTREE);
