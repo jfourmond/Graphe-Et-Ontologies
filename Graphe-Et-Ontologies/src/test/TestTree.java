@@ -7,15 +7,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.w3c.dom.Document;
 
 import fr.fourmond.jerome.framework.Relation;
 import fr.fourmond.jerome.framework.RelationException;
@@ -25,9 +21,6 @@ import fr.fourmond.jerome.framework.Vertex;
 import fr.fourmond.jerome.framework.VertexException;
 
 public class TestTree {
-	private static DocumentBuilderFactory domFactory;
-	private static DocumentBuilder domBuilder;
-	
 	private static final String testFileName="../Ontologies/Villes.xml";
 	
 	private Tree tree;
@@ -48,7 +41,6 @@ public class TestTree {
 	@Test
 	public void testTree() {
 		assertTrue(tree.getFile() == null);
-		assertTrue(tree.getDocument() == null);
 		assertTrue(tree.getVertices().isEmpty());
 		assertTrue(tree.getRelations().isEmpty());
 	}
@@ -56,11 +48,6 @@ public class TestTree {
 	@Test
 	public void testGetFile() {
 		assertTrue(tree.getFile() == null);
-	}
-
-	@Test
-	public void testGetDocument() {
-		assertTrue(tree.getDocument() == null);
 	}
 
 	@Test
@@ -78,24 +65,6 @@ public class TestTree {
 		File file = new File(testFileName);
 		tree.setFile(file);
 		assertTrue(tree.getFile().equals(file));
-	}
-
-	@Test
-	public void testSetDocument() {
-		try {
-			File file = new File(testFileName);
-			domFactory = DocumentBuilderFactory.newInstance();
-			domFactory.setValidating(true);
-			
-			domBuilder = domFactory.newDocumentBuilder();
-			domBuilder.setErrorHandler(tree);
-			
-			Document document = domBuilder.parse(file);
-			tree.setDocument(document);
-			assertTrue(tree.getDocument().equals(document));
-		} catch(Exception E) {
-			E.printStackTrace();
-		}
 	}
 
 	@Test
@@ -267,14 +236,4 @@ public class TestTree {
 			e.printStackTrace();
 		}
 	}
-
-	@Test
-	public void testReadFromFile() {
-		try {
-			tree.readFromFile(testFileName);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 }
