@@ -16,7 +16,7 @@ import javafx.concurrent.Task;
 
 /**
  * {@link TreeSaver} est une {@link Task} permettant
- * de sauvegarder un {@link Tree}
+ * de sauvegarder un {@link Tree} dans un fichier XML
  * @author jfourmond
  */
 public class TreeSaver extends Task<Boolean> {

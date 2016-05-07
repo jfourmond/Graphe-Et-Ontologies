@@ -17,6 +17,11 @@ import org.xml.sax.SAXParseException;
 
 import javafx.concurrent.Task;
 
+/**
+ * {@link TreeLoader} est une {@link Task} permettant de
+ * charger un arbre à partir d'un fichier XML bien formé (adéquat au programme)
+ * @author jfourmond
+ */
 public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 	private static final String INDEX = "IndexSource";
 	private static final String ENTREE = "ENTREE";
