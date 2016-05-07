@@ -117,7 +117,7 @@ Par exemple :
 [Tree](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Tree.java) représente un graphe. Il est composé de deux attributs *principaux* :
 - Une liste de [Vertex](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Vertex.java), dont l'identifiant de chacun doit être unique
 - Une liste de [Relation](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Relation.java), dont le nom de chacune doit être unique
-Il peut être construit dynamiquement, ou lu dans un fichier XML dont la dtd reprend un modèle précis.
+Il peut être construit dynamiquement.
 La classe possède également ses propres **Exceptions**.
 
 L'ajout d'un sommet dans le graphe s'effectue grâce à différentes méthodes : 
@@ -139,7 +139,19 @@ L'ajout d'un arc dans le graphe s'effectue après différentes étapes, il faut 
 	relation.add(pair);
 	tree.createRelation(relation);							// Création d'une relation dans l'arbre
 
-### 5. Positionnement - *Placement*
+### 5. Chargement de l'arbre - *TreeLoader*
+
+[TreeLoader](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/TreeLoader.java) est une classe permettant de gérer le chargement d'un fichier XML.
+
+**TODO CODE - EXEMPLE **
+
+### 6. Sauvegarde de l'arbre - *TreeSaver*
+
+[TreeSaver](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/TreeSaver.java) est une classe permettant de gérer la sauvegarde d'un arbre dans un fichier XML.
+
+**TODO CODE - EXEMPLE **
+
+### 7. Positionnement - *Placement*
 
 [Placement](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Placement.java) est une classe reprenant le concept de Random de Java. A chaque appel de sa méthode next(), l'instance de la classe retourne le Point suivant contenu dans un tableau. Lorsque ce dernier est vide, un appel à next() générera aléatoirement un Point.
 **Placement** contient, pour le moment, 24 Point *statiques*.
@@ -147,7 +159,7 @@ Par exemple :
 
 	Placement p = new Placement();
 	Point point = p.next();
-
+	
 ---
 
 ## V. L'Affichage
