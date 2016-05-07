@@ -143,13 +143,15 @@ L'ajout d'un arc dans le graphe s'effectue après différentes étapes, il faut 
 
 [TreeLoader](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/TreeLoader.java) est une classe permettant de gérer le chargement d'un fichier XML.
 
-**TODO CODE - EXEMPLE **
+	TreeLoader loader = new TreeLoader(tree, F);
+	new Thread(loader).start();
 
 ### 6. Sauvegarde de l'arbre - *TreeSaver*
 
 [TreeSaver](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/TreeSaver.java) est une classe permettant de gérer la sauvegarde d'un arbre dans un fichier XML.
 
-**TODO CODE - EXEMPLE **
+	TreeSaver saver = new TreeSaver(tree);
+	new Thread(saver).start();
 
 ### 7. Positionnement - *Placement*
 
