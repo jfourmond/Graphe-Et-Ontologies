@@ -81,7 +81,9 @@ public class TreeView extends BorderPane {
 			private List<MenuItem> item_add_edge_relations;
 	private Menu menu_view;
 		private Menu menu_view_relations;
-		private List<CheckMenuItem> item_view_relations; 
+		private List<CheckMenuItem> item_view_relations;
+	private Menu menu_settings;
+		private CheckMenuItem item_parallel_save;
 	
 	private Pane center;
 		private List<VertexView> verticesView;
@@ -159,6 +161,8 @@ public class TreeView extends BorderPane {
 			item_add_relation = new MenuItem("Nouvelle relation");
 			menu_add_edge = new Menu("Nouvel arc");
 		menu_view = new Menu("Affichage");
+		menu_settings = new Menu("Options");
+			item_parallel_save = new CheckMenuItem("Sauvegarde parallèle");
 		
 		if(tree.nbRelations() > 1)
 			menu_view_relations = new Menu("Relations");
@@ -226,7 +230,8 @@ public class TreeView extends BorderPane {
 			menu_edit.getItems().addAll(item_ontologie, item_separator, item_add_vertex, item_add_relation, menu_add_edge);
 				menu_view_relations.getItems().addAll(item_view_relations);
 			menu_view.getItems().addAll(menu_view_relations);
-		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view);
+			menu_settings.getItems().add(item_parallel_save);
+		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view, menu_settings);
 		menuBar.setUseSystemMenuBar(true);
 		
 			vCM_add_edge.getItems().addAll(vCM_add_edge_relations);

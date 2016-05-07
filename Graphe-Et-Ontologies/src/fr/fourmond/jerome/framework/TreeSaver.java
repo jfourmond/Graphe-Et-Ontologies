@@ -40,6 +40,7 @@ public class TreeSaver extends Task<Boolean> {
 	
 	@Override
 	protected Boolean call() throws Exception {
+		// TODO Genérer une DTD ou une XSD correspondante au fichier
 		File file = tree.getFile();
 		
 		if(file == null) {
