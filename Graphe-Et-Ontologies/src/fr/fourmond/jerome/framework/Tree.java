@@ -1,30 +1,8 @@
 package fr.fourmond.jerome.framework;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.jdom2.Attribute;
-import org.jdom2.JDOMException;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 /**
  * {@link Tree} représente un arbre/graphe (non orienté).
@@ -32,19 +10,7 @@ import org.xml.sax.SAXParseException;
  * et d'une {@link List} de {@link Relation}.
  * @author jfourmond
  */
-public class Tree implements ErrorHandler {
-	private static final String INDEX = "IndexSource";
-		private static final String ENTREE = "ENTREE";
-			private static final String ID = "id";
-		private static final String RELATION = "RELATION";
-			private static final String NOM = "nom";
-		private static final String LIEN = "LIEN";
-	
-	private static DocumentBuilderFactory domFactory;
-	private static DocumentBuilder domBuilder;
-	private static String vertexKey;
-	
-	private Document document;
+public class Tree {
 	private File file;
 	
 	private List<Vertex> vertices;
@@ -53,7 +19,6 @@ public class Tree implements ErrorHandler {
 	//	CONSTRUCTEURS
 	public Tree() {
 		file = null;
-		document = null;
 		
 		vertices = new ArrayList<>();
 		relations = new ArrayList<>();
@@ -62,8 +27,6 @@ public class Tree implements ErrorHandler {
 	//	GETTERS
 	public File getFile() { return file; }
 	
-	public Document getDocument() { return document; }
-	
 	public List<Vertex> getVertices() { return vertices; }
 	
 	public List<Relation> getRelations() { return relations; }
@@ -71,8 +34,6 @@ public class Tree implements ErrorHandler {
 	
 	//	SETTERS
 	public void setFile(File file) { this.file = file; }
-	
-	public void setDocument(Document document) { this.document = document; }
 	
 	public void setVertices(List<Vertex> vertices) { this.vertices = vertices; }
 	
@@ -306,124 +267,6 @@ public class Tree implements ErrorHandler {
 	public int nbRelations() { return relations.size(); }
 	
 	/**
-	 * Lecture d'un fichier XML pour construire un arbre
-	 * @param filename : chemin vers le fichier XML
-	 * @throws TreeException
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws RelationException
-	 * @throws VertexException
-	 */
-	public void readFromFile(String filename) throws TreeException, ParserConfigurationException, SAXException, IOException, RelationException, VertexException {
-		vertices.clear();
-		relations.clear();
-		
-		file = new File(filename);
-		domFactory = DocumentBuilderFactory.newInstance();
-		domFactory.setValidating(true);
-		
-		domBuilder = domFactory.newDocumentBuilder();
-		domBuilder.setErrorHandler(this);
-		
-		document = domBuilder.parse(file);
-		document.getDocumentElement().normalize();
-
-		buildVertices();
-		buildRelations();
-	}
-	
-	/**
-	 * Lecture d'un fichier XML pour construire un arbre
-	 * @param F : le fichier XML
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws TreeException
-	 * @throws VertexException
-	 * @throws RelationException
-	 */
-	public void readFromFile(File F) throws ParserConfigurationException, SAXException, IOException, TreeException, VertexException, RelationException {
-		vertices.clear();
-		relations.clear();
-		
-		file = F;
-		domFactory = DocumentBuilderFactory.newInstance();
-		domFactory.setValidating(true);
-		
-		domBuilder = domFactory.newDocumentBuilder();
-		domBuilder.setErrorHandler(this);
-		
-		document = domBuilder.parse(file);
-		document.getDocumentElement().normalize();
-
-		buildVertices();
-		buildRelations();
-	}
-	
-	private void buildRelations() throws TreeException, RelationException, VertexException {
-		String vertex1ID;
-		NodeList entreeList = document.getElementsByTagName(ENTREE);
-		for(int i=0 ; i<entreeList.getLength() ; i++) {							// Pour chaque Entrée
-			Node inode = entreeList.item(i);
-			if(inode.getNodeType() == Node.ELEMENT_NODE) {
-				Element ielement = (Element) inode;
-				vertex1ID = ielement.getAttribute(ID); 							// La clé du sommet actuel
-				NodeList relationList = ielement.getElementsByTagName(RELATION);
-				for(int j=0 ; j<relationList.getLength() ; j++) {				// Pour chaque Relation
-					Node jnode = relationList.item(j);
-					if(jnode.getNodeType() == Node.ELEMENT_NODE) {
-						Element jelement = (Element) jnode;
-						// Récupération du nom de la relation
-						String relationName = jelement.getAttribute(NOM);
-						if(!containsRelation(relationName)) {					// Si la relation n'existe pas,
-							createRelation(relationName);						// on la crée
-						}
-						NodeList lienList = jelement.getElementsByTagName(LIEN);
-						for(int k=0 ; k<lienList.getLength() ; k++) {			// Pour chaque lien
-							Node knode = lienList.item(k);
-							if(knode.getNodeType() == Node.ELEMENT_NODE) {
-								String value = knode.getTextContent();
-								if(!value.isEmpty()) {
-									if(isID(value)) {
-										addPair(relationName, vertex1ID, value);
-									} else {
-										String vertex2ID = getVertexID(value);
-										addPair(relationName, vertex1ID, vertex2ID);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	private void buildVertices() throws TreeException, VertexException {
-		NodeList nList = document.getElementsByTagName(ENTREE);
-		for(int i=0 ; i<nList.getLength() ; i++) {
-			Node node = nList.item(i);
-			if(node.getNodeType() == Node.ELEMENT_NODE) {
-				Element element = (Element) node;
-				vertexKey = element.getAttribute(ID); 					// La clé du sommet actuel
-				createVertex(vertexKey);								// Création du sommet actuel
-				if (node.hasAttributes()) {								// Recherche de ses autres attributs
-					NamedNodeMap nodeMap = node.getAttributes();		// Récupération de ses attributs
-					for(int j=0; j<nodeMap.getLength(); j++) {
-						Node attribute = nodeMap.item(j);
-						String name = attribute.getNodeName();
-						if(!name.equals(ID)) {
-							String value = attribute.getNodeValue();
-							addAttribute(vertexKey, name, value);		// Ajout des attributs au sommet actuel
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	/**
 	 * Vide l'arbre courant
 	 */
 	public void clear() {
@@ -443,22 +286,5 @@ public class Tree implements ErrorHandler {
 			ch += "\t" + relation;
 		}
 		return ch;
-	}
-
-	@Override
-	public void error(SAXParseException exception) throws SAXException {
-		System.out.println("Warning : " + exception.getMessage());
-	}
-
-	@Override
-	public void fatalError(SAXParseException exception) throws SAXException {
-		System.err.println("FATAL : " + exception.getMessage());
-		throw exception;
-	}
-
-	@Override
-	public void warning(SAXParseException exception) throws SAXException {
-		System.err.println("ERROR : " + exception.getMessage());
-		throw exception;
 	}
 }
