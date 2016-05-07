@@ -1,5 +1,6 @@
 package fr.fourmond.jerome.framework;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map;
@@ -32,15 +33,23 @@ public class TreeSaver extends Task<Boolean> {
 		this.tree = tree;
 	}
 	
+	public TreeSaver(Tree tree, File file) {
+		this.tree = tree;
+		this.tree.setFile(file);
+	}
+	
 	@Override
 	protected Boolean call() throws Exception {
-		if(tree.getFile() == null) {
+		File file = tree.getFile();
+		
+		if(file == null) {
+			System.err.println("Echec du chargement");
 			updateMessage("Sauvegarde échouée");
 			throw new TreeException("Aucun fichier associé à l'arbre.");
 		}
 		
-		if(!tree.getFile().exists())
-			tree.getFile().createNewFile();
+		if(!file.exists())
+			file.createNewFile();
 		
 		Document documentJDOM;
 		// Racine du document
@@ -83,7 +92,7 @@ public class TreeSaver extends Task<Boolean> {
 		documentJDOM = new Document(racine);
 		
 		XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
-		sortie.output(documentJDOM, new FileOutputStream(tree.getFile()));
+		sortie.output(documentJDOM, new FileOutputStream(file));
 		
 		updateMessage("Sauvegarde effectuée");
 		
