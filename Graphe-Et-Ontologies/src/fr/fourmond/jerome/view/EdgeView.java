@@ -15,19 +15,24 @@ public class EdgeView extends Group {
 	
 	private Color color;
 	
+	private VertexView start;
+	private VertexView end;
+	
 	private Line line;
 	private Label label;
 	
-	public EdgeView(String relationName, double startx, double starty, double endx, double endy) {
+	public EdgeView(String relationName, VertexView start, VertexView end) {
 		super();
 		this.relationName = relationName;
+		this.start = start;
+		this.end = end;
 		
-		double middleX = (startx + endx) / 2;
-		double middleY = (starty + endy) / 2;
+		double middleX = (start.getCenterX() + end.getCenterX()) / 2;
+		double middleY = (start.getCenterY() + end.getCenterY()) / 2;
 		
 		color = Color.BLACK;
 		
-		line = new Line(startx, starty, endx, endy);
+		line = new Line(start.getCenterX(), start.getCenterY(), end.getCenterX(), end.getCenterY());
 		line.setStroke(color);
 		label = new Label("" + relationName);
 			label.setTranslateX(middleX);
@@ -37,16 +42,18 @@ public class EdgeView extends Group {
 		this.getChildren().add(label);
 	}
 	
-	public EdgeView(String relationName, double startx, double starty, double endx, double endy, Color color) {
+	public EdgeView(String relationName, VertexView start, VertexView end, Color color) {
 		super();
 		this.relationName = relationName;
+		this.start = start;
+		this.end = end;
 		
-		double middleX = (startx + endx) / 2;
-		double middleY = (starty + endy) / 2;
+		double middleX = (start.getCenterX() + end.getCenterX()) / 2;
+		double middleY = (start.getCenterY() + end.getCenterY()) / 2;
 		
 		this.color = color;
 		
-		line = new Line(startx, starty, endx, endy);
+		line = new Line(start.getCenterX(), start.getCenterY(), end.getCenterX(), end.getCenterY());
 		line.setStroke(color);
 		label = new Label("" + relationName);
 			label.setTranslateX(middleX);
@@ -59,6 +66,10 @@ public class EdgeView extends Group {
 	//	GETTERS
 	public String getRelation() { return relationName; }
 	
+	public VertexView getStart() { return start; }
+	
+	public VertexView getEnd() { return end; }
+	
 	public Color getColor() { return color; }
 	
 	public Line getLine() { return line; }
@@ -67,6 +78,10 @@ public class EdgeView extends Group {
 	
 	//	SETTERS
 	public void setRelation(String relation) { this.relationName = relation; }
+	
+	public void setStart(VertexView start) { this.start = start; }
+	
+	public void setEnd(VertexView end) { this.end = end; }
 	
 	public void setColor(Color color) { this.color = color; }
 	

@@ -46,6 +46,10 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 		this.tree.setFile(file);
 	}
 	
+	public Tree getTree() { return tree; }
+	
+	public void setTree(Tree tree) { this.tree = tree; }
+	
 	@Override
 	protected Boolean call() throws Exception {
 		Tree tmpTree = new Tree();
@@ -57,8 +61,6 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 			throw new TreeException("Aucun fichier associé à  l'arbre");
 		}
 		if(!file.exists()) {
-			System.err.println("Echec du chargement");
-			updateMessage("Echec du chargement");
 			throw new FileNotFoundException("Le fichier n'existe pas.");
 		}
 		
@@ -140,13 +142,30 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 		
 		tree = tmpTree;
 		
-		updateMessage("Chargement terminé.");
-		
-		System.out.println(tree);
-		
 		return true;
 	}
 
+	@Override
+	protected void succeeded() {
+		super.succeeded();
+		updateMessage("Chargement terminé.");
+	}
+	
+	
+	@Override
+	protected void cancelled() {
+		super.cancelled();
+		System.err.println("Chargement annulé.");
+		updateMessage("Chargement annulé.");
+	}
+	
+	@Override
+	protected void failed() {
+		super.failed();
+		System.err.println("Echec du chargement.");
+		updateMessage("Echec du chargement.");
+	}
+	
 	@Override
 	public void error(SAXParseException exception) throws SAXException {
 		System.out.println("Warning : " + exception.getMessage());
