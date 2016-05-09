@@ -1,5 +1,6 @@
 package fr.fourmond.jerome.view;
 
+import fr.fourmond.jerome.framework.Vertex;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -88,4 +89,9 @@ public class EdgeView extends Group {
 	public void setLine(Line line) { this.line = line; }
 	
 	public void setLabel(Label label) { this.label = label; }
+	
+	//	METHODES
+	public Vertex getVertexStart() { return start.getVertex(); }
+	
+	public Vertex getVertexEnd() { return end.getVertex(); }
 }
