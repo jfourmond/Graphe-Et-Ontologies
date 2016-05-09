@@ -251,6 +251,20 @@ public class Tree {
 	}
 	
 	/**
+	 * Supprime la paire correspondante dans la relation
+	 * @param name : nom de la relation
+	 * @param pair : paire à supprimer et à rechercher
+	 * @throws TreeException si la relation n'existe pas, ou si la paire n'existe pas
+	 */
+	public void removePair(String name, Pair<Vertex, Vertex> pair) throws TreeException {
+		Relation relation = getRelation(name);
+		if(relation != null) {
+			boolean b = relation.remove(pair);
+			if(!b) throw new TreeException("La paire n'existe pas.");
+		} else throw new TreeException("La relation n'existe pas.");
+	}
+	
+	/**
 	 * Supprime les paires des relations lié au sommet
 	 * @param vertex : sommet à rechercher
 	 */
