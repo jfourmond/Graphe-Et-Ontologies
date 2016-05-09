@@ -1,6 +1,5 @@
 package fr.fourmond.jerome.framework;
 
-import java.awt.Point;
 import java.util.Random;
 
 import javafx.scene.paint.Color;
