@@ -155,13 +155,24 @@ L'ajout d'un arc dans le graphe s'effectue après différentes étapes, il faut 
 
 ### 7. Positionnement - *Placement*
 
-[Placement](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Placement.java) est une classe reprenant le concept de Random de Java. A chaque appel de sa méthode next(), l'instance de la classe retourne le Point suivant contenu dans un tableau. Lorsque ce dernier est vide, un appel à next() générera aléatoirement un Point.
+[Placement](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Placement.java) est une classe reprenant le concept de la classe Random de Java. A chaque appel de sa méthode next(), l'instance de la classe retourne le Point suivant contenu dans un tableau. Lorsque ce dernier est vide, un appel à next() générera aléatoirement un Point.
 **Placement** contient, pour le moment, 24 Point *statiques*.
 Par exemple :
 
 	Placement p = new Placement();
 	Point point = p.next();
+
+### 8. Couleur - *ColorDistribution*
+
+[ColorDistribution](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/ColorDistribution.java) est une classe reprenant le concept de la classe Random de Java. A chaque appel de sa méthode next(), l'instance de la classe retourne la Color suivante contenue dans un tableau. Lorsque ce dernier est vide, un appel à next() générera aléatoirement une Color.
+**ColorDistribution** contient, pour le moment, 9 Color *statiques*.
+Par exemple :
+
+	ColorDistribution cd = new ColorDistribution();
+	Color color = cd.next();
 	
+**N.B** : Color, ici, fait partie des packages de **JavaFX** (*javafx.scene.paint*)
+
 ---
 
 ## V. L'Affichage

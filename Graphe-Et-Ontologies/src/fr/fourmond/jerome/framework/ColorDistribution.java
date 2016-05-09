@@ -5,12 +5,6 @@ import java.util.Random;
 import javafx.scene.paint.Color;
 
 /**
- * {@link Placement} est une classe reprenant (dans le concept) la classe {@link Random}.
- * Elle permet de créer un {@link Object} envoyant différentes positions à chaque appel de next().
- * 24 {@link Point} peuvent être renvoyés "statiquement" avant d'être générés aléatoirement.
- * @author jfourmond
- */
-/**
  * {@link ColorDistribution} est une classe reprenant (dans le concept) la classe {@link Random}.
  * Elle permet de créer un {@link Object} envoyant différentes {@link Color} à chaque appel de next().
  * 9 {@link Color} peuvent être renvoyés "statiquement" avant d'être générées aléatoirement.
