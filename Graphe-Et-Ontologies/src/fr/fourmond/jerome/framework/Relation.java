@@ -95,6 +95,13 @@ public class Relation {
 	}
 	
 	/**
+	 * Supprime la paire correspondante
+	 * @param pair : la paire à rechercher et à supprimer
+	 * @return <code>true</code> si la relation contenait la paire
+	 */
+	public boolean remove(Pair<Vertex, Vertex> pair) { return pairs.remove(pair); }
+	
+	/**
 	 * Supprime les paires ayant ce sommet
 	 * @param vertex : sommet à rechercher
 	 */
