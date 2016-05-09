@@ -667,4 +667,34 @@ public class TreeView extends BorderPane {
 		}
 		return null;
 	}
+	
+	// PREMIER LANCEMENT DE L'APPLICATION
+	private void firstBuild() {
+		// TODO Renommer la méthode
+		// TODO
+	}
+	
+	private void addVertex(Vertex vertex) {
+		// TODO
+	}
+	
+	private void removeVertex(Vertex vertex) {
+		// TODO
+	}
+	
+	private void addRelation(String name) {
+		// TODO
+	}
+	
+	private void removeRelation(String name) {
+		// TODO
+	}
+	
+	private void addPair(Pair<Vertex, Vertex> pair) {
+		// TODO
+	}
+	
+	private void removePair(Pair<Vertex, Vertex> pair) {
+		// TODO
+	}
 }
