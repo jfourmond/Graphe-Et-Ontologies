@@ -15,6 +15,7 @@ import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Placement;
 import fr.fourmond.jerome.framework.Relation;
 import fr.fourmond.jerome.framework.Tree;
+import fr.fourmond.jerome.framework.TreeException;
 import fr.fourmond.jerome.framework.TreeLoader;
 import fr.fourmond.jerome.framework.TreeSaver;
 import fr.fourmond.jerome.framework.Vertex;
@@ -126,7 +127,7 @@ public class TreeView extends BorderPane {
 			
 	private static MouseEvent pressed;
 	private static Vertex vertexToEdit;
-	private static Relation relationToEdit;
+	private static String relationToEdit;
 	private static Pair<Vertex, Vertex> pairToEdit;
 	
 	public TreeView(Tree tree) {
@@ -345,8 +346,6 @@ public class TreeView extends BorderPane {
 			public void handle(ActionEvent event) {
 				File F = fileChooser.showOpenDialog(null);
 				if(F != null) {
-					// TODO Dans le cas d'une ouverture dans une nouvelle fenêtre
-					// new TreeView(tree);
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Erreur");
 					alert.setHeaderText("Erreur dans la lecture du fichier");
@@ -549,8 +548,12 @@ public class TreeView extends BorderPane {
 		eCM_delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				
+				try {
+					tree.removePair(relationToEdit, pairToEdit);
+					build();
+				} catch (TreeException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		eCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
@@ -626,7 +629,6 @@ public class TreeView extends BorderPane {
 				}
 			});
 		}
-		
 		for(Entry<String, List<EdgeView>> edges : edgesView.entrySet()) {
 			String name = edges.getKey();
 			List<EdgeView> list = edges.getValue();
@@ -638,7 +640,8 @@ public class TreeView extends BorderPane {
 						if(event.getButton() == MouseButton.PRIMARY) {
 							System.err.println("PAS IMPLEMENTE");
 						} else if(event.getButton() == MouseButton.SECONDARY) {
-							// TODO Récupérer l'arc et la relation correspondante
+							relationToEdit = name;
+							pairToEdit = new Pair<Vertex, Vertex>(edge.getVertexStart(), edge.getVertexEnd());
 							edgeContextMenu.show(edge, event.getScreenX(), event.getScreenY());
 						}
 					}
