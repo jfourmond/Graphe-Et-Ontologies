@@ -46,11 +46,13 @@ public class Tree {
 	 * @param vertexID : identifiant unique du sommet
 	 * @throws TreeException si le sommet existe déjà
 	 * @throws VertexException si l'identifiant est <code>null</code> ou vide
+	 * @return le sommet crée
 	 */
-	public void createVertex(String vertexID) throws TreeException, VertexException {
+	public Vertex createVertex(String vertexID) throws TreeException, VertexException {
 		if(getVertex(vertexID) == null) {
 			Vertex vertex = new Vertex(vertexID);
 			vertices.add(vertex);
+			return vertex;
 		} else throw new TreeException("Le sommet existe déjà.");
 	}
 	
@@ -58,10 +60,12 @@ public class Tree {
 	 * Crée un sommet
 	 * @param vertex : le sommet à ajouter
 	 * @throws TreeException si le sommet existe déjà
+	 * @return le sommet crée
 	 */
-	public void createVertex(Vertex vertex) throws TreeException {
+	public Vertex createVertex(Vertex vertex) throws TreeException {
 		if(getVertex(vertex.getID()) == null) {
 			vertices.add(vertex);
+			return vertex;
 		} else throw new TreeException("Le sommet existe déjà.");
 	}
 	
