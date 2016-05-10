@@ -616,36 +616,8 @@ public class TreeView extends BorderPane {
 			}
 		});
 		for(VertexView vertex : verticesView) {
-			vertex.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event) {
-					event.consume();
-					if(event.getButton() == MouseButton.PRIMARY) {
-						Vertex v = vertex.getVertex();
-						info_area.setText(v.toString());
-						vertex.setSelected(true);
-						for(VertexView other: verticesView) {
-							if(other != vertex) other.setSelected(false);
-						}
-						info_list.getSelectionModel().select(vertex);
-					} else if(event.getButton() == MouseButton.SECONDARY) {
-						vertexViewSelected = vertex;
-						vertexToEdit = vertex.getVertex();
-						vertexContextMenu.show(vertex, event.getScreenX(), event.getScreenY());
-					}
-				}
-			});
-			vertex.setOnMouseDragged(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event) {
-					event.consume();
-					if(event.getButton() == MouseButton.PRIMARY) {
-						vertex.setCenterX(event.getX());
-						vertex.setCenterY(event.getY());
-						redrawLines();
-					}
-				}
-			});
+			vertex.setOnMouseClicked(new VertexClicked(vertex));
+			vertex.setOnMouseDragged(new VertexDragged(vertex));
 		}
 		for(Entry<String, List<EdgeView>> edges : edgesView.entrySet()) {
 			String name = edges.getKey();
@@ -703,36 +675,8 @@ public class TreeView extends BorderPane {
 		// Création de son composant graphique et de ses events
 		VertexView vertexView = new VertexView(vertex, placement.next());
 		verticesView.add(vertexView);
-		vertexView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				event.consume();
-				if(event.getButton() == MouseButton.PRIMARY) {
-					Vertex v = vertexView.getVertex();
-					info_area.setText(v.toString());
-					vertexView.setSelected(true);
-					for(VertexView other: verticesView) {
-						if(other != vertexView) other.setSelected(false);
-					}
-					info_list.getSelectionModel().select(vertexView);
-				} else if(event.getButton() == MouseButton.SECONDARY) {
-					vertexViewSelected = vertexView;
-					vertexToEdit = vertexView.getVertex();
-					vertexContextMenu.show(vertexView, event.getScreenX(), event.getScreenY());
-				}
-			}
-		});
-		vertexView.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				event.consume();
-				if(event.getButton() == MouseButton.PRIMARY) {
-					vertexView.setCenterX(event.getX());
-					vertexView.setCenterY(event.getY());
-					redrawLines();
-				}
-			}
-		});
+		vertexView.setOnMouseClicked(new VertexClicked(vertexView));
+		vertexView.setOnMouseDragged(new VertexDragged(vertexView));
 
 		center.getChildren().setAll(verticesView);
 		
@@ -744,6 +688,10 @@ public class TreeView extends BorderPane {
 		info_list.setItems(verticesViewForList);
 	}
 	
+	/**
+	 * Suppression d'un sommet (graphique)
+	 * @param vertex : sommet à supprimer
+	 */
 	private void removeVertex(VertexView vertex) {
 		tree.removeVertex(vertexViewSelected.getVertex());	// Lors de sa suppression, tous les arcs qui le liaient avec d'autres sommets sont supprimés 
 		// Suppression de son composant graphique
@@ -767,5 +715,53 @@ public class TreeView extends BorderPane {
 	
 	private void removePair(Pair<Vertex, Vertex> pair) {
 		// TODO
+	}
+	
+	/**
+	 * {@link EventHandler} lors d'un clic sur un {@link VertexView}
+	 * @author jfourmond
+	 */
+	protected class VertexClicked implements EventHandler<MouseEvent> {
+		private VertexView vertexView;
+		
+		public VertexClicked(VertexView vertexView) { this.vertexView = vertexView; }
+		
+		@Override
+		public void handle(MouseEvent event) {
+			event.consume();
+			if(event.getButton() == MouseButton.PRIMARY) {
+				Vertex v = vertexView.getVertex();
+				info_area.setText(v.toString());
+				vertexView.setSelected(true);
+				for(VertexView other: verticesView) {
+					if(other != vertexView) other.setSelected(false);
+				}
+				info_list.getSelectionModel().select(vertexView);
+			} else if(event.getButton() == MouseButton.SECONDARY) {
+				vertexViewSelected = vertexView;
+				vertexToEdit = vertexView.getVertex();
+				vertexContextMenu.show(vertexView, event.getScreenX(), event.getScreenY());
+			}
+		}
+	}
+	
+	/**
+	 * {@link EventHandler} lors d'un drag sur un {@link VertexView}
+	 * @author jfourmond
+	 */
+	protected class VertexDragged implements EventHandler<MouseEvent> {
+		private VertexView vertexView;
+		
+		public VertexDragged(VertexView vertexView) { this.vertexView = vertexView; }
+		
+		@Override
+		public void handle(MouseEvent event) {
+			event.consume();
+			if(event.getButton() == MouseButton.PRIMARY) {
+				vertexView.setCenterX(event.getX());
+				vertexView.setCenterY(event.getY());
+				redrawLines();
+			}
+		}
 	}
 }
