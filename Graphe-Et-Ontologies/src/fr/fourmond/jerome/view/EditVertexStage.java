@@ -57,6 +57,12 @@ public class EditVertexStage extends Stage {
 		buildEvents();
 	}
 	
+	//	GETTERS
+	public Vertex getVertex() { return vertex; }
+	
+	//	SETTERS
+	public void setVertex(Vertex vertex) { this.vertex = vertex; }
+	
 	private void buildComposants() {
 		attributesView = new ArrayList<>();
 		
@@ -182,7 +188,6 @@ public class EditVertexStage extends Stage {
 		for(Pair<Label, TextField> pair : attributesView) {
 			Label label = pair.getFirst();
 			TextField textField = pair.getSecond();
-			System.out.println(label.getText() + " = " + textField.getText());
 			attributes.put(label.getText(), textField.getText());
 		}
 	}
