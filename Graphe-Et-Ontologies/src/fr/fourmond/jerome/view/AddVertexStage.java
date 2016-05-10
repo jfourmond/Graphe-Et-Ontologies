@@ -10,7 +10,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import fr.fourmond.jerome.framework.Pair;
-import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 import fr.fourmond.jerome.framework.VertexException;
 import javafx.event.ActionEvent;
@@ -39,7 +38,7 @@ public class AddVertexStage extends Stage {
 	
 	private final static String TITLE = "Graphe Et Ontologies - Nouveau sommet";
 	
-	private Tree tree;
+	private Vertex vertex;
 	
 	private GridPane gridPane;
 	private Text title;
@@ -57,9 +56,8 @@ public class AddVertexStage extends Stage {
 	private int currentRow;
 	private int currentCol;
 	
-	public AddVertexStage(Tree tree) {
+	public AddVertexStage() {
 		this.setTitle(TITLE);
-		this.tree = tree;
 		
 		attributes = new HashSet<>();
 		attributesView = new ArrayList<>();
@@ -69,6 +67,12 @@ public class AddVertexStage extends Stage {
 		buildInterface();
 		buildEvents();
 	}
+	
+	// 	GETTERS
+	public Vertex getVertex() { return vertex; }
+	
+	//	SETTERS
+	public void setVertex(Vertex vertex) { this.vertex = vertex; }
 	
 	private void buildComposants() {
 		attributesView.clear();
@@ -183,8 +187,7 @@ public class AddVertexStage extends Stage {
 				alert.setHeaderText("Ajout du sommet impossible.");
 				alert.initStyle(StageStyle.UTILITY);
 				try {
-					Vertex vertex = getVertex();
-					tree.createVertex(vertex);
+					vertex = buildVertex();
 					close();
 				} catch (Exception e) {
 					alert.setContentText(e.getMessage());
@@ -211,7 +214,7 @@ public class AddVertexStage extends Stage {
 		return ch;
 	}
 	
-	private Vertex getVertex() throws VertexException {
+	private Vertex buildVertex() throws VertexException {
 		Vertex vertex = new Vertex(text_id);
 		for(Entry<String, String> entry : text_attributes.entrySet()) {
 			String key = entry.getKey().trim();

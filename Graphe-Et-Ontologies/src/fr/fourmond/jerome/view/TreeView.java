@@ -156,11 +156,13 @@ public class TreeView extends BorderPane {
 		verticesView = new ArrayList<>();
 		edgesView = new HashMap<>();
 		
-		buildVertices();
-		buildEdges();
+		// TODO gestion dans le cas d'une ouverture directe de fichier
+		// buildVertices();
+		// buildEdges();
 		
 		verticesViewForList = FXCollections.observableArrayList(verticesView);
 		
+		// Barre de Menu
 		menuBar = new MenuBar();
 		menu_file = new Menu("Fichier");
 			item_new = new MenuItem("Nouveau");
@@ -183,6 +185,7 @@ public class TreeView extends BorderPane {
 		else
 			menu_view_relations = new Menu("Relation");
 
+		// Menus Contextuels
 		vertexContextMenu = new ContextMenu();
 			vCM_edit = new MenuItem("Editer");
 			vCM_delete = new MenuItem("Supprimer");
@@ -227,7 +230,9 @@ public class TreeView extends BorderPane {
 			item_save.setDisable(true);
 		}
 		
+		// CENTRE
 		center = new Pane();
+		// EST
 		east = new VBox();
 		east.setPrefHeight(east.getMaxHeight());
 			info_label = new Label("Informations");
@@ -242,6 +247,7 @@ public class TreeView extends BorderPane {
 					return new VertexViewList();
 				}
 			});
+		// BAS
 		bottom = new HBox();
 			pb = new ProgressBar();
 				pb.setProgress(0);
@@ -249,6 +255,7 @@ public class TreeView extends BorderPane {
 	}
 	
 	private void buildInterface() {
+		// Barre de Menu
 			menu_file.getItems().addAll(item_new, item_open, item_save, item_save_under, item_quit);
 				menu_add_edge.getItems().addAll(item_add_edge_relations);
 			menu_edit.getItems().addAll(item_ontologie, item_separator, item_add_vertex, item_add_relation, menu_add_edge);
@@ -258,6 +265,7 @@ public class TreeView extends BorderPane {
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view, menu_settings);
 		menuBar.setUseSystemMenuBar(true);
 		
+		// Menus Contextuels
 			vCM_add_edge.getItems().addAll(vCM_add_edge_relations);
 		vertexContextMenu.getItems().addAll(vCM_edit, vCM_delete, vCM_separator, vCM_add_vertex, vCM_add_relation, vCM_add_edge);
 		
@@ -267,8 +275,9 @@ public class TreeView extends BorderPane {
 			tCM_add_edge.getItems().addAll(tCM_add_edge_relations);
 		treeContextMenu.getItems().addAll(tCM_add_vertex, tCM_add_relation, tCM_add_edge);
 		
-		drawVertices();
-		drawEdges();
+		// TODO gestion dans le cas d'une ouverture directe de fichier
+		// drawVertices();
+		// drawEdges();
 		
 		east.getChildren().addAll(info_label, info_area, info_list);
 		bottom.getChildren().addAll(pb, info_progress);
@@ -443,9 +452,15 @@ public class TreeView extends BorderPane {
 		item_add_vertex.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				AddVertexStage addVertex = new AddVertexStage(tree);
+				AddVertexStage addVertex = new AddVertexStage();
 				addVertex.showAndWait();
-				build();
+				Vertex vertex = addVertex.getVertex();
+				try {
+					addVertex(vertex);
+				} catch (TreeException e) {
+					e.printStackTrace();
+				}
+				// build();
 			}
 		});
 		item_add_relation.setOnAction(new EventHandler<ActionEvent>() {
@@ -674,11 +689,31 @@ public class TreeView extends BorderPane {
 		// TODO
 	}
 	
-	private void addVertex(Vertex vertex) {
-		// TODO
+	/**
+	 * Ajout d'un sommet
+	 * @param vertex : sommet à ajouter
+	 * @throws TreeException si le sommet existe déjà
+	 */
+	private void addVertex(Vertex vertex) throws TreeException {
+		// Création de son composant graphique
+		tree.createVertex(vertex);
+		VertexView vertexView = new VertexView(vertex, placement.next());
+		verticesView.add(vertexView);
+		
+		center.getChildren().setAll(verticesView);
+		// Edition de la zone d'info
+		info_area.setText(tree.toString());
+		
+		// Edition de la liste
+		verticesViewForList = FXCollections.observableArrayList(verticesView);
+		info_list.setItems(verticesViewForList);
 	}
 	
 	private void removeVertex(Vertex vertex) {
+		// Suppression de son composant graphique
+		
+		
+		tree.removeVertex(vertexToEdit);
 		// TODO
 	}
 	
