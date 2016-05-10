@@ -126,6 +126,7 @@ public class TreeView extends BorderPane {
 	private FileChooser fileChooser;
 			
 	private static MouseEvent pressed;
+	private static VertexView vertexViewSelected;
 	private static Vertex vertexToEdit;
 	private static String relationToEdit;
 	private static Pair<Vertex, Vertex> pairToEdit;
@@ -547,8 +548,9 @@ public class TreeView extends BorderPane {
 		vCM_delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				tree.removeVertex(vertexToEdit);
-				build();
+				removeVertex(vertexViewSelected);
+				// tree.removeVertex(vertexToEdit);
+				// build();
 			}
 		});
 		vCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
@@ -627,6 +629,7 @@ public class TreeView extends BorderPane {
 						}
 						info_list.getSelectionModel().select(vertex);
 					} else if(event.getButton() == MouseButton.SECONDARY) {
+						vertexViewSelected = vertex;
 						vertexToEdit = vertex.getVertex();
 						vertexContextMenu.show(vertex, event.getScreenX(), event.getScreenY());
 					}
@@ -695,12 +698,44 @@ public class TreeView extends BorderPane {
 	 * @throws TreeException si le sommet existe déjà
 	 */
 	private void addVertex(Vertex vertex) throws TreeException {
-		// Création de son composant graphique
 		tree.createVertex(vertex);
+		
+		// Création de son composant graphique et de ses events
 		VertexView vertexView = new VertexView(vertex, placement.next());
 		verticesView.add(vertexView);
-		
+		vertexView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				event.consume();
+				if(event.getButton() == MouseButton.PRIMARY) {
+					Vertex v = vertexView.getVertex();
+					info_area.setText(v.toString());
+					vertexView.setSelected(true);
+					for(VertexView other: verticesView) {
+						if(other != vertexView) other.setSelected(false);
+					}
+					info_list.getSelectionModel().select(vertexView);
+				} else if(event.getButton() == MouseButton.SECONDARY) {
+					vertexViewSelected = vertexView;
+					vertexToEdit = vertexView.getVertex();
+					vertexContextMenu.show(vertexView, event.getScreenX(), event.getScreenY());
+				}
+			}
+		});
+		vertexView.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				event.consume();
+				if(event.getButton() == MouseButton.PRIMARY) {
+					vertexView.setCenterX(event.getX());
+					vertexView.setCenterY(event.getY());
+					redrawLines();
+				}
+			}
+		});
+
 		center.getChildren().setAll(verticesView);
+		
 		// Edition de la zone d'info
 		info_area.setText(tree.toString());
 		
@@ -709,12 +744,13 @@ public class TreeView extends BorderPane {
 		info_list.setItems(verticesViewForList);
 	}
 	
-	private void removeVertex(Vertex vertex) {
+	private void removeVertex(VertexView vertex) {
+		tree.removeVertex(vertexViewSelected.getVertex());	// Lors de sa suppression, tous les arcs qui le liaient avec d'autres sommets sont supprimés 
 		// Suppression de son composant graphique
+		verticesView.remove(vertexViewSelected);
 		
-		
-		tree.removeVertex(vertexToEdit);
-		// TODO
+		center.getChildren().setAll(verticesView);
+		// TODO Redessiner les arcs (Peut-être long ?)
 	}
 	
 	private void addRelation(String name) {
