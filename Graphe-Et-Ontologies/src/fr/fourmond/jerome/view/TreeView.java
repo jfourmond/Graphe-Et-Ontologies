@@ -455,20 +455,28 @@ public class TreeView extends BorderPane {
 				AddVertexStage addVertex = new AddVertexStage();
 				addVertex.showAndWait();
 				Vertex vertex = addVertex.getVertex();
-				try {
-					addVertex(vertex);
-				} catch (TreeException e) {
-					e.printStackTrace();
+				if(vertex != null ) {
+					try {
+						addVertex(vertex);
+					} catch (TreeException e) {
+						e.printStackTrace();
+					}
 				}
-				// build();
 			}
 		});
 		item_add_relation.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				AddRelationStage addRelation = new AddRelationStage(tree);
+				AddRelationStage addRelation = new AddRelationStage();
 				addRelation.showAndWait();
-				build();
+				Relation relation = addRelation.getRelation();
+				if(relation != null) {
+					try {
+						addRelation(relation);
+					} catch (TreeException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 		for(MenuItem item : item_add_edge_relations) {
@@ -671,7 +679,7 @@ public class TreeView extends BorderPane {
 	private void addVertex(Vertex vertex) throws TreeException {
 		tree.createVertex(vertex);
 		
-		// Création de son composant graphique et de ses events
+		// Création de son composant graphique et events
 		VertexView vertexView = new VertexView(vertex, placement.next());
 		verticesView.add(vertexView);
 		vertexView.setOnMouseClicked(new VertexClicked(vertexView));
@@ -700,8 +708,57 @@ public class TreeView extends BorderPane {
 		// TODO Redessiner les arcs (Peut-être long ?)
 	}
 	
-	private void addRelation(String name) {
-		// TODO
+	/**
+	 * Ajout d'une relation
+	 * @param relation : relation à ajouter
+	 * @throws TreeException si la relation existe déjà
+	 */
+	private void addRelation(Relation relation) throws TreeException {
+		tree.createRelation(relation);
+		
+		// Création de ses composants graphiques et events
+		MenuItem menuItem = new MenuItem(relation.getName());
+		menuItem.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if(!tree.isVerticesEmpty()) {
+					AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree, relation.getName());
+					addEdge.showAndWait();
+					build();
+				} else System.err.println("Pas de sommets");
+			}
+		});
+		CheckMenuItem checkMenuItem = new CheckMenuItem(relation.getName());
+		checkMenuItem.setSelected(true);
+		checkMenuItem.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				List<EdgeView> edges = edgesView.get(relation.getName());
+				if(newValue)
+					center.getChildren().addAll(edges);
+				else
+					center.getChildren().removeAll(edges);
+			}
+		});
+		
+		item_add_edge_relations.add(menuItem);
+		vCM_add_edge_relations.add(menuItem);
+		eCM_add_edge_relations.add(menuItem);
+		tCM_add_edge_relations.add(menuItem);
+		
+		item_view_relations.add(checkMenuItem);
+		
+			menu_add_edge.getItems().setAll(item_add_edge_relations);
+			menu_add_edge.setDisable(false);
+			int index = menu_edit.getItems().indexOf(menu_add_edge);
+		menu_edit.getItems().set(index, menu_add_edge);
+			menu_view_relations.getItems().setAll(item_view_relations);
+			menu_view_relations.setDisable(false);
+			index = menu_view.getItems().indexOf(menu_view_relations);
+		menu_view.getItems().set(index, menu_view_relations);
+		
+		// Edition de la zone d'info
+		info_area.setText(tree.toString());
 	}
 	
 	private void removeRelation(String name) {

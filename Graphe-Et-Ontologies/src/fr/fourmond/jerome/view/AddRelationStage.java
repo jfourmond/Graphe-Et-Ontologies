@@ -2,17 +2,16 @@ package fr.fourmond.jerome.view;
 
 import fr.fourmond.jerome.framework.Relation;
 import fr.fourmond.jerome.framework.RelationException;
-import fr.fourmond.jerome.framework.Tree;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -28,7 +27,7 @@ public class AddRelationStage extends Stage {
 
 	private final static String TITLE = "Graphe Et Ontologies - Nouvelle relation";
 	
-	private Tree tree;
+	private Relation relation;
 	
 	private GridPane gridPane;
 	private Text title;
@@ -36,14 +35,19 @@ public class AddRelationStage extends Stage {
 		private TextField relationName;
 		private Button add;
 	
-	public AddRelationStage(Tree tree) {
+	public AddRelationStage() {
 		this.setTitle(TITLE);
-		this.tree = tree;
 
 		buildComposants();
 		buildInterface();
 		buildEvents();
 	}
+	
+	//	GETTERS
+	public Relation getRelation() { return relation; }
+	
+	//	SETTERS
+	public void setRelation(Relation relation) { this.relation = relation; }
 	
 	private void buildComposants() {
 		gridPane = new GridPane();
@@ -82,8 +86,7 @@ public class AddRelationStage extends Stage {
 				alert.setHeaderText("Ajout de la relation impossible.");
 				alert.initStyle(StageStyle.UTILITY);
 				try {
-					Relation relation = getRelation();
-					tree.createRelation(relation);
+					relation = buildRelation();
 					close();
 				} catch(Exception e) {
 					alert.setContentText(e.getMessage());
@@ -93,8 +96,6 @@ public class AddRelationStage extends Stage {
 		});
 	}
 	
-	private Relation getRelation() throws RelationException {
-		return new Relation(relationName.getText());
-	}
+	private Relation buildRelation() throws RelationException { return new Relation(relationName.getText()); }
 	
 }
