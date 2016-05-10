@@ -127,7 +127,6 @@ public class TreeView extends BorderPane {
 			
 	private static MouseEvent pressed;
 	private static VertexView vertexViewSelected;
-	private static Vertex vertexToEdit;
 	private static String relationToEdit;
 	private static Pair<Vertex, Vertex> pairToEdit;
 	
@@ -540,9 +539,9 @@ public class TreeView extends BorderPane {
 		vCM_edit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				EditVertexStage editVertexStage = new EditVertexStage(vertexToEdit);
+				EditVertexStage editVertexStage = new EditVertexStage(vertexViewSelected.getVertex());
 				editVertexStage.showAndWait();
-				build();
+				info_area.setText(editVertexStage.getVertex().toString());
 			}
 		});
 		vCM_delete.setOnAction(new EventHandler<ActionEvent>() {
@@ -739,7 +738,6 @@ public class TreeView extends BorderPane {
 				info_list.getSelectionModel().select(vertexView);
 			} else if(event.getButton() == MouseButton.SECONDARY) {
 				vertexViewSelected = vertexView;
-				vertexToEdit = vertexView.getVertex();
 				vertexContextMenu.show(vertexView, event.getScreenX(), event.getScreenY());
 			}
 		}
