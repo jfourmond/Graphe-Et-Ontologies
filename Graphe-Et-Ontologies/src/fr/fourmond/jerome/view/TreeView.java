@@ -665,12 +665,6 @@ public class TreeView extends BorderPane {
 		return null;
 	}
 	
-	// PREMIER LANCEMENT DE L'APPLICATION
-	private void firstBuild() {
-		// TODO Renommer la méthode
-		// TODO
-	}
-	
 	/**
 	 * Ajout d'un sommet
 	 * @param vertex : sommet à ajouter
