@@ -482,22 +482,7 @@ public class TreeView extends BorderPane {
 		});
 		for(MenuItem item : item_add_edge_relations) {
 			String relationName= item.getText();
-			item.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					if(!tree.isVerticesEmpty()) {
-						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree.getVertices(), relationName);
-						addEdge.showAndWait();
-						String name = addEdge.getRelationName();
-						Pair<Vertex, Vertex> pair = addEdge.getPair();
-						try {
-							addPair(name, pair);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					} else System.err.println("Pas de sommets");
-				}
-			});
+			item.setOnAction(new AddEdgeClicked(relationName));
 		}
 		for(CheckMenuItem item : item_view_relations) {
 			String text = item.getText();
@@ -527,29 +512,11 @@ public class TreeView extends BorderPane {
 		}
 		for(MenuItem item : eCM_add_edge_relations) {
 			String text = item.getText();
-			item.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					if(!tree.isVerticesEmpty()) {
-						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree.getVertices(), text);
-						addEdge.showAndWait();
-						build();
-					} else System.err.println("Pas de sommets");
-				}
-			});
+			item.setOnAction(new AddEdgeClicked(text));
 		}
 		for(MenuItem item : tCM_add_edge_relations) {
 			String text = item.getText();
-			item.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					if(!tree.isVerticesEmpty()) {
-						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree.getVertices(), text);
-						addEdge.showAndWait();
-						build();
-					} else System.err.println("Pas de sommets");
-				}
-			});
+			item.setOnAction(new AddEdgeClicked(text));
 		}
 		vCM_edit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -581,7 +548,7 @@ public class TreeView extends BorderPane {
 			public void handle(ActionEvent event) {
 				try {
 					removePair(relationToEdit, pairToEdit);
-				} catch (TreeException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -624,6 +591,7 @@ public class TreeView extends BorderPane {
 		center.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				treeContextMenu.hide();
 				if(!event.isConsumed() && event.getButton() == MouseButton.SECONDARY)
 					treeContextMenu.show(center, event.getScreenX(), event.getScreenY());
 			}
@@ -651,8 +619,18 @@ public class TreeView extends BorderPane {
 	
 	private VertexView getViewFromVertex(Vertex vertex) {
 		for(VertexView vertexView : verticesView) {
-			if(vertexView.getVertex() == vertex)
+			if(vertexView.getVertex().equals(vertex))
 				return vertexView;
+		}
+		return null;
+	}
+	
+	private EdgeView getViewFromPair(String relationName, Pair<Vertex, Vertex> pair) {
+		List<EdgeView> list = edgesView.get(relationName);
+		for(EdgeView edgeView : list) {
+			System.out.println(edgeView.getPair());
+			if(edgeView.getPair().equals(pair));
+				return edgeView;
 		}
 		return null;
 	}
@@ -805,8 +783,23 @@ public class TreeView extends BorderPane {
 		center.getChildren().add(edgeView);
 	}
 	
-	private void removePair(String relationName, Pair<Vertex, Vertex> pair) throws TreeException {
+	/**
+	 * Suppression d'une paire d'une relation
+	 * @param relationName : nom de la relation
+	 * @param pair : paire à supprimer
+	 * @throws TreeException : si la relation n'existe pas
+	 * @throws RelationException si la paire n'existe pas
+	 */
+	private void removePair(String relationName, Pair<Vertex, Vertex> pair) throws TreeException, RelationException {
 		tree.removePair(relationName, pair);
+		
+		// Suppression des composantes graphiques
+		List<EdgeView> list = edgesView.get(relationName);
+		EdgeView edgeView = getViewFromPair(relationName, pair);
+		System.out.println(pair + " == " + edgeView.getPair());
+		list.remove(edgeView);
+		
+		center.getChildren().remove(edgeView);
 	}
 	
 	/**
@@ -875,6 +868,31 @@ public class TreeView extends BorderPane {
 				vertexView.setCenterY(event.getY());
 				redrawLines();
 			}
+		}
+	}
+	
+	/**
+	 * {@link EventHandler} lors d'un clic sur un {@link MenuItem} d'ajout d'arc
+	 * @author etudiant
+	 */
+	protected class AddEdgeClicked implements EventHandler<ActionEvent> {
+		private String relationName;
+		
+		public AddEdgeClicked(String relationName) { this.relationName = relationName; }
+		
+		@Override
+		public void handle(ActionEvent event) {
+			if(!tree.isVerticesEmpty()) {
+				AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree.getVertices(), relationName);
+				addEdge.showAndWait();
+				String name = addEdge.getRelationName();
+				Pair<Vertex, Vertex> pair = addEdge.getPair();
+				try {
+					addPair(name, pair);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else System.err.println("Pas de sommets");
 		}
 	}
 }

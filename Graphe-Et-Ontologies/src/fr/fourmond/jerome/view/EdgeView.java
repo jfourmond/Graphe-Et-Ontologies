@@ -1,5 +1,6 @@
 package fr.fourmond.jerome.view;
 
+import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Vertex;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -94,4 +95,6 @@ public class EdgeView extends Group {
 	public Vertex getVertexStart() { return start.getVertex(); }
 	
 	public Vertex getVertexEnd() { return end.getVertex(); }
+	
+	public Pair<Vertex, Vertex> getPair() { return new Pair<Vertex, Vertex>(getVertexStart(), getVertexEnd()); }
 }
