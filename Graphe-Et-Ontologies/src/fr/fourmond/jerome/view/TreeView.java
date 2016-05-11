@@ -499,16 +499,7 @@ public class TreeView extends BorderPane {
 		}
 		for(MenuItem item : vCM_add_edge_relations) {
 			String text = item.getText();
-			item.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					if(!tree.isVerticesEmpty()) {
-						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree.getVertices(), text);
-						addEdge.showAndWait();
-						build();
-					} else System.err.println("Pas de sommets");
-				}
-			});
+			item.setOnAction(new AddEdgeClicked(text));
 		}
 		for(MenuItem item : eCM_add_edge_relations) {
 			String text = item.getText();
@@ -529,9 +520,11 @@ public class TreeView extends BorderPane {
 		vCM_delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				removeVertex(vertexViewSelected);
-				// tree.removeVertex(vertexToEdit);
-				// build();
+				try {
+					removeVertex(vertexViewSelected);
+				} catch (TreeException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		vCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
@@ -662,8 +655,9 @@ public class TreeView extends BorderPane {
 	/**
 	 * Suppression d'un sommet (graphique)
 	 * @param vertex : sommet à supprimer
+	 * @throws TreeException si le sommet n'existe pas
 	 */
-	private void removeVertex(VertexView vertex) {
+	private void removeVertex(VertexView vertex) throws TreeException {
 		tree.removeVertex(vertexViewSelected.getVertex());	// Lors de sa suppression, tous les arcs qui le liaient avec d'autres sommets sont supprimés 
 		// Suppression de son composant graphique
 		verticesView.remove(vertexViewSelected);

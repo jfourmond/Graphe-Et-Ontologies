@@ -98,10 +98,11 @@ public class Tree {
 	/**
 	 * Supprime le sommet 
 	 * @param vertex : sommet à supprimer
+	 * @throws TreeException si le sommet n'existe pas
 	 */
-	public void removeVertex(Vertex vertex) {
-		vertices.remove(vertex);
-		removeRelatedPair(vertex);
+	public void removeVertex(Vertex vertex) throws TreeException {
+		if(!vertices.remove(vertex)) throw new TreeException("Le sommet n'existe pas.");
+		else removeRelatedPair(vertex);
 	}
 	
 	/**
