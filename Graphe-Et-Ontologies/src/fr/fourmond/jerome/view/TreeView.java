@@ -682,22 +682,7 @@ public class TreeView extends BorderPane {
 		
 		// Création de ses composants graphiques et events
 		MenuItem menuItem = new MenuItem(relation.getName());
-		menuItem.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if(!tree.isVerticesEmpty()) {
-					AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree.getVertices(), relation.getName());
-					addEdge.showAndWait();
-					String name = addEdge.getRelationName();
-					Pair<Vertex, Vertex> pair = addEdge.getPair();
-					try {
-						addPair(name, pair);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				} else System.err.println("Pas de sommets");
-			}
-		});
+		menuItem.setOnAction(new AddEdgeClicked(relation.getName()));
 		CheckMenuItem checkMenuItem = new CheckMenuItem(relation.getName());
 		checkMenuItem.setSelected(true);
 		checkMenuItem.selectedProperty().addListener(new ChangeListener<Boolean>() {
