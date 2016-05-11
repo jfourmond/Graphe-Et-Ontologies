@@ -273,12 +273,12 @@ public class Tree {
 	 * @param name : nom de la relation
 	 * @param pair : paire à supprimer et à rechercher
 	 * @throws TreeException si la relation n'existe pas, ou si la paire n'existe pas
+	 * @throws RelationException si la paire n'existe pas
 	 */
-	public void removePair(String name, Pair<Vertex, Vertex> pair) throws TreeException {
+	public void removePair(String name, Pair<Vertex, Vertex> pair) throws TreeException, RelationException {
 		Relation relation = getRelation(name);
 		if(relation != null) {
-			boolean b = relation.remove(pair);
-			if(!b) throw new TreeException("La paire n'existe pas.");
+			relation.remove(pair);
 		} else throw new TreeException("La relation n'existe pas.");
 	}
 	

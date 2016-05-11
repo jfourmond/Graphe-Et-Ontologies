@@ -98,8 +98,11 @@ public class Relation {
 	 * Supprime la paire correspondante
 	 * @param pair : la paire à rechercher et à supprimer
 	 * @return <code>true</code> si la relation contenait la paire
+	 * @throws RelationException si la paire n'existe pas
 	 */
-	public boolean remove(Pair<Vertex, Vertex> pair) { return pairs.remove(pair); }
+	public void remove(Pair<Vertex, Vertex> pair) throws RelationException {
+		if(!pairs.remove(pair)) throw new RelationException("La paire n'existe pas.");
+	}
 	
 	/**
 	 * Supprime les paires ayant ce sommet
