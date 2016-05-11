@@ -296,7 +296,7 @@ public class Tree {
 	public String toString() {
 		String ch = "Sommets (" + vertices.size() + ") : \n";
 		for(Vertex vertex : vertices) {
-			ch += "\t" + vertex;
+			ch += "\t" + vertex + "\n";
 		}
 		
 		ch += "Relations (" + relations.size() + ") : \n";

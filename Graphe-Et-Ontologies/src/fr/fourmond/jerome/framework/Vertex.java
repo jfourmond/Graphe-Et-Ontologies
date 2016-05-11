@@ -90,8 +90,7 @@ public class Vertex {
 		return false;
 	}
 	
-	@Override
-	public String toString() {
+	public String info() {
 		String ch = "ID : " + ID + "\n";
 		Set<Entry<String, String>> attributes = this.attributes.entrySet();
 		for(Entry<String, String> attribute : attributes) {
@@ -103,8 +102,11 @@ public class Vertex {
 	}
 	
 	@Override
+	public String toString() { return ID; }
+	
+	@Override
 	public boolean equals(Object obj) {
-		if (getClass() != obj.getClass())
+		if (obj == null || getClass() != obj.getClass())
 			return false;
 		else {
 			Vertex vertex = (Vertex) obj;

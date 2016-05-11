@@ -123,7 +123,11 @@ public class Relation {
 	
 	@Override
 	public boolean equals(Object obj) {
-		Relation relation = (Relation) obj;
-		return this.name.equals(relation.name);
+		if(obj == null || getClass() == obj.getClass()) {
+			return false;
+		} else {
+			Relation relation = (Relation) obj;
+			return this.name.equals(relation.name);
+		}
 	}
 }
