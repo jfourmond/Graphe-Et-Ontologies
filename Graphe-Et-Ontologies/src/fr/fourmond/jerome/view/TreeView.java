@@ -85,6 +85,8 @@ public class TreeView extends BorderPane {
 	private Menu menu_view;
 		private Menu menu_view_relations;
 		private List<CheckMenuItem> item_view_relations;
+	private Menu menu_tools;
+		private MenuItem item_tools_data;
 	private Menu menu_settings;
 		private CheckMenuItem item_auto_save;
 	
@@ -179,6 +181,8 @@ public class TreeView extends BorderPane {
 			item_add_relation = new MenuItem("Nouvelle relation");
 			menu_add_edge = new Menu("Nouvel arc");
 		menu_view = new Menu("Affichage");
+			item_tools_data = new MenuItem("Données");
+		menu_tools = new Menu("Outils");
 		menu_settings = new Menu("Options");
 			item_auto_save = new CheckMenuItem("Sauvegarde automatique");
 		
@@ -262,9 +266,10 @@ public class TreeView extends BorderPane {
 				menu_add_edge.getItems().addAll(item_add_edge_relations);
 			menu_edit.getItems().addAll(item_ontologie, item_separator, item_add_vertex, item_add_relation, menu_add_edge);
 				menu_view_relations.getItems().addAll(item_view_relations);
+			menu_tools.getItems().add(item_tools_data);
 			menu_view.getItems().addAll(menu_view_relations);
 			menu_settings.getItems().add(item_auto_save);
-		menuBar.getMenus().addAll(menu_file, menu_edit, menu_view, menu_settings);
+		menuBar.getMenus().addAll(menu_file, menu_edit, menu_tools, menu_view, menu_settings);
 		menuBar.setUseSystemMenuBar(true);
 		
 		// Menus Contextuels
@@ -484,6 +489,13 @@ public class TreeView extends BorderPane {
 			String relationName= item.getText();
 			item.setOnAction(new AddEdgeClicked(relationName));
 		}
+		item_tools_data.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				DataStage stage = new DataStage(tree);
+				stage.show();
+			}
+		});
 		for(CheckMenuItem item : item_view_relations) {
 			String text = item.getText();
 			item.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -603,7 +615,7 @@ public class TreeView extends BorderPane {
 			public void changed(ObservableValue<? extends VertexView> observable,
 					VertexView oldValue, VertexView newValue) {
 						Vertex vertex = newValue.getVertex();
-						info_area.setText(vertex.toString());
+						info_area.setText(vertex.info());
 						newValue.setSelected(true);
 						if(oldValue != null) oldValue.setSelected(false);
 			}
@@ -663,6 +675,14 @@ public class TreeView extends BorderPane {
 		verticesView.remove(vertexViewSelected);
 		
 		center.getChildren().setAll(verticesView);
+		
+		// Edition de la zone d'info
+		info_area.setText(tree.toString());
+		
+		// Edition de la liste
+		verticesViewForList.remove(vertex);
+		info_list.setItems(verticesViewForList);
+		
 		// TODO Redessiner les arcs (Peut-être long ?)
 	}
 	
