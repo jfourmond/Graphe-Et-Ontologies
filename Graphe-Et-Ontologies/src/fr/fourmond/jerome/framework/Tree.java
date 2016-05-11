@@ -315,6 +315,7 @@ public class Tree {
 	 */
 	public Set<String> getAttributes() {
 		Set<String> attributes = new HashSet<>();
+		attributes.add("ID");
 		for(Vertex vertex : vertices) {
 			attributes.addAll(vertex.getKey());
 		}
