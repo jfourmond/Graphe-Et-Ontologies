@@ -46,7 +46,12 @@ public class Vertex {
 	 * @param attributeID : identifiant unique de l'attribut
 	 * @return la valeur de l'attribut s'il existe, <code>null</code> sinon
 	 */
-	public String get(String attributeID) { return attributes.get(attributeID); }
+	public String get(String attributeID) {
+		if(attributeID.equals("ID"))
+			return ID;
+		else
+			return attributes.get(attributeID);
+	}
 
 	/**
 	 * Edite la valeur de l'attribut
