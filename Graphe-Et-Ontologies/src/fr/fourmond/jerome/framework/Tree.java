@@ -2,7 +2,9 @@ package fr.fourmond.jerome.framework;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * {@link Tree} représente un arbre/graphe (non orienté).
@@ -305,6 +307,18 @@ public class Tree {
 	public void clear() {
 		vertices.clear();
 		relations.clear();
+	}
+	
+	/**
+	 * Retourne un ensemble des attributs utilisés
+	 * @return un ensemble des attributs utilisés
+	 */
+	public Set<String> getAttributes() {
+		Set<String> attributes = new HashSet<>();
+		for(Vertex vertex : vertices) {
+			attributes.addAll(vertex.getKey());
+		}
+		return attributes;
 	}
 	
 	@Override

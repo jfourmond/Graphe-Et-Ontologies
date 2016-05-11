@@ -2,8 +2,8 @@ package fr.fourmond.jerome.framework;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * {@link Vertex} représente un sommet.
@@ -88,6 +88,14 @@ public class Vertex {
 				return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Retourne un ensemble des noms d'attributs utilisés.
+	 * @return un ensemble des noms d'attributs utilisés
+	 */
+	public Set<String> getKey() {
+		return attributes.keySet();
 	}
 	
 	public String info() {
