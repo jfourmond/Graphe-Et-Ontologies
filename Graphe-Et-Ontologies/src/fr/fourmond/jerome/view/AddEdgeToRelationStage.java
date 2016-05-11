@@ -13,8 +13,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
@@ -23,7 +21,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 /**
@@ -135,17 +132,8 @@ public class AddEdgeToRelationStage extends Stage {
 		add.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Erreur");
-				alert.setHeaderText("Ajout de l'arc impossible.");
-				alert.initStyle(StageStyle.UTILITY);
-				try {
-					buildPair();
-					close();
-				} catch (Exception e) {
-					alert.setContentText(e.getMessage());
-					alert.showAndWait();
-				}
+				buildPair();
+				close();
 			}
 		});
 	}
