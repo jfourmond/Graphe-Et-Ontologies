@@ -14,6 +14,7 @@ import fr.fourmond.jerome.framework.ColorDistribution;
 import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Placement;
 import fr.fourmond.jerome.framework.Relation;
+import fr.fourmond.jerome.framework.RelationException;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.TreeException;
 import fr.fourmond.jerome.framework.TreeLoader;
@@ -145,6 +146,7 @@ public class TreeView extends BorderPane {
 	
 	private void buildComposants() {
 		placement = new Placement();
+		colorDistribution = new ColorDistribution();
 		fileChooser = new FileChooser();
 		
 		item_add_edge_relations = new ArrayList<>();
@@ -301,7 +303,6 @@ public class TreeView extends BorderPane {
 	private void buildEdges() {
 		edgesView.clear();
 		List<Relation> relations = tree.getRelations();
-		colorDistribution = new ColorDistribution();
 		Color color;
 		VertexView start, end;
 		EdgeView edgeView;
@@ -480,14 +481,20 @@ public class TreeView extends BorderPane {
 			}
 		});
 		for(MenuItem item : item_add_edge_relations) {
-			String text = item.getText();
+			String relationName= item.getText();
 			item.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					if(!tree.isVerticesEmpty()) {
-						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree, text);
+						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree.getVertices(), relationName);
 						addEdge.showAndWait();
-						build();
+						String name = addEdge.getRelationName();
+						Pair<Vertex, Vertex> pair = addEdge.getPair();
+						try {
+							addPair(name, pair);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					} else System.err.println("Pas de sommets");
 				}
 			});
@@ -511,7 +518,7 @@ public class TreeView extends BorderPane {
 				@Override
 				public void handle(ActionEvent event) {
 					if(!tree.isVerticesEmpty()) {
-						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree, text);
+						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree.getVertices(), text);
 						addEdge.showAndWait();
 						build();
 					} else System.err.println("Pas de sommets");
@@ -524,7 +531,7 @@ public class TreeView extends BorderPane {
 				@Override
 				public void handle(ActionEvent event) {
 					if(!tree.isVerticesEmpty()) {
-						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree, text);
+						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree.getVertices(), text);
 						addEdge.showAndWait();
 						build();
 					} else System.err.println("Pas de sommets");
@@ -537,7 +544,7 @@ public class TreeView extends BorderPane {
 				@Override
 				public void handle(ActionEvent event) {
 					if(!tree.isVerticesEmpty()) {
-						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree, text);
+						AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree.getVertices(), text);
 						addEdge.showAndWait();
 						build();
 					} else System.err.println("Pas de sommets");
@@ -573,8 +580,7 @@ public class TreeView extends BorderPane {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					tree.removePair(relationToEdit, pairToEdit);
-					build();
+					removePair(relationToEdit, pairToEdit);
 				} catch (TreeException e) {
 					e.printStackTrace();
 				}
@@ -627,22 +633,8 @@ public class TreeView extends BorderPane {
 			vertex.setOnMouseDragged(new VertexDragged(vertex));
 		}
 		for(Entry<String, List<EdgeView>> edges : edgesView.entrySet()) {
-			String name = edges.getKey();
-			List<EdgeView> list = edges.getValue();
-			for(EdgeView edge : list) {
-				edge.setOnMouseClicked(new EventHandler<MouseEvent>() {
-					@Override
-					public void handle(MouseEvent event) {
-						event.consume();
-						if(event.getButton() == MouseButton.PRIMARY) {
-							System.err.println("PAS IMPLEMENTE");
-						} else if(event.getButton() == MouseButton.SECONDARY) {
-							relationToEdit = name;
-							pairToEdit = new Pair<Vertex, Vertex>(edge.getVertexStart(), edge.getVertexEnd());
-							edgeContextMenu.show(edge, event.getScreenX(), event.getScreenY());
-						}
-					}
-				});
+			for(EdgeView edge : edges.getValue()) {
+				edge.setOnMouseClicked(new EdgeClicked(edge));
 			}
 		}
 		info_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<VertexView>() {
@@ -716,9 +708,15 @@ public class TreeView extends BorderPane {
 			@Override
 			public void handle(ActionEvent event) {
 				if(!tree.isVerticesEmpty()) {
-					AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree, relation.getName());
+					AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree.getVertices(), relation.getName());
 					addEdge.showAndWait();
-					build();
+					String name = addEdge.getRelationName();
+					Pair<Vertex, Vertex> pair = addEdge.getPair();
+					try {
+						addPair(name, pair);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				} else System.err.println("Pas de sommets");
 			}
 		});
@@ -738,14 +736,33 @@ public class TreeView extends BorderPane {
 		item_add_edge_relations.add(menuItem);
 		vCM_add_edge_relations.add(menuItem);
 		eCM_add_edge_relations.add(menuItem);
+			eCM_add_edge.setDisable(false);
 		tCM_add_edge_relations.add(menuItem);
+			tCM_add_edge.setDisable(false);
 		
 		item_view_relations.add(checkMenuItem);
 		
+		// Menu "Edition"
 			menu_add_edge.getItems().setAll(item_add_edge_relations);
 			menu_add_edge.setDisable(false);
 			int index = menu_edit.getItems().indexOf(menu_add_edge);
 		menu_edit.getItems().set(index, menu_add_edge);
+		// Menu Contextuel Sommet
+			vCM_add_edge.getItems().setAll(vCM_add_edge_relations);
+			vCM_add_edge.setDisable(false);
+			index = vertexContextMenu.getItems().indexOf(vCM_add_edge);
+		vertexContextMenu.getItems().set(index, vCM_add_edge);
+		// Menu Contextuel Arc
+			eCM_add_edge.getItems().setAll(eCM_add_edge_relations);
+			eCM_add_edge.setDisable(false);
+			index = edgeContextMenu.getItems().indexOf(eCM_add_edge);
+		edgeContextMenu.getItems().set(index, eCM_add_edge);
+		// Menu Contextuel Arbre
+			tCM_add_edge.getItems().setAll(tCM_add_edge_relations);
+			tCM_add_edge.setDisable(false);
+			index = treeContextMenu.getItems().indexOf(tCM_add_edge);
+		treeContextMenu.getItems().set(index, tCM_add_edge);
+		// Menu "Affichage"
 			menu_view_relations.getItems().setAll(item_view_relations);
 			menu_view_relations.setDisable(false);
 			index = menu_view.getItems().indexOf(menu_view_relations);
@@ -753,18 +770,43 @@ public class TreeView extends BorderPane {
 		
 		// Edition de la zone d'info
 		info_area.setText(tree.toString());
+		
+		edgesView.put(relation.getName(), new ArrayList<>());
 	}
 	
 	private void removeRelation(String name) {
 		// TODO
 	}
 	
-	private void addPair(Pair<Vertex, Vertex> pair) {
-		// TODO
+	/**
+	 * Ajout d'une paire dans une relation
+	 * @param relationName : nom de la relation
+	 * @param pair : paire à ajouter
+	 * @throws RelationException si la paire, dans cet ordre, existe déjà
+	 * @throws TreeException  si la relation n'existe pas
+	 */
+	private void addPair(String relationName, Pair<Vertex, Vertex> pair) throws RelationException, TreeException {
+		tree.addPair(relationName, pair);
+		
+		// Création de ses composantes graphiques et events
+		List<EdgeView> list = edgesView.get(relationName);
+		
+		Color color = colorDistribution.next();
+		VertexView start = getViewFromVertex(pair.getFirst());
+		VertexView end = getViewFromVertex(pair.getSecond());
+		EdgeView edgeView = new EdgeView(relationName, start, end, color);
+		edgeView.setOnMouseClicked(new EdgeClicked(edgeView));
+		list.add(edgeView);
+		edgesView.replace(relationName, list);
+		
+		// Edition de la zone d'info
+		info_area.setText(tree.toString());
+		
+		center.getChildren().add(edgeView);
 	}
 	
-	private void removePair(Pair<Vertex, Vertex> pair) {
-		// TODO
+	private void removePair(String relationName, Pair<Vertex, Vertex> pair) throws TreeException {
+		tree.removePair(relationName, pair);
 	}
 	
 	/**
@@ -781,7 +823,7 @@ public class TreeView extends BorderPane {
 			event.consume();
 			if(event.getButton() == MouseButton.PRIMARY) {
 				Vertex v = vertexView.getVertex();
-				info_area.setText(v.toString());
+				info_area.setText(v.info());
 				vertexView.setSelected(true);
 				for(VertexView other: verticesView) {
 					if(other != vertexView) other.setSelected(false);
@@ -792,6 +834,28 @@ public class TreeView extends BorderPane {
 				vertexContextMenu.show(vertexView, event.getScreenX(), event.getScreenY());
 			}
 		}
+	}
+	
+	/**
+	 * {@link EventHandler} lors d'un clic sur un {@link EdgeView}
+	 * @author jfourmond
+	 */
+	protected class EdgeClicked implements EventHandler<MouseEvent> {
+		private EdgeView edgeView;
+		
+		public EdgeClicked(EdgeView edgeView) { this.edgeView = edgeView; }
+		
+		@Override
+		public void handle(MouseEvent event) {
+			event.consume();
+			if(event.getButton() == MouseButton.PRIMARY) {
+				System.err.println("PAS IMPLEMENTE");
+			} else if(event.getButton() == MouseButton.SECONDARY) {
+				relationToEdit = edgeView.getRelation();
+				pairToEdit = new Pair<Vertex, Vertex>(edgeView.getVertexStart(), edgeView.getVertexEnd());
+				edgeContextMenu.show(edgeView, event.getScreenX(), event.getScreenY());
+			}
+		}	
 	}
 	
 	/**

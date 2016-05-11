@@ -1,10 +1,11 @@
 package fr.fourmond.jerome.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import fr.fourmond.jerome.framework.Tree;
+import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Vertex;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,11 +17,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 
 /**
  * {@link AddEdgeToRelationStage} est un {@link Stage} permettant de créer
@@ -31,26 +35,26 @@ public class AddEdgeToRelationStage extends Stage {
 
 	private static final String TITLE = "Graphe Et Ontologies - Relation ";
 	
-	private Tree tree;
 	private String relationName;
+	private Pair<Vertex, Vertex> pair;
 	
-	private List<String> vertices;
+	private List<Vertex> vertices;
 	
-	private ObservableList<String> vertex1;
-	private ObservableList<String> vertex2;
+	private ObservableList<Vertex> vertex1;
+	private ObservableList<Vertex> vertex2;
 	
 	private GridPane gridPane;
 	private Text title;
 		private Text from;
-		private ComboBox<String> CB1;
+		private ComboBox<Vertex> CB1;
 		private Text to;
-		private ComboBox<String> CB2;
+		private ComboBox<Vertex> CB2;
 	private Button add;
 	
-	public AddEdgeToRelationStage(Tree tree, String relationName) {
+	public AddEdgeToRelationStage(List<Vertex> vertices, String relationName) {
 		setTitle(TITLE + relationName + " - Nouvel Arc");
 		
-		this.tree = tree;
+		this.vertices = vertices;
 		this.relationName = relationName;
 		
 		buildComposants();
@@ -58,12 +62,19 @@ public class AddEdgeToRelationStage extends Stage {
 		buildEvents();
 	}
 	
+	//	GETTERS
+	public String getRelationName() { return relationName; }
+	
+	public Pair<Vertex, Vertex> getPair() { return pair; }
+	
+	
+	//	SETTERS
+	public void setRelationName(String relationName) { this.relationName = relationName; }
+	
+	public void setPair(Pair<Vertex, Vertex> pair) { this.pair = pair; }
+	
+	//	METHODES
 	private void buildComposants() {
-		vertices = new ArrayList<>();
-		for(Vertex vertex : tree.getVertices()) {
-			vertices.add(vertex.getID());
-		}
-		
 		vertex1 = FXCollections.observableArrayList(vertices);
 		vertex2 = FXCollections.observableArrayList(vertices);
 		
@@ -76,11 +87,31 @@ public class AddEdgeToRelationStage extends Stage {
 		title = new Text("Nouvel arc");
 			from = new Text(" De ");
 				CB1 = new ComboBox<>(vertex1);
-				CB1.setValue(vertices.get(0));
+				CB1.setCellFactory(new Callback<ListView<Vertex>, ListCell<Vertex>>() {
+					@Override
+					public ListCell<Vertex> call(ListView<Vertex> param) {
+						return new VertexList();
+					}
+				});
+				CB1.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Vertex>() {
+					@Override
+					public void changed(ObservableValue<? extends Vertex> observable, Vertex oldValue, Vertex newValue) {
+						if(CB2 != null && newValue == CB2.getValue())
+							CB2.getSelectionModel().select(oldValue);
+					}
+				});
+				CB1.getSelectionModel().selectFirst();
 			to = new Text(" à ");
 				CB2 = new ComboBox<>(vertex2);
-				CB2.setValue(vertices.get(1));
-		
+				CB2.setCellFactory(CB1.getCellFactory());
+				CB2.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Vertex>() {
+					@Override
+					public void changed(ObservableValue<? extends Vertex> observable, Vertex oldValue, Vertex newValue) {
+						if(newValue == CB1.getValue())
+							CB1.getSelectionModel().select(oldValue);
+					}
+				});
+				CB2.getSelectionModel().select(1);
 		add = new Button("Ajouter arc");
 	}
 	
@@ -109,9 +140,7 @@ public class AddEdgeToRelationStage extends Stage {
 				alert.setHeaderText("Ajout de l'arc impossible.");
 				alert.initStyle(StageStyle.UTILITY);
 				try {
-					Vertex vertex1 = tree.getVertex(CB1.getValue());
-					Vertex vertex2 = tree.getVertex(CB2.getValue());
-					tree.addPair(relationName, vertex1, vertex2);
+					buildPair();
 					close();
 				} catch (Exception e) {
 					alert.setContentText(e.getMessage());
@@ -119,5 +148,13 @@ public class AddEdgeToRelationStage extends Stage {
 				}
 			}
 		});
+	}
+	
+	private void buildPair() {
+		Vertex vertex1 = CB1.getValue();
+		Vertex vertex2 = CB2.getValue();
+		
+		pair = new Pair<Vertex, Vertex>(vertex1, vertex2);
+		System.out.println(pair);
 	}
 }

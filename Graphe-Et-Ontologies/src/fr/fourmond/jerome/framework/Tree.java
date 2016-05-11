@@ -255,6 +255,20 @@ public class Tree {
 	}
 	
 	/**
+	 * Ajoute une paire à la relation
+	 * @param name : nom de la relation
+	 * @param pair : paire à ajouter
+	 * @throws RelationException si la paire, dans cet ordre précis, existe déjà
+	 * @throws TreeException si la relation n'existe pas
+	 */
+	public void addPair(String name, Pair<Vertex, Vertex> pair) throws RelationException, TreeException {
+		Relation relation = getRelation(name);
+		if(relation != null) {
+			relation.add(pair);
+		} else throw new TreeException("La relation n'existe pas.");
+	}
+	
+	/**
 	 * Supprime la paire correspondante dans la relation
 	 * @param name : nom de la relation
 	 * @param pair : paire à supprimer et à rechercher
