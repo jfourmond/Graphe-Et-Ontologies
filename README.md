@@ -1,5 +1,7 @@
 # Graphe Et Ontologies
 
+[![Build Status](https://travis-ci.org/jfourmond/Graphe-Et-Ontologies.svg?branch=master)](https://travis-ci.org/jfourmond/Graphe-Et-Ontologies)
+
 Travaux Encadrés de Recherche sous la supervision de :
 * Dr. RICHER Jean-Michel
 * Dr. AÏT EL MEKKI Touria

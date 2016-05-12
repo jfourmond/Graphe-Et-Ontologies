@@ -86,6 +86,7 @@
 	<target name="run">
 		<java classname="Launcher" fork="true"
 			 classpathref="run.classpath" >
+			<arg value="${arg0}" />
 		</java>
 	</target>
 
