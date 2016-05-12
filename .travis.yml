@@ -1,4 +1,10 @@
 language: java
 
+before_install:
+  - sudo apt-get -qq update
+
+jdk:
+  oraclejdk8
+
 script:
   ant -buildfile Graphe-Et-Ontologies/build.xml build
