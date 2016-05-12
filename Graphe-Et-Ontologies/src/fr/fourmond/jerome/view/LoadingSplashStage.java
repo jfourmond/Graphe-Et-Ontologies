@@ -72,10 +72,7 @@ public class LoadingSplashStage extends Stage {
 		this.show();
 	}
 
-	private void buildEvents() {
-		// TODO Auto-generated method stub
-		
-	}
+	private void buildEvents() { /* TODO NO EVENTS THEORETICALLY */ }
 	
 	private void load() {
 		if(filename == null) {

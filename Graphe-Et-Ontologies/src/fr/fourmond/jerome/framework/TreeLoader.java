@@ -62,6 +62,7 @@ public class TreeLoader extends Task<Boolean> {
 		if(!file.exists()) {
 			throw new FileNotFoundException("Le fichier n'existe pas.");
 		}
+		tmpTree.setFile(file);
 		
 		updateMessage("Chargement en cours...");
 		
@@ -70,6 +71,9 @@ public class TreeLoader extends Task<Boolean> {
 		Document document = saxBuilder.build(tree.getFile());
 		
 		Element racine = document.getRootElement();
+		if(!racine.getName().equals(INDEX))
+			throw new TreeLoaderException("La DTD n'est pas respectée.");
+		
 		
 		List<Element> entries =  racine.getChildren(ENTREE);
 		int indexSize = entries.size() * 2;
