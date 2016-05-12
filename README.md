@@ -38,8 +38,12 @@ Le développement de cette partie se retrouve dans le commit [suivant](https://g
 
 ### 3. Troisième étape
 
-- [ ] Sauvegarde d'Ontologies
+- [x] Sauvegarde d'Ontologies
 - [ ] Interaction avec l'Ontologie
+
+### 4. Quatrième étape
+
+- [ ] Manuel d'utilisation
 
 ---
 
