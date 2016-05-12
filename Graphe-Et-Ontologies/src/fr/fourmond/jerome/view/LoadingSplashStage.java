@@ -87,6 +87,8 @@ public class LoadingSplashStage extends Stage {
 				@Override
 				public void handle(WorkerStateEvent event) {
 					tree = loader.getTree();
+					new AppStage(tree);
+					close();
 				}
 			});
 			loader.setOnFailed(new EventHandler<WorkerStateEvent>() {
@@ -98,14 +100,6 @@ public class LoadingSplashStage extends Stage {
 			pb.progressProperty().bind(loader.progressProperty());
 			Thread thread = new Thread(loader);
 			thread.start();
-			try {
-				thread.join();
-				System.out.println("YOLO");
-				new AppStage(tree);
-			} catch (Exception e) {
-				e.printStackTrace();
-				showError(e.getMessage());
-			}
 		}
 	}
 	

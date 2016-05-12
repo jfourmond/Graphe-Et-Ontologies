@@ -10,7 +10,6 @@ public class Launcher extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		System.out.println(filename);
 		if(filename == null)
 			new LoadingSplashStage(tree);
 		else
