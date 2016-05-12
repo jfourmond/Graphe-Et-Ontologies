@@ -2,11 +2,9 @@ package fr.fourmond.jerome.view;
 
 import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Vertex;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -33,35 +31,11 @@ public class EdgeView extends Group {
 		this.start = start;
 		this.end = end;
 		
-		double middleX = (start.getCenterX() + end.getCenterX()) / 2;
-		double middleY = (start.getCenterY() + end.getCenterY()) / 2;
-		
 		color = Color.BLACK;
-		
-		line = new Line(start.getCenterX(), start.getCenterY(), end.getCenterX(), end.getCenterY());
-		line.setStroke(color);
-		label = new Label("" + relationName);
-			label.setTranslateX(middleX);
-			label.setTranslateY(middleY);
 
-		start.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				line.setStartX(event.getX());
-				line.setStartY(event.getY());
-			}
-		});
-		
-		end.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				line.setEndX(event.getX());
-				line.setEndY(event.getY());
-			}
-		});
-		
-		this.getChildren().add(line);
-		this.getChildren().add(label);
+		buildComposants();
+		buildInterface();
+		buildEvents();
 	}
 	
 	public EdgeView(String relationName, VertexView start, VertexView end, Color color) {
@@ -70,35 +44,11 @@ public class EdgeView extends Group {
 		this.start = start;
 		this.end = end;
 		
-		double middleX = (start.getCenterX() + end.getCenterX()) / 2;
-		double middleY = (start.getCenterY() + end.getCenterY()) / 2;
-		
 		this.color = color;
 		
-		line = new Line(start.getCenterX(), start.getCenterY(), end.getCenterX(), end.getCenterY());
-		line.setStroke(color);
-		label = new Label("" + relationName);
-			label.setTranslateX(middleX);
-			label.setTranslateY(middleY);
-		
-		start.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				line.setStartX(event.getX());
-				line.setStartY(event.getY());
-			}
-		});
-		
-		end.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				line.setEndX(event.getX());
-				line.setEndY(event.getY());
-			}
-		});
-		
-		this.getChildren().add(line);
-		this.getChildren().add(label);
+		buildComposants();
+		buildInterface();
+		buildEvents();
 	}
 
 	//	GETTERS
@@ -133,4 +83,38 @@ public class EdgeView extends Group {
 	public Vertex getVertexEnd() { return end.getVertex(); }
 	
 	public Pair<Vertex, Vertex> getPair() { return new Pair<Vertex, Vertex>(getVertexStart(), getVertexEnd()); }
+	
+	private void buildComposants() {
+		double middleX = (start.getCenterX() + end.getCenterX()) / 2;
+		double middleY = (start.getCenterY() + end.getCenterY()) / 2;
+		
+		line = new Line(start.getCenterX(), start.getCenterY(), end.getCenterX(), end.getCenterY());
+		line.setStroke(color);
+		label = new Label("" + relationName);
+			label.setTranslateX(middleX);
+			label.setTranslateY(middleY);
+	}
+	
+	private void buildInterface() {
+		this.getChildren().add(line);
+		this.getChildren().add(label);
+	}
+	
+	private void buildEvents() {
+		start.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				line.setStartX(event.getX());
+				line.setStartY(event.getY());
+			}
+		});
+		
+		end.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				line.setEndX(event.getX());
+				line.setEndY(event.getY());
+			}
+		});
+	}
 }
