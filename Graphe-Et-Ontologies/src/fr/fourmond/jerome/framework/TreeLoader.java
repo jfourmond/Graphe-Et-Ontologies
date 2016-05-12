@@ -134,8 +134,7 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 									if(tmpTree.isID(value)) {
 										tmpTree.addPair(relationName, vertex1ID, value);
 									} else {
-										String vertex2ID = tmpTree.getVertexID(value);
-										tmpTree.addPair(relationName, vertex1ID, vertex2ID);
+										throw new TreeLoaderException("Le terme précisé n'est pas un identifiant de sommet.");
 									}
 								}
 							}
