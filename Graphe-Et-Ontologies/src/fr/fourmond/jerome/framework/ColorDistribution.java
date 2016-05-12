@@ -12,9 +12,8 @@ import javafx.scene.paint.Color;
  */
 public class ColorDistribution {
 	public final static Color[] colors = {
-		Color.RED,
 		Color.BLUE,
-		Color.YELLOW,
+		Color.DARKKHAKI,
 		Color.GREEN,
 		Color.AQUA,
 		Color.BROWN,
