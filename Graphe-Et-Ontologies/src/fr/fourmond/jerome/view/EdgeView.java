@@ -104,16 +104,28 @@ public class EdgeView extends Group {
 		start.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				double middleX = (start.getCenterX() + end.getCenterX()) / 2;
+				double middleY = (start.getCenterY() + end.getCenterY()) / 2;
+				
 				line.setStartX(event.getX());
 				line.setStartY(event.getY());
+				
+				label.setTranslateX(middleX);
+				label.setTranslateY(middleY);
 			}
 		});
 		
 		end.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				double middleX = (start.getCenterX() + end.getCenterX()) / 2;
+				double middleY = (start.getCenterY() + end.getCenterY()) / 2;
+				
 				line.setEndX(event.getX());
 				line.setEndY(event.getY());
+				
+				label.setTranslateX(middleX);
+				label.setTranslateY(middleY);
 			}
 		});
 	}
