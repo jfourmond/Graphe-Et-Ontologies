@@ -2,8 +2,12 @@ package fr.fourmond.jerome.view;
 
 import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Vertex;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
@@ -39,6 +43,22 @@ public class EdgeView extends Group {
 		label = new Label("" + relationName);
 			label.setTranslateX(middleX);
 			label.setTranslateY(middleY);
+
+		start.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				line.setStartX(event.getX());
+				line.setStartY(event.getY());
+			}
+		});
+		
+		end.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				line.setEndX(event.getX());
+				line.setEndY(event.getY());
+			}
+		});
 		
 		this.getChildren().add(line);
 		this.getChildren().add(label);
@@ -60,6 +80,22 @@ public class EdgeView extends Group {
 		label = new Label("" + relationName);
 			label.setTranslateX(middleX);
 			label.setTranslateY(middleY);
+		
+		start.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				line.setStartX(event.getX());
+				line.setStartY(event.getY());
+			}
+		});
+		
+		end.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				line.setEndX(event.getX());
+				line.setEndY(event.getY());
+			}
+		});
 		
 		this.getChildren().add(line);
 		this.getChildren().add(label);
