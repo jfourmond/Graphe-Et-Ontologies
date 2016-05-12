@@ -41,6 +41,12 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 		this.tree = tree;
 	}
 	
+	public TreeLoader(Tree tree, String filename) {
+		File file = new File(filename);
+		this.tree = tree;
+		this.tree.setFile(file);
+	}
+	
 	public TreeLoader(Tree tree, File file) {
 		this.tree = tree;
 		this.tree.setFile(file);
@@ -141,7 +147,6 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 		}
 		
 		tree = tmpTree;
-		
 		return true;
 	}
 
