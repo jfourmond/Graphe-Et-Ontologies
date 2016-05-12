@@ -1,7 +1,4 @@
 language: java
 
-install:
-  ant build
-
 script:
-  ant build
+  ant -buildfile Graphe-Et-Ontologies/build.xml build
