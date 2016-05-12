@@ -160,9 +160,8 @@ public class TreeView extends BorderPane {
 		verticesView = new ArrayList<>();
 		edgesView = new HashMap<>();
 		
-		// TODO gestion dans le cas d'une ouverture directe de fichier
-		// buildVertices();
-		// buildEdges();
+		buildVertices();
+		buildEdges();
 		
 		verticesViewForList = FXCollections.observableArrayList(verticesView);
 		
@@ -282,9 +281,8 @@ public class TreeView extends BorderPane {
 			tCM_add_edge.getItems().addAll(tCM_add_edge_relations);
 		treeContextMenu.getItems().addAll(tCM_add_vertex, tCM_add_relation, tCM_add_edge);
 		
-		// TODO gestion dans le cas d'une ouverture directe de fichier
-		// drawVertices();
-		// drawEdges();
+		drawVertices();
+		drawEdges();
 		
 		east.getChildren().addAll(info_label, info_area, info_list);
 		bottom.getChildren().addAll(pb, info_progress);
@@ -296,7 +294,6 @@ public class TreeView extends BorderPane {
 	}
 	
 	private void buildVertices() {
-		verticesView.clear();
 		List<Vertex> vertices = tree.getVertices();
 		VertexView vertexView;
 		for(Vertex vertex : vertices) {
@@ -306,7 +303,6 @@ public class TreeView extends BorderPane {
 	}
 	
 	private void buildEdges() {
-		edgesView.clear();
 		List<Relation> relations = tree.getRelations();
 		Color color;
 		VertexView start, end;
@@ -333,19 +329,6 @@ public class TreeView extends BorderPane {
 		for(Entry<String, List<EdgeView>> entry : relationSet) {
 			center.getChildren().addAll(entry.getValue());
 		}
-	}
-	
-	private void removeEdges() {
-		Set<Entry<String, List<EdgeView>>> relationSet = edgesView.entrySet();
-		for(Entry<String, List<EdgeView>> entry : relationSet) {
-			center.getChildren().removeAll(entry.getValue());
-		}
-	}
-	
-	private void redrawLines() {
-		removeEdges();
-		buildEdges();
-		drawEdges();
 	}
 	
 	private void buildEvents() {
@@ -865,7 +848,6 @@ public class TreeView extends BorderPane {
 			if(event.getButton() == MouseButton.PRIMARY) {
 				vertexView.setCenterX(event.getX());
 				vertexView.setCenterY(event.getY());
-				redrawLines();
 			}
 		}
 	}
