@@ -24,6 +24,7 @@ public class ColorDistribution {
 	
 	public Random rand;
 	public int current;
+	private Color last;
 	
 	public ColorDistribution() {
 		current = 0;
@@ -36,21 +37,27 @@ public class ColorDistribution {
 	}
 	
 	/**
+	 * Retourne la dernière {@link Color}
+	 * @return la dernière {@link Color}
+	 */
+	public Color last() { return last; }
+	
+	/**
 	 * @return the next {@link Point} in the positions tab
 	 * unless all the tab have been browsed, it return a random {@link Point}
 	 */
 	public Color next() {
-		Color c;
 		if(current >= colors.length) {
-			c = randomColor();
+			last = randomColor();
 		} else {
-			c = colors[current];
+			last = colors[current];
 		}
 		current++;
-		return c;
+		return last;
 	}
 
 	private Color randomColor() {
-		return new Color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble(), 1.0);
+		last = new Color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble(), 1.0);
+		return last;
 	}
 }
