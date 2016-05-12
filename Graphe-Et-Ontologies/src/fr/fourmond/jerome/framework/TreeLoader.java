@@ -30,9 +30,7 @@ public class TreeLoader extends Task<Boolean> {
 	
 	private static String vertexKey;
 	
-	public TreeLoader(Tree tree) {
-		this.tree = tree;
-	}
+	public TreeLoader(Tree tree) { this.tree = tree; }
 	
 	public TreeLoader(Tree tree, String filename) {
 		File file = new File(filename);
@@ -59,9 +57,8 @@ public class TreeLoader extends Task<Boolean> {
 			updateMessage("Echec du chargement");
 			throw new TreeException("Aucun fichier associé à  l'arbre");
 		}
-		if(!file.exists()) {
+		if(!file.exists())
 			throw new FileNotFoundException("Le fichier n'existe pas.");
-		}
 		tmpTree.setFile(file);
 		
 		updateMessage("Chargement en cours...");

@@ -130,4 +130,10 @@ public class EdgeView extends Group {
 			}
 		});
 	}
+	
+	public String info() {
+		String ch = relationName + "\n";
+		ch += "\t" + start.getVertex() + " -> " + end.getVertex();
+		return ch;
+	}
 }

@@ -16,6 +16,5 @@ public class AppStage extends Stage {
 		treeView = new TreeView(this.tree);
 		
 		this.setScene(new Scene(treeView));
-		this.show();
 	}
 }

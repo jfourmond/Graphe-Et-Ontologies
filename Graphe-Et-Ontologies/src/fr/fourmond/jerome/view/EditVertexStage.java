@@ -143,7 +143,7 @@ public class EditVertexStage extends Stage {
 				
 				Optional<String> result = dialog.showAndWait();
 				if (result.isPresent()){
-					String s = result.get();
+					String s = result.get().toLowerCase();
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Erreur");
 					alert.initStyle(StageStyle.UTILITY);

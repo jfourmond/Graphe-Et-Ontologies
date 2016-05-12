@@ -42,7 +42,7 @@
 
 	<ENTREE id="6" terme="Nantes" code-postal="44000" population="147571" superficie="65.19">
 		<RELATION nom="appartient au département du" >
-			<LIEN>1</LIEN>
+			<LIEN>3</LIEN>
 		</RELATION>
 		<RELATION nom="a proximite de" />
 	</ENTREE>

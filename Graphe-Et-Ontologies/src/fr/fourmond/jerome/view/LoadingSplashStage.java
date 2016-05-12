@@ -76,16 +76,18 @@ public class LoadingSplashStage extends Stage {
 	
 	private void load() {
 		if(filename == null) {
-			new AppStage(tree);
+			AppStage appStage = new AppStage(tree);
 			close();
+			appStage.show();
 		} else {
 			loader = new TreeLoader(tree, filename);
 			loader.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 				@Override
 				public void handle(WorkerStateEvent event) {
 					tree = loader.getTree();
-					new AppStage(tree);
+					AppStage appStage = new AppStage(tree);
 					close();
+					appStage.show();
 				}
 			});
 			loader.setOnFailed(new EventHandler<WorkerStateEvent>() {
@@ -107,7 +109,6 @@ public class LoadingSplashStage extends Stage {
 		alert.initStyle(StageStyle.UTILITY);
 		alert.setContentText(message);
 		alert.showAndWait();
-		
 		close();
 	}
 }

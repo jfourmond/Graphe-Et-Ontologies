@@ -68,6 +68,8 @@ public class TreeView extends BorderPane {
 	
 	private Tree tree;
 	
+	private Map<String, Color> colorRelation;
+	
 	private MenuBar menuBar;
 	private Menu menu_file;
 		private MenuItem item_new;
@@ -150,6 +152,8 @@ public class TreeView extends BorderPane {
 		placement = new Placement();
 		colorDistribution = new ColorDistribution();
 		fileChooser = new FileChooser();
+		
+		colorRelation = new HashMap<>();
 		
 		item_add_edge_relations = new ArrayList<>();
 		item_view_relations = new ArrayList<>();
@@ -311,6 +315,7 @@ public class TreeView extends BorderPane {
 			List<EdgeView> relationEdges = new ArrayList<>();
 			color = colorDistribution.next();
 			String relationName = relation.getName();
+			colorRelation.put(relationName, color);
 			List<Pair<Vertex, Vertex>> pairs = relation.getPairs();
 			for(Pair<Vertex, Vertex> pair : pairs) {
 				start = getViewFromVertex(pair.getFirst());
@@ -509,7 +514,7 @@ public class TreeView extends BorderPane {
 			public void handle(ActionEvent event) {
 				EditVertexStage editVertexStage = new EditVertexStage(vertexViewSelected.getVertex());
 				editVertexStage.showAndWait();
-				info_area.setText(editVertexStage.getVertex().toString());
+				info_area.setText(editVertexStage.getVertex().info());
 			}
 		});
 		vCM_delete.setOnAction(new EventHandler<ActionEvent>() {
@@ -563,7 +568,7 @@ public class TreeView extends BorderPane {
 					return;
 				double ecartx = event.getX() + center.getTranslateX() - pressed.getX();
 				double ecarty = event.getY() + center.getTranslateY() - pressed.getY();
-				System.out.println("Ecart : " + ecartx + " " + ecarty);
+				// System.out.println("Ecart : " + ecartx + " " + ecarty);
 				
 				// TODO ajouter une sécurité
 				center.setTranslateX(ecartx);
@@ -634,6 +639,18 @@ public class TreeView extends BorderPane {
 		return null;
 	}
 	
+	private List<EdgeView> getEdgeFromVertex(VertexView vertex) {
+		List<EdgeView> list = new ArrayList<>();
+		for(List<EdgeView> edges : edgesView.values()) {
+			for(EdgeView edge : edges) {
+				if(edge.getStart().equals(vertex) || edge.getEnd().equals(vertex)) {
+					list.add(edge);
+				}
+			}
+		}
+		return list;
+	}
+	
 	/**
 	 * Ajout d'un sommet
 	 * @param vertex : sommet à ajouter
@@ -648,7 +665,7 @@ public class TreeView extends BorderPane {
 		vertexView.setOnMouseClicked(new VertexClicked(vertexView));
 		vertexView.setOnMouseDragged(new VertexDragged(vertexView));
 
-		center.getChildren().setAll(verticesView);
+		center.getChildren().add(vertexView);
 		
 		// Edition de la zone d'info
 		info_area.setText(tree.toString());
@@ -668,7 +685,16 @@ public class TreeView extends BorderPane {
 		// Suppression de son composant graphique
 		verticesView.remove(vertexViewSelected);
 		
-		center.getChildren().setAll(verticesView);
+		center.getChildren().remove(vertex);
+		
+		// Suppression des arcs qui en découlent
+		List<EdgeView> list = getEdgeFromVertex(vertex);
+		for(EdgeView edgeView : list) {
+			for(Entry<String, List<EdgeView>> entry : edgesView.entrySet()) {
+				entry.getValue().remove(edgeView);
+			}
+			center.getChildren().remove(edgeView);
+		}
 		
 		// Edition de la zone d'info
 		info_area.setText(tree.toString());
@@ -676,8 +702,6 @@ public class TreeView extends BorderPane {
 		// Edition de la liste
 		verticesViewForList.remove(vertex);
 		info_list.setItems(verticesViewForList);
-		
-		// TODO Redessiner les arcs (Peut-être long ?)
 	}
 	
 	/**
@@ -687,6 +711,8 @@ public class TreeView extends BorderPane {
 	 */
 	private void addRelation(Relation relation) throws TreeException {
 		tree.createRelation(relation);
+		Color color = colorDistribution.next();
+		colorRelation.put(relation.getName(), color);
 		
 		// Création de ses composants graphiques et events
 		MenuItem menuItem = new MenuItem(relation.getName());
@@ -762,10 +788,9 @@ public class TreeView extends BorderPane {
 		// Création de ses composantes graphiques et events
 		List<EdgeView> list = edgesView.get(relationName);
 		
-		Color color = colorDistribution.next();
 		VertexView start = getViewFromVertex(pair.getFirst());
 		VertexView end = getViewFromVertex(pair.getSecond());
-		EdgeView edgeView = new EdgeView(relationName, start, end, color);
+		EdgeView edgeView = new EdgeView(relationName, start, end, colorRelation.get(relationName));
 		edgeView.setOnMouseClicked(new EdgeClicked(edgeView));
 		list.add(edgeView);
 		edgesView.replace(relationName, list);
@@ -835,7 +860,7 @@ public class TreeView extends BorderPane {
 		public void handle(MouseEvent event) {
 			event.consume();
 			if(event.getButton() == MouseButton.PRIMARY) {
-				System.err.println("PAS IMPLEMENTE");
+				info_area.setText(edgeView.info());
 			} else if(event.getButton() == MouseButton.SECONDARY) {
 				relationToEdit = edgeView.getRelation();
 				pairToEdit = new Pair<Vertex, Vertex>(edgeView.getVertexStart(), edgeView.getVertexEnd());
