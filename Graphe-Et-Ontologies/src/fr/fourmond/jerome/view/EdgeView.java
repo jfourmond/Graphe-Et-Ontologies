@@ -89,8 +89,9 @@ public class EdgeView extends Group {
 		double middleY = (start.getCenterY() + end.getCenterY()) / 2;
 		
 		line = new Line(start.getCenterX(), start.getCenterY(), end.getCenterX(), end.getCenterY());
-		line.setStroke(color);
+			line.setStroke(color);
 		label = new Label("" + relationName);
+			label.setTextFill(color);
 			label.setTranslateX(middleX);
 			label.setTranslateY(middleY);
 	}

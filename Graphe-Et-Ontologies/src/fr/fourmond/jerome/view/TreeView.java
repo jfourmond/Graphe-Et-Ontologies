@@ -580,8 +580,18 @@ public class TreeView extends BorderPane {
 			@Override
 			public void handle(MouseEvent event) {
 				treeContextMenu.hide();
-				if(!event.isConsumed() && event.getButton() == MouseButton.SECONDARY)
+				if(!event.isConsumed() && event.getButton() == MouseButton.PRIMARY) {
+					event.consume();
+					info_area.setText(tree.toString());
+					for(VertexView vertex: verticesView) {
+						vertex.setSelected(false);
+					}
+					info_list.getSelectionModel().clearSelection();
+				}
+				if(!event.isConsumed() && event.getButton() == MouseButton.SECONDARY) {
+					event.consume();
 					treeContextMenu.show(center, event.getScreenX(), event.getScreenY());
+				}
 			}
 		});
 		for(VertexView vertex : verticesView) {
@@ -595,12 +605,13 @@ public class TreeView extends BorderPane {
 		}
 		info_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<VertexView>() {
 			@Override
-			public void changed(ObservableValue<? extends VertexView> observable,
-					VertexView oldValue, VertexView newValue) {
-						Vertex vertex = newValue.getVertex();
-						info_area.setText(vertex.info());
-						newValue.setSelected(true);
-						if(oldValue != null) oldValue.setSelected(false);
+			public void changed(ObservableValue<? extends VertexView> observable, VertexView oldValue, VertexView newValue) {
+				if(newValue != null) {
+					Vertex vertex = newValue.getVertex();
+					info_area.setText(vertex.info());
+					newValue.setSelected(true);
+					if(oldValue != null) oldValue.setSelected(false);
+				}
 			}
 		});
 	}
