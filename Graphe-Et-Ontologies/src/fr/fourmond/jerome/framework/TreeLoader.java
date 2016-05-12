@@ -2,18 +2,12 @@ package fr.fourmond.jerome.framework;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
 
 import javafx.concurrent.Task;
 
@@ -22,7 +16,7 @@ import javafx.concurrent.Task;
  * charger un arbre à partir d'un fichier XML bien formé (adéquat au programme)
  * @author jfourmond
  */
-public class TreeLoader extends Task<Boolean> implements ErrorHandler{
+public class TreeLoader extends Task<Boolean> {
 	private static final String INDEX = "IndexSource";
 	private static final String ENTREE = "ENTREE";
 		private static final String ID = "id";
@@ -32,9 +26,8 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 	
 	private Tree tree;
 	
-	private Document document;
-	private DocumentBuilderFactory domFactory;
-	private DocumentBuilder domBuilder;
+	private SAXBuilder saxBuilder;
+	
 	private static String vertexKey;
 	
 	public TreeLoader(Tree tree) {
@@ -72,73 +65,49 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 		
 		updateMessage("Chargement en cours...");
 		
-		domFactory = DocumentBuilderFactory.newInstance();
-		domFactory.setValidating(true);
+		// TODO Validation (avec SAXBuilder ?)
+		saxBuilder = new SAXBuilder();
+		Document document = saxBuilder.build(tree.getFile());
 		
-		domBuilder = domFactory.newDocumentBuilder();
-		domBuilder.setErrorHandler(this);
+		Element racine = document.getRootElement();
 		
-		document = domBuilder.parse(file);
-		document.getDocumentElement().normalize();
-		
-		// buildVertices();
-		NodeList nList = document.getElementsByTagName(ENTREE);
-		int indexSize = nList.getLength() * 2;
+		List<Element> entries =  racine.getChildren(ENTREE);
+		int indexSize = entries.size() * 2;
 		int index = 0;
+		
 		updateProgress(index, indexSize);
-		for(int i=0 ; i<nList.getLength() ; i++) {
-			Node node = nList.item(i);
-			if(node.getNodeType() == Node.ELEMENT_NODE) {
-				Element element = (Element) node;
-				vertexKey = element.getAttribute(ID); 					// La clé du sommet actuel
-				tmpTree.createVertex(vertexKey);								// Création du sommet actuel
-				if (node.hasAttributes()) {								// Recherche de ses autres attributs
-					NamedNodeMap nodeMap = node.getAttributes();		// Récupération de ses attributs
-					for(int j=0; j<nodeMap.getLength(); j++) {
-						Node attribute = nodeMap.item(j);
-						String name = attribute.getNodeName();
-						if(!name.equals(ID)) {
-							String value = attribute.getNodeValue();
-							tmpTree.addAttribute(vertexKey, name, value);		// Ajout des attributs au sommet actuel
-						}
-					}
+		
+		// Création des sommets
+		for(Element courant : entries) {
+			vertexKey = courant.getAttributeValue(ID);							// Clé du sommet actuel
+			tmpTree.createVertex(vertexKey);									// Création du sommet actuel
+			for(Attribute attribute : courant.getAttributes()) {		// Récupération de ses attributs
+				if(!attribute.getName().equals(ID)) {
+					String name = attribute.getName();							// Identifiant de l'attribut actuel
+					String value = attribute.getValue();						// Valeur de l'attribut actuel
+					tmpTree.addAttribute(vertexKey, name, value);				// Ajout de l'attribut actuel au sommet actuel
 				}
 			}
 			updateProgress(++index, indexSize);
 		}
 		
-		// buildRelations();
-		String vertex1ID;
-		NodeList entreeList = document.getElementsByTagName(ENTREE);
-		for(int i=0 ; i<entreeList.getLength() ; i++) {							// Pour chaque Entrée
-			Node inode = entreeList.item(i);
-			if(inode.getNodeType() == Node.ELEMENT_NODE) {
-				Element ielement = (Element) inode;
-				vertex1ID = ielement.getAttribute(ID); 							// La clé du sommet actuel
-				NodeList relationList = ielement.getElementsByTagName(RELATION);
-				for(int j=0 ; j<relationList.getLength() ; j++) {				// Pour chaque Relation
-					Node jnode = relationList.item(j);
-					if(jnode.getNodeType() == Node.ELEMENT_NODE) {
-						Element jelement = (Element) jnode;
-						// Récupération du nom de la relation
-						String relationName = jelement.getAttribute(NOM);
-						if(!tmpTree.containsRelation(relationName)) {					// Si la relation n'existe pas,
-							tmpTree.createRelation(relationName);						// on la crée
-						}
-						NodeList lienList = jelement.getElementsByTagName(LIEN);
-						for(int k=0 ; k<lienList.getLength() ; k++) {			// Pour chaque lien
-							Node knode = lienList.item(k);
-							if(knode.getNodeType() == Node.ELEMENT_NODE) {
-								String value = knode.getTextContent();
-								if(!value.isEmpty()) {
-									if(tmpTree.isID(value)) {
-										tmpTree.addPair(relationName, vertex1ID, value);
-									} else {
-										throw new TreeLoaderException("Le terme précisé n'est pas un identifiant de sommet.");
-									}
-								}
-							}
-						}
+		String vertex1;
+		// Création des relations
+		for(Element courant : entries) {
+			vertex1 = courant.getAttributeValue(ID);							// Clé du sommet actuel
+			List<Element> relations = courant.getChildren(RELATION);	// Récupération de ses relations
+			for(Element relation : relations) {						
+				String name = relation.getAttributeValue(NOM);					// Récupération du nom de la relation
+				if(!tmpTree.containsRelation(name)) {							// Si la relation n'existe pas,
+					tmpTree.createRelation(name);								// 		on la crée
+				}
+				List<Element> liens = relation.getChildren(LIEN);		// Récupération des liens de la relation
+				for(Element lien : liens) {
+					String vertex2 = lien.getValue();
+					if(tmpTree.isID(vertex2)) {
+						tmpTree.addPair(name, vertex1, vertex2);
+					} else {
+						throw new TreeLoaderException("Le terme précisé n'est pas un identifiant de sommet.");
 					}
 				}
 			}
@@ -148,7 +117,7 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 		tree = tmpTree;
 		return true;
 	}
-
+	
 	@Override
 	protected void succeeded() {
 		super.succeeded();
@@ -166,24 +135,7 @@ public class TreeLoader extends Task<Boolean> implements ErrorHandler{
 	@Override
 	protected void failed() {
 		super.failed();
-		System.err.println("Echec du chargement.");
+		getException().printStackTrace();
 		updateMessage("Echec du chargement.");
-	}
-	
-	@Override
-	public void error(SAXParseException exception) throws SAXException {
-		System.out.println("Warning : " + exception.getMessage());
-	}
-
-	@Override
-	public void fatalError(SAXParseException exception) throws SAXException {
-		System.err.println("FATAL : " + exception.getMessage());
-		throw exception;
-	}
-
-	@Override
-	public void warning(SAXParseException exception) throws SAXException {
-		System.err.println("ERROR : " + exception.getMessage());
-		throw exception;
 	}
 }
