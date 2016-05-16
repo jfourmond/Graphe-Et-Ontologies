@@ -270,7 +270,10 @@ public class TreeView extends BorderPane {
 							@Override
 							public void updateItem(Entry<String, Color> item, boolean empty) {
 								super.updateItem(item, empty);
-								if(item != null) {
+								if(item == null || empty) {
+									setGraphic(null);
+									setText(null);
+								} else if(item != null) {
 									colorPicker = new ColorPicker(item.getValue());
 									colorPicker.setStyle("-fx-color-label-visible: false ;");
 									colorPicker.setOnAction(new EventHandler<ActionEvent>() {
@@ -667,7 +670,6 @@ public class TreeView extends BorderPane {
 	private EdgeView getViewFromPair(String relationName, Pair<Vertex, Vertex> pair) {
 		List<EdgeView> list = edgesView.get(relationName);
 		for(EdgeView edgeView : list) {
-			System.out.println(edgeView.getPair());
 			if(edgeView.getPair().equals(pair));
 				return edgeView;
 		}
@@ -706,8 +708,7 @@ public class TreeView extends BorderPane {
 		info_area.setText(tree.toString());
 		
 		// Edition de la liste
-		verticesViewForList = FXCollections.observableArrayList(verticesView);
-		vertex_list.setItems(verticesViewForList);
+		verticesViewForList.add(vertexView);
 	}
 	
 	/**
@@ -736,7 +737,6 @@ public class TreeView extends BorderPane {
 		
 		// Edition de la liste
 		verticesViewForList.remove(vertex);
-		vertex_list.setItems(verticesViewForList);
 	}
 	
 	/**
@@ -804,6 +804,10 @@ public class TreeView extends BorderPane {
 		info_area.setText(tree.toString());
 		
 		edgesView.put(relation.getName(), new ArrayList<>());
+		
+		// Edition de la liste
+		colorRelationForList = FXCollections.observableArrayList(colorRelation.entrySet());
+		relation_list.setItems(colorRelationForList);
 	}
 	
 	private void removeRelation(String name) {
