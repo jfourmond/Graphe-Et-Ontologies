@@ -14,14 +14,11 @@ import javafx.scene.paint.Color;
  */
 public class ColorDistribution {
 	public final static Color[] colors = {
-		Color.BLUE,
-		Color.DARKKHAKI,
-		Color.GREEN,
-		Color.AQUA,
-		Color.BROWN,
-		Color.CRIMSON,
-		Color.CORNFLOWERBLUE,
-		Color.DEEPPINK
+		Color.BLUE, Color.ORANGE, Color.GREEN, Color.PINK, Color.BROWN,
+		Color.CYAN, Color.ORANGERED, Color.GREENYELLOW, Color.DEEPPINK,
+		Color.CORNFLOWERBLUE, Color.DARKORANGE, Color.LAWNGREEN, Color.VIOLET,
+		Color.AQUA, Color.CRIMSON,
+		Color.GRAY, Color.DARKGRAY, Color.LIGHTGRAY, Color.BLACK
 	};
 	
 	public Random rand;
