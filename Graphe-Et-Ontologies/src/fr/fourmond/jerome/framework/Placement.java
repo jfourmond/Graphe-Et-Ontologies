@@ -39,8 +39,10 @@ public class Placement {
 	}
 	
 	/**
-	 * @return the next {@link Point} in the positions tab
-	 * unless all the tab have been browsed, it return a random {@link Point}
+	 * Retourne le {@link Point} suivant dans le tableau de {@link Point}s
+	 * sauf si tout le tableau a été parcouru, retourne un {@link Point} aléatoire
+	 * @return le {@link Point} suivant dans le tableau de {@link Point}s
+	 * sauf si tout le tableau a été parcouru, retourne un {@link Point} aléatoire
 	 */
 	public Point next() {
 		Point p;

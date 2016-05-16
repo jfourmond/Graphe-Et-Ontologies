@@ -1,5 +1,7 @@
 package fr.fourmond.jerome.framework;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javafx.scene.paint.Color;
@@ -43,8 +45,10 @@ public class ColorDistribution {
 	public Color last() { return last; }
 	
 	/**
-	 * @return the next {@link Point} in the positions tab
-	 * unless all the tab have been browsed, it return a random {@link Point}
+	 * Retourne la {@link Color} suivante dans le tableau de {@link Color}s
+	 * sauf si tout le tableau a été parcouru, retourne une {@link Color} aléatoire
+	 * @return la {@link Color} suivante dans le tableau de {@link Color}s
+	 * sauf si tout le tableau a été parcouru, retourne une {@link Color} aléatoire
 	 */
 	public Color next() {
 		if(current >= colors.length) {
@@ -55,9 +59,20 @@ public class ColorDistribution {
 		current++;
 		return last;
 	}
-
+	
 	private Color randomColor() {
 		last = new Color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble(), 1.0);
 		return last;
+	}
+	
+	/**
+	 * Retourne une liste des {@link Color} disponibles statiquement
+	 * @return une liste des {@link Color} disponibles statiquement
+	 */
+	public List<Color> list() {
+		List<Color> list = new ArrayList<>();
+		for(Color color : colors)
+			list.add(color);
+		return list;
 	}
 }
