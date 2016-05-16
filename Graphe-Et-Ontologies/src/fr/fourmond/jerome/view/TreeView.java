@@ -31,6 +31,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -98,8 +99,10 @@ public class TreeView extends BorderPane {
 	private VBox east;
 		private Label info_label;
 		private TextArea info_area;
-		private ListView<VertexView> info_list;
+		private ListView<VertexView> vertex_list;
 			private ObservableList<VertexView> verticesViewForList;
+		private ListView<Entry<String, Color>> relation_list;
+			private ObservableList<Entry<String, Color>> colorRelationForList;
 	private HBox bottom;
 		private ProgressBar pb;
 		private Label info_progress;
@@ -168,6 +171,7 @@ public class TreeView extends BorderPane {
 		buildEdges();
 		
 		verticesViewForList = FXCollections.observableArrayList(verticesView);
+		colorRelationForList = FXCollections.observableArrayList(colorRelation.entrySet());
 		
 		// Barre de Menu
 		menuBar = new MenuBar();
@@ -246,16 +250,47 @@ public class TreeView extends BorderPane {
 		east.setPrefHeight(east.getMaxHeight());
 			info_label = new Label("Informations");
 			info_area = new TextArea(tree.toString());
-			info_area.setPrefWidth(200);
-			info_area.setEditable(false);
-			info_list = new ListView<>();
-			info_list.setItems(verticesViewForList);
-			info_list.setCellFactory(new Callback<ListView<VertexView>, ListCell<VertexView>>() {
-				@Override
-				public ListCell<VertexView> call(ListView<VertexView> param) {
-					return new VertexViewList();
-				}
-			});
+				info_area.setPrefWidth(200);
+				info_area.setEditable(false);
+			vertex_list = new ListView<>();
+				vertex_list.setItems(verticesViewForList);
+				vertex_list.setCellFactory(new Callback<ListView<VertexView>, ListCell<VertexView>>() {
+					@Override
+					public ListCell<VertexView> call(ListView<VertexView> param) {
+						return new VertexViewList();
+					}
+				});
+			relation_list = new ListView<>();
+				relation_list.setItems(colorRelationForList);
+				relation_list.setCellFactory(new Callback<ListView<Entry<String,Color>>, ListCell<Entry<String,Color>>>() {
+					@Override
+					public ListCell<Entry<String, Color>> call(ListView<Entry<String, Color>> param) {
+						final ListCell<Entry<String, Color>> cell = new ListCell<Entry<String, Color>>() {
+							ColorPicker colorPicker;
+							@Override
+							public void updateItem(Entry<String, Color> item, boolean empty) {
+								super.updateItem(item, empty);
+								if(item != null) {
+									colorPicker = new ColorPicker(item.getValue());
+									colorPicker.setStyle("-fx-color-label-visible: false ;");
+									colorPicker.setOnAction(new EventHandler<ActionEvent>() {
+										@Override
+										public void handle(ActionEvent event) {
+											Color c = colorPicker.getValue();
+											item.setValue(c);
+											List<EdgeView> list = edgesView.get(item.getKey());
+											for(EdgeView edgeView : list)
+												edgeView.setColor(c);	
+										}
+									});
+									setText(item.getKey());
+									setGraphic(colorPicker);
+								}
+							}
+						};
+						return cell;
+					}
+				});
 		// BAS
 		bottom = new HBox();
 			pb = new ProgressBar();
@@ -288,7 +323,7 @@ public class TreeView extends BorderPane {
 		drawVertices();
 		drawEdges();
 		
-		east.getChildren().addAll(info_label, info_area, info_list);
+		east.getChildren().addAll(info_label, info_area, vertex_list, relation_list);
 		bottom.getChildren().addAll(pb, info_progress);
 		
 		setTop(menuBar);
@@ -591,7 +626,7 @@ public class TreeView extends BorderPane {
 					for(VertexView vertex: verticesView) {
 						vertex.setSelected(false);
 					}
-					info_list.getSelectionModel().clearSelection();
+					vertex_list.getSelectionModel().clearSelection();
 				}
 				if(!event.isConsumed() && event.getButton() == MouseButton.SECONDARY) {
 					event.consume();
@@ -608,7 +643,7 @@ public class TreeView extends BorderPane {
 				edge.setOnMouseClicked(new EdgeClicked(edge));
 			}
 		}
-		info_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<VertexView>() {
+		vertex_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<VertexView>() {
 			@Override
 			public void changed(ObservableValue<? extends VertexView> observable, VertexView oldValue, VertexView newValue) {
 				if(newValue != null) {
@@ -672,7 +707,7 @@ public class TreeView extends BorderPane {
 		
 		// Edition de la liste
 		verticesViewForList = FXCollections.observableArrayList(verticesView);
-		info_list.setItems(verticesViewForList);
+		vertex_list.setItems(verticesViewForList);
 	}
 	
 	/**
@@ -701,7 +736,7 @@ public class TreeView extends BorderPane {
 		
 		// Edition de la liste
 		verticesViewForList.remove(vertex);
-		info_list.setItems(verticesViewForList);
+		vertex_list.setItems(verticesViewForList);
 	}
 	
 	/**
@@ -839,7 +874,7 @@ public class TreeView extends BorderPane {
 				for(VertexView other: verticesView) {
 					if(other != vertexView) other.setSelected(false);
 				}
-				info_list.getSelectionModel().select(vertexView);
+				vertex_list.getSelectionModel().select(vertexView);
 			} else if(event.getButton() == MouseButton.SECONDARY) {
 				vertexViewSelected = vertexView;
 				vertexContextMenu.show(vertexView, event.getScreenX(), event.getScreenY());

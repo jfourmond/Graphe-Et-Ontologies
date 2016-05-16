@@ -71,7 +71,11 @@ public class EdgeView extends Group {
 	
 	public void setEnd(VertexView end) { this.end = end; }
 	
-	public void setColor(Color color) { this.color = color; }
+	public void setColor(Color color) {
+		this.color = color;
+		line.setStroke(color);
+		label.setTextFill(color);
+	}
 	
 	public void setLine(Line line) { this.line = line; }
 	
