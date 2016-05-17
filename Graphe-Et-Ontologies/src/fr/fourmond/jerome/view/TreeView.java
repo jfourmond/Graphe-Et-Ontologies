@@ -130,6 +130,9 @@ public class TreeView extends BorderPane {
 		private MenuItem tCM_add_relation;
 		private Menu tCM_add_edge;
 			private List<MenuItem> tCM_add_edge_relations;
+	
+	private ContextMenu relationContextMenu;
+		private MenuItem rCM_delete;
 			
 	private FileChooser fileChooser;
 			
@@ -193,7 +196,7 @@ public class TreeView extends BorderPane {
 		menu_settings = new Menu("Options");
 			item_auto_save = new CheckMenuItem("Sauvegarde automatique");
 		
-		if(tree.nbRelations() > 1)
+		if(tree.relationCount() > 1)
 			menu_view_relations = new Menu("Relations");
 		else
 			menu_view_relations = new Menu("Relation");
@@ -220,6 +223,9 @@ public class TreeView extends BorderPane {
 			tCM_add_relation = new MenuItem("Nouvelle relation");
 			tCM_add_edge = new Menu("Nouvel arc");
 		
+		relationContextMenu = new ContextMenu();
+			rCM_delete = new MenuItem("Supprimer");
+			
 		for(Relation relation : tree.getRelations()) {
 			item_add_edge_relations.add(new MenuItem(relation.getName()));
 			CheckMenuItem menuItem = new CheckMenuItem(relation.getName());
@@ -230,7 +236,7 @@ public class TreeView extends BorderPane {
 			tCM_add_edge_relations.add(new MenuItem(relation.getName()));
 		}
 		
-		if(tree.nbRelations() == 0) {
+		if(tree.relationCount() == 0) {
 			menu_add_edge.setDisable(true);
 			menu_view_relations.setDisable(true);
 			vCM_add_edge.setDisable(true);
@@ -322,6 +328,8 @@ public class TreeView extends BorderPane {
 		
 			tCM_add_edge.getItems().addAll(tCM_add_edge_relations);
 		treeContextMenu.getItems().addAll(tCM_add_vertex, tCM_add_relation, tCM_add_edge);
+		
+		relationContextMenu.getItems().add(rCM_delete);
 		
 		drawVertices();
 		drawEdges();
@@ -588,6 +596,16 @@ public class TreeView extends BorderPane {
 		eCM_add_relation.setOnAction(item_add_relation.getOnAction());
 		tCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
 		tCM_add_relation.setOnAction(item_add_relation.getOnAction());
+		rCM_delete.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					removeRelation(relation_list.getSelectionModel().getSelectedItem().getKey());
+				} catch (TreeException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		center.setOnScroll(new EventHandler<ScrollEvent>() {
 			@Override
 			public void handle(ScrollEvent event) {
@@ -657,6 +675,7 @@ public class TreeView extends BorderPane {
 				}
 			}
 		});
+		relation_list.setContextMenu(relationContextMenu);
 	}
 	
 	private VertexView getViewFromVertex(Vertex vertex) {
@@ -810,8 +829,81 @@ public class TreeView extends BorderPane {
 		relation_list.setItems(colorRelationForList);
 	}
 	
-	private void removeRelation(String name) {
-		// TODO
+	private void removeRelation(String name) throws TreeException {
+		// Suppression des composants graphiques
+		// 	Menu Edition
+		for(MenuItem mn : item_add_edge_relations) {
+			if(mn.getText().equals(name)) {
+				item_add_edge_relations.remove(mn);
+				break;
+			}
+		}
+			menu_add_edge.getItems().setAll(item_add_edge_relations);
+			if(item_add_edge_relations.size() == 0)
+				menu_add_edge.setDisable(true);
+			int index = menu_edit.getItems().indexOf(menu_add_edge);
+		menu_edit.getItems().set(index, menu_add_edge);
+		// 	Menu Affichage
+		for(MenuItem mn : item_view_relations) {
+			if(mn.getText().equals(name)) {
+				item_view_relations.remove(mn);
+				break;
+			}
+		}
+			menu_view_relations.getItems().setAll(item_view_relations);
+			if(item_view_relations.size() == 0)
+				menu_view_relations.setDisable(true);
+			index = menu_view.getItems().indexOf(menu_view_relations);
+		menu_view.getItems().set(index, menu_view_relations);
+		// Menu Contextuel Sommet
+		for(MenuItem mn : vCM_add_edge_relations) {
+			if(mn.getText().equals(name)) {
+				vCM_add_edge_relations.remove(mn);
+				break;
+			}
+		}
+			vCM_add_edge.getItems().setAll(vCM_add_edge_relations);
+			if(vCM_add_edge_relations.size() == 0)
+				vCM_add_edge.setDisable(true);
+			index = vertexContextMenu.getItems().indexOf(vCM_add_edge);
+		vertexContextMenu.getItems().set(index, vCM_add_edge);
+		// Menu Contextuel Arc
+		for(MenuItem mn : eCM_add_edge_relations) {
+			if(mn.getText().equals(name)) {
+				eCM_add_edge_relations.remove(mn);
+				break;
+			}
+		}
+			eCM_add_edge.getItems().setAll(eCM_add_edge_relations);
+			if(eCM_add_edge_relations.size() == 0)
+				eCM_add_edge.setDisable(true);
+			index = edgeContextMenu.getItems().indexOf(eCM_add_edge);
+		edgeContextMenu.getItems().set(index, eCM_add_edge);
+		// Menu Contextuel Arbre
+		for(MenuItem mn : tCM_add_edge_relations) {
+			if(mn.getText().equals(name)) {
+				tCM_add_edge_relations.remove(mn);
+				break;
+			}
+		}
+			tCM_add_edge.getItems().setAll(tCM_add_edge_relations);
+			if(tCM_add_edge_relations.size() == 0)
+				tCM_add_edge.setDisable(true);
+			index = treeContextMenu.getItems().indexOf(tCM_add_edge);
+		treeContextMenu.getItems().set(index, tCM_add_edge);
+		
+		//	Suppression des arcs
+		List<EdgeView> edges = edgesView.get(name);
+		center.getChildren().removeAll(edges);		
+		
+		colorRelationForList.remove(relation_list.getSelectionModel().getSelectedItem());
+		
+		// Edition de la zone d'info
+		info_area.setText(tree.toString());
+		
+		tree.removeRelation(name);
+		colorRelation.remove(name);
+		edgesView.remove(name);
 	}
 	
 	/**
