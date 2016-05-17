@@ -145,7 +145,7 @@ public class Tree {
 		Vertex vertex = getVertex(vertexID);
 		if(vertex != null)
 			vertex.add(attributeID);
-		else throw new TreeException("Le sommet n'existe pas.");
+		else throw new TreeException("Le sxommet n'existe pas.");
 	}
 	
 	/**
@@ -233,7 +233,8 @@ public class Tree {
 	public void removeRelation(String name) throws TreeException {
 		if(containsRelation(name)) {
 			Relation relation = getRelation(name);
-			relations.remove(relation);
+			if(!relations.remove(relation))
+				throw new TreeException("Erreur lors de la suppression de la relation '"+name+"'");
 		} else throw new TreeException("La relation '"+ name + "' n'existe pas.");
 	}
 	
@@ -311,7 +312,7 @@ public class Tree {
 	 * Retourne le nombre de relation
 	 * @return le nombre de relation
 	 */
-	public int nbRelations() { return relations.size(); }
+	public int relationCount() { return relations.size(); }
 	
 	/**
 	 * Vide l'arbre courant
