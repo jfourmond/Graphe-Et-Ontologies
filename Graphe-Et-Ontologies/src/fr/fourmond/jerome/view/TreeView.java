@@ -117,7 +117,6 @@ public class TreeView extends BorderPane {
 			private List<MenuItem> vCM_add_edge_relations;
 	
 	private ContextMenu edgeContextMenu;
-		private MenuItem eCM_edit;
 		private MenuItem eCM_delete;
 		private SeparatorMenuItem eCM_separator;
 		private MenuItem eCM_add_vertex;
@@ -211,7 +210,6 @@ public class TreeView extends BorderPane {
 			vCM_add_edge = new Menu("Nouvel arc");
 		
 		edgeContextMenu = new ContextMenu();
-			eCM_edit = new MenuItem("Editer");
 			eCM_delete = new MenuItem("Supprimer");
 			eCM_separator = new SeparatorMenuItem();
 			eCM_add_vertex = new MenuItem("Nouveau sommet");
@@ -324,7 +322,7 @@ public class TreeView extends BorderPane {
 		vertexContextMenu.getItems().addAll(vCM_edit, vCM_delete, vCM_separator, vCM_add_vertex, vCM_add_relation, vCM_add_edge);
 		
 			eCM_add_edge.getItems().addAll(eCM_add_edge_relations);
-		edgeContextMenu.getItems().addAll(eCM_edit, eCM_delete, eCM_separator, eCM_add_vertex, eCM_add_relation, eCM_add_edge);
+		edgeContextMenu.getItems().addAll(eCM_delete, eCM_separator, eCM_add_vertex, eCM_add_relation, eCM_add_edge);
 		
 			tCM_add_edge.getItems().addAll(tCM_add_edge_relations);
 		treeContextMenu.getItems().addAll(tCM_add_vertex, tCM_add_relation, tCM_add_edge);
@@ -575,13 +573,6 @@ public class TreeView extends BorderPane {
 		});
 		vCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
 		vCM_add_relation.setOnAction(item_add_relation.getOnAction());
-		eCM_edit.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 		eCM_delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
