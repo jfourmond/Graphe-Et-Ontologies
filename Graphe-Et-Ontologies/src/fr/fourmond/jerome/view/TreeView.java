@@ -30,6 +30,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
@@ -140,6 +142,8 @@ public class TreeView extends BorderPane {
 	private static String relationToEdit;
 	private static Pair<Vertex, Vertex> pairToEdit;
 	
+	public boolean saved;
+	
 	public TreeView(Tree tree) {
 		super();
 		this.tree = tree;
@@ -154,6 +158,8 @@ public class TreeView extends BorderPane {
 	}
 	
 	private void buildComposants() {
+		saved = true;
+		
 		placement = new Placement();
 		colorDistribution = new ColorDistribution();
 		fileChooser = new FileChooser();
@@ -466,7 +472,29 @@ public class TreeView extends BorderPane {
 		item_quit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Platform.exit();
+				if(!saved) {
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("Graphe Et Ontologies - Attention");
+					alert.setHeaderText("Des modifications ont été effectuées sur l'ontologie");
+					alert.setContentText("Voulez-vous les conserver ?");
+	
+					ButtonType buttonCancel = new ButtonType("Annuler", ButtonData.CANCEL_CLOSE);
+					ButtonType buttonSave = new ButtonType("Enregistrer");
+					ButtonType buttonClose = new ButtonType("Fermer");
+	
+					alert.getButtonTypes().setAll(buttonClose, buttonCancel, buttonSave);
+					
+					alert.showAndWait().ifPresent(response -> {
+						if (response == buttonSave) {
+							System.out.println("Faudrait sauvegarder...");
+							Platform.exit();
+						} else if(response == buttonClose){
+							Platform.exit();
+						} else {
+							
+						}
+					});
+				} else Platform.exit();
 			}
 		});
 		item_ontologie.setOnAction(new EventHandler<ActionEvent>() {
@@ -559,6 +587,7 @@ public class TreeView extends BorderPane {
 				EditVertexStage editVertexStage = new EditVertexStage(vertexViewSelected.getVertex());
 				editVertexStage.showAndWait();
 				info_area.setText(editVertexStage.getVertex().info());
+				saved = false;
 			}
 		});
 		vCM_delete.setOnAction(new EventHandler<ActionEvent>() {
@@ -719,6 +748,8 @@ public class TreeView extends BorderPane {
 		
 		// Edition de la liste
 		verticesViewForList.add(vertexView);
+		
+		saved = false;
 	}
 	
 	/**
@@ -747,6 +778,8 @@ public class TreeView extends BorderPane {
 		
 		// Edition de la liste
 		verticesViewForList.remove(vertex);
+		
+		saved = false;
 	}
 	
 	/**
@@ -818,6 +851,8 @@ public class TreeView extends BorderPane {
 		// Edition de la liste
 		colorRelationForList = FXCollections.observableArrayList(colorRelation.entrySet());
 		relation_list.setItems(colorRelationForList);
+		
+		saved = false;
 	}
 	
 	private void removeRelation(String name) throws TreeException {
@@ -895,6 +930,8 @@ public class TreeView extends BorderPane {
 		tree.removeRelation(name);
 		colorRelation.remove(name);
 		edgesView.remove(name);
+		
+		saved = false;
 	}
 	
 	/**
@@ -921,6 +958,8 @@ public class TreeView extends BorderPane {
 		info_area.setText(tree.toString());
 		
 		center.getChildren().add(edgeView);
+		
+		saved = false;
 	}
 	
 	/**
@@ -940,6 +979,8 @@ public class TreeView extends BorderPane {
 		list.remove(edgeView);
 		
 		center.getChildren().remove(edgeView);
+		
+		saved = false;
 	}
 	
 	/**
