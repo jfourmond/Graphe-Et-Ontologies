@@ -231,8 +231,10 @@ public class Tree {
 	 * @throws TreeException si la relation n'existe pas.
 	 */
 	public void removeRelation(String name) throws TreeException {
-		if(!relations.remove(name))
-			throw new TreeException("La relation n'existe pas.");
+		if(containsRelation(name)) {
+			Relation relation = getRelation(name);
+			relations.remove(relation);
+		} else throw new TreeException("La relation '"+ name + "' n'existe pas.");
 	}
 	
 	/**
