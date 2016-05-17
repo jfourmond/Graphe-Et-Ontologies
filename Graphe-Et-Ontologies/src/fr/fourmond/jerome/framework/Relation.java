@@ -126,7 +126,7 @@ public class Relation {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if(obj == null || getClass() == obj.getClass()) {
+		if(obj == null || getClass() != obj.getClass()) {
 			return false;
 		} else {
 			Relation relation = (Relation) obj;
