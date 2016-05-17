@@ -102,4 +102,25 @@ public class TreeSaver extends Task<Boolean> {
 		
 		return true;
 	}
+	
+	@Override
+	protected void succeeded() {
+		super.succeeded();
+		updateMessage("Sauvegarde terminée.");
+	}
+	
+	
+	@Override
+	protected void cancelled() {
+		super.cancelled();
+		System.err.println("Sauvegardeannulé.");
+		updateMessage("Sauvegarde annulé.");
+	}
+	
+	@Override
+	protected void failed() {
+		super.failed();
+		getException().printStackTrace();
+		updateMessage("Echec de la sauvegarde.");
+	}
 }
