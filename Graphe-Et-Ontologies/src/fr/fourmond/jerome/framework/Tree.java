@@ -226,6 +226,16 @@ public class Tree {
 	}
 	
 	/**
+	 * Suppression de la relation portant le nom
+	 * @param name : nom de la relation à supprimer
+	 * @throws TreeException si la relation n'existe pas.
+	 */
+	public void removeRelation(String name) throws TreeException {
+		if(!relations.remove(name))
+			throw new TreeException("La relation n'existe pas.");
+	}
+	
+	/**
 	 * Ajoute une paire à la relation
 	 * @param name : nom de la relation
 	 * @param vertex1ID : identifiant unique du premier sommet
