@@ -40,10 +40,12 @@ public class AppStage extends Stage {
 	
 					alert.showAndWait().ifPresent(response -> {
 						if (response == buttonSave) {
-							System.out.println("Faudrait sauvegarder...");
+							// L'application se ferme après avoir sauvegarder
+							new SavingSplashStage(tree);
 						} else if(response == buttonClose){
-							
+							// L'application se ferme
 						} else {
+							// L'application ne se ferme pas
 							event.consume();
 						}
 					});

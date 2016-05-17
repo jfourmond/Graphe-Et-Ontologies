@@ -486,8 +486,25 @@ public class TreeView extends BorderPane {
 					
 					alert.showAndWait().ifPresent(response -> {
 						if (response == buttonSave) {
-							System.out.println("Faudrait sauvegarder...");
-							Platform.exit();
+							TreeSaver saver = new TreeSaver(tree);
+							info_progress.textProperty().bind(saver.messageProperty());
+							pb.progressProperty().bind(saver.progressProperty());
+							saver.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+								@Override
+								public void handle(WorkerStateEvent event) { Platform.exit(); }
+							});
+							saver.setOnFailed(new EventHandler<WorkerStateEvent>() {
+								@Override
+								public void handle(WorkerStateEvent event) {
+									Alert alert = new Alert(AlertType.ERROR);
+									alert.setTitle("Erreur");
+									alert.setHeaderText("Erreur dans l'enregistrement du fichier");
+									alert.initStyle(StageStyle.UTILITY);
+									alert.setContentText(saver.getException().getMessage());
+									alert.showAndWait();
+								}
+							});
+							new Thread(saver).start();
 						} else if(response == buttonClose){
 							Platform.exit();
 						} else {
@@ -709,8 +726,9 @@ public class TreeView extends BorderPane {
 	private EdgeView getViewFromPair(String relationName, Pair<Vertex, Vertex> pair) {
 		List<EdgeView> list = edgesView.get(relationName);
 		for(EdgeView edgeView : list) {
-			if(edgeView.getPair().equals(pair));
+			if(edgeView.getPair().equals(pair)) {
 				return edgeView;
+			}
 		}
 		return null;
 	}
