@@ -202,7 +202,6 @@ public class AddVertexStage extends Stage {
 		for(Pair<Label, TextField> pair : attributesView) {
 			Label label = pair.getFirst();
 			TextField textField = pair.getSecond();
-			System.out.println(label.getText() + " = " + textField.getText());
 			text_attributes.put(label.getText().trim(), textField.getText().trim());
 		}
 	}
