@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
-<!DOCTYPE IndexSource SYSTEM "villes.dtd" >
+<!DOCTYPE IndexSource SYSTEM "definition.dtd" >
 
 <IndexSource>
-	<ENTREE id="1" terme="Pays-De-La-Loire">
+	<ENTREE id="1">
+		<ATTRIBUT nom="nom" valeur="Pays-De-La-Loire">
 		<RELATION nom="appartient à la région" />
 		<RELATION nom="appartient au département du" />
 	</ENTREE>
 
-	<ENTREE id="2" terme="Maine-Et-Loire">
+	<ENTREE id="2">
+		<ATTRIBUT nom="nom" valeur="Maine-Et-Loire">
 		<RELATION nom="appartient à la région">
 			<LIEN>1</LIEN>
 		</RELATION>
 		<RELATION nom="appartient au département du" />
 	</ENTREE>
 
-	<ENTREE id="3" terme="Loire-Atlantique">
+	<ENTREE id="3">
+		<ATTRIBUT nom="nom" valeur="Loire-Atlantique">
 		<RELATION nom="appartient à la région">
 			<LIEN>1</LIEN>
 		</RELATION>
 		<RELATION nom="appartient au département du" />
 	</ENTREE>
 
-	<ENTREE id="4" terme="Cholet" code-postal="49300" population="56761" superficie="87.47">
+	<ENTREE id="4">
+		<ATTRIBUT nom="nom" valeur="Cholet">
+		<ATTRIBUT nom="code-postal" valeur="49300">
+		<ATTRIBUT nom="population" valeur="56761">
+		<ATTRIBUT nom="superficie" valeur="87.47">
 		<RELATION nom="appartient au département du">
 			<LIEN>2</LIEN>
 		</RELATION>
@@ -31,7 +38,11 @@
 		</RELATION>
 	</ENTREE>
 
-	<ENTREE id="5" terme="Chemillé" code-postal="49120" population="7028" superficie="71.09">
+	<ENTREE id="5">
+		<ATTRIBUT nom="nom" valeur="Chemillé">
+		<ATTRIBUT nom="code-postal" valeur="49120">
+		<ATTRIBUT nom="population" valeur="7028">
+		<ATTRIBUT nom="superficie" valeur="71.09">
 		<RELATION nom="appartient au département du">
 			<LIEN>2</LIEN>
 		</RELATION>
@@ -40,7 +51,12 @@
 		</RELATION>
 	</ENTREE>
 
-	<ENTREE id="6" terme="Nantes" code-postal="44000" population="147571" superficie="65.19">
+	<ENTREE id="6" >
+		<ATTRIBUT nom="nom" valeur="Nantes">
+		<ATTRIBUT nom="code-postal" valeur="44000">
+		<ATTRIBUT nom="population" valeur="147571">
+		<ATTRIBUT nom="superficie" valeur="65.19">
+		<RELATION nom="appartient au département du">
 		<RELATION nom="appartient au département du" >
 			<LIEN>3</LIEN>
 		</RELATION>
