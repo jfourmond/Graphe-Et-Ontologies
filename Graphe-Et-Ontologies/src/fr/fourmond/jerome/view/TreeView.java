@@ -29,6 +29,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -44,6 +45,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -51,7 +53,6 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.StageStyle;
@@ -100,13 +101,14 @@ public class TreeView extends BorderPane {
 	private Pane center;
 		private List<VertexView> verticesView;
 		private Map<String, List<EdgeView>> edgesView;
-	private VBox east;
-		private Label info_label;
-		private TextArea info_area;
-		private ListView<VertexView> vertex_list;
-			private ObservableList<VertexView> verticesViewForList;
-		private ListView<Entry<String, Color>> relation_list;
-			private ObservableList<Entry<String, Color>> colorRelationForList;
+	private SplitPane east;
+		// private VBox east;
+			private Label info_label;
+			private TextArea info_area;
+			private ListView<VertexView> vertex_list;
+				private ObservableList<VertexView> verticesViewForList;
+			private ListView<Entry<String, Color>> relation_list;
+				private ObservableList<Entry<String, Color>> colorRelationForList;
 	private HBox bottom;
 		private ProgressBar pb;
 		private Label info_progress;
@@ -260,7 +262,8 @@ public class TreeView extends BorderPane {
 		// CENTRE
 		center = new Pane();
 		// EST
-		east = new VBox();
+		east = new SplitPane();
+		east.setOrientation(Orientation.VERTICAL);
 		east.setPrefHeight(east.getMaxHeight());
 			info_label = new Label("Informations");
 			info_area = new TextArea(tree.toString());
@@ -342,7 +345,8 @@ public class TreeView extends BorderPane {
 		drawVertices();
 		drawEdges();
 		
-		east.getChildren().addAll(info_label, info_area, vertex_list, relation_list);
+		east.getItems().addAll(info_label, info_area, vertex_list, relation_list);
+		east.setDividerPositions(0.3f, 0.6f, 0.9f);
 		bottom.getChildren().addAll(pb, info_progress);
 		
 		setTop(menuBar);

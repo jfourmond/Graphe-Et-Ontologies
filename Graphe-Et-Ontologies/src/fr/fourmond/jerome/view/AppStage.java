@@ -20,8 +20,7 @@ public class AppStage extends Stage {
 		this.tree= tree;
 		
 		treeView = new TreeView(this.tree);
-		
-		this.setScene(new Scene(treeView));
+		this.setScene(new Scene(treeView, 800, 600));
 		
 		setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
