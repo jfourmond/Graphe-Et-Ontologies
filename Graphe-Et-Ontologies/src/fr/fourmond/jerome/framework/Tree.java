@@ -33,7 +33,6 @@ public class Tree {
 	
 	public List<Relation> getRelations() { return relations; }
 	
-	
 	//	SETTERS
 	public void setFile(File file) { this.file = file; }
 	
@@ -333,6 +332,18 @@ public class Tree {
 			attributes.addAll(vertex.getKey());
 		}
 		return attributes;
+	}
+	
+	/**
+	 * Retourne la liste des noms des relations utilisées
+	 * @return la liste des noms des relations utilisées
+	 */
+	public List<String> getRelationsNames() {
+		List<String> list = new ArrayList<>();
+		for(Relation relation : relations) {
+			list.add(relation.getName());
+		}
+		return list;
 	}
 	
 	@Override
