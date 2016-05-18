@@ -26,6 +26,8 @@ public class EdgeView extends Group {
 	private Line line;
 	private Label label;
 	
+	private boolean selected;
+	
 	public EdgeView(String relationName, VertexView start, VertexView end) {
 		super();
 		this.relationName = relationName;
@@ -90,6 +92,17 @@ public class EdgeView extends Group {
 	public Pair<Vertex, Vertex> getPair() { return new Pair<Vertex, Vertex>(getVertexStart(), getVertexEnd()); }
 	
 	public void setWordingVisible(boolean bool) { label.setVisible(bool); }
+	
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+		if(this.selected) {
+			line.setStrokeWidth(2);
+			label.setStyle("-fx-font-weight: bold");
+		} else {
+			line.setStrokeWidth(1);
+			label.setStyle(null);
+		}
+	}
 	
 	private void buildComposants() {
 		double middleX = (start.getCenterX() + end.getCenterX()) / 2;

@@ -693,24 +693,7 @@ public class TreeView extends BorderPane {
 				pressed = event;
 			}
 		});
-		center.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				treeContextMenu.hide();
-				if(!event.isConsumed() && event.getButton() == MouseButton.PRIMARY) {
-					event.consume();
-					info_area.setText(tree.toString());
-					for(VertexView vertex: verticesView) {
-						vertex.setSelected(false);
-					}
-					vertex_list.getSelectionModel().clearSelection();
-				}
-				if(!event.isConsumed() && event.getButton() == MouseButton.SECONDARY) {
-					event.consume();
-					treeContextMenu.show(center, event.getScreenX(), event.getScreenY());
-				}
-			}
-		});
+		center.setOnMouseClicked(new CenterClicked());
 		for(VertexView vertex : verticesView) {
 			vertex.setOnMouseClicked(new VertexClicked(vertex));
 			vertex.setOnMouseDragged(new VertexDragged(vertex));
@@ -1020,6 +1003,29 @@ public class TreeView extends BorderPane {
 		saved = false;
 	}
 	
+	protected class CenterClicked implements EventHandler<MouseEvent> {
+		@Override
+		public void handle(MouseEvent event) {
+			treeContextMenu.hide();
+			if(!event.isConsumed() && event.getButton() == MouseButton.PRIMARY) {
+				event.consume();
+				info_area.setText(tree.toString());
+				for(VertexView vertex: verticesView) {
+					vertex.setSelected(false);
+				}
+				vertex_list.getSelectionModel().clearSelection();
+				for(List<EdgeView> edges : edgesView.values()) {
+					for(EdgeView edge : edges)
+						edge.setSelected(false);
+				}
+			}
+			if(!event.isConsumed() && event.getButton() == MouseButton.SECONDARY) {
+				event.consume();
+				treeContextMenu.show(center, event.getScreenX(), event.getScreenY());
+			}
+		}
+	}
+	
 	/**
 	 * {@link EventHandler} lors d'un clic sur un {@link VertexView}
 	 * @author jfourmond
@@ -1061,6 +1067,11 @@ public class TreeView extends BorderPane {
 			event.consume();
 			if(event.getButton() == MouseButton.PRIMARY) {
 				info_area.setText(edgeView.info());
+				edgeView.setSelected(true);
+				for(List<EdgeView> others : edgesView.values()) {
+					for(EdgeView other : others)
+						if(other != edgeView) other.setSelected(false);
+				}
 			} else if(event.getButton() == MouseButton.SECONDARY) {
 				relationToEdit = edgeView.getRelation();
 				pairToEdit = new Pair<Vertex, Vertex>(edgeView.getVertexStart(), edgeView.getVertexEnd());
