@@ -5,6 +5,7 @@ import fr.fourmond.jerome.framework.Vertex;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -88,6 +89,8 @@ public class EdgeView extends Group {
 	
 	public Pair<Vertex, Vertex> getPair() { return new Pair<Vertex, Vertex>(getVertexStart(), getVertexEnd()); }
 	
+	public void setWordingVisible(boolean bool) { label.setVisible(bool); }
+	
 	private void buildComposants() {
 		double middleX = (start.getCenterX() + end.getCenterX()) / 2;
 		double middleY = (start.getCenterY() + end.getCenterY()) / 2;
@@ -95,6 +98,7 @@ public class EdgeView extends Group {
 		line = new Line(start.getCenterX(), start.getCenterY(), end.getCenterX(), end.getCenterY());
 			line.setStroke(color);
 		label = new Label("" + relationName);
+			label.setVisible(false);
 			label.setTextFill(color);
 			label.setTranslateX(middleX);
 			label.setTranslateY(middleY);
@@ -109,28 +113,32 @@ public class EdgeView extends Group {
 		start.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				double middleX = (start.getCenterX() + end.getCenterX()) / 2;
-				double middleY = (start.getCenterY() + end.getCenterY()) / 2;
-				
-				line.setStartX(event.getX());
-				line.setStartY(event.getY());
-				
-				label.setTranslateX(middleX);
-				label.setTranslateY(middleY);
+				if(event.getButton() == MouseButton.PRIMARY) {
+					double middleX = (start.getCenterX() + end.getCenterX()) / 2;
+					double middleY = (start.getCenterY() + end.getCenterY()) / 2;
+					
+					line.setStartX(event.getX());
+					line.setStartY(event.getY());
+					
+					label.setTranslateX(middleX);
+					label.setTranslateY(middleY);
+				}
 			}
 		});
 		
 		end.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				double middleX = (start.getCenterX() + end.getCenterX()) / 2;
-				double middleY = (start.getCenterY() + end.getCenterY()) / 2;
-				
-				line.setEndX(event.getX());
-				line.setEndY(event.getY());
-				
-				label.setTranslateX(middleX);
-				label.setTranslateY(middleY);
+				if(event.getButton() == MouseButton.PRIMARY) {
+					double middleX = (start.getCenterX() + end.getCenterX()) / 2;
+					double middleY = (start.getCenterY() + end.getCenterY()) / 2;
+					
+					line.setEndX(event.getX());
+					line.setEndY(event.getY());
+					
+					label.setTranslateX(middleX);
+					label.setTranslateY(middleY);
+				}
 			}
 		});
 	}

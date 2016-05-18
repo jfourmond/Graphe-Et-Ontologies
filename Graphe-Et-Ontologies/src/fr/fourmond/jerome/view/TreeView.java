@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,6 +95,7 @@ public class TreeView extends BorderPane {
 		private MenuItem item_tools_data;
 	private Menu menu_settings;
 		private CheckMenuItem item_auto_save;
+		private CheckMenuItem item_show_wording;
 	
 	private Pane center;
 		private List<VertexView> verticesView;
@@ -196,10 +198,12 @@ public class TreeView extends BorderPane {
 			item_add_relation = new MenuItem("Nouvelle relation");
 			menu_add_edge = new Menu("Nouvel arc");
 		menu_view = new Menu("Affichage");
-			item_tools_data = new MenuItem("Données");
+			item_show_wording = new CheckMenuItem("Afficher les libellés");
 		menu_tools = new Menu("Outils");
+		item_tools_data = new MenuItem("Données");
 		menu_settings = new Menu("Options");
 			item_auto_save = new CheckMenuItem("Sauvegarde automatique");
+			
 		
 		if(tree.relationCount() > 1)
 			menu_view_relations = new Menu("Relations");
@@ -318,8 +322,8 @@ public class TreeView extends BorderPane {
 			menu_edit.getItems().addAll(item_ontologie, item_separator, item_add_vertex, item_add_relation, menu_add_edge);
 				menu_view_relations.getItems().addAll(item_view_relations);
 			menu_tools.getItems().add(item_tools_data);
-			menu_view.getItems().addAll(menu_view_relations);
-			menu_settings.getItems().add(item_auto_save);
+			menu_view.getItems().addAll(menu_view_relations, item_show_wording);
+			menu_settings.getItems().addAll(item_auto_save);
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_tools, menu_view, menu_settings);
 		menuBar.setUseSystemMenuBar(true);
 		
@@ -586,6 +590,17 @@ public class TreeView extends BorderPane {
 				}
 			});
 		}
+		item_show_wording.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				Collection<List<EdgeView>> list = edgesView.values();
+				for(List<EdgeView> edgesView : list) {
+					for(EdgeView edgeView : edgesView) {
+						edgeView.setWordingVisible(newValue);
+					}
+				}
+			}
+		});
 		for(MenuItem item : vCM_add_edge_relations) {
 			String text = item.getText();
 			item.setOnAction(new AddEdgeClicked(text));
