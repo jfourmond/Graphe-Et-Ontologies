@@ -22,10 +22,12 @@ import javafx.concurrent.Task;
 public class TreeSaver extends Task<Boolean> {
 	private static final String INDEX = "IndexSource";
 	private static final String ENTREE = "ENTREE";
-		private static final String ID = "id";
-	private static final String RELATION = "RELATION";
-		private static final String NOM = "nom";
-	private static final String LIEN = "LIEN";
+		private static final String ATTRIBUT = "ATTRIBUT";
+			private static final String ID = "id";
+			private static final String NOM = "nom";
+			private static final String VALEUR = "valeur";
+		private static final String RELATION = "RELATION";
+		private static final String LIEN = "LIEN";
 	
 	private Tree tree;
 	
@@ -68,8 +70,12 @@ public class TreeSaver extends Task<Boolean> {
 			// Ajout de tous les attributs
 			Map<String, String> attributes = vertex.getAttributes();
 			for(Entry<String, String> entry : attributes.entrySet()) {
-				Attribute attribute = new Attribute(entry.getKey(), entry.getValue());
-				entree.setAttribute(attribute);
+				Element attribute = new Element(ATTRIBUT);
+				Attribute name = new Attribute(NOM, entry.getKey());		// Ajout du nom de l'attribut
+				attribute.setAttribute(name);
+				Attribute value = new Attribute(VALEUR, entry.getValue());	// Ajout de la valeur de l'attribut
+				attribute.setAttribute(value);
+				entree.addContent(attribute);
 			}
 			// Gestion des relations
 			for(Relation r : tree.getRelations()) {
@@ -95,9 +101,6 @@ public class TreeSaver extends Task<Boolean> {
 		XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 		sortie.output(documentJDOM, new FileOutputStream(file));
 		
-		// Génération d'une XSD
-		// Process proc = Runtime.getRuntime().exec("java -jar lib//trang.jar " + file.getAbsolutePath() + " " + file.getName() + ".xsd");
-		
 		updateMessage("Sauvegarde effectuée");
 		
 		return true;
@@ -113,7 +116,7 @@ public class TreeSaver extends Task<Boolean> {
 	@Override
 	protected void cancelled() {
 		super.cancelled();
-		System.err.println("Sauvegardeannulé.");
+		System.err.println("Sauvegarde annulé.");
 		updateMessage("Sauvegarde annulé.");
 	}
 	

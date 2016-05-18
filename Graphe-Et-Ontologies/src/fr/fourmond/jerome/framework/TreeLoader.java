@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
@@ -19,10 +18,12 @@ import javafx.concurrent.Task;
 public class TreeLoader extends Task<Boolean> {
 	private static final String INDEX = "IndexSource";
 	private static final String ENTREE = "ENTREE";
-		private static final String ID = "id";
-	private static final String RELATION = "RELATION";
-		private static final String NOM = "nom";
-	private static final String LIEN = "LIEN";
+			private static final String ID = "id";
+		private static final String ATTRIBUT = "ATTRIBUT";
+			private static final String NOM = "nom";
+			private static final String VALEUR = "valeur";
+		private static final String RELATION = "RELATION";
+		private static final String LIEN = "LIEN";
 	
 	private Tree tree;
 	
@@ -82,12 +83,11 @@ public class TreeLoader extends Task<Boolean> {
 		for(Element courant : entries) {
 			vertexKey = courant.getAttributeValue(ID);							// Clé du sommet actuel
 			tmpTree.createVertex(vertexKey);									// Création du sommet actuel
-			for(Attribute attribute : courant.getAttributes()) {		// Récupération de ses attributs
-				if(!attribute.getName().equals(ID)) {
-					String name = attribute.getName();							// Identifiant de l'attribut actuel
-					String value = attribute.getValue();						// Valeur de l'attribut actuel
-					tmpTree.addAttribute(vertexKey, name, value);				// Ajout de l'attribut actuel au sommet actuel
-				}
+			List<Element> attributes = courant.getChildren(ATTRIBUT);			// Récupération des attributs
+			for(Element attribute : attributes) {
+				String name = attribute.getAttributeValue(NOM);					// Identifiant de l'attribut actuel
+				String value = attribute.getAttributeValue(VALEUR);				// Valeur de l'attribut actuel
+				tmpTree.addAttribute(vertexKey, name, value);				// Ajout de l'attribut actuel au sommet actuel
 			}
 			updateProgress(++index, indexSize);
 		}
