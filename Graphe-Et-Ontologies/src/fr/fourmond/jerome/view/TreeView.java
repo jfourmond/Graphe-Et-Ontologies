@@ -123,6 +123,7 @@ public class TreeView extends BorderPane {
 			private List<MenuItem> vCM_add_edge_relations;
 	
 	private ContextMenu edgeContextMenu;
+		private MenuItem eCM_edit;
 		private MenuItem eCM_delete;
 		private SeparatorMenuItem eCM_separator;
 		private MenuItem eCM_add_vertex;
@@ -143,7 +144,7 @@ public class TreeView extends BorderPane {
 			
 	private static MouseEvent pressed;
 	private static VertexView vertexViewSelected;
-	private static String relationToEdit;
+	private static EdgeView edgeViewSelected;
 	private static Pair<Vertex, Vertex> pairToEdit;
 	
 	public boolean saved;
@@ -222,6 +223,7 @@ public class TreeView extends BorderPane {
 			vCM_add_edge = new Menu("Nouvel arc");
 		
 		edgeContextMenu = new ContextMenu();
+			eCM_edit = new MenuItem("Editer");
 			eCM_delete = new MenuItem("Supprimer");
 			eCM_separator = new SeparatorMenuItem();
 			eCM_add_vertex = new MenuItem("Nouveau sommet");
@@ -335,7 +337,7 @@ public class TreeView extends BorderPane {
 		vertexContextMenu.getItems().addAll(vCM_edit, vCM_delete, vCM_separator, vCM_add_vertex, vCM_add_relation, vCM_add_edge);
 		
 			eCM_add_edge.getItems().addAll(eCM_add_edge_relations);
-		edgeContextMenu.getItems().addAll(eCM_delete, eCM_separator, eCM_add_vertex, eCM_add_relation, eCM_add_edge);
+		edgeContextMenu.getItems().addAll(eCM_edit, eCM_delete, eCM_separator, eCM_add_vertex, eCM_add_relation, eCM_add_edge);
 		
 			tCM_add_edge.getItems().addAll(tCM_add_edge_relations);
 		treeContextMenu.getItems().addAll(tCM_add_vertex, tCM_add_relation, tCM_add_edge);
@@ -638,11 +640,23 @@ public class TreeView extends BorderPane {
 		});
 		vCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
 		vCM_add_relation.setOnAction(item_add_relation.getOnAction());
+		eCM_edit.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				EditEdgeStage editEdgeStage = new EditEdgeStage(edgeViewSelected.getPair(), edgeViewSelected.getRelation(), tree.getVertices(), tree.getRelationsNames());
+				editEdgeStage.showAndWait();
+				try {
+					editPair(editEdgeStage.getOldRelationName(), editEdgeStage.getOldPair(), editEdgeStage.getNewRelationName(), editEdgeStage.getNewPair());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		eCM_delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					removePair(relationToEdit, pairToEdit);
+					removePair(edgeViewSelected.getRelation(), pairToEdit);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -983,10 +997,28 @@ public class TreeView extends BorderPane {
 	}
 	
 	/**
+	 * Edition d'une paire d'une relation
+	 * @param oldRelationName : nom de l'ancienne relation
+	 * @param oldPair : ancienne paire
+	 * @param newRelationName : nom de la nouvelle relation
+	 * @param newPair : nouvelle paire
+	 * @throws TreeException si la relation n'existe pas
+	 * @throws RelationException si la paire n'existe pas
+	 */
+	private void editPair(String oldRelationName, Pair<Vertex, Vertex> oldPair,
+							String newRelationName, Pair<Vertex, Vertex> newPair) throws TreeException, RelationException {
+		// Suppression de ses composantes graphiques
+		removePair(oldRelationName, oldPair);
+		
+		// Ajout de ses composantes graphiques
+		addPair(newRelationName, newPair);
+	}
+	
+	/**
 	 * Suppression d'une paire d'une relation
 	 * @param relationName : nom de la relation
 	 * @param pair : paire à supprimer
-	 * @throws TreeException : si la relation n'existe pas
+	 * @throws TreeException si la relation n'existe pas
 	 * @throws RelationException si la paire n'existe pas
 	 */
 	private void removePair(String relationName, Pair<Vertex, Vertex> pair) throws TreeException, RelationException {
@@ -1073,7 +1105,7 @@ public class TreeView extends BorderPane {
 						if(other != edgeView) other.setSelected(false);
 				}
 			} else if(event.getButton() == MouseButton.SECONDARY) {
-				relationToEdit = edgeView.getRelation();
+				edgeViewSelected = edgeView;
 				pairToEdit = new Pair<Vertex, Vertex>(edgeView.getVertexStart(), edgeView.getVertexEnd());
 				edgeContextMenu.show(edgeView, event.getScreenX(), event.getScreenY());
 			}

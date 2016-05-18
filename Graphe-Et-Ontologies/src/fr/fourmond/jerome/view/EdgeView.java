@@ -53,7 +53,7 @@ public class EdgeView extends Group {
 		buildInterface();
 		buildEvents();
 	}
-
+	
 	//	GETTERS
 	public String getRelation() { return relationName; }
 	
