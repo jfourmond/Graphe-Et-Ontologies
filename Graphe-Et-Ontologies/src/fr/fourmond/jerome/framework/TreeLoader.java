@@ -7,6 +7,7 @@ import java.util.List;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.input.sax.XMLReaderXSDFactory;
 
 import javafx.concurrent.Task;
 
@@ -25,6 +26,8 @@ public class TreeLoader extends Task<Boolean> {
 		private static final String RELATION = "RELATION";
 		private static final String LIEN = "LIEN";
 	
+	private static String XSDFile = "lib/schema.xsd";
+		
 	private Tree tree;
 	
 	private SAXBuilder saxBuilder;
@@ -53,6 +56,12 @@ public class TreeLoader extends Task<Boolean> {
 		Tree tmpTree = new Tree();
 		
 		File file = tree.getFile();
+		File schema = new File(XSDFile);
+		
+		XMLReaderXSDFactory xsdFactory = new XMLReaderXSDFactory(schema);
+
+		saxBuilder = new SAXBuilder(xsdFactory);
+		
 		if(file == null) {
 			System.err.println("Echec du chargement");
 			updateMessage("Echec du chargement");
@@ -63,15 +72,12 @@ public class TreeLoader extends Task<Boolean> {
 		tmpTree.setFile(file);
 		
 		updateMessage("Chargement en cours...");
-		
-		// TODO Validation (avec SAXBuilder ?)
-		saxBuilder = new SAXBuilder();
-		Document document = saxBuilder.build(tree.getFile());
+
+		Document document = saxBuilder.build(file);
 		
 		Element racine = document.getRootElement();
 		if(!racine.getName().equals(INDEX))
 			throw new TreeLoaderException("La DTD n'est pas respectée.");
-		
 		
 		List<Element> entries =  racine.getChildren(ENTREE);
 		int indexSize = entries.size() * 2;

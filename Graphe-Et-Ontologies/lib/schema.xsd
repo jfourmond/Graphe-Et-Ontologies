@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="IndexSource">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="ENTREE"/>
+      </xs:sequence>
+      <xs:attribute name="corpus"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ENTREE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="ATTRIBUT"/>
+        <xs:element maxOccurs="unbounded" ref="RELATION"/>
+        <xs:element minOccurs="0" ref="RENVOIS"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RELATION">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="LIEN"/>
+      </xs:sequence>
+      <xs:attribute name="nom" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ATTRIBUT">
+    <xs:complexType>
+      <xs:attribute name="nom" use="required"/>
+      <xs:attribute name="valeur" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LIEN" type="xs:string"/>
+  <xs:element name="RENVOIS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="LIEN"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
