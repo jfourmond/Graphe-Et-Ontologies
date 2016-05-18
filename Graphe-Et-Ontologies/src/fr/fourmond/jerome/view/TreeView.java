@@ -53,6 +53,8 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.StageStyle;
@@ -102,7 +104,7 @@ public class TreeView extends BorderPane {
 		private List<VertexView> verticesView;
 		private Map<String, List<EdgeView>> edgesView;
 	private SplitPane east;
-		// private VBox east;
+		private VBox info_box;;
 			private Label info_label;
 			private TextArea info_area;
 			private ListView<VertexView> vertex_list;
@@ -267,10 +269,11 @@ public class TreeView extends BorderPane {
 		east = new SplitPane();
 		east.setOrientation(Orientation.VERTICAL);
 		east.setPrefHeight(east.getMaxHeight());
-			info_label = new Label("Informations");
-			info_area = new TextArea(tree.toString());
-				info_area.setPrefWidth(200);
-				info_area.setEditable(false);
+			info_box = new VBox();
+				info_label = new Label("Informations");
+				info_area = new TextArea(tree.toString());
+					info_area.setPrefWidth(200);
+					info_area.setEditable(false);
 			vertex_list = new ListView<>();
 				vertex_list.setItems(verticesViewForList);
 				vertex_list.setCellFactory(new Callback<ListView<VertexView>, ListCell<VertexView>>() {
@@ -347,7 +350,9 @@ public class TreeView extends BorderPane {
 		drawVertices();
 		drawEdges();
 		
-		east.getItems().addAll(info_label, info_area, vertex_list, relation_list);
+		info_box.getChildren().addAll(info_label, info_area);
+		VBox.setVgrow(info_area, Priority.ALWAYS);
+		east.getItems().addAll(info_box, vertex_list, relation_list);
 		east.setDividerPositions(0.3f, 0.6f, 0.9f);
 		bottom.getChildren().addAll(pb, info_progress);
 		
