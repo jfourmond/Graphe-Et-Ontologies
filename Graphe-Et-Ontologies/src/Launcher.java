@@ -1,4 +1,5 @@
 
+import fr.fourmond.jerome.config.Settings;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.view.LoadingSplashStage;
 import javafx.application.Application;
@@ -20,6 +21,13 @@ public class Launcher extends Application {
 		tree = new Tree();
 		if(args.length > 0)
 			filename = args[0];
+		
+		try {
+			Settings.loadSettings();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		launch(args);
 	}
 }
