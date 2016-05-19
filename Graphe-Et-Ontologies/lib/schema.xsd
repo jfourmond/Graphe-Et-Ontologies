@@ -12,7 +12,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="ATTRIBUT"/>
-        <xs:element maxOccurs="unbounded" ref="RELATION"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="RELATION"/>
         <xs:element minOccurs="0" ref="RENVOIS"/>
       </xs:sequence>
       <xs:attribute name="id" use="required"/>
