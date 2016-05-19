@@ -619,6 +619,13 @@ public class TreeView extends BorderPane {
 		item_show_wording.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				
+				Settings.setShowWording(item_show_wording.isSelected());
+				try {
+					Settings.saveSettings();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				Collection<List<EdgeView>> list = edgesView.values();
 				for(List<EdgeView> edgesView : list) {
 					for(EdgeView edgeView : edgesView) {
@@ -632,6 +639,12 @@ public class TreeView extends BorderPane {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				// TODO Auto-generated method stub
 				System.err.println("NON IMPLEMENTE : " + newValue);
+				Settings.setAutoSave(item_auto_save.isSelected());
+				try {
+					Settings.saveSettings();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		item_auto_id.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -639,6 +652,12 @@ public class TreeView extends BorderPane {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				// TODO Auto-generated method stub
 				System.err.println("NON IMPLEMENTE : " + newValue);
+				Settings.setAutoId(item_auto_id.isSelected());
+				try {
+					Settings.saveSettings();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		for(MenuItem item : vCM_add_edge_relations) {

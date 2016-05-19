@@ -27,10 +27,6 @@ public class Settings {
 		autoSave = Boolean.parseBoolean(properties.getProperty(autoSavePP));
 		autoId = Boolean.parseBoolean(properties.getProperty(autoIdPP));
 		showWording = Boolean.parseBoolean(properties.getProperty(showWordingPP));
-		
-		System.out.println("Auto-save = " + autoSave);
-		System.out.println("Auto-id = " + autoId);
-		System.out.println("Show Wording = " + showWording);
 
 		is.close();
 	}
@@ -44,9 +40,9 @@ public class Settings {
 		
 		OutputStream os = new FileOutputStream(propFileName);
 		
-		properties.setProperty(autoSavePP, String.valueOf(true));
-		properties.setProperty(autoIdPP, String.valueOf(true));
-		properties.setProperty(showWordingPP, String.valueOf(true));
+		properties.setProperty(autoSavePP, String.valueOf(autoSave));
+		properties.setProperty(autoIdPP, String.valueOf(autoId));
+		properties.setProperty(showWordingPP, String.valueOf(showWording));
 		
 		properties.store(os, null);
 		
