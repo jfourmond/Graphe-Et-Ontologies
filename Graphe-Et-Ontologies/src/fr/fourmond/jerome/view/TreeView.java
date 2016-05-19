@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import fr.fourmond.jerome.config.Settings;
 import fr.fourmond.jerome.framework.ColorDistribution;
 import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Placement;
@@ -93,12 +94,13 @@ public class TreeView extends BorderPane {
 			private List<MenuItem> item_add_edge_relations;
 	private Menu menu_view;
 		private Menu menu_view_relations;
-		private List<CheckMenuItem> item_view_relations;
+			private List<CheckMenuItem> item_view_relations;
+		private CheckMenuItem item_show_wording;
 	private Menu menu_tools;
 		private MenuItem item_tools_data;
 	private Menu menu_settings;
 		private CheckMenuItem item_auto_save;
-		private CheckMenuItem item_show_wording;
+		private CheckMenuItem item_auto_id;
 	
 	private Pane center;
 		private List<VertexView> verticesView;
@@ -162,6 +164,7 @@ public class TreeView extends BorderPane {
 		buildComposants();
 		buildInterface();
 		buildEvents();
+		buildProperties();
 	}
 	
 	private void buildComposants() {
@@ -208,7 +211,7 @@ public class TreeView extends BorderPane {
 		item_tools_data = new MenuItem("Données");
 		menu_settings = new Menu("Options");
 			item_auto_save = new CheckMenuItem("Sauvegarde automatique");
-			
+			item_auto_id = new CheckMenuItem("Identifiant automatique");
 		
 		if(tree.relationCount() > 1)
 			menu_view_relations = new Menu("Relations");
@@ -323,45 +326,6 @@ public class TreeView extends BorderPane {
 			info_progress = new Label();
 	}
 	
-	private void buildInterface() {
-		// Barre de Menu
-			menu_file.getItems().addAll(item_new, item_open, item_save, item_save_under, item_quit);
-				menu_add_edge.getItems().addAll(item_add_edge_relations);
-			menu_edit.getItems().addAll(item_ontologie, item_separator, item_add_vertex, item_add_relation, menu_add_edge);
-				menu_view_relations.getItems().addAll(item_view_relations);
-			menu_tools.getItems().add(item_tools_data);
-			menu_view.getItems().addAll(menu_view_relations, item_show_wording);
-			menu_settings.getItems().addAll(item_auto_save);
-		menuBar.getMenus().addAll(menu_file, menu_edit, menu_tools, menu_view, menu_settings);
-		menuBar.setUseSystemMenuBar(true);
-		
-		// Menus Contextuels
-			vCM_add_edge.getItems().addAll(vCM_add_edge_relations);
-		vertexContextMenu.getItems().addAll(vCM_edit, vCM_delete, vCM_separator, vCM_add_vertex, vCM_add_relation, vCM_add_edge);
-		
-			eCM_add_edge.getItems().addAll(eCM_add_edge_relations);
-		edgeContextMenu.getItems().addAll(eCM_edit, eCM_delete, eCM_separator, eCM_add_vertex, eCM_add_relation, eCM_add_edge);
-		
-			tCM_add_edge.getItems().addAll(tCM_add_edge_relations);
-		treeContextMenu.getItems().addAll(tCM_add_vertex, tCM_add_relation, tCM_add_edge);
-		
-		relationContextMenu.getItems().add(rCM_delete);
-		
-		drawVertices();
-		drawEdges();
-		
-		info_box.getChildren().addAll(info_label, info_area);
-		VBox.setVgrow(info_area, Priority.ALWAYS);
-		east.getItems().addAll(info_box, vertex_list, relation_list);
-		east.setDividerPositions(0.3f, 0.6f, 0.9f);
-		bottom.getChildren().addAll(pb, info_progress);
-		
-		setTop(menuBar);
-		setCenter(center);
-		setRight(east);
-		setBottom(bottom);
-	}
-	
 	private void buildVertices() {
 		List<Vertex> vertices = tree.getVertices();
 		VertexView vertexView;
@@ -390,6 +354,45 @@ public class TreeView extends BorderPane {
 			}
 			edgesView.put(relationName, relationEdges);
 		}
+	}
+	
+	private void buildInterface() {
+		// Barre de Menu
+			menu_file.getItems().addAll(item_new, item_open, item_save, item_save_under, item_quit);
+				menu_add_edge.getItems().addAll(item_add_edge_relations);
+			menu_edit.getItems().addAll(item_ontologie, item_separator, item_add_vertex, item_add_relation, menu_add_edge);
+				menu_view_relations.getItems().addAll(item_view_relations);
+			menu_tools.getItems().add(item_tools_data);
+			menu_view.getItems().addAll(menu_view_relations, item_show_wording);
+			menu_settings.getItems().addAll(item_auto_save, item_auto_id);
+		menuBar.getMenus().addAll(menu_file, menu_edit, menu_tools, menu_view, menu_settings);
+		menuBar.setUseSystemMenuBar(true);
+		
+		// Menus Contextuels
+			vCM_add_edge.getItems().addAll(vCM_add_edge_relations);
+		vertexContextMenu.getItems().addAll(vCM_edit, vCM_delete, vCM_separator, vCM_add_vertex, vCM_add_relation, vCM_add_edge);
+		
+			eCM_add_edge.getItems().addAll(eCM_add_edge_relations);
+		edgeContextMenu.getItems().addAll(eCM_edit, eCM_delete, eCM_separator, eCM_add_vertex, eCM_add_relation, eCM_add_edge);
+		
+			tCM_add_edge.getItems().addAll(tCM_add_edge_relations);
+		treeContextMenu.getItems().addAll(tCM_add_vertex, tCM_add_relation, tCM_add_edge);
+		
+		relationContextMenu.getItems().add(rCM_delete);
+		
+		drawVertices();
+		drawEdges();
+		
+		info_box.getChildren().addAll(info_label, info_area);
+		VBox.setVgrow(info_area, Priority.ALWAYS);
+		east.getItems().addAll(info_box, vertex_list, relation_list);
+		east.setDividerPositions(0.3f, 0.6f, 0.9f);
+		bottom.getChildren().addAll(pb, info_progress);
+		
+		setTop(menuBar);
+		setCenter(center);
+		setRight(east);
+		setBottom(bottom);
 	}
 	
 	private void drawVertices() { center.getChildren().addAll(verticesView); }
@@ -452,6 +455,12 @@ public class TreeView extends BorderPane {
 					TreeSaver saver = new TreeSaver(tree);
 					info_progress.textProperty().bind(saver.messageProperty());
 					pb.progressProperty().bind(saver.progressProperty());
+					saver.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+						@Override
+						public void handle(WorkerStateEvent event) {
+							saved = true;
+						}
+					});
 					new Thread(saver).start();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -474,6 +483,12 @@ public class TreeView extends BorderPane {
 						TreeSaver saver = new TreeSaver(tree);
 						info_progress.textProperty().bind(saver.messageProperty());
 						pb.progressProperty().bind(saver.progressProperty());
+						saver.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+							@Override
+							public void handle(WorkerStateEvent event) {
+								saved = true;
+							}
+						});
 						new Thread(saver).start();
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -612,6 +627,20 @@ public class TreeView extends BorderPane {
 				}
 			}
 		});
+		item_auto_save.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				// TODO Auto-generated method stub
+				System.err.println("NON IMPLEMENTE : " + newValue);
+			}
+		});
+		item_auto_id.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				// TODO Auto-generated method stub
+				System.err.println("NON IMPLEMENTE : " + newValue);
+			}
+		});
 		for(MenuItem item : vCM_add_edge_relations) {
 			String text = item.getText();
 			item.setOnAction(new AddEdgeClicked(text));
@@ -734,6 +763,12 @@ public class TreeView extends BorderPane {
 			}
 		});
 		relation_list.setContextMenu(relationContextMenu);
+	}
+	
+	private void buildProperties() {
+		item_show_wording.setSelected(Settings.isShowWording());
+		item_auto_save.setSelected(Settings.isAutoSave());
+		item_auto_id.setSelected(Settings.isAutoId());
 	}
 	
 	private VertexView getViewFromVertex(Vertex vertex) {

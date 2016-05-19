@@ -143,6 +143,5 @@ public class AddEdgeToRelationStage extends Stage {
 		Vertex vertex2 = CB2.getValue();
 		
 		pair = new Pair<Vertex, Vertex>(vertex1, vertex2);
-		System.out.println(pair);
 	}
 }

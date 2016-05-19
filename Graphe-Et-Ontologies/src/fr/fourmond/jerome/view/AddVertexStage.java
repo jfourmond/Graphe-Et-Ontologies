@@ -158,7 +158,7 @@ public class AddVertexStage extends Stage {
 				
 				Optional<String> result = dialog.showAndWait();
 				if (result.isPresent()){
-					String s = result.get().trim();
+					String s = result.get().trim().toLowerCase();
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Erreur");
 					alert.initStyle(StageStyle.UTILITY);
