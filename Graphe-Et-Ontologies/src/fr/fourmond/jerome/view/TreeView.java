@@ -565,7 +565,7 @@ public class TreeView extends BorderPane {
 		item_add_vertex.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				AddVertexStage addVertex = new AddVertexStage();
+				AddVertexStage addVertex = new AddVertexStage(tree);
 				addVertex.showAndWait();
 				Vertex vertex = addVertex.getVertex();
 				if(vertex != null ) {
