@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import fr.fourmond.jerome.framework.Pair;
+import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 import fr.fourmond.jerome.framework.VertexException;
 import javafx.event.ActionEvent;
@@ -38,6 +39,8 @@ public class AddVertexStage extends Stage {
 	
 	private final static String TITLE = "Graphe Et Ontologies - Nouveau sommet";
 	
+	private Tree tree;
+	
 	private Vertex vertex;
 	
 	private GridPane gridPane;
@@ -56,8 +59,10 @@ public class AddVertexStage extends Stage {
 	private int currentRow;
 	private int currentCol;
 	
-	public AddVertexStage() {
+	public AddVertexStage(Tree tree) {
 		this.setTitle(TITLE);
+		
+		this.tree = tree;
 		
 		attributes = new HashSet<>();
 		attributesView = new ArrayList<>();
@@ -150,23 +155,19 @@ public class AddVertexStage extends Stage {
 		addAttribute.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				TextInputDialog dialog = new TextInputDialog();
-				dialog.setTitle("Graphe Et Ontologies - Nouveau sommet - Nouvel attribut");
-				dialog.setHeaderText(null);
-				dialog.setContentText("Nom de l'attribut : ");
-				dialog.initStyle(StageStyle.UTILITY);
-				
-				Optional<String> result = dialog.showAndWait();
-				if (result.isPresent()){
-					String s = result.get().trim().toLowerCase();
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Erreur");
-					alert.initStyle(StageStyle.UTILITY);
-					alert.setHeaderText(null);
-					if(s.isEmpty()) {
+				AttributePickerView apd = new AttributePickerView(tree);
+				apd.showAndWait();
+				String result = apd.getAttributePicked();
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erreur");
+				alert.initStyle(StageStyle.UTILITY);
+				alert.setHeaderText(null);
+				if(result != null) {
+					result = result.trim().toLowerCase();
+					if(result.isEmpty()) {
 						alert.setContentText("Aucun attribut saisi.");
 						alert.showAndWait();
-					} else if(!attributes.add(s)) {
+					} else if(!attributes.add(result)) {
 						alert.setContentText("L'attribut existe déjà.");
 						alert.showAndWait();
 					} else {
