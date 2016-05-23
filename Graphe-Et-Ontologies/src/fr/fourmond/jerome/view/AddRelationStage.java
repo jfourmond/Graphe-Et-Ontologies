@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /**
  * {@link AddRelationStage} est un {@link Stage} permettant de créer 
@@ -33,7 +34,8 @@ public class AddRelationStage extends Stage {
 	private Text title;
 		private Label label;
 		private TextField relationName;
-		private Button add;
+	private Button cancel;
+	private Button add;
 	
 	public AddRelationStage() {
 		this.setTitle(TITLE);
@@ -60,6 +62,7 @@ public class AddRelationStage extends Stage {
 		label = new Label("Nom");
 		relationName = new TextField();
 		
+		cancel = new Button("Annuler");
 		add = new Button("Ajouter relation");
 	}
 	
@@ -70,8 +73,8 @@ public class AddRelationStage extends Stage {
 		
 		HBox hbBtn = new HBox(10);
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().add(add);
-		gridPane.add(add, 1, 3);
+		hbBtn.getChildren().addAll(cancel, add);
+		gridPane.add(hbBtn, 1, 3);
 		
 		Scene scene = new Scene(gridPane, 300, 200);
 		this.setScene(scene);
@@ -92,6 +95,14 @@ public class AddRelationStage extends Stage {
 					alert.setContentText(e.getMessage());
 					alert.showAndWait();
 				}
+			}
+		});
+		cancel.setOnAction(event -> 
+			this.fireEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSE_REQUEST)));
+		setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				relation = null;
 			}
 		});
 	}
