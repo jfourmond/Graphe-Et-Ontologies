@@ -34,8 +34,9 @@ public class AddRelationStage extends Stage {
 	private Text title;
 		private Label label;
 		private TextField relationName;
-	private Button cancel;
-	private Button add;
+	private HBox hBox;
+		private Button cancel;
+		private Button add;
 	
 	public AddRelationStage() {
 		this.setTitle(TITLE);
@@ -58,12 +59,13 @@ public class AddRelationStage extends Stage {
 		gridPane.setVgap(10);
 		gridPane.setPadding(new Insets(25, 25, 25, 25));
 		
-		title = new Text("Nouvelle relation");
-		label = new Label("Nom");
-		relationName = new TextField();
-		
-		cancel = new Button("Annuler");
-		add = new Button("Ajouter relation");
+			title = new Text("Nouvelle relation");
+			label = new Label("Nom");
+			relationName = new TextField();
+			hBox = new HBox(10);
+			hBox.setAlignment(Pos.BOTTOM_RIGHT);
+				cancel = new Button("Annuler");
+				add = new Button("Ajouter relation");
 	}
 	
 	private void buildInterface() {
@@ -71,12 +73,11 @@ public class AddRelationStage extends Stage {
 		gridPane.add(label, 0, 1);
 		gridPane.add(relationName, 1, 1);
 		
-		HBox hbBtn = new HBox(10);
-		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().addAll(cancel, add);
-		gridPane.add(hbBtn, 1, 3);
+			hBox.getChildren().addAll(cancel, add);
 		
-		Scene scene = new Scene(gridPane, 300, 200);
+		gridPane.add(hBox, 1, 3);
+		
+		Scene scene = new Scene(gridPane);
 		this.setScene(scene);
 	}
 	

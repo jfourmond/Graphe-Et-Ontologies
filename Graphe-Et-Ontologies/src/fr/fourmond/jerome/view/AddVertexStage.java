@@ -25,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -43,13 +44,15 @@ public class AddVertexStage extends Stage {
 	
 	private Vertex vertex;
 	
-	private GridPane gridPane;
-	private Text title;
-	private Label ID;
-		private TextField IDField;
-	private Button addAttribute;
-	private Button cancel;
-	private Button add;
+	private VBox vBox;
+		private GridPane gridPane;
+			private Text title;
+			private Label ID;
+				private TextField IDField;
+			private Button addAttribute;
+		private HBox hBox;
+			private Button cancel;
+			private Button add;
 		
 	private Set<String> attributes;
 	private List<Pair<Label, TextField>> attributesView;
@@ -85,21 +88,23 @@ public class AddVertexStage extends Stage {
 		
 		if(Settings.isAutoId())
 			text_id = String.valueOf(tree.nextID());
-		
-		gridPane = new GridPane();
-		gridPane.setAlignment(Pos.CENTER);
-		gridPane.setHgap(10);
-		gridPane.setVgap(10);
-		gridPane.setPadding(new Insets(25, 25, 25, 25));
-		
-		title = new Text("Nouveau sommet");
-		ID = new Label("Identifiant");
-		IDField = new TextField(text_id);
-			if(Settings.isAutoId())
-				IDField.setDisable(true);
-		addAttribute = new Button("Ajouter attribut");
-		cancel = new Button("Annuler");
-		add = new Button("Ajouter sommet");
+		vBox = new VBox();
+		vBox.setPadding(new Insets(10, 10, 10, 10));
+			gridPane = new GridPane();
+			gridPane.setAlignment(Pos.CENTER);
+			gridPane.setHgap(10);
+			gridPane.setVgap(10);
+			gridPane.setPadding(new Insets(25, 25, 25, 25));
+				title = new Text("Nouveau sommet");
+				ID = new Label("Identifiant");
+				IDField = new TextField(text_id);
+					if(Settings.isAutoId())
+						IDField.setDisable(true);
+				addAttribute = new Button("Ajouter attribut");
+			hBox = new HBox(10);
+			hBox.setAlignment(Pos.BOTTOM_RIGHT);
+				cancel = new Button("Annuler");
+				add = new Button("Ajouter sommet");
 		
 		// Construction des attributs
 		for(String attribute : attributes) {
@@ -142,13 +147,11 @@ public class AddVertexStage extends Stage {
 		}
 		
 		gridPane.add(addAttribute, 1, currentRow+1);
-		HBox hbBtn = new HBox(10);
-		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().add(add);
-		gridPane.add(cancel, 0, currentRow+2);
-		gridPane.add(add, 1, currentRow+2);
+
+			hBox.getChildren().addAll(cancel, add);
+		vBox.getChildren().addAll(gridPane, hBox);
 		
-		Scene scene = new Scene(gridPane, 400, 300);
+		Scene scene = new Scene(vBox);
 		this.setScene(scene);
 		
 		// For focus

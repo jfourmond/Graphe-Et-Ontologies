@@ -19,8 +19,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 /**
@@ -40,16 +42,19 @@ public class AddEdgeToRelationStage extends Stage {
 	private ObservableList<Vertex> vertex1;
 	private ObservableList<Vertex> vertex2;
 	
-	private GridPane gridPane;
-	private Text title;
-		private Text from;
-		private ComboBox<Vertex> CB1;
-		private Text to;
-		private ComboBox<Vertex> CB2;
-	private Button add;
+	private VBox vBox;
+		private GridPane gridPane;
+		private Text title;
+			private Text from;
+			private ComboBox<Vertex> CB1;
+			private Text to;
+			private ComboBox<Vertex> CB2;
+		private HBox hBox;
+			private Button cancel;
+			private Button add;
 	
 	public AddEdgeToRelationStage(List<Vertex> vertices, String relationName) {
-		setTitle(TITLE + relationName + " - Nouvel Arc");
+		setTitle(TITLE + "\"" + relationName + "\" - Nouvel Arc");
 		
 		this.vertices = vertices;
 		this.relationName = relationName;
@@ -64,7 +69,6 @@ public class AddEdgeToRelationStage extends Stage {
 	
 	public Pair<Vertex, Vertex> getPair() { return pair; }
 	
-	
 	//	SETTERS
 	public void setRelationName(String relationName) { this.relationName = relationName; }
 	
@@ -75,11 +79,13 @@ public class AddEdgeToRelationStage extends Stage {
 		vertex1 = FXCollections.observableArrayList(vertices);
 		vertex2 = FXCollections.observableArrayList(vertices);
 		
-		gridPane = new GridPane();
-		gridPane.setAlignment(Pos.CENTER);
-		gridPane.setHgap(10);
-		gridPane.setVgap(10);
-		gridPane.setPadding(new Insets(25, 25, 25, 25));
+		vBox = new VBox();
+		vBox.setPadding(new Insets(10, 10, 10, 10));
+			gridPane = new GridPane();
+			gridPane.setAlignment(Pos.CENTER);
+			gridPane.setHgap(10);
+			gridPane.setVgap(10);
+			gridPane.setPadding(new Insets(25, 25, 25, 25));
 		
 		title = new Text("Nouvel arc");
 			from = new Text(" De ");
@@ -109,22 +115,24 @@ public class AddEdgeToRelationStage extends Stage {
 					}
 				});
 				CB2.getSelectionModel().select(1);
-		add = new Button("Ajouter arc");
+		hBox = new HBox(10);
+		hBox.setAlignment(Pos.BOTTOM_RIGHT);
+			cancel = new Button("Annuler");
+			add = new Button("Ajouter arc");
 	}
 	
 	private void buildInterface() {
-		gridPane.add(title, 0, 0, 2, 1);
-		gridPane.add(from, 0, 1);
-		gridPane.add(CB1, 1, 1);
-		gridPane.add(to, 2, 1);
-		gridPane.add(CB2, 3, 1);
+			gridPane.add(title, 0, 0, 2, 1);
+			gridPane.add(from, 0, 1);
+			gridPane.add(CB1, 1, 1);
+			gridPane.add(to, 2, 1);
+			gridPane.add(CB2, 3, 1);
+			
+			hBox.getChildren().addAll(cancel, add);
 		
-		HBox hbBtn = new HBox(10);
-		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().add(add);
-		gridPane.add(add, 1, 3);
+		vBox.getChildren().addAll(gridPane, hBox);
 		
-		Scene scene = new Scene(gridPane, 300, 200);
+		Scene scene = new Scene(vBox);
 		this.setScene(scene);
 	}
 	
@@ -134,6 +142,14 @@ public class AddEdgeToRelationStage extends Stage {
 			public void handle(ActionEvent event) {
 				buildPair();
 				close();
+			}
+		});
+		cancel.setOnAction(event -> 
+			this.fireEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSE_REQUEST)));
+		setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				pair = null;
 			}
 		});
 	}
