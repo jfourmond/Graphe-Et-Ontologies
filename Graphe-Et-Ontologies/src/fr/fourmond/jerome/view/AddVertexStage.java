@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import fr.fourmond.jerome.config.Settings;
 import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
@@ -27,6 +28,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /**
  * {@link AddVertexStage} est un {@link Stage} permettant de créer
@@ -46,6 +48,7 @@ public class AddVertexStage extends Stage {
 	private Label ID;
 		private TextField IDField;
 	private Button addAttribute;
+	private Button cancel;
 	private Button add;
 		
 	private Set<String> attributes;
@@ -80,6 +83,9 @@ public class AddVertexStage extends Stage {
 	private void buildComposants() {
 		attributesView.clear();
 		
+		if(Settings.isAutoId())
+			text_id = String.valueOf(tree.nextID());
+		
 		gridPane = new GridPane();
 		gridPane.setAlignment(Pos.CENTER);
 		gridPane.setHgap(10);
@@ -89,7 +95,10 @@ public class AddVertexStage extends Stage {
 		title = new Text("Nouveau sommet");
 		ID = new Label("Identifiant");
 		IDField = new TextField(text_id);
+			if(Settings.isAutoId())
+				IDField.setDisable(true);
 		addAttribute = new Button("Ajouter attribut");
+		cancel = new Button("Annuler");
 		add = new Button("Ajouter sommet");
 		
 		// Construction des attributs
@@ -136,7 +145,8 @@ public class AddVertexStage extends Stage {
 		HBox hbBtn = new HBox(10);
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbBtn.getChildren().add(add);
-		gridPane.add(add, 0, currentRow+2);
+		gridPane.add(cancel, 0, currentRow+2);
+		gridPane.add(add, 1, currentRow+2);
 		
 		Scene scene = new Scene(gridPane, 400, 300);
 		this.setScene(scene);
@@ -177,6 +187,8 @@ public class AddVertexStage extends Stage {
 				}
 			}
 		});
+		cancel.setOnAction(event -> 
+			this.fireEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSE_REQUEST)));
 		add.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -192,6 +204,12 @@ public class AddVertexStage extends Stage {
 					alert.setContentText(e.getMessage());
 					alert.showAndWait();
 				}
+			}
+		});
+		setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				vertex = null;
 			}
 		});
 	}
