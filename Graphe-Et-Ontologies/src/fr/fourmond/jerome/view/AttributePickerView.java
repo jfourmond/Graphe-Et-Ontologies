@@ -1,5 +1,9 @@
 package fr.fourmond.jerome.view;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import fr.fourmond.jerome.framework.Tree;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -52,6 +56,7 @@ public class AttributePickerView extends Stage {
 	//	GETTERS
 	public String getAttributePicked() { return attributePicked; }
 	
+	//	METHODES
 	private void buildComposants() {
 		vBox = new VBox(10);
 		vBox.setPadding(new Insets(10, 10, 10, 10));
@@ -60,7 +65,9 @@ public class AttributePickerView extends Stage {
 				gridPane.setVgap(10);
 				gridPane.setPadding(new Insets(0, 10, 0, 10));
 				text = new Text("Dictionnaire");
-					attributesList = FXCollections.observableArrayList(tree.dictionnary());
+					List<String> attributes = new ArrayList<>(tree.dictionnary());
+					Collections.sort(attributes);									// Tri par ordre alphabétique
+					attributesList = FXCollections.observableArrayList(attributes);
 				attributesView = new ListView<>(attributesList);
 				attribute = new TextField();
 				add_attributes = new Button("Ajouter");

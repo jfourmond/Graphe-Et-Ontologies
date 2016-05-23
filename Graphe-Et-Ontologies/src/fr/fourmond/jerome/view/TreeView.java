@@ -87,7 +87,7 @@ public class TreeView extends BorderPane {
 		private MenuItem item_save_under;
 		private MenuItem item_quit;
 	private Menu menu_edit;
-		private MenuItem item_ontologie;
+		private MenuItem item_ontology;
 		private SeparatorMenuItem item_separator;
 		private MenuItem item_add_vertex;
 		private MenuItem item_add_relation;
@@ -146,7 +146,9 @@ public class TreeView extends BorderPane {
 		private MenuItem rCM_delete;
 			
 	private FileChooser fileChooser;
-			
+	
+	private Alert alertError;
+	
 	private static MouseEvent pressed;
 	private static VertexView vertexViewSelected;
 	private static EdgeView edgeViewSelected;
@@ -201,7 +203,7 @@ public class TreeView extends BorderPane {
 			item_save_under = new MenuItem("Enregistrer sous");
 			item_quit = new MenuItem("Quitter");
 		menu_edit = new Menu("Edition");
-			item_ontologie = new MenuItem("Ontologie");
+			item_ontology = new MenuItem("Ontologie");
 			item_separator = new SeparatorMenuItem();
 			item_add_vertex = new MenuItem("Nouveau sommet");
 			item_add_relation = new MenuItem("Nouvelle relation");
@@ -263,7 +265,7 @@ public class TreeView extends BorderPane {
 		}
 		
 		if(tree.getFile() == null) {
-			item_ontologie.setDisable(true);
+			item_ontology.setDisable(true);
 			item_save.setDisable(true);
 		}
 		
@@ -325,6 +327,10 @@ public class TreeView extends BorderPane {
 			pb = new ProgressBar();
 				pb.setProgress(0);
 			info_progress = new Label();
+			
+		alertError = new Alert(AlertType.ERROR);
+		alertError.setTitle("ERREUR");
+		alertError.initStyle(StageStyle.UTILITY);
 	}
 	
 	private void buildVertices() {
@@ -361,7 +367,7 @@ public class TreeView extends BorderPane {
 		// Barre de Menu
 			menu_file.getItems().addAll(item_new, item_open, item_save, item_save_under, item_quit);
 				menu_add_edge.getItems().addAll(item_add_edge_relations);
-			menu_edit.getItems().addAll(item_ontologie, item_separator, item_add_vertex, item_add_relation, menu_add_edge);
+			menu_edit.getItems().addAll(item_ontology, item_separator, item_add_vertex, item_add_relation, menu_add_edge);
 				menu_view_relations.getItems().addAll(item_view_relations);
 			menu_tools.getItems().add(item_tools_data);
 			menu_view.getItems().addAll(menu_view_relations, item_show_wording);
@@ -418,10 +424,7 @@ public class TreeView extends BorderPane {
 			public void handle(ActionEvent event) {
 				File F = fileChooser.showOpenDialog(null);
 				if(F != null) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Erreur");
-					alert.setHeaderText("Erreur dans la lecture du fichier");
-					alert.initStyle(StageStyle.UTILITY);
+					alertError.setHeaderText("Erreur dans la lecture du fichier");
 					try {
 						TreeLoader loader = new TreeLoader(tree, F);
 						loader.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
@@ -439,8 +442,8 @@ public class TreeView extends BorderPane {
 						thread.start();
 					} catch (Exception e) {
 						e.printStackTrace();
-						alert.setContentText(e.getMessage());
-						alert.showAndWait();
+						alertError.setContentText(e.getMessage());
+						alertError.showAndWait();
 					}
 				}
 			}
@@ -448,10 +451,7 @@ public class TreeView extends BorderPane {
 		item_save.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Erreur");
-				alert.setHeaderText("Enregistrement impossible.");
-				alert.initStyle(StageStyle.UTILITY);
+				alertError.setHeaderText("Enregistrement impossible.");
 				try {
 					TreeSaver saver = new TreeSaver(tree);
 					info_progress.textProperty().bind(saver.messageProperty());
@@ -465,18 +465,15 @@ public class TreeView extends BorderPane {
 					new Thread(saver).start();
 				} catch (Exception e) {
 					e.printStackTrace();
-					alert.setContentText(e.getMessage());
-					alert.showAndWait();
+					alertError.setContentText(e.getMessage());
+					alertError.showAndWait();
 				}
 			}
 		});
 		item_save_under.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Erreur");
-				alert.setHeaderText("Enregistrement impossible.");
-				alert.initStyle(StageStyle.UTILITY);
+				alertError.setHeaderText("Enregistrement impossible.");
 				File file = fileChooser.showSaveDialog(null);
 				if(file != null) {
 					tree.setFile(file);
@@ -493,8 +490,8 @@ public class TreeView extends BorderPane {
 						new Thread(saver).start();
 					} catch (Exception e) {
 						e.printStackTrace();
-						alert.setContentText(e.getMessage());
-						alert.showAndWait();
+						alertError.setContentText(e.getMessage());
+						alertError.showAndWait();
 					}
 					item_save.setDisable(false);
 				}
@@ -545,7 +542,7 @@ public class TreeView extends BorderPane {
 				} else Platform.exit();
 			}
 		});
-		item_ontologie.setOnAction(new EventHandler<ActionEvent>() {
+		item_ontology.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				if(!Desktop.isDesktopSupported()) {
@@ -570,10 +567,13 @@ public class TreeView extends BorderPane {
 				addVertex.showAndWait();
 				Vertex vertex = addVertex.getVertex();
 				if(vertex != null ) {
+					alertError.setHeaderText("Erreur lors de l'ajout du sommet");
 					try {
 						addVertex(vertex);
 					} catch (TreeException e) {
 						e.printStackTrace();
+						alertError.setContentText(e.getMessage());
+						alertError.showAndWait();
 					}
 				}
 			}
@@ -585,10 +585,13 @@ public class TreeView extends BorderPane {
 				addRelation.showAndWait();
 				Relation relation = addRelation.getRelation();
 				if(relation != null) {
+					alertError.setHeaderText("Erreur lors de l'ajout de la relation");
 					try {
 						addRelation(relation);
 					} catch (TreeException e) {
 						e.printStackTrace();
+						alertError.setContentText(e.getMessage());
+						alertError.showAndWait();
 					}
 				}
 			}
@@ -651,8 +654,6 @@ public class TreeView extends BorderPane {
 		item_auto_id.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				// TODO Auto-generated method stub
-				System.err.println("NON IMPLEMENTE : " + newValue);
 				Settings.setAutoId(item_auto_id.isSelected());
 				try {
 					Settings.saveSettings();
@@ -676,6 +677,7 @@ public class TreeView extends BorderPane {
 		vCM_edit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				alertError.setHeaderText("Erreur lors de l'edition du sommet");
 				try {
 					EditVertexStage editVertexStage = new EditVertexStage(vertexViewSelected.getVertex(), tree);
 					editVertexStage.showAndWait();
@@ -683,22 +685,25 @@ public class TreeView extends BorderPane {
 					if(vertex != null) {
 						info_area.setText(vertex.info());
 						vertexViewSelected.setVertex(vertex);
-						// editVertex(vertexViewSelected.getVertex(), vertex);
 					}
 					saved = false;
 				} catch (VertexException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
+					alertError.setContentText(e.getMessage());
+					alertError.showAndWait();
 				}
 			}
 		});
 		vCM_delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				alertError.setHeaderText("Erreur lors de la suppression du sommet");
 				try {
 					removeVertex(vertexViewSelected);
 				} catch (TreeException e) {
 					e.printStackTrace();
+					alertError.setContentText(e.getMessage());
+					alertError.showAndWait();
 				}
 			}
 		});
@@ -709,20 +714,26 @@ public class TreeView extends BorderPane {
 			public void handle(ActionEvent event) {
 				EditEdgeStage editEdgeStage = new EditEdgeStage(edgeViewSelected.getPair(), edgeViewSelected.getRelation(), tree.getVertices(), tree.getRelationsNames());
 				editEdgeStage.showAndWait();
+				alertError.setHeaderText("Erreur lors de l'édition de l'arc");
 				try {
 					editPair(editEdgeStage.getOldRelationName(), editEdgeStage.getOldPair(), editEdgeStage.getNewRelationName(), editEdgeStage.getNewPair());
 				} catch (Exception e) {
 					e.printStackTrace();
+					alertError.setContentText(e.getMessage());
+					alertError.showAndWait();
 				}
 			}
 		});
 		eCM_delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				alertError.setHeaderText("Erreur lors de la suppression de l'arc");
 				try {
 					removePair(edgeViewSelected.getRelation(), pairToEdit);
 				} catch (Exception e) {
 					e.printStackTrace();
+					alertError.setContentText(e.getMessage());
+					alertError.showAndWait();
 				}
 			}
 		});
@@ -733,10 +744,13 @@ public class TreeView extends BorderPane {
 		rCM_delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				alertError.setHeaderText("Erreur lors de la suppression de la relation");
 				try {
 					removeRelation(relation_list.getSelectionModel().getSelectedItem().getKey());
 				} catch (TreeException e) {
 					e.printStackTrace();
+					alertError.setContentText(e.getMessage());
+					alertError.showAndWait();
 				}
 			}
 		});
