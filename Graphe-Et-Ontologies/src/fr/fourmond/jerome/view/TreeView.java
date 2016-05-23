@@ -22,6 +22,7 @@ import fr.fourmond.jerome.framework.TreeException;
 import fr.fourmond.jerome.framework.TreeLoader;
 import fr.fourmond.jerome.framework.TreeSaver;
 import fr.fourmond.jerome.framework.Vertex;
+import fr.fourmond.jerome.framework.VertexException;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -675,10 +676,20 @@ public class TreeView extends BorderPane {
 		vCM_edit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				EditVertexStage editVertexStage = new EditVertexStage(vertexViewSelected.getVertex());
-				editVertexStage.showAndWait();
-				info_area.setText(editVertexStage.getVertex().info());
-				saved = false;
+				try {
+					EditVertexStage editVertexStage = new EditVertexStage(vertexViewSelected.getVertex(), tree);
+					editVertexStage.showAndWait();
+					Vertex vertex = editVertexStage.getNewVertex();
+					if(vertex != null) {
+						info_area.setText(vertex.info());
+						vertexViewSelected.setVertex(vertex);
+						// editVertex(vertexViewSelected.getVertex(), vertex);
+					}
+					saved = false;
+				} catch (VertexException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		vCM_delete.setOnAction(new EventHandler<ActionEvent>() {
@@ -1206,10 +1217,12 @@ public class TreeView extends BorderPane {
 				addEdge.showAndWait();
 				String name = addEdge.getRelationName();
 				Pair<Vertex, Vertex> pair = addEdge.getPair();
-				try {
-					addPair(name, pair);
-				} catch (Exception e) {
-					e.printStackTrace();
+				if(pair != null) {
+					try {
+						addPair(name, pair);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			} else System.err.println("Pas de sommets");
 		}
