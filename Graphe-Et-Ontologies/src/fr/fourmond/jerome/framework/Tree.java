@@ -335,6 +335,18 @@ public class Tree {
 	}
 	
 	/**
+	 * Retourne un ensemble des attributs utilisés (sauf l'identifiant)
+	 * @return un ensemble des attributs utilisés (sauf l'identifiant)
+	 */
+	public Set<String> dictionnary() {
+		Set<String> attributes = new HashSet<>();
+		for(Vertex vertex : vertices) {
+			attributes.addAll(vertex.getKey());
+		}
+		return attributes;
+	}
+	
+	/**
 	 * Retourne la liste des noms des relations utilisées
 	 * @return la liste des noms des relations utilisées
 	 */
