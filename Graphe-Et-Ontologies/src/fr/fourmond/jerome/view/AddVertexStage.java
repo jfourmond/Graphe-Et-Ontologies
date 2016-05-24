@@ -6,10 +6,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.Set;
 
+import fr.fourmond.jerome.config.Settings;
 import fr.fourmond.jerome.framework.Pair;
+import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
 import fr.fourmond.jerome.framework.VertexException;
 import javafx.event.ActionEvent;
@@ -22,12 +23,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /**
  * {@link AddVertexStage} est un {@link Stage} permettant de créer
@@ -38,14 +40,19 @@ public class AddVertexStage extends Stage {
 	
 	private final static String TITLE = "Graphe Et Ontologies - Nouveau sommet";
 	
+	private Tree tree;
+	
 	private Vertex vertex;
 	
-	private GridPane gridPane;
-	private Text title;
-	private Label ID;
-		private TextField IDField;
-	private Button addAttribute;
-	private Button add;
+	private VBox vBox;
+		private GridPane gridPane;
+			private Text title;
+			private Label ID;
+				private TextField IDField;
+			private Button addAttribute;
+		private HBox hBox;
+			private Button cancel;
+			private Button add;
 		
 	private Set<String> attributes;
 	private List<Pair<Label, TextField>> attributesView;
@@ -56,8 +63,10 @@ public class AddVertexStage extends Stage {
 	private int currentRow;
 	private int currentCol;
 	
-	public AddVertexStage() {
+	public AddVertexStage(Tree tree) {
 		this.setTitle(TITLE);
+		
+		this.tree = tree;
 		
 		attributes = new HashSet<>();
 		attributesView = new ArrayList<>();
@@ -77,17 +86,25 @@ public class AddVertexStage extends Stage {
 	private void buildComposants() {
 		attributesView.clear();
 		
-		gridPane = new GridPane();
-		gridPane.setAlignment(Pos.CENTER);
-		gridPane.setHgap(10);
-		gridPane.setVgap(10);
-		gridPane.setPadding(new Insets(25, 25, 25, 25));
-		
-		title = new Text("Nouveau sommet");
-		ID = new Label("Identifiant");
-		IDField = new TextField(text_id);
-		addAttribute = new Button("Ajouter attribut");
-		add = new Button("Ajouter sommet");
+		if(Settings.isAutoId())
+			text_id = String.valueOf(tree.nextID());
+		vBox = new VBox();
+		vBox.setPadding(new Insets(10, 10, 10, 10));
+			gridPane = new GridPane();
+			gridPane.setAlignment(Pos.CENTER);
+			gridPane.setHgap(10);
+			gridPane.setVgap(10);
+			gridPane.setPadding(new Insets(25, 25, 25, 25));
+				title = new Text("Nouveau sommet");
+				ID = new Label("Identifiant");
+				IDField = new TextField(text_id);
+					if(Settings.isAutoId())
+						IDField.setDisable(true);
+				addAttribute = new Button("Ajouter attribut");
+			hBox = new HBox(10);
+			hBox.setAlignment(Pos.BOTTOM_RIGHT);
+				cancel = new Button("Annuler");
+				add = new Button("Ajouter sommet");
 		
 		// Construction des attributs
 		for(String attribute : attributes) {
@@ -130,12 +147,11 @@ public class AddVertexStage extends Stage {
 		}
 		
 		gridPane.add(addAttribute, 1, currentRow+1);
-		HBox hbBtn = new HBox(10);
-		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().add(add);
-		gridPane.add(add, 0, currentRow+2);
+
+			hBox.getChildren().addAll(cancel, add);
+		vBox.getChildren().addAll(gridPane, hBox);
 		
-		Scene scene = new Scene(gridPane, 400, 300);
+		Scene scene = new Scene(vBox);
 		this.setScene(scene);
 		
 		// For focus
@@ -150,23 +166,19 @@ public class AddVertexStage extends Stage {
 		addAttribute.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				TextInputDialog dialog = new TextInputDialog();
-				dialog.setTitle("Graphe Et Ontologies - Nouveau sommet - Nouvel attribut");
-				dialog.setHeaderText(null);
-				dialog.setContentText("Nom de l'attribut : ");
-				dialog.initStyle(StageStyle.UTILITY);
-				
-				Optional<String> result = dialog.showAndWait();
-				if (result.isPresent()){
-					String s = result.get().trim().toLowerCase();
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Erreur");
-					alert.initStyle(StageStyle.UTILITY);
-					alert.setHeaderText(null);
-					if(s.isEmpty()) {
+				AttributePickerView apd = new AttributePickerView(tree);
+				apd.showAndWait();
+				String result = apd.getAttributePicked();
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erreur");
+				alert.initStyle(StageStyle.UTILITY);
+				alert.setHeaderText(null);
+				if(result != null) {
+					result = result.trim().toLowerCase();
+					if(result.isEmpty()) {
 						alert.setContentText("Aucun attribut saisi.");
 						alert.showAndWait();
-					} else if(!attributes.add(s)) {
+					} else if(!attributes.add(result)) {
 						alert.setContentText("L'attribut existe déjà.");
 						alert.showAndWait();
 					} else {
@@ -178,6 +190,8 @@ public class AddVertexStage extends Stage {
 				}
 			}
 		});
+		cancel.setOnAction(event -> 
+			this.fireEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSE_REQUEST)));
 		add.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -193,6 +207,12 @@ public class AddVertexStage extends Stage {
 					alert.setContentText(e.getMessage());
 					alert.showAndWait();
 				}
+			}
+		});
+		setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				vertex = null;
 			}
 		});
 	}

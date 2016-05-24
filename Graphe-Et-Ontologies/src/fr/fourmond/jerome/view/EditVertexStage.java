@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 
 import fr.fourmond.jerome.framework.Pair;
+import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
+import fr.fourmond.jerome.framework.VertexException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -18,12 +19,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /**
  * {@link EditVertexStage} est un {@link Stage} permettant d'éditer
@@ -33,12 +35,18 @@ import javafx.stage.StageStyle;
 public class EditVertexStage extends Stage {
 	private final static String TITLE = "Graphe Et Ontologies - Edition sommet";
 	
-	private Vertex vertex;
+	private Vertex oldVertex;
+	private Vertex newVertex;
 	
-	private GridPane gridPane;
-		private Text title;
-	private Button addAttribute;
-	private Button edit;
+	private Tree tree;
+	
+	private VBox vBox;
+		private GridPane gridPane;
+			private Text title;
+		private Button addAttribute;
+	private HBox hBox;
+		private Button cancel;
+		private Button edit;
 
 	private Map<String, String> attributes;
 	private List<Pair<Label, TextField>> attributesView;
@@ -46,11 +54,15 @@ public class EditVertexStage extends Stage {
 	private int currentRow;
 	private int currentCol;
 	
-	public EditVertexStage(Vertex vertex) {
+	public EditVertexStage(Vertex vertex, Tree tree) throws VertexException {
 		setTitle(TITLE);
-		this.vertex = vertex;
 		
-		attributes = vertex.getAttributes();
+		this.oldVertex = vertex;
+		this.newVertex = new Vertex(this.oldVertex);
+		
+		this.tree = tree;
+		
+		attributes = this.newVertex.getAttributes();
 		
 		buildComposants();
 		buildInterface();
@@ -58,23 +70,34 @@ public class EditVertexStage extends Stage {
 	}
 	
 	//	GETTERS
-	public Vertex getVertex() { return vertex; }
+	public Vertex getOldVertex() { return oldVertex; }
+	
+	public Vertex getNewVertex() { return newVertex; }
 	
 	//	SETTERS
-	public void setVertex(Vertex vertex) { this.vertex = vertex; }
+	public void setOldVertex(Vertex oldVertex) { this.oldVertex = oldVertex; }
 	
+	public void setNewVertex(Vertex newVertex) { this.newVertex = newVertex; }
+	
+	//	METHODES
 	private void buildComposants() {
 		attributesView = new ArrayList<>();
 		
-		gridPane = new GridPane();
-		gridPane.setAlignment(Pos.CENTER);
-		gridPane.setHgap(10);
-		gridPane.setVgap(10);
-		gridPane.setPadding(new Insets(25, 25, 25, 25));
+		vBox = new VBox();
+		vBox.setPadding(new Insets(10, 10, 10, 10));
+			gridPane = new GridPane();
+			gridPane.setAlignment(Pos.CENTER);
+			gridPane.setHgap(10);
+			gridPane.setVgap(10);
+			gridPane.setPadding(new Insets(25, 25, 25, 25));
 		
-		title = new Text("Edition sommet : " + vertex.getID());
+		title = new Text("Edition sommet : " + oldVertex.getID());
 		addAttribute = new Button("Ajouter attribut");
-		edit = new Button("Editer");
+		
+		hBox = new HBox(10);
+		hBox.setAlignment(Pos.BOTTOM_RIGHT);
+			cancel = new Button("Annuler");
+			edit = new Button("Editer");
 		
 		// Construction des attributs
 		for(Entry<String, String> attribute : attributes.entrySet()) {
@@ -86,41 +109,39 @@ public class EditVertexStage extends Stage {
 	}
 	
 	private void buildInterface() {
-		gridPane.add(title, 0, 0, 2, 1);
-		
-		currentRow = 1;
-		currentCol = 0;
-		
-		for(Pair<Label, TextField> pair : attributesView) {
-			Label label = pair.getFirst();
-			TextField textField = pair.getSecond();
-			Button button = new Button("Supprimer");
-			button.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					String attribute = label.getText();
-					attributes.remove(attribute);
-					attributesView.remove(pair);
-					gridPane.getChildren().removeAll(label, textField, button);
-					currentRow--;
-					save();
-				}
-			});
-			textField.requestFocus();
-			gridPane.add(label, currentCol++, currentRow);
-			gridPane.add(textField, currentCol++, currentRow);
-			gridPane.add(button, currentCol++, currentRow);
-			currentRow++;
+			gridPane.add(title, 0, 0, 2, 1);
+			
+			currentRow = 1;
 			currentCol = 0;
-		}
+			
+			for(Pair<Label, TextField> pair : attributesView) {
+				Label label = pair.getFirst();
+				TextField textField = pair.getSecond();
+				Button button = new Button("Supprimer");
+				button.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						String attribute = label.getText();
+						attributes.remove(attribute);
+						attributesView.remove(pair);
+						gridPane.getChildren().removeAll(label, textField, button);
+						currentRow--;
+						save();
+					}
+				});
+				textField.requestFocus();
+				gridPane.add(label, currentCol++, currentRow);
+				gridPane.add(textField, currentCol++, currentRow);
+				gridPane.add(button, currentCol++, currentRow);
+				currentRow++;
+				currentCol = 0;
+			}
+			
+			gridPane.add(addAttribute, 1, currentRow+1);
+			hBox.getChildren().addAll(cancel, edit);
+		vBox.getChildren().addAll(gridPane, hBox);
 		
-		gridPane.add(addAttribute, 1, currentRow+1);
-		HBox hbBtn = new HBox(10);
-		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().add(edit);
-		gridPane.add(edit, 0, currentRow+2);
-		
-		Scene scene = new Scene(gridPane, 400, 300);
+		Scene scene = new Scene(vBox);
 		this.setScene(scene);
 		
 		// For focus
@@ -135,32 +156,26 @@ public class EditVertexStage extends Stage {
 		addAttribute.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				TextInputDialog dialog = new TextInputDialog();
-				dialog.setTitle("Graphe Et Ontologies - Edition sommet - Nouvel attribut");
-				dialog.setHeaderText(null);
-				dialog.setContentText("Nom de l'attribut : ");
-				dialog.initStyle(StageStyle.UTILITY);
-				
-				Optional<String> result = dialog.showAndWait();
-				if (result.isPresent()){
-					String s = result.get().trim().toLowerCase();
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Erreur");
-					alert.initStyle(StageStyle.UTILITY);
-					alert.setHeaderText(null);
-					if(s.isEmpty()) {
+				AttributePickerView apd = new AttributePickerView(tree);
+				apd.showAndWait();
+				String result = apd.getAttributePicked();
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erreur");
+				alert.initStyle(StageStyle.UTILITY);
+				alert.setHeaderText(null);
+				if(result != null) {
+					result = result.trim().toLowerCase();
+					if(result.isEmpty()) {
 						alert.setContentText("Aucun attribut saisi.");
 						alert.showAndWait();
+					} else if(attributes.containsKey(result)) {
+						alert.setContentText("L'attribut existe déjà.");
+						alert.showAndWait();
 					} else {
-						 if(attributes.containsKey(s)) {
-								alert.setContentText("L'attribut existe déjà.");
-								alert.showAndWait();
-						} else {
-							attributes.put(s, "");
-							buildComposants();
-							buildInterface();
-							buildEvents();
-						}
+						attributes.put(result, "");
+						buildComposants();
+						buildInterface();
+						buildEvents();
 					}
 				}
 			}
@@ -174,12 +189,20 @@ public class EditVertexStage extends Stage {
 				alert.setHeaderText("Edition du sommet impossible.");
 				alert.initStyle(StageStyle.UTILITY);
 				try {
-					vertex.setAttributes(attributes);
+					newVertex.setAttributes(attributes);
 					close();
 				} catch (Exception e) {
 					alert.setContentText(e.getMessage());
 					alert.showAndWait();
 				}
+			}
+		});
+		cancel.setOnAction(event -> 
+			this.fireEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSE_REQUEST)));
+		setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				newVertex = null;
 			}
 		});
 	}

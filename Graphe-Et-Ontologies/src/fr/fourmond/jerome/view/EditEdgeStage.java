@@ -19,8 +19,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 public class EditEdgeStage extends Stage {
@@ -40,14 +42,17 @@ public class EditEdgeStage extends Stage {
 	private ObservableList<Vertex> vertex1;
 	private ObservableList<Vertex> vertex2;
 	
-	private GridPane gridPane;
-	private Text title;
-		private ComboBox<String> CBRelation;
-		private Text from;
-		private ComboBox<Vertex> CB1;
-		private Text to;
-		private ComboBox<Vertex> CB2;
-	private Button edit;
+	private VBox vbox;
+		private GridPane gridPane;
+		private Text title;
+			private ComboBox<String> CBRelation;
+			private Text from;
+			private ComboBox<Vertex> CB1;
+			private Text to;
+			private ComboBox<Vertex> CB2;
+		private HBox hBox;
+			private Button cancel;
+			private Button edit;
 	
 	public EditEdgeStage(Pair<Vertex, Vertex> currentPair, String currentRelation, List<Vertex> vertices, List<String> relations) {
 		setTitle(TITLE + currentRelation + " - Edition Arc");
@@ -86,11 +91,13 @@ public class EditEdgeStage extends Stage {
 		vertex1 = FXCollections.observableArrayList(vertices);
 		vertex2 = FXCollections.observableArrayList(vertices);
 		
-		gridPane = new GridPane();
-		gridPane.setAlignment(Pos.CENTER);
-		gridPane.setHgap(10);
-		gridPane.setVgap(10);
-		gridPane.setPadding(new Insets(25, 25, 25, 25));
+		vbox = new VBox();
+		vbox.setPadding(new Insets(10, 10, 10, 10));
+			gridPane = new GridPane();
+			gridPane.setAlignment(Pos.CENTER);
+			gridPane.setHgap(10);
+			gridPane.setVgap(10);
+			gridPane.setPadding(new Insets(25, 25, 25, 25));
 		
 		title = new Text("Arc");
 			CBRelation = new ComboBox<>(relationList);
@@ -122,23 +129,24 @@ public class EditEdgeStage extends Stage {
 					}
 				});
 				CB2.getSelectionModel().select(oldPair.getSecond());
-		edit = new Button("Modifier");
+		hBox = new HBox(10);
+		hBox.setAlignment(Pos.BOTTOM_RIGHT);
+			cancel = new Button("Annuler");
+			edit = new Button("Modifier");
 	}
 	
 	private void buildInterface() {
-		gridPane.add(title, 0, 0, 2, 1);
-		gridPane.add(CBRelation, 0, 1);
-		gridPane.add(from, 1, 1);
-		gridPane.add(CB1, 2, 1);
-		gridPane.add(to, 3, 1);
-		gridPane.add(CB2, 4, 1);
+			gridPane.add(title, 0, 0, 2, 1);
+			gridPane.add(CBRelation, 0, 1);
+			gridPane.add(from, 1, 1);
+			gridPane.add(CB1, 2, 1);
+			gridPane.add(to, 3, 1);
+			gridPane.add(CB2, 4, 1);
+			
+			hBox.getChildren().addAll(cancel, edit);
+		vbox.getChildren().addAll(gridPane, hBox);
 		
-		HBox hbBtn = new HBox(10);
-		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().add(edit);
-		gridPane.add(edit, 1, 3);
-		
-		Scene scene = new Scene(gridPane, 300, 200);
+		Scene scene = new Scene(gridPane);
 		this.setScene(scene);
 	}
 	
@@ -148,6 +156,15 @@ public class EditEdgeStage extends Stage {
 			public void handle(ActionEvent event) {
 				buildPair();
 				close();
+			}
+		});
+		cancel.setOnAction(event -> 
+			this.fireEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSE_REQUEST)));
+		setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				newPair = null;
+				newRelationName = null;
 			}
 		});
 	}

@@ -18,12 +18,16 @@ public class Tree {
 	private List<Vertex> vertices;
 	private List<Relation> relations;
 	
+	private int AutoID;
+	
 	//	CONSTRUCTEURS
 	public Tree() {
 		file = null;
 		
 		vertices = new ArrayList<>();
 		relations = new ArrayList<>();
+		
+		AutoID = 0;
 	}
 	
 	//	GETTERS
@@ -33,6 +37,8 @@ public class Tree {
 	
 	public List<Relation> getRelations() { return relations; }
 	
+	public int getAutoID() { return AutoID; }
+	
 	//	SETTERS
 	public void setFile(File file) { this.file = file; }
 	
@@ -40,6 +46,7 @@ public class Tree {
 	
 	public void setRelations(List<Relation> relations) { this.relations = relations; }
 	
+	public void setAutoID(int autoID) { AutoID = autoID; }
 	
 	//	METHODES
 	/**
@@ -124,6 +131,12 @@ public class Tree {
 		}
 		return false;
 	}
+	
+	/**
+	 * Retourne l'identifiant pouvant être utilisé suivant (sous la forme d'un {@link Integer})
+	 * @return l'identifiant pouvant être utilisé suivant (sous la forme d'un {@link Integer})
+	 */
+	public int nextID() { return AutoID+1; }
 	
 	/**
 	 * Teste s'il n'existe pas des sommets dans l'arbre
@@ -328,6 +341,18 @@ public class Tree {
 	public Set<String> getAttributes() {
 		Set<String> attributes = new HashSet<>();
 		attributes.add("ID");
+		for(Vertex vertex : vertices) {
+			attributes.addAll(vertex.getKey());
+		}
+		return attributes;
+	}
+	
+	/**
+	 * Retourne un ensemble des attributs utilisés (sauf l'identifiant)
+	 * @return un ensemble des attributs utilisés (sauf l'identifiant)
+	 */
+	public Set<String> dictionnary() {
+		Set<String> attributes = new HashSet<>();
 		for(Vertex vertex : vertices) {
 			attributes.addAll(vertex.getKey());
 		}

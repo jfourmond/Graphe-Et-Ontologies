@@ -27,12 +27,13 @@ public class TreeLoader extends Task<Boolean> {
 		private static final String LIEN = "LIEN";
 	
 	private static String XSDFile = "lib/schema.xsd";
-		
-	private Tree tree;
-	
-	private SAXBuilder saxBuilder;
 	
 	private static String vertexKey;
+	
+	private Tree tree;
+		private int maxID = 0;
+	
+	private SAXBuilder saxBuilder;
 	
 	public TreeLoader(Tree tree) { this.tree = tree; }
 	
@@ -87,16 +88,26 @@ public class TreeLoader extends Task<Boolean> {
 		
 		// Création des sommets
 		for(Element courant : entries) {
-			vertexKey = courant.getAttributeValue(ID);							// Clé du sommet actuel
-			tmpTree.createVertex(vertexKey);									// Création du sommet actuel
-			List<Element> attributes = courant.getChildren(ATTRIBUT);			// Récupération des attributs
+			vertexKey = courant.getAttributeValue(ID);					// Clé du sommet actuel
+			tmpTree.createVertex(vertexKey);							// Création du sommet actuel
+			int id;
+			try {
+				id = Integer.parseInt(vertexKey);
+				if(id > maxID)
+					maxID = id;
+			} catch(Exception E) {
+				E.printStackTrace();
+			}
+			List<Element> attributes = courant.getChildren(ATTRIBUT);	// Récupération des attributs
 			for(Element attribute : attributes) {
-				String name = attribute.getAttributeValue(NOM);					// Identifiant de l'attribut actuel
-				String value = attribute.getAttributeValue(VALEUR);				// Valeur de l'attribut actuel
-				tmpTree.addAttribute(vertexKey, name, value);				// Ajout de l'attribut actuel au sommet actuel
+				String name = attribute.getAttributeValue(NOM);			// Identifiant de l'attribut actuel
+				String value = attribute.getAttributeValue(VALEUR);		// Valeur de l'attribut actuel
+				tmpTree.addAttribute(vertexKey, name, value);			// Ajout de l'attribut actuel au sommet actuel
 			}
 			updateProgress(++index, indexSize);
 		}
+		
+		tmpTree.setAutoID(maxID);
 		
 		String vertex1;
 		// Création des relations

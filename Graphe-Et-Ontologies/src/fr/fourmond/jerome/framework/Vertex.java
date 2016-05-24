@@ -25,6 +25,11 @@ public class Vertex {
 		}
 	}
 	
+	public Vertex(Vertex vertex) throws VertexException {
+		ID = vertex.getID();
+		attributes = new HashMap<>(vertex.getAttributes());
+	}
+	
 	//	GETTERS
 	public String getID() { return ID; }
 	
