@@ -30,6 +30,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -52,7 +53,10 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -404,10 +408,14 @@ public class TreeView extends BorderPane {
 		east.setDividerPositions(0.3f, 0.6f, 0.9f);
 		bottom.getChildren().addAll(pb, info_progress);
 		
-		setTop(menuBar);
+		// center.prefHeightProperty().bind(this.heightProperty());
+		// center.minHeightProperty().bind(this.heightProperty());
+		
 		setCenter(center);
+		setTop(menuBar);
 		setRight(east);
 		setBottom(bottom);
+		
 	}
 	
 	private void drawVertices() { center.getChildren().addAll(verticesView); }
@@ -461,16 +469,7 @@ public class TreeView extends BorderPane {
 			public void handle(ActionEvent event) {
 				alertError.setHeaderText("Enregistrement impossible.");
 				try {
-					TreeSaver saver = new TreeSaver(tree);
-					info_progress.textProperty().bind(saver.messageProperty());
-					pb.progressProperty().bind(saver.progressProperty());
-					saver.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-						@Override
-						public void handle(WorkerStateEvent event) {
-							saved = true;
-						}
-					});
-					new Thread(saver).start();
+					save();
 				} catch (Exception e) {
 					e.printStackTrace();
 					alertError.setContentText(e.getMessage());
@@ -486,16 +485,7 @@ public class TreeView extends BorderPane {
 				if(file != null) {
 					tree.setFile(file);
 					try {
-						TreeSaver saver = new TreeSaver(tree);
-						info_progress.textProperty().bind(saver.messageProperty());
-						pb.progressProperty().bind(saver.progressProperty());
-						saver.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-							@Override
-							public void handle(WorkerStateEvent event) {
-								saved = true;
-							}
-						});
-						new Thread(saver).start();
+						save();
 					} catch (Exception e) {
 						e.printStackTrace();
 						alertError.setContentText(e.getMessage());
@@ -631,8 +621,6 @@ public class TreeView extends BorderPane {
 		item_auto_save.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				// TODO Auto-generated method stub
-				System.err.println("NON IMPLEMENTE : " + newValue);
 				Settings.setAutoSave(item_auto_save.isSelected());
 				try {
 					Settings.saveSettings();
@@ -906,6 +894,19 @@ public class TreeView extends BorderPane {
 		return list;
 	}
 	
+	private void save() {
+		TreeSaver saver = new TreeSaver(tree);
+		info_progress.textProperty().bind(saver.messageProperty());
+		pb.progressProperty().bind(saver.progressProperty());
+		saver.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+			@Override
+			public void handle(WorkerStateEvent event) {
+				saved = true;
+			}
+		});
+		new Thread(saver).start();
+	}
+	
 	/**
 	 * Ajout d'un sommet
 	 * @param vertex : sommet à ajouter
@@ -928,7 +929,9 @@ public class TreeView extends BorderPane {
 		// Edition de la liste
 		verticesViewForList.add(vertexView);
 		
-		saved = false;
+		if(Settings.isAutoSave())
+			save();
+		else saved = false;
 	}
 	
 	/**
@@ -958,7 +961,9 @@ public class TreeView extends BorderPane {
 		// Edition de la liste
 		verticesViewForList.remove(vertex);
 		
-		saved = false;
+		if(Settings.isAutoSave())
+			save();
+		else saved = false;
 	}
 	
 	/**
@@ -1050,7 +1055,9 @@ public class TreeView extends BorderPane {
 		colorRelationForList = FXCollections.observableArrayList(colorRelation.entrySet());
 		relation_list.setItems(colorRelationForList);
 		
-		saved = false;
+		if(Settings.isAutoSave())
+			save();
+		else saved = false;
 	}
 	
 	/**
@@ -1152,7 +1159,9 @@ public class TreeView extends BorderPane {
 		colorRelation.remove(name);
 		edgesView.remove(name);
 		
-		saved = false;
+		if(Settings.isAutoSave())
+			save();
+		else saved = false;
 	}
 	
 	/**
@@ -1180,7 +1189,9 @@ public class TreeView extends BorderPane {
 		
 		center.getChildren().add(edgeView);
 		
-		saved = false;
+		if(Settings.isAutoSave())
+			save();
+		else saved = false;
 	}
 	
 	/**
@@ -1219,7 +1230,9 @@ public class TreeView extends BorderPane {
 		
 		center.getChildren().remove(edgeView);
 		
-		saved = false;
+		if(Settings.isAutoSave())
+			save();
+		else saved = false;
 	}
 	
 	protected class CenterClicked implements EventHandler<MouseEvent> {
