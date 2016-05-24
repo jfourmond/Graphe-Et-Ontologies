@@ -20,6 +20,11 @@ public class Relation {
 		this.pairs = new ArrayList<>();
 	}
 	
+	public Relation(Relation relation) {
+		this.name = relation.name;
+		this.pairs = new ArrayList<>(relation.pairs);
+	}
+	
 	//	GETTERS
 	public String getName() { return name; }
 	
@@ -114,6 +119,18 @@ public class Relation {
 			pairs.remove(pair);
 		}
 	}
+	
+	/**
+	 * Retourne le nombre d'arc
+	 * @return le nombre d'arc
+	 */
+	public int size() { return pairs.size(); }
+	
+	/**
+	 * Retourne <code>true</code> si la relation ne contient aucun arc, <code>false</code> sinon
+	 * @return <code>true</code> si la relation ne contient aucun arc, <code>false</code> sinon
+	 */
+	public boolean isEmpty() { return pairs.isEmpty(); }
 	
 	@Override
 	public String toString() {
