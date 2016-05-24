@@ -107,7 +107,7 @@ public class TreeLoader extends Task<Boolean> {
 			updateProgress(++index, indexSize);
 		}
 		
-		tmpTree.setAutoID(maxID);
+		tmpTree.setAutoID(maxID+1);
 		
 		String vertex1;
 		// Création des relations

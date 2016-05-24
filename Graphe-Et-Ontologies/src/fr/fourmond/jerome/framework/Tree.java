@@ -73,6 +73,7 @@ public class Tree {
 	public Vertex createVertex(Vertex vertex) throws TreeException {
 		if(getVertex(vertex.getID()) == null) {
 			vertices.add(vertex);
+			calculateAutoID();
 			return vertex;
 		} else throw new TreeException("Le sommet existe déjà.");
 	}
@@ -111,6 +112,7 @@ public class Tree {
 	public void removeVertex(Vertex vertex) throws TreeException {
 		if(!vertices.remove(vertex)) throw new TreeException("Le sommet n'existe pas.");
 		else removeRelatedPair(vertex);
+		calculateAutoID();
 	}
 	
 	/**
@@ -133,10 +135,16 @@ public class Tree {
 	}
 	
 	/**
-	 * Retourne l'identifiant pouvant être utilisé suivant (sous la forme d'un {@link Integer})
-	 * @return l'identifiant pouvant être utilisé suivant (sous la forme d'un {@link Integer})
+	 * Retourne l'identifiant unique courant
+	 * @return l'identifiant unique courant
 	 */
-	public int nextID() { return AutoID+1; }
+	public int currentID() { return AutoID; }
+	
+	/**
+	 * AutoID est incrémenté d'une unité et renvoyé
+	 * @return de l'idenfiant unique pouvant être utilisés après incrémentation
+	 */
+	public int nextID() { return AutoID++; }
 	
 	/**
 	 * Teste s'il n'existe pas des sommets dans l'arbre
@@ -369,6 +377,24 @@ public class Tree {
 			list.add(relation.getName());
 		}
 		return list;
+	}
+	
+	/**
+	 * Calcul de l'identifiant automatique à envoyer au prochain appel de next();
+	 */
+	public void calculateAutoID() {
+		int maxID = 0;
+		for(Vertex vertex : vertices) {
+			int id;
+			try {
+				id = Integer.parseInt(vertex.getID());
+				if(id > maxID)
+					maxID = id;
+			} catch(Exception E) {
+				E.printStackTrace();
+			}
+		}
+		AutoID = maxID+1;
 	}
 	
 	@Override
