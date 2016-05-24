@@ -781,9 +781,10 @@ public class TreeView extends BorderPane {
 		vLCM_delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				VertexView vertex = vertex_list.getSelectionModel().getSelectedItem();
 				alertError.setHeaderText("Erreur lors de la suppression du sommet");
 				try {
-					removeVertex(vertex_list.getSelectionModel().getSelectedItem());
+					removeVertex(vertex);
 				} catch (TreeException e) {
 					e.printStackTrace();
 					alertError.setContentText(e.getMessage());
