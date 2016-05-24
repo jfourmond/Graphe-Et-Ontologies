@@ -963,9 +963,9 @@ public class TreeView extends BorderPane {
 	 * @throws TreeException si le sommet n'existe pas
 	 */
 	private void removeVertex(VertexView vertex) throws TreeException {
-		tree.removeVertex(vertexViewSelected.getVertex());	// Lors de sa suppression, tous les arcs qui le liaient avec d'autres sommets sont supprimés 
+		tree.removeVertex(vertex.getVertex());	// Lors de sa suppression, tous les arcs qui le liaient avec d'autres sommets sont supprimés 
 		// Suppression de son composant graphique
-		verticesView.remove(vertexViewSelected);
+		verticesView.remove(vertex);
 		
 		center.getChildren().remove(vertex);
 		
