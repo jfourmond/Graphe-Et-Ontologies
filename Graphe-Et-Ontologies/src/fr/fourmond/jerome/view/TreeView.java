@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 
 import fr.fourmond.jerome.config.Settings;
@@ -49,6 +50,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -143,6 +145,7 @@ public class TreeView extends BorderPane {
 			private List<MenuItem> tCM_add_edge_relations;
 	
 	private ContextMenu relationContextMenu;
+		private MenuItem rCM_edit;
 		private MenuItem rCM_delete;
 			
 	private FileChooser fileChooser;
@@ -244,6 +247,7 @@ public class TreeView extends BorderPane {
 			tCM_add_edge = new Menu("Nouvel arc");
 		
 		relationContextMenu = new ContextMenu();
+			rCM_edit = new MenuItem("Editer");
 			rCM_delete = new MenuItem("Supprimer");
 			
 		for(Relation relation : tree.getRelations()) {
@@ -385,10 +389,12 @@ public class TreeView extends BorderPane {
 			tCM_add_edge.getItems().addAll(tCM_add_edge_relations);
 		treeContextMenu.getItems().addAll(tCM_add_vertex, tCM_add_relation, tCM_add_edge);
 		
-		relationContextMenu.getItems().add(rCM_delete);
+		relationContextMenu.getItems().addAll(rCM_edit, rCM_delete);
 		
 		drawVertices();
 		drawEdges();
+		
+		relation_list.setContextMenu(relationContextMenu);
 		
 		info_box.getChildren().addAll(info_label, info_area);
 		VBox.setVgrow(info_area, Priority.ALWAYS);
@@ -741,6 +747,27 @@ public class TreeView extends BorderPane {
 		eCM_add_relation.setOnAction(item_add_relation.getOnAction());
 		tCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
 		tCM_add_relation.setOnAction(item_add_relation.getOnAction());
+		rCM_edit.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				String ch = relation_list.getSelectionModel().getSelectedItem().getKey();
+				TextInputDialog tid = new TextInputDialog(ch);
+				tid.setTitle("Graphe Et Ontologies - Edition relation");
+				tid.setHeaderText(null);
+				tid.setContentText("Veuillez saisir le nouveau de nom de la relation");
+				
+				Optional<String> result = tid.showAndWait();
+				if (result.isPresent()){
+					String rl = result.get();
+					if(rl != null && !rl.isEmpty())
+						try {
+							editRelation(ch, rl);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+				}
+			}
+		});
 		rCM_delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -806,7 +833,22 @@ public class TreeView extends BorderPane {
 				}
 			}
 		});
-		relation_list.setContextMenu(relationContextMenu);
+		relation_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Entry<String, Color>>() {
+			@Override
+			public void changed(ObservableValue<? extends Entry<String, Color>> observable,
+					Entry<String, Color> oldValue, Entry<String, Color> newValue) {
+				if(newValue != null) {
+					String relationName = newValue.getKey();
+					for(List<EdgeView> edges : edgesView.values()) {
+						for(EdgeView edge : edges) {
+							if(edge.getRelation().equals(relationName))
+								edge.setSelected(true);
+							else edge.setSelected(false);
+						}
+					}
+				}
+			}
+		});
 	}
 	
 	private void buildProperties() {
@@ -907,8 +949,11 @@ public class TreeView extends BorderPane {
 	 */
 	private void addRelation(Relation relation) throws TreeException {
 		tree.createRelation(relation);
-		Color color = colorDistribution.next();
-		colorRelation.put(relation.getName(), color);
+		
+		if(!colorRelation.containsKey(relation.getName())) {
+			Color color = colorDistribution.next();
+			colorRelation.put(relation.getName(), color);
+		}
 		
 		// Création de ses composants graphiques et events
 		MenuItem menuItem = new MenuItem(relation.getName());
@@ -964,7 +1009,23 @@ public class TreeView extends BorderPane {
 		// Edition de la zone d'info
 		info_area.setText(tree.toString());
 		
-		edgesView.put(relation.getName(), new ArrayList<>());
+		// Ajout des arcs présents ou non
+		if(relation.isEmpty())
+			edgesView.put(relation.getName(), new ArrayList<>());
+		else {
+			List<Pair<Vertex, Vertex>> pairs = relation.getPairs();
+			List<EdgeView> edges = new ArrayList<>();
+			for(Pair<Vertex, Vertex> pair : pairs) {
+				VertexView start = getViewFromVertex(pair.getFirst());
+				VertexView end = getViewFromVertex(pair.getSecond());
+				EdgeView edge = new EdgeView(relation.getName(), start, end, colorRelation.get(relation.getName()));
+				edge.setWordingVisible(Settings.isShowWording());
+				edge.setOnMouseClicked(new EdgeClicked(edge));
+				center.getChildren().add(edge);
+				edges.add(edge);
+			}
+			edgesView.put(relation.getName(), edges);
+		}
 		
 		// Edition de la liste
 		colorRelationForList = FXCollections.observableArrayList(colorRelation.entrySet());
@@ -973,6 +1034,29 @@ public class TreeView extends BorderPane {
 		saved = false;
 	}
 	
+	/**
+	 * Edition de la relation
+	 * @param oldName : nom de la relation à modifier
+	 * @param newName : nouveau nom de la relation à modifier
+	 * @throws RelationException si le nouveau nom est vide ou <code>null</code>
+	 * @throws TreeException si la relation n'existe pas
+	 */
+	private void editRelation(String oldName, String newName) throws RelationException, TreeException {
+		Relation relation = new Relation(tree.getRelation(oldName));
+		relation.setName(newName);
+		
+		Color color = colorRelation.remove(oldName);
+		colorRelation.put(newName, color);
+		
+		removeRelation(oldName);
+		addRelation(relation);
+	}
+	
+	/**
+	 * Suppression d'une relation
+	 * @param name : nom de la relation à supprimer
+	 * @throws TreeException si la relation n'existe pas
+	 */
 	private void removeRelation(String name) throws TreeException {
 		// Suppression des composants graphiques
 		// 	Menu Edition
