@@ -1,8 +1,6 @@
 package fr.fourmond.jerome.view;
 
-import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -89,8 +87,6 @@ public class TreeView extends BorderPane {
 		private MenuItem item_save_under;
 		private MenuItem item_quit;
 	private Menu menu_edit;
-		private MenuItem item_ontology;
-		private SeparatorMenuItem item_separator;
 		private MenuItem item_add_vertex;
 		private MenuItem item_add_relation;
 		private Menu menu_add_edge;
@@ -210,8 +206,6 @@ public class TreeView extends BorderPane {
 			item_save_under = new MenuItem("Enregistrer sous");
 			item_quit = new MenuItem("Quitter");
 		menu_edit = new Menu("Edition");
-			item_ontology = new MenuItem("Ontologie");
-			item_separator = new SeparatorMenuItem();
 			item_add_vertex = new MenuItem("Nouveau sommet");
 			item_add_relation = new MenuItem("Nouvelle relation");
 			menu_add_edge = new Menu("Nouvel arc");
@@ -276,10 +270,8 @@ public class TreeView extends BorderPane {
 			tCM_add_edge.setDisable(true);
 		}
 		
-		if(tree.getFile() == null) {
-			item_ontology.setDisable(true);
+		if(tree.getFile() == null)
 			item_save.setDisable(true);
-		}
 		
 		// CENTRE
 		center = new Pane();
@@ -379,7 +371,7 @@ public class TreeView extends BorderPane {
 		// Barre de Menu
 			menu_file.getItems().addAll(item_new, item_open, item_save, item_save_under, item_quit);
 				menu_add_edge.getItems().addAll(item_add_edge_relations);
-			menu_edit.getItems().addAll(item_ontology, item_separator, item_add_vertex, item_add_relation, menu_add_edge);
+			menu_edit.getItems().addAll(item_add_vertex, item_add_relation, menu_add_edge);
 				menu_view_relations.getItems().addAll(item_view_relations);
 			menu_tools.getItems().add(item_tools_data);
 			menu_view.getItems().addAll(menu_view_relations, item_show_wording);
@@ -556,24 +548,6 @@ public class TreeView extends BorderPane {
 						}
 					});
 				} else Platform.exit();
-			}
-		});
-		item_ontology.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if(!Desktop.isDesktopSupported()) {
-					System.err.println("Ouverture non supportée ! ");
-					return;
-				}
-				try {
-					File file = tree.getFile();
-					if(file != null && file.exists()) {
-						Desktop desktop = Desktop.getDesktop();
-						desktop.open(file);
-					} else System.err.println("File don't exist");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 			}
 		});
 		item_add_vertex.setOnAction(new EventHandler<ActionEvent>() {
