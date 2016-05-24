@@ -144,9 +144,13 @@ public class TreeView extends BorderPane {
 		private Menu tCM_add_edge;
 			private List<MenuItem> tCM_add_edge_relations;
 	
-	private ContextMenu relationContextMenu;
-		private MenuItem rCM_edit;
-		private MenuItem rCM_delete;
+	private ContextMenu vertexListContextMenu;
+		private MenuItem vLCM_edit;
+		private MenuItem vLCM_delete;
+			
+	private ContextMenu relationListContextMenu;
+		private MenuItem rLCM_edit;
+		private MenuItem rLCM_delete;
 			
 	private FileChooser fileChooser;
 	
@@ -246,9 +250,13 @@ public class TreeView extends BorderPane {
 			tCM_add_relation = new MenuItem("Nouvelle relation");
 			tCM_add_edge = new Menu("Nouvel arc");
 		
-		relationContextMenu = new ContextMenu();
-			rCM_edit = new MenuItem("Editer");
-			rCM_delete = new MenuItem("Supprimer");
+		vertexListContextMenu = new ContextMenu();
+			vLCM_edit = new MenuItem("Editer");
+			vLCM_delete = new MenuItem("Supprimer");
+			
+		relationListContextMenu = new ContextMenu();
+			rLCM_edit = new MenuItem("Editer");
+			rLCM_delete = new MenuItem("Supprimer");
 			
 		for(Relation relation : tree.getRelations()) {
 			item_add_edge_relations.add(new MenuItem(relation.getName()));
@@ -389,12 +397,14 @@ public class TreeView extends BorderPane {
 			tCM_add_edge.getItems().addAll(tCM_add_edge_relations);
 		treeContextMenu.getItems().addAll(tCM_add_vertex, tCM_add_relation, tCM_add_edge);
 		
-		relationContextMenu.getItems().addAll(rCM_edit, rCM_delete);
+		vertexListContextMenu.getItems().addAll(vLCM_edit, vLCM_delete);
+		relationListContextMenu.getItems().addAll(rLCM_edit, rLCM_delete);
 		
 		drawVertices();
 		drawEdges();
 		
-		relation_list.setContextMenu(relationContextMenu);
+		vertex_list.setContextMenu(vertexListContextMenu);
+		relation_list.setContextMenu(relationListContextMenu);
 		
 		info_box.getChildren().addAll(info_label, info_area);
 		VBox.setVgrow(info_area, Priority.ALWAYS);
@@ -747,7 +757,41 @@ public class TreeView extends BorderPane {
 		eCM_add_relation.setOnAction(item_add_relation.getOnAction());
 		tCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
 		tCM_add_relation.setOnAction(item_add_relation.getOnAction());
-		rCM_edit.setOnAction(new EventHandler<ActionEvent>() {
+		vLCM_edit.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Vertex toEdit = vertex_list.getSelectionModel().getSelectedItem().getVertex();
+				alertError.setHeaderText("Erreur lors de l'edition du sommet");
+				try {
+					EditVertexStage editVertexStage = new EditVertexStage(toEdit, tree);
+					editVertexStage.showAndWait();
+					Vertex vertex = editVertexStage.getNewVertex();
+					if(vertex != null) {
+						info_area.setText(vertex.info());
+						vertex_list.getSelectionModel().getSelectedItem().setVertex(vertex);
+					}
+					saved = false;
+				} catch (VertexException e) {
+					e.printStackTrace();
+					alertError.setContentText(e.getMessage());
+					alertError.showAndWait();
+				}
+			}
+		});
+		vLCM_delete.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				alertError.setHeaderText("Erreur lors de la suppression du sommet");
+				try {
+					removeVertex(vertex_list.getSelectionModel().getSelectedItem());
+				} catch (TreeException e) {
+					e.printStackTrace();
+					alertError.setContentText(e.getMessage());
+					alertError.showAndWait();
+				}
+			}
+		});
+		rLCM_edit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				String ch = relation_list.getSelectionModel().getSelectedItem().getKey();
@@ -768,7 +812,7 @@ public class TreeView extends BorderPane {
 				}
 			}
 		});
-		rCM_delete.setOnAction(new EventHandler<ActionEvent>() {
+		rLCM_delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				alertError.setHeaderText("Erreur lors de la suppression de la relation");
