@@ -1,6 +1,7 @@
 package fr.fourmond.jerome.view;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,7 +31,6 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -53,10 +53,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -342,10 +339,28 @@ public class TreeView extends BorderPane {
 	}
 	
 	private void buildVertices() {
+		SavedPos sp = null;
+		if(tree.getFile() != null) {
+			sp = new SavedPos(tree.getFile());
+			try {
+				sp.load();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		List<Vertex> vertices = tree.getVertices();
 		VertexView vertexView;
 		for(Vertex vertex : vertices) {
-			vertexView = new VertexView(vertex, placement.next());
+			Pair<Double, Double> pair = null;
+			if(sp != null) {
+				pair = sp.positionOf(vertex.getID());
+				System.out.println(pair);
+			}
+			if(pair != null)
+				vertexView = new VertexView(vertex, pair);
+			else 
+				vertexView = new VertexView(vertex, placement.next());
 			verticesView.add(vertexView);
 		}
 	}
@@ -905,6 +920,14 @@ public class TreeView extends BorderPane {
 			}
 		});
 		new Thread(saver).start();
+		
+		SavedPos sp = new SavedPos(tree.getFile(), verticesView);
+		try {
+			sp.save(verticesView);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -1327,6 +1350,8 @@ public class TreeView extends BorderPane {
 			if(event.getButton() == MouseButton.PRIMARY) {
 				vertexView.setCenterX(event.getX());
 				vertexView.setCenterY(event.getY());
+				
+				saved = false;
 			}
 		}
 	}
