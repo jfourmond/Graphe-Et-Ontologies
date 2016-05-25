@@ -20,6 +20,11 @@ import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.TreeLoaderException;
 import javafx.concurrent.Task;
 
+/**
+ * {@link SavedPos} est une classe utilisée pour sauvegarder des positions
+ * de {@link VertexView} dans un fichier XML
+ * @author jfourmond
+ */
 public class SavedPos {
 	private static final String FILE = "FILE";
 		private static final String PATH = "path";
@@ -110,7 +115,6 @@ public class SavedPos {
 			
 			List<Element> entries =  racine.getChildren(ENTREE);
 
-			// Création des sommets
 			for(Element courant : entries) {
 				String vertex = courant.getAttributeValue(ID);		// Clé du sommet
 				Element posX = courant.getChild(X);					// Position X
