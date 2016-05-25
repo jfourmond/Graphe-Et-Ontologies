@@ -2,6 +2,7 @@ package fr.fourmond.jerome.view;
 
 import java.awt.Point;
 
+import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.Vertex;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -54,6 +55,21 @@ public class VertexView extends Group {
 		getChildren().add(label);
 		
 		selected = false;
+	}
+	
+	public VertexView(Vertex vertex, Pair<Double, Double> pair) {
+		super();
+		this.vertex = vertex;
+		
+		circle = new Circle(pair.getFirst(), pair.getSecond(), diameter, Color.TRANSPARENT);
+		circle.setStroke(Color.BLACK);
+		
+		label = new Label(vertex.getID());
+		label.setTranslateX(circle.getCenterX());
+		label.setTranslateY(circle.getCenterY());
+		
+		getChildren().add(circle);
+		getChildren().add(label);
 	}
 	
 	//	GETTERS

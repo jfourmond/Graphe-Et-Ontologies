@@ -87,7 +87,7 @@ public class AddVertexStage extends Stage {
 		attributesView.clear();
 		
 		if(Settings.isAutoId())
-			text_id = String.valueOf(tree.nextID());
+			text_id = String.valueOf(tree.currentID());
 		vBox = new VBox();
 		vBox.setPadding(new Insets(10, 10, 10, 10));
 			gridPane = new GridPane();

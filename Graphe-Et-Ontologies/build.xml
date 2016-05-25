@@ -11,6 +11,7 @@
 	<property name="src.dir" value="src" />
 	<property name="bin.dir" value="bin" />
 	<property name="test.dir" value="test" />
+	<property name="tmp.dir" value="tmp" />
 
 	<property name="src.test.dir" value="${src.dir}/${test.dir}" />
 
@@ -63,6 +64,7 @@
 		<!--  initialize  -->
 	<target name="init" description="create directory-ies">
 		<mkdir dir="${bin.dir}" />
+		<mkdir dir="${tmp.dir}" />
 	</target>
 
 		<!--  compile -->
@@ -83,10 +85,10 @@
 	<!-- =========== run =========== -->
 	<!-- =========================== -->
 		<!-- run Main -->
-	<target name="run">
+	<target name="run" depends="build" >
 		<java classname="Launcher" fork="true"
 			 classpathref="run.classpath" >
-			<arg value="${arg0}" />
+			<!-- <arg value="${arg0}" /> -->
 		</java>
 	</target>
 
