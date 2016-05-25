@@ -355,7 +355,6 @@ public class TreeView extends BorderPane {
 			Pair<Double, Double> pair = null;
 			if(sp != null) {
 				pair = sp.positionOf(vertex.getID());
-				System.out.println(pair);
 			}
 			if(pair != null)
 				vertexView = new VertexView(vertex, pair);
@@ -1252,6 +1251,9 @@ public class TreeView extends BorderPane {
 		list.remove(edgeView);
 		
 		center.getChildren().remove(edgeView);
+		
+		// Edition de la zone d'info
+		info_area.setText(tree.toString());
 		
 		if(Settings.isAutoSave())
 			save();

@@ -113,6 +113,9 @@ public class SavedPos {
 			if(!racine.getName().equals(FILE))
 				throw new TreeLoaderException("La DTD n'est pas respectée.");
 			
+			if(!racine.getAttribute(PATH).getValue().equals(treeFile.getCanonicalPath()))
+				throw new Exception("Le chemin associé est différent.");
+			
 			List<Element> entries =  racine.getChildren(ENTREE);
 
 			for(Element courant : entries) {
