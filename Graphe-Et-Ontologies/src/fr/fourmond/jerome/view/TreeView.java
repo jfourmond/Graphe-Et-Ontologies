@@ -451,7 +451,6 @@ public class TreeView extends BorderPane {
 		setTop(menuBar);
 		setRight(east);
 		setBottom(bottom);
-		
 	}
 	
 	private void drawVertices() { center.getChildren().addAll(verticesView); }
