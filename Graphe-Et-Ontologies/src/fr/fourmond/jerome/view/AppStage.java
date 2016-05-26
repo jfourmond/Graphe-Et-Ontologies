@@ -1,6 +1,9 @@
 package fr.fourmond.jerome.view;
 
+import fr.fourmond.jerome.config.Settings;
 import fr.fourmond.jerome.framework.Tree;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -20,7 +23,29 @@ public class AppStage extends Stage {
 		this.tree= tree;
 		
 		treeView = new TreeView(this.tree);
-		this.setScene(new Scene(treeView, 800, 600));
+		
+		this.setScene(new Scene(treeView, Settings.getWidth(), Settings.getHeight()));
+		
+		getScene().widthProperty().addListener(new ChangeListener<Number>() {
+			@Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+				try {
+					Settings.setWidth(newSceneWidth.doubleValue());
+					Settings.saveSettings();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		getScene().heightProperty().addListener(new ChangeListener<Number>() {
+			@Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+				try {
+					Settings.setHeight(newSceneHeight.doubleValue());
+					Settings.saveSettings();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		
 		setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
