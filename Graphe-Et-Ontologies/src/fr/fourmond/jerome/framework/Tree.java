@@ -184,11 +184,6 @@ public class Tree {
 	}
 	
 	/**
-	 * 
-	 * @param value : valeur de l'attribut
-	 * @throws VertexException 
-	 */
-	/**
 	 * Association d'un attribut et de sa valeur correspondante avec un sommet
 	 * @param vertexID : identifiant unique du sommet
 	 * @param attributeID : identifiant unique de l'attribut
