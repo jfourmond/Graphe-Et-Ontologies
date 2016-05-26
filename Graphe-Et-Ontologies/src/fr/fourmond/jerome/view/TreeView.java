@@ -50,6 +50,9 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -59,6 +62,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
@@ -108,7 +112,7 @@ public class TreeView extends BorderPane {
 		private Map<String, List<EdgeView>> edgesView;
 	private SplitPane east;
 		private VBox info_box;;
-			private Label info_label;
+			private Text info_label;
 			private TextArea info_area;
 			private ListView<VertexView> vertex_list;
 				private ObservableList<VertexView> verticesViewForList;
@@ -181,6 +185,11 @@ public class TreeView extends BorderPane {
 		placement = new Placement();
 		colorDistribution = new ColorDistribution();
 		fileChooser = new FileChooser();
+		fileChooser.setTitle("Ouvrir un fichier xml");
+		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("Tous fichiers", "*.*"),
+				new FileChooser.ExtensionFilter("XML", "*.xml")
+			);
 		
 		colorRelation = new HashMap<>();
 		
@@ -203,8 +212,11 @@ public class TreeView extends BorderPane {
 		menuBar = new MenuBar();
 		menu_file = new Menu("Fichier");
 			item_new = new MenuItem("Nouveau");
+				item_new.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
 			item_open = new MenuItem("Ouvrir");
+				item_open.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
 			item_save = new MenuItem("Enregistrer");
+				item_save.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
 			item_save_under = new MenuItem("Enregistrer sous");
 			item_quit = new MenuItem("Quitter");
 		menu_edit = new Menu("Edition");
@@ -284,7 +296,7 @@ public class TreeView extends BorderPane {
 		east.setOrientation(Orientation.VERTICAL);
 		east.setPrefHeight(east.getMaxHeight());
 			info_box = new VBox();
-				info_label = new Label("Informations");
+				info_label = new Text("Informations");
 				info_area = new TextArea(tree.toString());
 					info_area.setPrefWidth(200);
 					info_area.setEditable(false);
