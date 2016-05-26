@@ -97,6 +97,116 @@ public class TestRelation {
 	}
 
 	@Test
+	public void testGetFirstPair() {
+		Vertex vertex1;
+		Vertex vertex2;
+		try {
+			vertex1 = new Vertex("0");
+			vertex2 = new Vertex("1");
+			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
+			Pair<Vertex, Vertex> pair = relation.getFirstPair(vertex1);
+			assertTrue(pair != null);
+		} catch (VertexException e) {
+			e.printStackTrace();
+		} catch (RelationException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testGetPairsVertex() {
+		Vertex vertex1;
+		Vertex vertex2;
+		try {
+			vertex1 = new Vertex("0");
+			vertex2 = new Vertex("1");
+			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
+			List<Pair<Vertex, Vertex>> pairs = relation.getPairs(vertex1);
+			assertEquals(pairs.size(), 1);
+		} catch (VertexException e) {
+			e.printStackTrace();
+		} catch (RelationException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testContains() {
+		Vertex vertex1;
+		Vertex vertex2;
+		try {
+			vertex1 = new Vertex("0");
+			vertex2 = new Vertex("1");
+			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
+			assertTrue(relation.contains(new Pair<Vertex, Vertex>(vertex1, vertex2)));
+		} catch (VertexException e) {
+			e.printStackTrace();
+		} catch (RelationException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testContainsVertex() {
+		Vertex vertex1;
+		Vertex vertex2;
+		try {
+			vertex1 = new Vertex("0");
+			vertex2 = new Vertex("1");
+			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
+			assertTrue(relation.containsVertex(vertex1));
+		} catch (VertexException e) {
+			e.printStackTrace();
+		} catch (RelationException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRemove() {
+		Vertex vertex1;
+		Vertex vertex2;
+		try {
+			vertex1 = new Vertex("0");
+			vertex2 = new Vertex("1");
+			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
+			relation.remove(new Pair<Vertex, Vertex>(vertex1, vertex2));
+			assertEquals(relation.size(), 0);
+		} catch (VertexException e) {
+			e.printStackTrace();
+		} catch (RelationException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRemoveRelatedPair() {
+		Vertex vertex1;
+		Vertex vertex2;
+		try {
+			vertex1 = new Vertex("0");
+			vertex2 = new Vertex("1");
+			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
+			relation.removeRelatedPair(vertex1);
+			assertEquals(relation.size(), 0);
+		} catch (VertexException e) {
+			e.printStackTrace();
+		} catch (RelationException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testSize() {
+		assertEquals(relation.size(), 0);
+	}
+	
+	@Test
+	public void testIsEmpty() {
+		assertTrue(relation.isEmpty());
+	}
+	
+	@Test
 	public void testEqualsObject() {
 		Relation otherRelation;
 		try {
@@ -106,5 +216,4 @@ public class TestRelation {
 			e.printStackTrace();
 		}
 	}
-
 }

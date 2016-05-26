@@ -1,7 +1,6 @@
 package fr.fourmond.jerome.view;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -50,6 +49,9 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -59,6 +61,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
@@ -80,6 +83,8 @@ public class TreeView extends BorderPane {
 	
 	private Map<String, Color> colorRelation;
 	
+	
+	private SavedPos savedPos;
 	private MenuBar menuBar;
 	private Menu menu_file;
 		private MenuItem item_new;
@@ -93,6 +98,7 @@ public class TreeView extends BorderPane {
 		private Menu menu_add_edge;
 			private List<MenuItem> item_add_edge_relations;
 	private Menu menu_view;
+		private CheckMenuItem item_show_vertices;
 		private Menu menu_view_relations;
 			private List<CheckMenuItem> item_view_relations;
 		private CheckMenuItem item_show_wording;
@@ -107,7 +113,7 @@ public class TreeView extends BorderPane {
 		private Map<String, List<EdgeView>> edgesView;
 	private SplitPane east;
 		private VBox info_box;;
-			private Label info_label;
+			private Text info_label;
 			private TextArea info_area;
 			private ListView<VertexView> vertex_list;
 				private ObservableList<VertexView> verticesViewForList;
@@ -179,7 +185,22 @@ public class TreeView extends BorderPane {
 		
 		placement = new Placement();
 		colorDistribution = new ColorDistribution();
+		
+		if(tree.getFile() != null) {
+			try {
+				savedPos = new SavedPos(tree.getFile());
+				savedPos.load();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		fileChooser = new FileChooser();
+		fileChooser.setTitle("Ouvrir un fichier xml");
+		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("Tous fichiers", "*.*"),
+				new FileChooser.ExtensionFilter("XML", "*.xml")
+			);
 		
 		colorRelation = new HashMap<>();
 		
@@ -202,15 +223,23 @@ public class TreeView extends BorderPane {
 		menuBar = new MenuBar();
 		menu_file = new Menu("Fichier");
 			item_new = new MenuItem("Nouveau");
+				item_new.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
 			item_open = new MenuItem("Ouvrir");
+				item_open.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
 			item_save = new MenuItem("Enregistrer");
+				item_save.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
 			item_save_under = new MenuItem("Enregistrer sous");
 			item_quit = new MenuItem("Quitter");
+				item_quit.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
 		menu_edit = new Menu("Edition");
 			item_add_vertex = new MenuItem("Nouveau sommet");
+				item_add_vertex.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.SHIFT_DOWN));
 			item_add_relation = new MenuItem("Nouvelle relation");
+				item_add_relation.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.SHIFT_DOWN));
 			menu_add_edge = new Menu("Nouvel arc");
 		menu_view = new Menu("Affichage");
+			item_show_vertices = new CheckMenuItem("Afficher les sommets");
+				item_show_vertices.setSelected(true);
 			item_show_wording = new CheckMenuItem("Afficher les libellés");
 		menu_tools = new Menu("Outils");
 		item_tools_data = new MenuItem("Données");
@@ -219,9 +248,9 @@ public class TreeView extends BorderPane {
 			item_auto_id = new CheckMenuItem("Identifiant automatique");
 		
 		if(tree.relationCount() > 1)
-			menu_view_relations = new Menu("Relations");
+			menu_view_relations = new Menu("Afficher les relations");
 		else
-			menu_view_relations = new Menu("Relation");
+			menu_view_relations = new Menu("Afficher la relation");
 
 		// Menus Contextuels
 		vertexContextMenu = new ContextMenu();
@@ -281,7 +310,7 @@ public class TreeView extends BorderPane {
 		east.setOrientation(Orientation.VERTICAL);
 		east.setPrefHeight(east.getMaxHeight());
 			info_box = new VBox();
-				info_label = new Label("Informations");
+				info_label = new Text("Informations");
 				info_area = new TextArea(tree.toString());
 					info_area.setPrefWidth(200);
 					info_area.setEditable(false);
@@ -316,7 +345,8 @@ public class TreeView extends BorderPane {
 											item.setValue(c);
 											List<EdgeView> list = edgesView.get(item.getKey());
 											for(EdgeView edgeView : list)
-												edgeView.setColor(c);	
+												edgeView.setColor(c);
+											saved = false;
 										}
 									});
 									setText(item.getKey());
@@ -339,23 +369,12 @@ public class TreeView extends BorderPane {
 	}
 	
 	private void buildVertices() {
-		SavedPos sp = null;
-		if(tree.getFile() != null) {
-			sp = new SavedPos(tree.getFile());
-			try {
-				sp.load();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
 		List<Vertex> vertices = tree.getVertices();
 		VertexView vertexView;
 		for(Vertex vertex : vertices) {
 			Pair<Double, Double> pair = null;
-			if(sp != null) {
-				pair = sp.positionOf(vertex.getID());
-				System.out.println(pair);
+			if(savedPos != null) {
+				pair = savedPos.positionOf(vertex.getID());
 			}
 			if(pair != null)
 				vertexView = new VertexView(vertex, pair);
@@ -366,14 +385,20 @@ public class TreeView extends BorderPane {
 	}
 	
 	private void buildEdges() {
+		if(savedPos != null)
+			colorRelation = savedPos.getRelationsColor();
+		
 		List<Relation> relations = tree.getRelations();
 		Color color;
 		VertexView start, end;
 		EdgeView edgeView;
 		for(Relation relation : relations) {
 			List<EdgeView> relationEdges = new ArrayList<>();
-			color = colorDistribution.next();
 			String relationName = relation.getName();
+			if(colorRelation.containsKey(relationName))
+				color = colorRelation.get(relationName);
+			else
+				color = colorDistribution.next();
 			colorRelation.put(relationName, color);
 			List<Pair<Vertex, Vertex>> pairs = relation.getPairs();
 			for(Pair<Vertex, Vertex> pair : pairs) {
@@ -393,7 +418,7 @@ public class TreeView extends BorderPane {
 			menu_edit.getItems().addAll(item_add_vertex, item_add_relation, menu_add_edge);
 				menu_view_relations.getItems().addAll(item_view_relations);
 			menu_tools.getItems().add(item_tools_data);
-			menu_view.getItems().addAll(menu_view_relations, item_show_wording);
+			menu_view.getItems().addAll(item_show_vertices, menu_view_relations, item_show_wording);
 			menu_settings.getItems().addAll(item_auto_save, item_auto_id);
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_tools, menu_view, menu_settings);
 		menuBar.setUseSystemMenuBar(true);
@@ -423,14 +448,10 @@ public class TreeView extends BorderPane {
 		east.setDividerPositions(0.3f, 0.6f, 0.9f);
 		bottom.getChildren().addAll(pb, info_progress);
 		
-		// center.prefHeightProperty().bind(this.heightProperty());
-		// center.minHeightProperty().bind(this.heightProperty());
-		
 		setCenter(center);
 		setTop(menuBar);
 		setRight(east);
 		setBottom(bottom);
-		
 	}
 	
 	private void drawVertices() { center.getChildren().addAll(verticesView); }
@@ -615,11 +636,24 @@ public class TreeView extends BorderPane {
 				}
 			});
 		}
+		item_show_vertices.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				Settings.setShowVertices(newValue);
+				try {
+					Settings.saveSettings();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				for(VertexView vertexView : verticesView) {
+					vertexView.setVisible(newValue);
+				}
+			}
+		});
 		item_show_wording.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				
-				Settings.setShowWording(item_show_wording.isSelected());
+				Settings.setShowWording(newValue);
 				try {
 					Settings.saveSettings();
 				} catch (Exception e) {
@@ -810,6 +844,7 @@ public class TreeView extends BorderPane {
 					return;
 				}
 				double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA : 1/SCALE_DELTA;
+				
 				center.setScaleX(center.getScaleX() * scaleFactor);
 				center.setScaleY(center.getScaleY() * scaleFactor);
 			}
@@ -875,6 +910,7 @@ public class TreeView extends BorderPane {
 	
 	private void buildProperties() {
 		item_show_wording.setSelected(Settings.isShowWording());
+		item_show_vertices.setSelected(Settings.isShowVertices());
 		item_auto_save.setSelected(Settings.isAutoSave());
 		item_auto_id.setSelected(Settings.isAutoId());
 	}
@@ -921,13 +957,8 @@ public class TreeView extends BorderPane {
 		});
 		new Thread(saver).start();
 		
-		SavedPos sp = new SavedPos(tree.getFile(), verticesView);
-		try {
-			sp.save(verticesView);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		SavedPos sp = new SavedPos(tree.getFile());
+		sp.save(verticesView, colorRelation);
 	}
 	
 	/**
@@ -1252,6 +1283,9 @@ public class TreeView extends BorderPane {
 		list.remove(edgeView);
 		
 		center.getChildren().remove(edgeView);
+		
+		// Edition de la zone d'info
+		info_area.setText(tree.toString());
 		
 		if(Settings.isAutoSave())
 			save();
