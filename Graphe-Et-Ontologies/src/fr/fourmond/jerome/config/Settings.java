@@ -71,27 +71,6 @@ public class Settings {
 		@Override
 		protected Boolean call() throws Exception {
 			Properties properties = new Properties();
-			InputStream is = new FileInputStream(propFileName);
-			properties.load(is);
-				
-			width = Double.parseDouble(properties.getProperty(widthPP));
-			height = Double.parseDouble(properties.getProperty(heightPP));
-			autoSave = Boolean.parseBoolean(properties.getProperty(autoSavePP));
-			autoId = Boolean.parseBoolean(properties.getProperty(autoIdPP));
-			showVertices = Boolean.parseBoolean(properties.getProperty(showVerticesPP));
-			showWording = Boolean.parseBoolean(properties.getProperty(showWordingPP));
-
-			is.close();
-			
-			return true;
-		}
-	}
-	
-	protected static class Loader extends Task<Boolean> {
-
-		@Override
-		protected Boolean call() throws Exception {
-			Properties properties = new Properties();
 			
 			OutputStream os = new FileOutputStream(propFileName);
 			
@@ -108,6 +87,27 @@ public class Settings {
 			properties.store(os, null);
 			
 			os.close();
+			
+			return true;
+		}
+	}
+	
+	protected static class Loader extends Task<Boolean> {
+
+		@Override
+		protected Boolean call() throws Exception {
+			Properties properties = new Properties();
+			InputStream is = new FileInputStream(propFileName);
+			properties.load(is);
+				
+			width = Double.parseDouble(properties.getProperty(widthPP));
+			height = Double.parseDouble(properties.getProperty(heightPP));
+			autoSave = Boolean.parseBoolean(properties.getProperty(autoSavePP));
+			autoId = Boolean.parseBoolean(properties.getProperty(autoIdPP));
+			showVertices = Boolean.parseBoolean(properties.getProperty(showVerticesPP));
+			showWording = Boolean.parseBoolean(properties.getProperty(showWordingPP));
+
+			is.close();
 			
 			return true;
 		}
