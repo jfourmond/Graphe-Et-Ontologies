@@ -219,9 +219,12 @@ public class TreeView extends BorderPane {
 				item_save.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
 			item_save_under = new MenuItem("Enregistrer sous");
 			item_quit = new MenuItem("Quitter");
+				item_quit.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
 		menu_edit = new Menu("Edition");
 			item_add_vertex = new MenuItem("Nouveau sommet");
+				item_add_vertex.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.SHIFT_DOWN));
 			item_add_relation = new MenuItem("Nouvelle relation");
+				item_add_relation.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.SHIFT_DOWN));
 			menu_add_edge = new Menu("Nouvel arc");
 		menu_view = new Menu("Affichage");
 			item_show_vertices = new CheckMenuItem("Afficher les sommets");
