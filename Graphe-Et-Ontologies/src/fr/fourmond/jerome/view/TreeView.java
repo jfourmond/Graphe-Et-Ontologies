@@ -385,7 +385,8 @@ public class TreeView extends BorderPane {
 	}
 	
 	private void buildEdges() {
-		colorRelation = savedPos.getRelationsColor();
+		if(savedPos != null)
+			colorRelation = savedPos.getRelationsColor();
 		
 		List<Relation> relations = tree.getRelations();
 		Color color;
