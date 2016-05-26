@@ -3,7 +3,6 @@ package fr.fourmond.jerome.view;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +18,7 @@ import org.jdom2.output.XMLOutputter;
 import fr.fourmond.jerome.framework.Pair;
 import fr.fourmond.jerome.framework.TreeLoaderException;
 import javafx.concurrent.Task;
+import javafx.scene.paint.Color;
 
 /**
  * {@link SavedPos} est une classe utilisée pour sauvegarder des positions
@@ -32,22 +32,30 @@ public class SavedPos {
 			private static final String ID = "id";
 		private static final String X = "X";
 		private static final String Y = "Y";
+	private static final String RELATION = "RELATION";
+			private static final String NOM = "nom";
+		private static final String ROUGE = "rouge";
+		private static final String VERT = "vert";
+		private static final String BLEU = "bleu";
 	
 	private final String directoryPath = "tmp/";
 	
 	private File treeFile;
 	private Map<String, Pair<Double, Double>> positions;
+	private Map<String, Color> relationsColor;
 	
 	//	CONSTRUCTEURS
 	public SavedPos(File treeFile) {
 		this.treeFile = treeFile;
 		positions = new HashMap<>();
+		relationsColor = new HashMap<>();
 	}
 	
-	public SavedPos(File treeFile, List<VertexView> vertices) {
+	public SavedPos(File treeFile, List<VertexView> vertices, Map<String, Color> relationsColor) {
 		this.treeFile = treeFile;
 		positions = new HashMap<>();
 		setPositions(vertices);
+		this.relationsColor = relationsColor;
 	}
 	
 	//	SETTERS
@@ -55,14 +63,25 @@ public class SavedPos {
 	
 	public void setTreeFile(File treeFile) { this.treeFile = treeFile; }
 	
+	public void setRelationsColor(Map<String, Color> relationsColor) { this.relationsColor = relationsColor; }
+	
 	//	GETTERS
 	public File getTreeFile() { return treeFile; }
 	
 	public Map<String, Pair<Double, Double>> getPositions() { return positions; }
 
+	public Map<String, Color> getRelationsColor() { return relationsColor; }
+	
 	// METHODES
-	public void save(List<VertexView> vertices) throws IOException {
+	public void save(List<VertexView> vertices) {
 		setPositions(vertices);
+		Saver saver = new Saver();
+		new Thread(saver).start();
+	}
+	
+	public void save(List<VertexView> vertices, Map<String, Color> relationsColor) {
+		setPositions(vertices);
+		setRelationsColor(relationsColor);
 		Saver saver = new Saver();
 		new Thread(saver).start();
 	}
@@ -116,8 +135,8 @@ public class SavedPos {
 			if(!racine.getAttribute(PATH).getValue().equals(treeFile.getCanonicalPath()))
 				throw new Exception("Le chemin associé est différent.");
 			
+			// Chargement des positions des sommets
 			List<Element> entries =  racine.getChildren(ENTREE);
-
 			for(Element courant : entries) {
 				String vertex = courant.getAttributeValue(ID);		// Clé du sommet
 				Element posX = courant.getChild(X);					// Position X
@@ -128,6 +147,19 @@ public class SavedPos {
 				
 				positions.put(vertex, pair);
 			}
+			
+			// Chargement des couleurs des relations
+			List<Element> relations = racine.getChildren(RELATION);
+			for(Element courant : relations) {
+				Color color;
+				String name = courant.getAttributeValue(NOM);
+				double red = Double.parseDouble(courant.getChildText(ROUGE));
+				double green = Double.parseDouble(courant.getChildText(VERT));
+				double blue = Double.parseDouble(courant.getChildText(BLEU));
+				color = new Color(red, green, blue, 1.0);
+				relationsColor.put(name, color);
+			}
+			
 			return true;
 		}
 	}
@@ -168,6 +200,24 @@ public class SavedPos {
 					Element posY = new Element(Y);
 					posY.setText(String.valueOf(entry.getValue().getSecond()));
 					entree.addContent(posY);
+			}
+			
+			for(Entry<String, Color> entry : relationsColor.entrySet()) {
+				Element relation = new Element(RELATION);
+					Attribute name = new Attribute(NOM, entry.getKey());
+						relation.setAttribute(name);
+						// Traitement de la couleur
+						Color color = entry.getValue();
+						Element red = new Element(ROUGE);
+							red.setText(Double.toString(color.getRed()));
+							relation.addContent(red);
+						Element green = new Element(VERT);
+							green.setText(Double.toString(color.getGreen()));
+							relation.addContent(green);
+						Element blue = new Element(BLEU);
+							blue.setText(Double.toString(color.getBlue()));
+							relation.addContent(blue);
+				racine.addContent(relation);
 			}
 			
 			// Enregistrement

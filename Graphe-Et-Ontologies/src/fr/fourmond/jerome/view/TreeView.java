@@ -1,7 +1,6 @@
 package fr.fourmond.jerome.view;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -84,6 +83,8 @@ public class TreeView extends BorderPane {
 	
 	private Map<String, Color> colorRelation;
 	
+	
+	private SavedPos savedPos;
 	private MenuBar menuBar;
 	private Menu menu_file;
 		private MenuItem item_new;
@@ -184,6 +185,16 @@ public class TreeView extends BorderPane {
 		
 		placement = new Placement();
 		colorDistribution = new ColorDistribution();
+		
+		if(tree.getFile() != null) {
+			try {
+				savedPos = new SavedPos(tree.getFile());
+				savedPos.load();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		fileChooser = new FileChooser();
 		fileChooser.setTitle("Ouvrir un fichier xml");
 		fileChooser.getExtensionFilters().addAll(
@@ -334,7 +345,8 @@ public class TreeView extends BorderPane {
 											item.setValue(c);
 											List<EdgeView> list = edgesView.get(item.getKey());
 											for(EdgeView edgeView : list)
-												edgeView.setColor(c);	
+												edgeView.setColor(c);
+											saved = false;
 										}
 									});
 									setText(item.getKey());
@@ -357,23 +369,12 @@ public class TreeView extends BorderPane {
 	}
 	
 	private void buildVertices() {
-		// Tentative de chargement à partir du fichier temporaire
-		SavedPos sp = null;
-		if(tree.getFile() != null) {
-			sp = new SavedPos(tree.getFile());
-			try {
-				sp.load();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
 		List<Vertex> vertices = tree.getVertices();
 		VertexView vertexView;
 		for(Vertex vertex : vertices) {
 			Pair<Double, Double> pair = null;
-			if(sp != null) {
-				pair = sp.positionOf(vertex.getID());
+			if(savedPos != null) {
+				pair = savedPos.positionOf(vertex.getID());
 			}
 			if(pair != null)
 				vertexView = new VertexView(vertex, pair);
@@ -384,14 +385,19 @@ public class TreeView extends BorderPane {
 	}
 	
 	private void buildEdges() {
+		colorRelation = savedPos.getRelationsColor();
+		
 		List<Relation> relations = tree.getRelations();
 		Color color;
 		VertexView start, end;
 		EdgeView edgeView;
 		for(Relation relation : relations) {
 			List<EdgeView> relationEdges = new ArrayList<>();
-			color = colorDistribution.next();
 			String relationName = relation.getName();
+			if(colorRelation.containsKey(relationName))
+				color = colorRelation.get(relationName);
+			else
+				color = colorDistribution.next();
 			colorRelation.put(relationName, color);
 			List<Pair<Vertex, Vertex>> pairs = relation.getPairs();
 			for(Pair<Vertex, Vertex> pair : pairs) {
@@ -440,9 +446,6 @@ public class TreeView extends BorderPane {
 		east.getItems().addAll(info_box, vertex_list, relation_list);
 		east.setDividerPositions(0.3f, 0.6f, 0.9f);
 		bottom.getChildren().addAll(pb, info_progress);
-		
-		// center.prefHeightProperty().bind(this.heightProperty());
-		// center.minHeightProperty().bind(this.heightProperty());
 		
 		setCenter(center);
 		setTop(menuBar);
@@ -841,6 +844,7 @@ public class TreeView extends BorderPane {
 					return;
 				}
 				double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA : 1/SCALE_DELTA;
+				
 				center.setScaleX(center.getScaleX() * scaleFactor);
 				center.setScaleY(center.getScaleY() * scaleFactor);
 			}
@@ -953,13 +957,8 @@ public class TreeView extends BorderPane {
 		});
 		new Thread(saver).start();
 		
-		SavedPos sp = new SavedPos(tree.getFile(), verticesView);
-		try {
-			sp.save(verticesView);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		SavedPos sp = new SavedPos(tree.getFile());
+		sp.save(verticesView, colorRelation);
 	}
 	
 	/**
