@@ -93,6 +93,7 @@ public class TreeView extends BorderPane {
 		private Menu menu_add_edge;
 			private List<MenuItem> item_add_edge_relations;
 	private Menu menu_view;
+		private CheckMenuItem item_show_vertices;
 		private Menu menu_view_relations;
 			private List<CheckMenuItem> item_view_relations;
 		private CheckMenuItem item_show_wording;
@@ -211,6 +212,8 @@ public class TreeView extends BorderPane {
 			item_add_relation = new MenuItem("Nouvelle relation");
 			menu_add_edge = new Menu("Nouvel arc");
 		menu_view = new Menu("Affichage");
+			item_show_vertices = new CheckMenuItem("Afficher les sommets");
+				item_show_vertices.setSelected(true);
 			item_show_wording = new CheckMenuItem("Afficher les libellés");
 		menu_tools = new Menu("Outils");
 		item_tools_data = new MenuItem("Données");
@@ -219,9 +222,9 @@ public class TreeView extends BorderPane {
 			item_auto_id = new CheckMenuItem("Identifiant automatique");
 		
 		if(tree.relationCount() > 1)
-			menu_view_relations = new Menu("Relations");
+			menu_view_relations = new Menu("Afficher les relations");
 		else
-			menu_view_relations = new Menu("Relation");
+			menu_view_relations = new Menu("Afficher la relation");
 
 		// Menus Contextuels
 		vertexContextMenu = new ContextMenu();
@@ -339,6 +342,7 @@ public class TreeView extends BorderPane {
 	}
 	
 	private void buildVertices() {
+		// Tentative de chargement à partir du fichier temporaire
 		SavedPos sp = null;
 		if(tree.getFile() != null) {
 			sp = new SavedPos(tree.getFile());
@@ -392,7 +396,7 @@ public class TreeView extends BorderPane {
 			menu_edit.getItems().addAll(item_add_vertex, item_add_relation, menu_add_edge);
 				menu_view_relations.getItems().addAll(item_view_relations);
 			menu_tools.getItems().add(item_tools_data);
-			menu_view.getItems().addAll(menu_view_relations, item_show_wording);
+			menu_view.getItems().addAll(item_show_vertices, menu_view_relations, item_show_wording);
 			menu_settings.getItems().addAll(item_auto_save, item_auto_id);
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_tools, menu_view, menu_settings);
 		menuBar.setUseSystemMenuBar(true);
@@ -614,11 +618,24 @@ public class TreeView extends BorderPane {
 				}
 			});
 		}
+		item_show_vertices.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				Settings.setShowVertices(newValue);
+				try {
+					Settings.saveSettings();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				for(VertexView vertexView : verticesView) {
+					vertexView.setVisible(newValue);
+				}
+			}
+		});
 		item_show_wording.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				
-				Settings.setShowWording(item_show_wording.isSelected());
+				Settings.setShowWording(newValue);
 				try {
 					Settings.saveSettings();
 				} catch (Exception e) {
@@ -874,6 +891,7 @@ public class TreeView extends BorderPane {
 	
 	private void buildProperties() {
 		item_show_wording.setSelected(Settings.isShowWording());
+		item_show_vertices.setSelected(Settings.isShowVertices());
 		item_auto_save.setSelected(Settings.isAutoSave());
 		item_auto_id.setSelected(Settings.isAutoId());
 	}
