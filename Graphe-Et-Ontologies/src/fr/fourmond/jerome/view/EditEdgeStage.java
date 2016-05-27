@@ -146,7 +146,7 @@ public class EditEdgeStage extends Stage {
 			hBox.getChildren().addAll(cancel, edit);
 		vbox.getChildren().addAll(gridPane, hBox);
 		
-		Scene scene = new Scene(gridPane);
+		Scene scene = new Scene(vbox);
 		this.setScene(scene);
 	}
 	

@@ -742,12 +742,14 @@ public class TreeView extends BorderPane {
 				EditEdgeStage editEdgeStage = new EditEdgeStage(edgeViewSelected.getPair(), edgeViewSelected.getRelation(), tree.getVertices(), tree.getRelationsNames());
 				editEdgeStage.showAndWait();
 				alertError.setHeaderText("Erreur lors de l'édition de l'arc");
-				try {
-					editPair(editEdgeStage.getOldRelationName(), editEdgeStage.getOldPair(), editEdgeStage.getNewRelationName(), editEdgeStage.getNewPair());
-				} catch (Exception e) {
-					e.printStackTrace();
-					alertError.setContentText(e.getMessage());
-					alertError.showAndWait();
+				if(editEdgeStage.getNewPair() != null && editEdgeStage.getNewRelationName() != null) {
+					try {
+						editPair(editEdgeStage.getOldRelationName(), editEdgeStage.getOldPair(), editEdgeStage.getNewRelationName(), editEdgeStage.getNewPair());
+					} catch (Exception e) {
+						e.printStackTrace();
+						alertError.setContentText(e.getMessage());
+						alertError.showAndWait();
+					}
 				}
 			}
 		});
