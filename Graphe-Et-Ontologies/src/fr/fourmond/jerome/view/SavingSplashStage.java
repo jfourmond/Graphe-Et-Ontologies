@@ -23,6 +23,8 @@ public class SavingSplashStage extends Stage {
 	private Tree tree;
 	private TreeSaver saver;
 	
+	private Scene scene;
+	
 	private VBox vBox;
 		private Label label;
 		private ProgressBar pb;
@@ -47,13 +49,14 @@ public class SavingSplashStage extends Stage {
 				// pb.setProgress(0);
 				
 			pb.prefWidthProperty().bind(vBox.widthProperty().subtract(20));
+			
 	}
 
 	private void buildInterface() {
 		vBox.getChildren().addAll(label, pb);
 			vBox.setAlignment(Pos.CENTER);
 		
-		Scene scene = new Scene(vBox, 300, 200, Color.BLUE);
+		scene = new Scene(vBox, 300, 200, Color.BLUE);
 		
 		this.setScene(scene);
 		this.show();

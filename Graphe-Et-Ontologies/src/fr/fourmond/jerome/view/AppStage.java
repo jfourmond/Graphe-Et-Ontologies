@@ -1,5 +1,7 @@
 package fr.fourmond.jerome.view;
 
+import java.io.File;
+
 import fr.fourmond.jerome.config.Settings;
 import fr.fourmond.jerome.framework.Tree;
 import javafx.beans.value.ChangeListener;
@@ -10,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -17,6 +20,8 @@ public class AppStage extends Stage {
 	private Tree tree;
 	
 	private TreeView treeView;
+	
+	private FileChooser fileChooser;
 	
 	public AppStage(Tree tree) {
 		this.setTitle("Graphe Et Ontologies");
@@ -58,14 +63,21 @@ public class AppStage extends Stage {
 	
 					ButtonType buttonCancel = new ButtonType("Annuler", ButtonData.CANCEL_CLOSE);
 					ButtonType buttonSave = new ButtonType("Enregistrer");
+					ButtonType buttonSaveUnder = new ButtonType("Enregistrer sous");
 					ButtonType buttonClose = new ButtonType("Fermer");
 	
-					alert.getButtonTypes().setAll(buttonClose, buttonCancel, buttonSave);
+					alert.getButtonTypes().setAll(buttonClose, buttonCancel, buttonSave, buttonSaveUnder);
 	
 					alert.showAndWait().ifPresent(response -> {
 						if (response == buttonSave) {
 							// L'application se ferme après avoir sauvegarder
 							new SavingSplashStage(tree);
+						} else if(response == buttonSaveUnder) {
+							File file = fileChooser.showSaveDialog(null);
+							if(file != null) {
+								tree.setFile(file);
+								new SavingSplashStage(tree);
+							}
 						} else if(response == buttonClose){
 							// L'application se ferme
 						} else {

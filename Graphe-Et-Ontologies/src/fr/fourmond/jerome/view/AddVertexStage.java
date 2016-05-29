@@ -23,6 +23,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -206,6 +208,15 @@ public class AddVertexStage extends Stage {
 				} catch (Exception e) {
 					alert.setContentText(e.getMessage());
 					alert.showAndWait();
+				}
+			}
+		});
+		IDField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode().equals(KeyCode.ENTER)) {
+					// TODO something
+					System.err.println("DO SOMETHING");
 				}
 			}
 		});

@@ -542,9 +542,10 @@ public class TreeView extends BorderPane {
 	
 					ButtonType buttonCancel = new ButtonType("Annuler", ButtonData.CANCEL_CLOSE);
 					ButtonType buttonSave = new ButtonType("Enregistrer");
+					ButtonType buttonSaveUnder = new ButtonType("Enregistrer sous");
 					ButtonType buttonClose = new ButtonType("Fermer");
 	
-					alert.getButtonTypes().setAll(buttonClose, buttonCancel, buttonSave);
+					alert.getButtonTypes().setAll(buttonClose, buttonCancel, buttonSave, buttonSaveUnder);
 					
 					alert.showAndWait().ifPresent(response -> {
 						if (response == buttonSave) {
@@ -567,6 +568,38 @@ public class TreeView extends BorderPane {
 								}
 							});
 							new Thread(saver).start();
+						} else if(response == buttonSaveUnder) {
+							alertError.setHeaderText("Enregistrement impossible.");
+							File file = fileChooser.showSaveDialog(null);
+							if(file != null) {
+								tree.setFile(file);
+								try {
+									TreeSaver saver = new TreeSaver(tree);
+									info_progress.textProperty().bind(saver.messageProperty());
+									pb.progressProperty().bind(saver.progressProperty());
+									saver.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+										@Override
+										public void handle(WorkerStateEvent event) { Platform.exit(); }
+									});
+									saver.setOnFailed(new EventHandler<WorkerStateEvent>() {
+										@Override
+										public void handle(WorkerStateEvent event) {
+											Alert alert = new Alert(AlertType.ERROR);
+											alert.setTitle("Erreur");
+											alert.setHeaderText("Erreur dans l'enregistrement du fichier");
+											alert.initStyle(StageStyle.UTILITY);
+											alert.setContentText(saver.getException().getMessage());
+											alert.showAndWait();
+										}
+									});
+									new Thread(saver).start();
+								} catch (Exception e) {
+									e.printStackTrace();
+									alertError.setContentText(e.getMessage());
+									alertError.showAndWait();
+								}
+								item_save.setDisable(false);
+							}
 						} else if(response == buttonClose){
 							Platform.exit();
 						} else {
