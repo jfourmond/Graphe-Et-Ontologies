@@ -188,11 +188,11 @@ L'affichage d'un arbre s'effectue sous JavaFX.
 
 ### 1. Sommet - *VertexView*
 
-Un sommet est représenté par un **Group**. Ce dernier contient et dessine un cercle et un label, contenant la description brève du sommet correspondant.
+Un sommet est représenté par un **Group**. Ce dernier contient et dessine un cercle et deux labels : le premier pour l'idenfiant, le second pour le nom. Les deux coexistent, mais seul un des deux n'est affiché à l'écran.
 
 #### b. Arc - *EdgeView*
 
-Un arc est représenté par un **Group**. Ce dernier contient et dessine une ligne entre deux **VertexView** et un label, contenant le/la nom/valeur de l'arc correspondant.
+Un arc est représenté par un **Group**. Ce dernier contient et dessine une ligne entre deux **VertexView** et un label, contenant le libellé de la relation dessinée.
 
 #### c. Graphe - *TreeView*
 
@@ -206,11 +206,34 @@ Cette classe permet d'ouvrir l'application.
 
 ## VI. Les Ontologies, en XML
 
-### 1. La DTD (*Document Type Definition*)
+### 1. La DTD (*Document Type Definition*) et le XSD (*XML Schema*)
 
-Le fichier XML utilisé dans la construction d'un arbre d'ontologie doit respecter une DTD précise. Elle doit reprendre la construction des fichiers suivants (*Utilisés comme exemple ici*) :
-- [Index327.dtd](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Ontologies/index327.dtd)
-- [Villes.dtd](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Ontologies/villes.dtd)
+Le fichier XML utilisé dans la construction d'un arbre d'ontologie doit respecter une DTD précise, plus précisément le fichier [suivant](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/lib/definition.dtd), ou le [XSD](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/lib/schema.xsd), généré sur la base de la DTD précédente.
+Par exemple :
+	[Villes.xml](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Ontologies/Villes.xml)
+	
+	<?xml version="1.0" encoding="UTF-8"?>
+	<IndexSource>
+		<ENTREE id="1" nom="Pays-De-La-Loire">
+			<RELATION nom="appartient à la région" />
+			<RELATION nom="appartient au département du" />
+			<RELATION nom="a proximite de" />
+		</ENTREE>
+		<ENTREE id="2" nom="Maine-Et-Loire">
+			<RELATION nom="appartient à la région">
+			<LIEN>1</LIEN>
+			</RELATION>
+			<RELATION nom="appartient au département du" />
+			<RELATION nom="a proximite de" />
+		</ENTREE>
+		<ENTREE id="3" nom="Loire-Atlantique">
+			<RELATION nom="appartient à la région">
+			<LIEN>1</LIEN>
+			</RELATION>
+			<RELATION nom="appartient au département du" />
+			<RELATION nom="a proximite de" />
+			</ENTREE>
+	</IndexSource>
 
 ### 2. Le Chargement
 

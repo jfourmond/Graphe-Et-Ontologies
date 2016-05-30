@@ -1,64 +1,56 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
-<!-- <!DOCTYPE IndexSource SYSTEM "definition.dtd" > -->
-
+<?xml version="1.0" encoding="UTF-8"?>
 <IndexSource>
-	<ENTREE id="1">
-		<ATTRIBUT nom="nom" valeur="Pays-De-La-Loire"/>
-		<RELATION nom="appartient à la région" />
-		<RELATION nom="appartient au département du" />
-	</ENTREE>
-
-	<ENTREE id="2">
-		<ATTRIBUT nom="nom" valeur="Maine-Et-Loire"/>
-		<RELATION nom="appartient à la région">
-			<LIEN>1</LIEN>
-		</RELATION>
-		<RELATION nom="appartient au département du" />
-	</ENTREE>
-
-	<ENTREE id="3">
-		<ATTRIBUT nom="nom" valeur="Loire-Atlantique"/>
-		<RELATION nom="appartient à la région">
-			<LIEN>1</LIEN>
-		</RELATION>
-		<RELATION nom="appartient au département du" />
-	</ENTREE>
-
-	<ENTREE id="4">
-		<ATTRIBUT nom="nom" valeur="Cholet"/>
-		<ATTRIBUT nom="code-postal" valeur="49300"/>
-		<ATTRIBUT nom="population" valeur="56761"/>
-		<ATTRIBUT nom="superficie" valeur="87.47"/>
-		<RELATION nom="appartient au département du">
-			<LIEN>2</LIEN>
-		</RELATION>
-		<RELATION nom="a proximite de" >
-			<LIEN>5</LIEN>
-		</RELATION>
-	</ENTREE>
-
-	<ENTREE id="5">
-		<ATTRIBUT nom="nom" valeur="Chemillé"/>
-		<ATTRIBUT nom="code-postal" valeur="49120"/>
-		<ATTRIBUT nom="population" valeur="7028"/>
-		<ATTRIBUT nom="superficie" valeur="71.09"/>
-		<RELATION nom="appartient au département du">
-			<LIEN>2</LIEN>
-		</RELATION>
-		<RELATION nom="a proximite de" >
-			<LIEN>4</LIEN>
-		</RELATION>
-	</ENTREE>
-
-	<ENTREE id="6" >
-		<ATTRIBUT nom="nom" valeur="Nantes"/>
-		<ATTRIBUT nom="code-postal" valeur="44000"/>
-		<ATTRIBUT nom="population" valeur="147571"/>
-		<ATTRIBUT nom="superficie" valeur="65.19"/>
-		<RELATION nom="appartient au département du" >
-			<LIEN>3</LIEN>
-		</RELATION>
-		<RELATION nom="a proximite de" />
-	</ENTREE>
+  <ENTREE id="1" nom="Pays-De-La-Loire">
+    <RELATION nom="appartient à la région" />
+    <RELATION nom="appartient au département du" />
+    <RELATION nom="a proximite de" />
+  </ENTREE>
+  <ENTREE id="2" nom="Maine-Et-Loire">
+    <RELATION nom="appartient à la région">
+      <LIEN>1</LIEN>
+    </RELATION>
+    <RELATION nom="appartient au département du" />
+    <RELATION nom="a proximite de" />
+  </ENTREE>
+  <ENTREE id="3" nom="Loire-Atlantique">
+    <RELATION nom="appartient à la région">
+      <LIEN>1</LIEN>
+    </RELATION>
+    <RELATION nom="appartient au département du" />
+    <RELATION nom="a proximite de" />
+  </ENTREE>
+  <ENTREE id="4" nom="Cholet">
+    <ATTRIBUT nom="superficie" valeur="87.47" />
+    <ATTRIBUT nom="code-postal" valeur="49300" />
+    <ATTRIBUT nom="population" valeur="56761" />
+    <RELATION nom="appartient à la région" />
+    <RELATION nom="appartient au département du">
+      <LIEN>2</LIEN>
+    </RELATION>
+    <RELATION nom="a proximite de">
+      <LIEN>5</LIEN>
+    </RELATION>
+  </ENTREE>
+  <ENTREE id="5" nom="Chemillé">
+    <ATTRIBUT nom="superficie" valeur="71.09" />
+    <ATTRIBUT nom="code-postal" valeur="49120" />
+    <ATTRIBUT nom="population" valeur="7028" />
+    <RELATION nom="appartient à la région" />
+    <RELATION nom="appartient au département du">
+      <LIEN>2</LIEN>
+    </RELATION>
+    <RELATION nom="a proximite de">
+      <LIEN>4</LIEN>
+    </RELATION>
+  </ENTREE>
+  <ENTREE id="6" nom="Nantes">
+    <ATTRIBUT nom="superficie" valeur="65.19" />
+    <ATTRIBUT nom="code-postal" valeur="44000" />
+    <ATTRIBUT nom="population" valeur="147571" />
+    <RELATION nom="appartient à la région" />
+    <RELATION nom="appartient au département du">
+      <LIEN>3</LIEN>
+    </RELATION>
+    <RELATION nom="a proximite de" />
+  </ENTREE>
 </IndexSource>
