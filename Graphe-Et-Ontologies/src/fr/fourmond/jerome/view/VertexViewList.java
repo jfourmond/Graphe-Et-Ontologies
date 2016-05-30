@@ -9,6 +9,6 @@ public class VertexViewList extends ListCell<VertexView> {
 		if(item == null || empty)
 			setText(null);
 		else if(item != null)
-			setText(item.getVertex().getID());
+			setText(item.getVertex().toString());
 	}
 }

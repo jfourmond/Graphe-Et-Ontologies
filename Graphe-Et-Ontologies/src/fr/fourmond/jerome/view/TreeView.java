@@ -45,10 +45,12 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -100,6 +102,10 @@ public class TreeView extends BorderPane {
 			private List<MenuItem> item_add_edge_relations;
 	private Menu menu_view;
 		private CheckMenuItem item_show_vertices;
+		private Menu menu_view_vertex;
+			private ToggleGroup items_view_vertex;
+			private RadioMenuItem item_view_vertex_id;
+			private RadioMenuItem item_view_vertex_name;
 		private Menu menu_view_relations;
 			private List<CheckMenuItem> item_view_relations;
 		private CheckMenuItem item_show_wording;
@@ -241,6 +247,13 @@ public class TreeView extends BorderPane {
 		menu_view = new Menu("Affichage");
 			item_show_vertices = new CheckMenuItem("Afficher les sommets");
 				item_show_vertices.setSelected(true);
+			menu_view_vertex = new Menu("Sommets");
+				items_view_vertex = new ToggleGroup();
+				item_view_vertex_id = new RadioMenuItem("Identifiants");
+					item_view_vertex_id.setToggleGroup(items_view_vertex);
+					item_view_vertex_id.setSelected(true);
+				item_view_vertex_name = new RadioMenuItem("Noms");
+					item_view_vertex_name.setToggleGroup(items_view_vertex);
 			item_show_wording = new CheckMenuItem("Afficher les libellés");
 		menu_tools = new Menu("Outils");
 		item_tools_data = new MenuItem("Données");
@@ -420,7 +433,8 @@ public class TreeView extends BorderPane {
 			menu_edit.getItems().addAll(item_add_vertex, item_add_relation, menu_add_edge);
 				menu_view_relations.getItems().addAll(item_view_relations);
 			menu_tools.getItems().add(item_tools_data);
-			menu_view.getItems().addAll(item_show_vertices, menu_view_relations, item_show_wording);
+				menu_view_vertex.getItems().addAll(item_view_vertex_id, item_view_vertex_name);
+			menu_view.getItems().addAll(item_show_vertices, menu_view_vertex, menu_view_relations, item_show_wording);
 			menu_settings.getItems().addAll(item_auto_save, item_auto_id);
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_tools, menu_view, menu_settings);
 		menuBar.setUseSystemMenuBar(true);
@@ -679,6 +693,24 @@ public class TreeView extends BorderPane {
 				}
 			});
 		}
+		item_view_vertex_id.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				boolean selected = item_view_vertex_id.isSelected();
+				for(VertexView vertex : verticesView) {
+					vertex.showID(selected);
+				}
+			}
+		});
+		item_view_vertex_name.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				boolean selected = item_view_vertex_name.isSelected();
+				for(VertexView vertex : verticesView) {
+					vertex.showName(selected);
+				}
+			}
+		});
 		item_show_vertices.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
