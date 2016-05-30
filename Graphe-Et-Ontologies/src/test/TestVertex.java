@@ -26,7 +26,7 @@ public class TestVertex {
 		
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		vertex = new Vertex(ID);
+		vertex = new Vertex(ID, "nom");
 		vertex.add(name);
 	}
 
@@ -84,7 +84,7 @@ public class TestVertex {
 	@Test
 	public void testEqualsObject() {
 		try {
-			Vertex otherVertex = new Vertex("0");
+			Vertex otherVertex = new Vertex("0", "nom");
 			assertTrue(vertex.equals(otherVertex));
 		} catch (VertexException e) {
 			e.printStackTrace();

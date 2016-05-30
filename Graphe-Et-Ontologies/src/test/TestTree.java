@@ -77,7 +77,7 @@ public class TestTree {
 	public void testSetVertices() {
 		try {
 			List<Vertex> vertices = new ArrayList<>();
-			vertices.add(new Vertex("1"));
+			vertices.add(new Vertex("1", "nom"));
 			tree.setVertices(vertices);
 			assertEquals("La taille ne correspond pas.", tree.getVertices().size(), 1);
 		} catch (VertexException e) {
@@ -107,7 +107,7 @@ public class TestTree {
 	@Test
 	public void testCreateVertexString() {
 		try {
-			tree.createVertex("vertex");
+			tree.createVertex("vertex", "nom");
 			assertEquals("La taille ne correspond pas.", tree.getVertices().size(), 1);
 		} catch (TreeException e) {
 			e.printStackTrace();
@@ -119,7 +119,7 @@ public class TestTree {
 	@Test
 	public void testCreateVertexVertex() {
 		try {
-			Vertex vertex = new Vertex("vertex");
+			Vertex vertex = new Vertex("vertex", "nom");
 			tree.createVertex(vertex);
 			assertEquals("La taille ne correspond pas.", tree.getVertices().size(), 1);
 		} catch (TreeException e) {
@@ -132,7 +132,7 @@ public class TestTree {
 	@Test
 	public void testGetVertex() {
 		try {
-			tree.createVertex("vertex");
+			tree.createVertex("vertex", "nom");
 			assertEquals("Le sommet ne correspond pas.", tree.getVertex("vertex").getID(), "vertex");
 		} catch (TreeException e) {
 			e.printStackTrace();
@@ -144,7 +144,7 @@ public class TestTree {
 	@Test
 	public void testGetVertexID() {
 		try {
-			tree.createVertex("vertex");
+			tree.createVertex("vertex", "nom");
 			tree.addAttribute("vertex", "attribut", "un");
 			assertTrue(tree.getVertexID("un") != null);
 		} catch (TreeException e) {
@@ -157,7 +157,7 @@ public class TestTree {
 	@Test
 	public void testRemoveVertex() {
 		try {
-			Vertex vertex = new Vertex("vertex");
+			Vertex vertex = new Vertex("vertex", "nom");
 			tree.createVertex(vertex);
 			tree.removeVertex(vertex);
 			assertEquals("La taille ne correspond pas.", tree.getVertices().size(), 0);
@@ -176,7 +176,7 @@ public class TestTree {
 	@Test
 	public void testIsID() {
 		try {
-			tree.createVertex("vertex");
+			tree.createVertex("vertex", "nom");
 			assertTrue(tree.isID("vertex"));
 		} catch (TreeException e) {
 			e.printStackTrace();
@@ -204,7 +204,7 @@ public class TestTree {
 	@Test
 	public void testCreateAttribute() {
 		try {
-			tree.createVertex("vertex");
+			tree.createVertex("vertex", "nom");
 			tree.createAttribute("vertex", "attribut");
 			tree.setAttribute("vertex", "attribut", "un");
 			assertTrue(tree.getVertex("vertex").get("attribut").equals("un"));
@@ -218,7 +218,7 @@ public class TestTree {
 	@Test
 	public void testSetAttribute() {
 		try {
-			tree.createVertex("vertex");
+			tree.createVertex("vertex", "nom");
 			tree.createAttribute("vertex", "attribut");
 			tree.setAttribute("vertex", "attribut", "un");
 			assertTrue(tree.getVertex("vertex").get("attribut").equals("un"));
@@ -232,7 +232,7 @@ public class TestTree {
 	@Test
 	public void testAddAttribute() {
 		try {
-			tree.createVertex("vertex");
+			tree.createVertex("vertex", "nom");
 			tree.addAttribute("vertex", "attribut", "un");
 			assertTrue(tree.getVertex("vertex").get("attribut").equals("un"));
 		} catch (TreeException e) {
@@ -308,8 +308,8 @@ public class TestTree {
 	public void testAddPairString() {
 		try {
 			List<Vertex> vertices = new ArrayList<>();
-			vertices.add(new Vertex("1"));
-			vertices.add(new Vertex("2"));
+			vertices.add(new Vertex("1", "nom1"));
+			vertices.add(new Vertex("2", "nom1"));
 			tree.setVertices(vertices);
 			
 			tree.createRelation("relation");
@@ -327,8 +327,8 @@ public class TestTree {
 	@Test
 	public void testAddPairVertex() {
 		try {
-			Vertex v1 = new Vertex("1");
-			Vertex v2 = new Vertex("2");
+			Vertex v1 = new Vertex("1", "nom1");
+			Vertex v2 = new Vertex("2", "nom2");
 			List<Vertex> vertices = new ArrayList<>();
 			vertices.add(v1);
 			vertices.add(v2);
@@ -349,8 +349,8 @@ public class TestTree {
 	@Test
 	public void testAddPairPair() {
 		try {
-			Vertex v1 = new Vertex("1");
-			Vertex v2 = new Vertex("2");
+			Vertex v1 = new Vertex("1", "nom1");
+			Vertex v2 = new Vertex("2", "nom2");
 			List<Vertex> vertices = new ArrayList<>();
 			vertices.add(v1);
 			vertices.add(v2);
@@ -373,8 +373,8 @@ public class TestTree {
 	@Test
 	public void testRemovePair() {
 		try {
-			Vertex v1 = new Vertex("1");
-			Vertex v2 = new Vertex("2");
+			Vertex v1 = new Vertex("1", "nom1");
+			Vertex v2 = new Vertex("2", "nom2");
 			List<Vertex> vertices = new ArrayList<>();
 			vertices.add(v1);
 			vertices.add(v2);
@@ -398,8 +398,8 @@ public class TestTree {
 	@Test
 	public void testRemoveRelatedPair() {
 		try {
-			Vertex v1 = new Vertex("1");
-			Vertex v2 = new Vertex("2");
+			Vertex v1 = new Vertex("1", "nom1");
+			Vertex v2 = new Vertex("2", "nom2");
 			List<Vertex> vertices = new ArrayList<>();
 			vertices.add(v1);
 			vertices.add(v2);
@@ -423,15 +423,15 @@ public class TestTree {
 	@Test
 	public void testRelationCount() {
 		try {
-			Vertex v1 = new Vertex("1");
-			Vertex v2 = new Vertex("2");
+			Vertex v1 = new Vertex("1", "nom1");
+			Vertex v2 = new Vertex("2", "nom2");
 			List<Vertex> vertices = new ArrayList<>();
 			vertices.add(v1);
 			vertices.add(v2);
 			tree.setVertices(vertices);
 			
 			tree.createRelation("relation");
-			assertEquals(tree.getRelation("relation").getPairs().size(), 1);
+			assertEquals(tree.getRelation("relation").getPairs().size(), 0);
 		} catch (TreeException e) {
 			e.printStackTrace();
 		} catch (RelationException e) {
@@ -444,8 +444,8 @@ public class TestTree {
 	@Test
 	public void testClear() {
 		try {
-			Vertex v1 = new Vertex("1");
-			Vertex v2 = new Vertex("2");
+			Vertex v1 = new Vertex("1", "nom1");
+			Vertex v2 = new Vertex("2", "nom2");
 			List<Vertex> vertices = new ArrayList<>();
 			vertices.add(v1);
 			vertices.add(v2);
