@@ -395,12 +395,12 @@ public class Tree {
 	
 	@Override
 	public String toString() {
-		String ch = "Sommets (" + vertices.size() + ") : \n";
+		String ch = vertices.size() + " Sommets : \n";
 		for(Vertex vertex : vertices) {
 			ch += "\t" + vertex + "\n";
 		}
 		
-		ch += "Relations (" + relations.size() + ") : \n";
+		ch += relations.size() + " Relations : \n";
 		for(Relation relation : relations) {
 			ch += "\t" + relation;
 		}
