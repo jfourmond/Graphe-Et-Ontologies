@@ -16,6 +16,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -43,11 +45,14 @@ public class EditVertexStage extends Stage {
 	private VBox vBox;
 		private GridPane gridPane;
 			private Text title;
+			private Label name;
+				private TextField nameField;
 		private Button addAttribute;
 	private HBox hBox;
 		private Button cancel;
 		private Button edit;
 
+	private String textName;
 	private Map<String, String> attributes;
 	private List<Pair<Label, TextField>> attributesView;
 	
@@ -62,6 +67,7 @@ public class EditVertexStage extends Stage {
 		
 		this.tree = tree;
 		
+		textName = this.newVertex.getName();
 		attributes = this.newVertex.getAttributes();
 		
 		buildComposants();
@@ -92,6 +98,8 @@ public class EditVertexStage extends Stage {
 			gridPane.setPadding(new Insets(25, 25, 25, 25));
 		
 		title = new Text("Edition sommet : " + oldVertex.getID());
+			name = new Label("Nom");
+			nameField = new TextField(textName);
 		addAttribute = new Button("Ajouter attribut");
 		
 		hBox = new HBox(10);
@@ -110,8 +118,10 @@ public class EditVertexStage extends Stage {
 	
 	private void buildInterface() {
 			gridPane.add(title, 0, 0, 2, 1);
+			gridPane.add(name, 0, 1);
+			gridPane.add(nameField, 1, 1);
 			
-			currentRow = 1;
+			currentRow = 2;
 			currentCol = 0;
 			
 			for(Pair<Label, TextField> pair : attributesView) {
@@ -183,18 +193,20 @@ public class EditVertexStage extends Stage {
 		edit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				save();
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Erreur");
-				alert.setHeaderText("Edition du sommet impossible.");
-				alert.initStyle(StageStyle.UTILITY);
-				try {
-					newVertex.setAttributes(attributes);
-					close();
-				} catch (Exception e) {
-					alert.setContentText(e.getMessage());
-					alert.showAndWait();
-				}
+				edit();
+			}
+		});
+		nameField.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println(nameField.getText());
+				newVertex.setName(nameField.getText());
+			}
+		});
+		nameField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode().equals(KeyCode.ENTER)) { edit(); }
 			}
 		});
 		cancel.setOnAction(event -> 
@@ -208,10 +220,27 @@ public class EditVertexStage extends Stage {
 	}
 	
 	private void save() {
+		textName = nameField.getText();
 		for(Pair<Label, TextField> pair : attributesView) {
 			Label label = pair.getFirst();
 			TextField textField = pair.getSecond();
 			attributes.put(label.getText(), textField.getText());
+		}
+	}
+	
+	private void edit() {
+		save();
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Erreur");
+		alert.setHeaderText("Edition du sommet impossible.");
+		alert.initStyle(StageStyle.UTILITY);
+		try {
+			newVertex.setName(textName);
+			newVertex.setAttributes(attributes);
+			close();
+		} catch (Exception e) {
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
 		}
 	}
 }

@@ -89,7 +89,8 @@ public class TreeLoader extends Task<Boolean> {
 		// Création des sommets
 		for(Element courant : entries) {
 			vertexKey = courant.getAttributeValue(ID);					// Clé du sommet actuel
-			tmpTree.createVertex(vertexKey);							// Création du sommet actuel
+			String attname = courant.getAttributeValue(NOM);			// Nom du sommet actuel
+			tmpTree.createVertex(vertexKey, attname);					// Création du sommet actuel
 			int id;
 			try {
 				id = Integer.parseInt(vertexKey);

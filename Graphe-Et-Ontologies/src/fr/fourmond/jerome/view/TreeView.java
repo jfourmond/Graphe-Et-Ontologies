@@ -61,6 +61,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.StageStyle;
@@ -311,6 +312,7 @@ public class TreeView extends BorderPane {
 		east.setPrefHeight(east.getMaxHeight());
 			info_box = new VBox();
 				info_label = new Text("Informations");
+				info_label.setFont(Font.font("Verdana", 15));
 				info_area = new TextArea(tree.toString());
 					info_area.setPrefWidth(200);
 					info_area.setEditable(false);
@@ -485,6 +487,14 @@ public class TreeView extends BorderPane {
 								tree = loader.getTree();
 								build();
 								// TODO Ne pas reconstruire toute la fenêtre.
+							}
+						});
+						loader.setOnFailed(new EventHandler<WorkerStateEvent>() {
+							@Override
+							public void handle(WorkerStateEvent event) {
+								Throwable e = loader.getException();
+								alertError.setContentText(e.getMessage());
+								alertError.showAndWait();
 							}
 						});
 						info_progress.textProperty().bind(loader.messageProperty());

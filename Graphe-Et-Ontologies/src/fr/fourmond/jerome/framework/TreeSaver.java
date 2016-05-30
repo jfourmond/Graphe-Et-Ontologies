@@ -67,6 +67,9 @@ public class TreeSaver extends Task<Boolean> {
 			// Ajout de l'id
 			Attribute id = new Attribute(ID, vertex.getID());
 			entree.setAttribute(id);
+			// Ajout du nom
+			Attribute attname = new Attribute(NOM, vertex.getName());
+			entree.setAttribute(attname);
 			// Ajout de tous les attributs
 			Map<String, String> attributes = vertex.getAttributes();
 			for(Entry<String, String> entry : attributes.entrySet()) {

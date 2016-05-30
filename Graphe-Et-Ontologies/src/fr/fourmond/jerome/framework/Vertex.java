@@ -18,20 +18,12 @@ public class Vertex {
 	private Map<String, String> attributes;
 	
 	//	CONSTRUCTEURS
-	public Vertex(String ID) throws VertexException {
-		if(ID == null || ID.isEmpty())
-			throw new VertexException("Aucun ID spécifié.");
-		else {
-			this.ID = ID;
-			this.name = null;
-			attributes = new HashMap<>();
-		}
-	}
-	
 	public Vertex(String ID, String name) throws VertexException {
 		if(ID == null || ID.isEmpty())
 			throw new VertexException("Aucun ID spécifié.");
-		else {
+		else if(name == null || name.isEmpty()) {
+			throw new VertexException("Aucun nom spécifié.");
+		} else { 
 			this.ID = ID;
 			this.name = name;
 			attributes = new HashMap<>();
@@ -40,6 +32,7 @@ public class Vertex {
 	
 	public Vertex(Vertex vertex) throws VertexException {
 		ID = vertex.getID();
+		name = vertex.getName();
 		attributes = new HashMap<>(vertex.getAttributes());
 	}
 	
@@ -126,8 +119,8 @@ public class Vertex {
 	}
 	
 	public String info() {
-		String ch = "ID : " + ID + "\n";
-		ch += "Nom : " + name + "\n";
+		String ch = "Sommet " + ID + "\n";
+		ch += "\tNom : " + name + "\n";
 		Set<Entry<String, String>> attributes = this.attributes.entrySet();
 		for(Entry<String, String> attribute : attributes) {
 			String readAttribute = attribute.getKey();
@@ -138,12 +131,7 @@ public class Vertex {
 	}
 	
 	@Override
-	public String toString() { 
-		if(name != null)
-			return ID + " - " + name;
-		else
-			return ID;
-	}
+	public String toString() { return ID + " - " + name; }
 	
 	@Override
 	public boolean equals(Object obj) {
