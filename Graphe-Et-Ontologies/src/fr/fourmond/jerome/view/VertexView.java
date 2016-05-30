@@ -72,8 +72,21 @@ public class VertexView extends Group {
 	
 	public void setSelected(boolean selected) {
 		this.selected = selected;
-		if(this.selected) circle.setStroke(Color.RED);
-		else circle.setStroke(Color.BLACK);
+		if(this.selected) {
+			circle.setStroke(Color.RED);
+			circle.setStrokeWidth(2);
+			id.setTextFill(Color.RED);
+			id.setStyle("-fx-font-weight: bold");
+			name.setTextFill(Color.RED);
+			name.setStyle("-fx-font-weight: bold");
+		} else {
+			circle.setStrokeWidth(1);
+			circle.setStroke(Color.BLACK);
+			id.setTextFill(Color.BLACK);
+			id.setStyle(null);
+			name.setTextFill(Color.BLACK);
+			name.setStyle(null);
+		}
 	}
 	
 	//	METHODES
