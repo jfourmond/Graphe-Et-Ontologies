@@ -15,7 +15,7 @@ import javafx.scene.shape.Circle;
  * @author jfourmond
  */
 public class VertexView extends Group {
-	private static int diameter = 25;
+	private static int diameter = 15;
 	
 	private Circle circle;
 	private Label id;

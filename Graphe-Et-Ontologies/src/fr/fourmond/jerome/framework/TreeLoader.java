@@ -123,10 +123,11 @@ public class TreeLoader extends Task<Boolean> {
 				List<Element> liens = relation.getChildren(LIEN);		// Récupération des liens de la relation
 				for(Element lien : liens) {
 					String vertex2 = lien.getValue();
-					if(tmpTree.isID(vertex2)) {
-						tmpTree.addPair(name, vertex1, vertex2);
-					} else {
-						throw new TreeLoaderException("Le terme précisé n'est pas un identifiant de sommet.");
+					if(!vertex2.isEmpty()) {
+						if(tmpTree.isID(vertex2))
+							tmpTree.addPair(name, vertex1, vertex2);
+						else
+							throw new TreeLoaderException("Le terme \""+vertex2+"\" n'est pas un identifiant de sommet.");
 					}
 				}
 			}
