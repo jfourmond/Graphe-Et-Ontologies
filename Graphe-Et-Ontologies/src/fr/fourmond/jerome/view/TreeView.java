@@ -49,6 +49,7 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
@@ -112,8 +113,8 @@ public class TreeView extends BorderPane {
 	private Menu menu_tools;
 		private MenuItem item_tools_data;
 	private Menu menu_settings;
-		private CheckMenuItem item_auto_save;
 		private CheckMenuItem item_auto_id;
+		private MenuItem item_vertex_radius;
 	
 	private Pane center;
 		private List<VertexView> verticesView;
@@ -258,8 +259,8 @@ public class TreeView extends BorderPane {
 		menu_tools = new Menu("Outils");
 		item_tools_data = new MenuItem("Données");
 		menu_settings = new Menu("Options");
-			item_auto_save = new CheckMenuItem("Sauvegarde automatique");
 			item_auto_id = new CheckMenuItem("Identifiant automatique");
+			item_vertex_radius = new MenuItem("Rayon des sommets");
 		
 		if(tree.relationCount() > 1)
 			menu_view_relations = new Menu("Afficher les relations");
@@ -435,7 +436,7 @@ public class TreeView extends BorderPane {
 			menu_tools.getItems().add(item_tools_data);
 				menu_view_vertex.getItems().addAll(item_view_vertex_id, item_view_vertex_name);
 			menu_view.getItems().addAll(item_show_vertices, menu_view_vertex, menu_view_relations, item_show_wording);
-			menu_settings.getItems().addAll(item_auto_save, item_auto_id);
+			menu_settings.getItems().addAll(item_auto_id, item_vertex_radius);
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_tools, menu_view, menu_settings);
 		menuBar.setUseSystemMenuBar(true);
 		
@@ -742,17 +743,6 @@ public class TreeView extends BorderPane {
 				}
 			}
 		});
-		item_auto_save.selectedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				Settings.setAutoSave(item_auto_save.isSelected());
-				try {
-					Settings.saveSettings();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
 		item_auto_id.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -761,6 +751,38 @@ public class TreeView extends BorderPane {
 					Settings.saveSettings();
 				} catch (Exception e) {
 					e.printStackTrace();
+				}
+			}
+		});
+		item_vertex_radius.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				TextInputDialog dialog = new TextInputDialog(Integer.toString(VertexView.getRadius()));
+				dialog.setTitle("Rayon des sommets");
+				dialog.setHeaderText(null);
+				dialog.setContentText("Rayon (entier) : ");
+				TextField tf = dialog.getEditor();
+				tf.textProperty().addListener(new ChangeListener<String>() {
+					@Override
+					public void changed(ObservableValue<? extends String> observable, String oldValue,
+							String newValue) {
+						if (!newValue.matches("\\d*"))
+							tf.setText(newValue.replaceAll("[^\\d]", ""));
+						if(newValue.length() > 2)
+							tf.setText(newValue.substring(0, 4));
+					}
+				});
+				
+				Optional<String> result = dialog.showAndWait();
+				if (result.isPresent()) {
+					VertexView.setRadius(Integer.parseInt(result.get()));
+					for(VertexView vertex : verticesView)
+						vertex.updateDiameter();
+					try {
+						Settings.saveSettings();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});
@@ -988,7 +1010,6 @@ public class TreeView extends BorderPane {
 	private void buildProperties() {
 		item_show_wording.setSelected(Settings.isShowWording());
 		item_show_vertices.setSelected(Settings.isShowVertices());
-		item_auto_save.setSelected(Settings.isAutoSave());
 		item_auto_id.setSelected(Settings.isAutoId());
 	}
 	
@@ -1060,9 +1081,7 @@ public class TreeView extends BorderPane {
 		// Edition de la liste
 		verticesViewForList.add(vertexView);
 		
-		if(Settings.isAutoSave())
-			save();
-		else saved = false;
+		saved = false;
 	}
 	
 	/**
@@ -1092,9 +1111,7 @@ public class TreeView extends BorderPane {
 		// Edition de la liste
 		verticesViewForList.remove(vertex);
 		
-		if(Settings.isAutoSave())
-			save();
-		else saved = false;
+		saved = false;
 	}
 	
 	/**
@@ -1186,9 +1203,7 @@ public class TreeView extends BorderPane {
 		colorRelationForList = FXCollections.observableArrayList(colorRelation.entrySet());
 		relation_list.setItems(colorRelationForList);
 		
-		if(Settings.isAutoSave())
-			save();
-		else saved = false;
+		saved = false;
 	}
 	
 	/**
@@ -1290,9 +1305,7 @@ public class TreeView extends BorderPane {
 		colorRelation.remove(name);
 		edgesView.remove(name);
 		
-		if(Settings.isAutoSave())
-			save();
-		else saved = false;
+		saved = false;
 	}
 	
 	/**
@@ -1320,9 +1333,7 @@ public class TreeView extends BorderPane {
 		
 		center.getChildren().add(edgeView);
 		
-		if(Settings.isAutoSave())
-			save();
-		else saved = false;
+		saved = false;
 	}
 	
 	/**
@@ -1364,9 +1375,7 @@ public class TreeView extends BorderPane {
 		// Edition de la zone d'info
 		info_area.setText(tree.toString());
 		
-		if(Settings.isAutoSave())
-			save();
-		else saved = false;
+		saved = false;
 	}
 	
 	protected class CenterClicked implements EventHandler<MouseEvent> {
