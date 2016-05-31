@@ -16,6 +16,7 @@
         <xs:element minOccurs="0" ref="RENVOIS"/>
       </xs:sequence>
       <xs:attribute name="id" use="required"/>
+      <xs:attribute name="nom" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="RELATION">

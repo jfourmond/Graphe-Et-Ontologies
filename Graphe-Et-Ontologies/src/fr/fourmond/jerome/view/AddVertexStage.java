@@ -23,6 +23,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -49,6 +51,8 @@ public class AddVertexStage extends Stage {
 			private Text title;
 			private Label ID;
 				private TextField IDField;
+			private Label Name;
+				private TextField nameField;
 			private Button addAttribute;
 		private HBox hBox;
 			private Button cancel;
@@ -58,6 +62,7 @@ public class AddVertexStage extends Stage {
 	private List<Pair<Label, TextField>> attributesView;
 	
 	private String text_id;
+	private String text_name;
 	private Map<String, String> text_attributes;
 	
 	private int currentRow;
@@ -100,6 +105,8 @@ public class AddVertexStage extends Stage {
 				IDField = new TextField(text_id);
 					if(Settings.isAutoId())
 						IDField.setDisable(true);
+				Name = new Label("Nom");
+				nameField = new TextField(text_name);
 				addAttribute = new Button("Ajouter attribut");
 			hBox = new HBox(10);
 			hBox.setAlignment(Pos.BOTTOM_RIGHT);
@@ -120,8 +127,10 @@ public class AddVertexStage extends Stage {
 		gridPane.add(title, 0, 0, 2, 1);
 		gridPane.add(ID, 0, 1);
 		gridPane.add(IDField, 1, 1);
+		gridPane.add(Name, 0, 2);
+		gridPane.add(nameField, 1, 2);
 		
-		currentRow = 2;
+		currentRow = 3;
 		currentCol = 0;
 		
 		for(Pair<Label, TextField> pair : attributesView) {
@@ -195,18 +204,13 @@ public class AddVertexStage extends Stage {
 		add.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				save();
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Erreur");
-				alert.setHeaderText("Ajout du sommet impossible.");
-				alert.initStyle(StageStyle.UTILITY);
-				try {
-					vertex = buildVertex();
-					close();
-				} catch (Exception e) {
-					alert.setContentText(e.getMessage());
-					alert.showAndWait();
-				}
+				add();
+			}
+		});
+		nameField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode().equals(KeyCode.ENTER)) { add(); }
 			}
 		});
 		setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -219,6 +223,7 @@ public class AddVertexStage extends Stage {
 	
 	private void save() {
 		text_id = IDField.getText();
+		text_name = nameField.getText();
 		for(Pair<Label, TextField> pair : attributesView) {
 			Label label = pair.getFirst();
 			TextField textField = pair.getSecond();
@@ -234,7 +239,7 @@ public class AddVertexStage extends Stage {
 	}
 	
 	private Vertex buildVertex() throws VertexException {
-		Vertex vertex = new Vertex(text_id);
+		Vertex vertex = new Vertex(text_id, text_name);
 		for(Entry<String, String> entry : text_attributes.entrySet()) {
 			String key = entry.getKey().trim();
 			String value = entry.getValue().trim();
@@ -242,5 +247,20 @@ public class AddVertexStage extends Stage {
 			vertex.set(key, value);
 		}
 		return vertex;
+	}
+	
+	private void add() {
+		save();
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Erreur");
+		alert.setHeaderText("Ajout du sommet impossible.");
+		alert.initStyle(StageStyle.UTILITY);
+		try {
+			vertex = buildVertex();
+			close();
+		} catch (Exception e) {
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		}
 	}
 }

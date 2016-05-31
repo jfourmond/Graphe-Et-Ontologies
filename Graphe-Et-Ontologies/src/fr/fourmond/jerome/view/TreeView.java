@@ -45,10 +45,12 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -61,6 +63,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.StageStyle;
@@ -99,6 +102,10 @@ public class TreeView extends BorderPane {
 			private List<MenuItem> item_add_edge_relations;
 	private Menu menu_view;
 		private CheckMenuItem item_show_vertices;
+		private Menu menu_view_vertex;
+			private ToggleGroup items_view_vertex;
+			private RadioMenuItem item_view_vertex_id;
+			private RadioMenuItem item_view_vertex_name;
 		private Menu menu_view_relations;
 			private List<CheckMenuItem> item_view_relations;
 		private CheckMenuItem item_show_wording;
@@ -240,6 +247,13 @@ public class TreeView extends BorderPane {
 		menu_view = new Menu("Affichage");
 			item_show_vertices = new CheckMenuItem("Afficher les sommets");
 				item_show_vertices.setSelected(true);
+			menu_view_vertex = new Menu("Sommets");
+				items_view_vertex = new ToggleGroup();
+				item_view_vertex_id = new RadioMenuItem("Identifiants");
+					item_view_vertex_id.setToggleGroup(items_view_vertex);
+					item_view_vertex_id.setSelected(true);
+				item_view_vertex_name = new RadioMenuItem("Noms");
+					item_view_vertex_name.setToggleGroup(items_view_vertex);
 			item_show_wording = new CheckMenuItem("Afficher les libellés");
 		menu_tools = new Menu("Outils");
 		item_tools_data = new MenuItem("Données");
@@ -311,6 +325,7 @@ public class TreeView extends BorderPane {
 		east.setPrefHeight(east.getMaxHeight());
 			info_box = new VBox();
 				info_label = new Text("Informations");
+				info_label.setFont(Font.font("Verdana", 15));
 				info_area = new TextArea(tree.toString());
 					info_area.setPrefWidth(200);
 					info_area.setEditable(false);
@@ -418,7 +433,8 @@ public class TreeView extends BorderPane {
 			menu_edit.getItems().addAll(item_add_vertex, item_add_relation, menu_add_edge);
 				menu_view_relations.getItems().addAll(item_view_relations);
 			menu_tools.getItems().add(item_tools_data);
-			menu_view.getItems().addAll(item_show_vertices, menu_view_relations, item_show_wording);
+				menu_view_vertex.getItems().addAll(item_view_vertex_id, item_view_vertex_name);
+			menu_view.getItems().addAll(item_show_vertices, menu_view_vertex, menu_view_relations, item_show_wording);
 			menu_settings.getItems().addAll(item_auto_save, item_auto_id);
 		menuBar.getMenus().addAll(menu_file, menu_edit, menu_tools, menu_view, menu_settings);
 		menuBar.setUseSystemMenuBar(true);
@@ -487,6 +503,14 @@ public class TreeView extends BorderPane {
 								// TODO Ne pas reconstruire toute la fenêtre.
 							}
 						});
+						loader.setOnFailed(new EventHandler<WorkerStateEvent>() {
+							@Override
+							public void handle(WorkerStateEvent event) {
+								Throwable e = loader.getException();
+								alertError.setContentText(e.getMessage());
+								alertError.showAndWait();
+							}
+						});
 						info_progress.textProperty().bind(loader.messageProperty());
 						pb.progressProperty().bind(loader.progressProperty());
 						loader.run();
@@ -542,9 +566,10 @@ public class TreeView extends BorderPane {
 	
 					ButtonType buttonCancel = new ButtonType("Annuler", ButtonData.CANCEL_CLOSE);
 					ButtonType buttonSave = new ButtonType("Enregistrer");
+					ButtonType buttonSaveUnder = new ButtonType("Enregistrer sous");
 					ButtonType buttonClose = new ButtonType("Fermer");
 	
-					alert.getButtonTypes().setAll(buttonClose, buttonCancel, buttonSave);
+					alert.getButtonTypes().setAll(buttonClose, buttonCancel, buttonSave, buttonSaveUnder);
 					
 					alert.showAndWait().ifPresent(response -> {
 						if (response == buttonSave) {
@@ -567,6 +592,38 @@ public class TreeView extends BorderPane {
 								}
 							});
 							new Thread(saver).start();
+						} else if(response == buttonSaveUnder) {
+							alertError.setHeaderText("Enregistrement impossible.");
+							File file = fileChooser.showSaveDialog(null);
+							if(file != null) {
+								tree.setFile(file);
+								try {
+									TreeSaver saver = new TreeSaver(tree);
+									info_progress.textProperty().bind(saver.messageProperty());
+									pb.progressProperty().bind(saver.progressProperty());
+									saver.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+										@Override
+										public void handle(WorkerStateEvent event) { Platform.exit(); }
+									});
+									saver.setOnFailed(new EventHandler<WorkerStateEvent>() {
+										@Override
+										public void handle(WorkerStateEvent event) {
+											Alert alert = new Alert(AlertType.ERROR);
+											alert.setTitle("Erreur");
+											alert.setHeaderText("Erreur dans l'enregistrement du fichier");
+											alert.initStyle(StageStyle.UTILITY);
+											alert.setContentText(saver.getException().getMessage());
+											alert.showAndWait();
+										}
+									});
+									new Thread(saver).start();
+								} catch (Exception e) {
+									e.printStackTrace();
+									alertError.setContentText(e.getMessage());
+									alertError.showAndWait();
+								}
+								item_save.setDisable(false);
+							}
 						} else if(response == buttonClose){
 							Platform.exit();
 						} else {
@@ -636,6 +693,24 @@ public class TreeView extends BorderPane {
 				}
 			});
 		}
+		item_view_vertex_id.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				boolean selected = item_view_vertex_id.isSelected();
+				for(VertexView vertex : verticesView) {
+					vertex.showID(selected);
+				}
+			}
+		});
+		item_view_vertex_name.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				boolean selected = item_view_vertex_name.isSelected();
+				for(VertexView vertex : verticesView) {
+					vertex.showName(selected);
+				}
+			}
+		});
 		item_show_vertices.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -742,12 +817,14 @@ public class TreeView extends BorderPane {
 				EditEdgeStage editEdgeStage = new EditEdgeStage(edgeViewSelected.getPair(), edgeViewSelected.getRelation(), tree.getVertices(), tree.getRelationsNames());
 				editEdgeStage.showAndWait();
 				alertError.setHeaderText("Erreur lors de l'édition de l'arc");
-				try {
-					editPair(editEdgeStage.getOldRelationName(), editEdgeStage.getOldPair(), editEdgeStage.getNewRelationName(), editEdgeStage.getNewPair());
-				} catch (Exception e) {
-					e.printStackTrace();
-					alertError.setContentText(e.getMessage());
-					alertError.showAndWait();
+				if(editEdgeStage.getNewPair() != null && editEdgeStage.getNewRelationName() != null) {
+					try {
+						editPair(editEdgeStage.getOldRelationName(), editEdgeStage.getOldPair(), editEdgeStage.getNewRelationName(), editEdgeStage.getNewPair());
+					} catch (Exception e) {
+						e.printStackTrace();
+						alertError.setContentText(e.getMessage());
+						alertError.showAndWait();
+					}
 				}
 			}
 		});

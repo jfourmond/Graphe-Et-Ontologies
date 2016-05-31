@@ -134,7 +134,7 @@ public class Relation {
 	
 	@Override
 	public String toString() {
-		String ch = name + " (" + pairs.size() + "): \n";
+		String ch = name + " (" + pairs.size() + " paires): \n";
 		for(Pair<Vertex, Vertex> pair : pairs) {
 			ch += "\t\t" + pair.getFirst().getID() + " -> " + pair.getSecond().getID() + "\n";
 		}

@@ -18,26 +18,22 @@ public class VertexView extends Group {
 	private static int diameter = 25;
 	
 	private Circle circle;
-	private Label label;
+	private Label id;
+	private Label name;
 	
 	private Vertex vertex;
 	private boolean selected;
+	
+	private boolean showID = true;	// VRAI si l'ID est affiché, FAUX  si le nom est affiché
 	
 	public VertexView(Vertex vertex, int x, int y) {
 		super();
 		this.vertex = vertex;
 		
 		circle = new Circle(x, y, diameter, Color.TRANSPARENT);
-		circle.setStroke(Color.BLACK);
 		
-		label = new Label(vertex.getID());
-		label.setTranslateX(circle.getCenterX());
-		label.setTranslateY(circle.getCenterY());
-		
-		getChildren().add(circle);
-		getChildren().add(label);
-		
-		selected = false;
+		buildComposants();
+		buildInterface();
 	}
 	
 	public VertexView(Vertex vertex, Point p) {
@@ -45,16 +41,9 @@ public class VertexView extends Group {
 		this.vertex = vertex;
 		
 		circle = new Circle(p.x, p.y, diameter, Color.TRANSPARENT);
-		circle.setStroke(Color.BLACK);
-		
-		label = new Label(vertex.getID());
-		label.setTranslateX(circle.getCenterX());
-		label.setTranslateY(circle.getCenterY());
-		
-		getChildren().add(circle);
-		getChildren().add(label);
-		
-		selected = false;
+
+		buildComposants();
+		buildInterface();
 	}
 	
 	public VertexView(Vertex vertex, Pair<Double, Double> pair) {
@@ -62,14 +51,9 @@ public class VertexView extends Group {
 		this.vertex = vertex;
 		
 		circle = new Circle(pair.getFirst(), pair.getSecond(), diameter, Color.TRANSPARENT);
-		circle.setStroke(Color.BLACK);
 		
-		label = new Label(vertex.getID());
-		label.setTranslateX(circle.getCenterX());
-		label.setTranslateY(circle.getCenterY());
-		
-		getChildren().add(circle);
-		getChildren().add(label);
+		buildComposants();
+		buildInterface();
 	}
 	
 	//	GETTERS
@@ -88,8 +72,21 @@ public class VertexView extends Group {
 	
 	public void setSelected(boolean selected) {
 		this.selected = selected;
-		if(this.selected) circle.setStroke(Color.RED);
-		else circle.setStroke(Color.BLACK);
+		if(this.selected) {
+			circle.setStroke(Color.RED);
+			circle.setStrokeWidth(2);
+			id.setTextFill(Color.RED);
+			id.setStyle("-fx-font-weight: bold");
+			name.setTextFill(Color.RED);
+			name.setStyle("-fx-font-weight: bold");
+		} else {
+			circle.setStrokeWidth(1);
+			circle.setStroke(Color.BLACK);
+			id.setTextFill(Color.BLACK);
+			id.setStyle(null);
+			name.setTextFill(Color.BLACK);
+			name.setStyle(null);
+		}
 	}
 	
 	//	METHODES
@@ -99,11 +96,52 @@ public class VertexView extends Group {
 	
 	public void setCenterX(double value) {
 		circle.setCenterX(value);
-		label.setTranslateX(value);
+		id.setTranslateX(value);
+		name.setTranslateX(value);
 	}
 	
 	public void setCenterY(double value) {
 		circle.setCenterY(value);
-		label.setTranslateY(value);
+		id.setTranslateY(value);
+		name.setTranslateY(value);
+	}
+	
+	public void showID(boolean b) {
+		showID = b;
+		id.setVisible(b);
+		name.setVisible(!b);
+	}
+	
+	public void showName(boolean b) {
+		showID = !b;
+		id.setVisible(!b);
+		name.setVisible(b);
+	}
+	
+	public void switchShow() {
+		showID = !showID;
+		id.setVisible(showID);
+		name.setVisible(!showID);	
+	}
+	
+	private void buildComposants() {
+		circle.setStroke(Color.BLACK);
+		
+		id = new Label(vertex.getID());
+			id.setTranslateX(circle.getCenterX());
+			id.setTranslateY(circle.getCenterY());
+			id.setVisible(showID);
+		name = new Label(vertex.getName());
+			name.setTranslateX(circle.getCenterX());
+			name.setTranslateY(circle.getCenterY());
+			name.setVisible(!showID);
+		
+		selected = false;
+	}
+	
+	private void buildInterface() {
+		getChildren().add(circle);
+		getChildren().add(id);
+		getChildren().add(name);
 	}
 }

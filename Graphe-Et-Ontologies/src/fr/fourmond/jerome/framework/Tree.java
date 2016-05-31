@@ -52,13 +52,14 @@ public class Tree {
 	/**
 	 * Crée un sommet (sans attribut)
 	 * @param vertexID : identifiant unique du sommet
+	 * @param vertexName : nom du sommet
 	 * @throws TreeException si le sommet existe déjà
 	 * @throws VertexException si l'identifiant est <code>null</code> ou vide
 	 * @return le sommet crée
 	 */
-	public Vertex createVertex(String vertexID) throws TreeException, VertexException {
+	public Vertex createVertex(String vertexID, String vertexName) throws TreeException, VertexException {
 		if(getVertex(vertexID) == null) {
-			Vertex vertex = new Vertex(vertexID);
+			Vertex vertex = new Vertex(vertexID, vertexName);
 			vertices.add(vertex);
 			return vertex;
 		} else throw new TreeException("Le sommet existe déjà.");
@@ -386,7 +387,7 @@ public class Tree {
 				if(id > maxID)
 					maxID = id;
 			} catch(Exception E) {
-				E.printStackTrace();
+				// DO NOTHING
 			}
 		}
 		AutoID = maxID+1;
@@ -394,12 +395,12 @@ public class Tree {
 	
 	@Override
 	public String toString() {
-		String ch = "Sommets (" + vertices.size() + ") : \n";
+		String ch = vertices.size() + " Sommets : \n";
 		for(Vertex vertex : vertices) {
 			ch += "\t" + vertex + "\n";
 		}
 		
-		ch += "Relations (" + relations.size() + ") : \n";
+		ch += relations.size() + " Relations : \n";
 		for(Relation relation : relations) {
 			ch += "\t" + relation;
 		}

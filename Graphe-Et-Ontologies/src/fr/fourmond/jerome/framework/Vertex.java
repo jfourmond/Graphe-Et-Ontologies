@@ -7,31 +7,39 @@ import java.util.Set;
 
 /**
  * {@link Vertex} représente un sommet.
- * Il est composé d'un ID, un {@link String}, devant être unique
+ * Il est composé d'un ID, un {@link String}, devant être unique,
+ * d'un nom,
  * et d'une {@link Map} associant attributs et valeurs
  * @author jfourmond
  */
 public class Vertex {
 	private String ID;
+	private String name;
 	private Map<String, String> attributes;
 	
 	//	CONSTRUCTEURS
-	public Vertex(String ID) throws VertexException {
+	public Vertex(String ID, String name) throws VertexException {
 		if(ID == null || ID.isEmpty())
 			throw new VertexException("Aucun ID spécifié.");
-		else {
+		else if(name == null || name.isEmpty()) {
+			throw new VertexException("Aucun nom spécifié.");
+		} else { 
 			this.ID = ID;
+			this.name = name;
 			attributes = new HashMap<>();
 		}
 	}
 	
 	public Vertex(Vertex vertex) throws VertexException {
 		ID = vertex.getID();
+		name = vertex.getName();
 		attributes = new HashMap<>(vertex.getAttributes());
 	}
 	
 	//	GETTERS
 	public String getID() { return ID; }
+	
+	public String getName() { return name; }
 	
 	public Map<String, String> getAttributes() { return attributes; }
 	
@@ -42,6 +50,8 @@ public class Vertex {
 		else 
 			ID = iD;
 	}
+	
+	public void setName(String name) { this.name = name; }
 	
 	public void setAttributes(Map<String, String> attributes) { this.attributes = attributes; }
 	
@@ -109,7 +119,8 @@ public class Vertex {
 	}
 	
 	public String info() {
-		String ch = "ID : " + ID + "\n";
+		String ch = "Sommet " + ID + "\n";
+		ch += "\tNom : " + name + "\n";
 		Set<Entry<String, String>> attributes = this.attributes.entrySet();
 		for(Entry<String, String> attribute : attributes) {
 			String readAttribute = attribute.getKey();
@@ -120,7 +131,7 @@ public class Vertex {
 	}
 	
 	@Override
-	public String toString() { return ID; }
+	public String toString() { return ID + " - " + name; }
 	
 	@Override
 	public boolean equals(Object obj) {

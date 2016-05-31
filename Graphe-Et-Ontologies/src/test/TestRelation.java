@@ -71,8 +71,8 @@ public class TestRelation {
 		Vertex vertex1;
 		Vertex vertex2;
 		try {
-			vertex1 = new Vertex("0");
-			vertex2 = new Vertex("1");
+			vertex1 = new Vertex("0", "nom0");
+			vertex2 = new Vertex("1", "nom1");
 			pairs.add(new Pair<>(vertex1, vertex2));
 			relation.setPairs(pairs);
 			assertEquals("La taille ne correspond pas.", 1, relation.getPairs().size());
@@ -86,8 +86,8 @@ public class TestRelation {
 		Vertex vertex1;
 		Vertex vertex2;
 		try {
-			vertex1 = new Vertex("0");
-			vertex2 = new Vertex("1");
+			vertex1 = new Vertex("0", "nom0");
+			vertex2 = new Vertex("1", "nom1");
 			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
 		} catch (VertexException e) {
 			e.printStackTrace();
@@ -101,8 +101,8 @@ public class TestRelation {
 		Vertex vertex1;
 		Vertex vertex2;
 		try {
-			vertex1 = new Vertex("0");
-			vertex2 = new Vertex("1");
+			vertex1 = new Vertex("0", "nom0");
+			vertex2 = new Vertex("1", "nom1");
 			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
 			Pair<Vertex, Vertex> pair = relation.getFirstPair(vertex1);
 			assertTrue(pair != null);
@@ -118,8 +118,8 @@ public class TestRelation {
 		Vertex vertex1;
 		Vertex vertex2;
 		try {
-			vertex1 = new Vertex("0");
-			vertex2 = new Vertex("1");
+			vertex1 = new Vertex("0", "nom0");
+			vertex2 = new Vertex("1", "nom1");
 			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
 			List<Pair<Vertex, Vertex>> pairs = relation.getPairs(vertex1);
 			assertEquals(pairs.size(), 1);
@@ -135,8 +135,8 @@ public class TestRelation {
 		Vertex vertex1;
 		Vertex vertex2;
 		try {
-			vertex1 = new Vertex("0");
-			vertex2 = new Vertex("1");
+			vertex1 = new Vertex("0", "nom0");
+			vertex2 = new Vertex("1", "nom1");
 			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
 			assertTrue(relation.contains(new Pair<Vertex, Vertex>(vertex1, vertex2)));
 		} catch (VertexException e) {
@@ -151,8 +151,8 @@ public class TestRelation {
 		Vertex vertex1;
 		Vertex vertex2;
 		try {
-			vertex1 = new Vertex("0");
-			vertex2 = new Vertex("1");
+			vertex1 = new Vertex("0", "nom0");
+			vertex2 = new Vertex("1", "nom1");
 			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
 			assertTrue(relation.containsVertex(vertex1));
 		} catch (VertexException e) {
@@ -167,8 +167,8 @@ public class TestRelation {
 		Vertex vertex1;
 		Vertex vertex2;
 		try {
-			vertex1 = new Vertex("0");
-			vertex2 = new Vertex("1");
+			vertex1 = new Vertex("0", "nom0");
+			vertex2 = new Vertex("1", "nom1");
 			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
 			relation.remove(new Pair<Vertex, Vertex>(vertex1, vertex2));
 			assertEquals(relation.size(), 0);
@@ -184,8 +184,8 @@ public class TestRelation {
 		Vertex vertex1;
 		Vertex vertex2;
 		try {
-			vertex1 = new Vertex("0");
-			vertex2 = new Vertex("1");
+			vertex1 = new Vertex("0", "nom0");
+			vertex2 = new Vertex("1", "nom1");
 			relation.add(new Pair<Vertex, Vertex>(vertex1, vertex2));
 			relation.removeRelatedPair(vertex1);
 			assertEquals(relation.size(), 0);
