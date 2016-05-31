@@ -115,9 +115,7 @@ public class Vertex {
 	 * Retourne un ensemble des noms d'attributs utilisés.
 	 * @return un ensemble des noms d'attributs utilisés
 	 */
-	public Set<String> getKey() {
-		return attributes.keySet();
-	}
+	public Set<String> getKey() { return attributes.keySet(); }
 	
 	public String info() {
 		String ch = "Sommet " + ID + "\n";

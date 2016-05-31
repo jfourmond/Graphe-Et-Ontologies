@@ -342,11 +342,15 @@ public class Tree {
 	 * Retourne un ensemble des attributs utilisés
 	 * @return un ensemble des attributs utilisés
 	 */
-	public Set<String> getAttributes() {
-		Set<String> attributes = new HashSet<>();
+	public List<String> getAttributes() {
+		List<String> attributes = new ArrayList<>();
 		attributes.add("ID");
+		attributes.add("Nom");
 		for(Vertex vertex : vertices) {
-			attributes.addAll(vertex.getKey());
+			for(String key : vertex.getKey()) {
+				if(!attributes.contains(key))
+					attributes.add(key);
+			}
 		}
 		return attributes;
 	}
