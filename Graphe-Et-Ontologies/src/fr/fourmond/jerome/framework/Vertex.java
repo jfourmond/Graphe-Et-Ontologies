@@ -64,8 +64,9 @@ public class Vertex {
 	public String get(String attributeID) {
 		if(attributeID.equals("ID"))
 			return ID;
-		else
-			return attributes.get(attributeID);
+		else if(attributeID.equals("Nom"))
+			return name;
+		else return attributes.get(attributeID);
 	}
 
 	/**
