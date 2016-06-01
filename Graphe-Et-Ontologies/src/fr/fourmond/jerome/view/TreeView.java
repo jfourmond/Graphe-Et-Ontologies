@@ -758,6 +758,7 @@ public class TreeView extends BorderPane {
 			@Override
 			public void handle(ActionEvent event) {
 				TextInputDialog dialog = new TextInputDialog(Integer.toString(VertexView.getRadius()));
+				dialog.initStyle(StageStyle.UTILITY);
 				dialog.setTitle("Rayon des sommets");
 				dialog.setHeaderText(null);
 				dialog.setContentText("Rayon (entier) : ");
