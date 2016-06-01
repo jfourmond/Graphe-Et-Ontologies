@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <IndexSource corpus="htl.seq">
 
-<!DOCTYPE IndexSource SYSTEM "index327.dtd" >
-
-<ENTREE  terme =  "abcès" validite = "Neutre"  id="1">
-   <RELATION nom="Tete"  />
-   <RELATION nom="HYPERONYMIE">
-          <LIEN></LIEN>
-          <LIEN>abcès prothétique</LIEN>
+<ENTREE id="1" nom="abcès">
+    <ATTRIBUT nom="validite" valeur="Neutre"/>
+    <RELATION nom="Tete"  />
+    <RELATION nom="HYPERONYMIE">
+        <LIEN>2</LIEN>
    </RELATION>
    <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
@@ -15,27 +13,26 @@
    <RELATION nom="SPECIALISATION"  />
    <RELATION nom="DERIVES"  />
    <RELATION nom="AUTRE"  />
-   <RENVOIS>
-     </RENVOIS>
+   <RENVOIS/>
  </ENTREE>
 
-<ENTREE  terme =  "abcès prothétique" validite = "Neutre"  id="2">
-   <RELATION nom="Tete">
-          <LIEN>abcès</LIEN>
-   </RELATION>
-   <RELATION nom="HYPERONYMIE"  />
-   <RELATION nom="MERONYMIE">
-          <LIEN></LIEN>
-          <LIEN>abcès</LIEN>
-   </RELATION>
-   <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
-   <RELATION nom="SYNONYMIE"  />
-   <RELATION nom="SPECIALISATION"  />
-   <RELATION nom="DERIVES"  />
-   <RELATION nom="AUTRE"  />
-   <RENVOIS>
-          <LIEN>MENSUITE_0_p1430-1</LIEN>
-     </RENVOIS>
+<ENTREE id="2" nom="abcès prothétique">
+    <ATTRIBUT nom="validite" valeur="Neutre" />
+    <RELATION nom="Tete">
+        <LIEN>1</LIEN>
+    </RELATION>
+    <RELATION nom="HYPERONYMIE"  />
+    <RELATION nom="MERONYMIE">
+        <LIEN>1</LIEN>
+    </RELATION>
+    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
+    <RELATION nom="SYNONYMIE"  />
+    <RELATION nom="SPECIALISATION"  />
+    <RELATION nom="DERIVES"  />
+    <RELATION nom="AUTRE"  />
+    <RENVOIS>
+        <LIEN>MENSUITE_0_p1430-1</LIEN>
+    </RENVOIS>
  </ENTREE>
 
 <ENTREE  terme =  "abimé" validite = "Neutre"  id="3">
@@ -2516,19 +2513,6 @@
           <LIEN></LIEN>
           <LIEN>activité</LIEN>
    </RELATION>
-   <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
-   <RELATION nom="SYNONYMIE"  />
-   <RELATION nom="SPECIALISATION"  />
-   <RELATION nom="DERIVES"  />
-   <RELATION nom="AUTRE"  />
-   <RENVOIS>
-     </RENVOIS>
- </ENTREE>
-
-<ENTREE  terme =  "" validite = "Neutre"  id="133">
-   <RELATION nom="Tete"  />
-   <RELATION nom="HYPERONYMIE"  />
-   <RELATION nom="MERONYMIE"  />
    <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
    <RELATION nom="SYNONYMIE"  />
    <RELATION nom="SPECIALISATION"  />
@@ -5671,19 +5655,6 @@
      </RENVOIS>
  </ENTREE>
 
-<ENTREE  terme =  "" validite = "Neutre"  id="297">
-   <RELATION nom="Tete"  />
-   <RELATION nom="HYPERONYMIE"  />
-   <RELATION nom="MERONYMIE"  />
-   <RELATION nom="VARIANTE TERMINOLOGIQUE"  />
-   <RELATION nom="SYNONYMIE"  />
-   <RELATION nom="SPECIALISATION"  />
-   <RELATION nom="DERIVES"  />
-   <RELATION nom="AUTRE"  />
-   <RENVOIS>
-     </RENVOIS>
- </ENTREE>
-
 <ENTREE  terme =  "AMLOR" validite = "Neutre"  id="298">
    <RELATION nom="Tete"  />
    <RELATION nom="HYPERONYMIE"  />
@@ -5742,38 +5713,38 @@
 <ENTREE  terme="terme11" validite="Neutre" id="301">
    <RELATION nom="Tete"/>
    <RELATION nom="HYPERONYMIE">
-        
+
 <LIEN>terme42</LIEN>
-<LIEN>terme72</LIEN> 
+<LIEN>terme72</LIEN>
 <LIEN>terme152</LIEN>
 <LIEN>terme162</LIEN>
-   		
+
    </RELATION>
    <RELATION nom="MERONYMIE">
 <LIEN>termeM42</LIEN>
-<LIEN>termeM72</LIEN> 
+<LIEN>termeM72</LIEN>
 <LIEN>termeM152</LIEN>
 <LIEN>termeM162</LIEN>
-   		
+
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
 <LIEN>termeV42</LIEN>
-<LIEN>termeV72</LIEN> 
+<LIEN>termeV72</LIEN>
 
-   		
+
    </RELATION>
    <RELATION nom="SYNONYMIE">
-<LIEN>termeS72</LIEN> 
+<LIEN>termeS72</LIEN>
 <LIEN>termeS152</LIEN>
 <LIEN>termeS162</LIEN>
-   		
+
    </RELATION>
    <RELATION nom="SPECIALISATION">
 <LIEN>termeSP42</LIEN>
-<LIEN>termeSP72</LIEN> 
+<LIEN>termeSP72</LIEN>
 <LIEN>termeSP152</LIEN>
 <LIEN>termeSP162</LIEN>
-   		
+
    </RELATION>
    <RELATION nom="DERIVES"/>
    <RELATION nom="AUTRE"/>
@@ -5783,38 +5754,38 @@
 <ENTREE  terme="terme42" validite="Neutre" id="302">
    <RELATION nom="Tete"/>
    <RELATION nom="HYPERONYMIE">
-        
+
 <LIEN>terme34</LIEN>
-<LIEN>terme43</LIEN> 
+<LIEN>terme43</LIEN>
 <LIEN>terme52</LIEN>
 <LIEN>terme62</LIEN>
-   		
+
    </RELATION>
    <RELATION nom="MERONYMIE">
 <LIEN>termeM41</LIEN>
-<LIEN>termeM72</LIEN> 
+<LIEN>termeM72</LIEN>
 <LIEN>termeM150</LIEN>
 <LIEN>termeM165</LIEN>
-   		
+
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
 <LIEN>termeV42</LIEN>
-<LIEN>termeV72</LIEN> 
+<LIEN>termeV72</LIEN>
 
-   		
+
    </RELATION>
    <RELATION nom="SYNONYMIE">
-<LIEN>termeS72</LIEN> 
+<LIEN>termeS72</LIEN>
 <LIEN>termeS152</LIEN>
 <LIEN>termeS162</LIEN>
-   		
+
    </RELATION>
    <RELATION nom="SPECIALISATION">
 <LIEN>termeSP42</LIEN>
-<LIEN>termeSP72</LIEN> 
+<LIEN>termeSP72</LIEN>
 <LIEN>termeSP152</LIEN>
 <LIEN>termeSP162</LIEN>
-   		
+
    </RELATION>
    <RELATION nom="DERIVES"/>
    <RELATION nom="AUTRE"/>
@@ -5827,38 +5798,38 @@
 <ENTREE terme="terme34" validite="Neutre" id="303">
    <RELATION nom="Tete"/>
    <RELATION nom="HYPERONYMIE">
-        
+
 <LIEN>terme38</LIEN>
-<LIEN>terme45</LIEN> 
+<LIEN>terme45</LIEN>
 <LIEN>terme52</LIEN>
 <LIEN>terme62</LIEN>
-   		
+
    </RELATION>
    <RELATION nom="MERONYMIE">
 <LIEN>termeM41</LIEN>
-<LIEN>termeM72</LIEN> 
+<LIEN>termeM72</LIEN>
 <LIEN>termeM150</LIEN>
 <LIEN>termeM165</LIEN>
-   		
+
    </RELATION>
    <RELATION nom="VARIANTE TERMINOLOGIQUE">
 <LIEN>termeV42</LIEN>
-<LIEN>termeV72</LIEN> 
+<LIEN>termeV72</LIEN>
 
-   		
+
    </RELATION>
    <RELATION nom="SYNONYMIE">
-<LIEN>termeS72</LIEN> 
+<LIEN>termeS72</LIEN>
 <LIEN>termeS152</LIEN>
 <LIEN>termeS162</LIEN>
-   		
+
    </RELATION>
    <RELATION nom="SPECIALISATION">
 <LIEN>termeSP42</LIEN>
-<LIEN>termeSP72</LIEN> 
+<LIEN>termeSP72</LIEN>
 <LIEN>termeSP152</LIEN>
 <LIEN>termeSP162</LIEN>
-   		
+
    </RELATION>
    <RELATION nom="DERIVES"/>
    <RELATION nom="AUTRE"/>
@@ -6189,4 +6160,3 @@
 
 
 </IndexSource>
-

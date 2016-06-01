@@ -15,7 +15,7 @@ import javafx.scene.shape.Circle;
  * @author jfourmond
  */
 public class VertexView extends Group {
-	private static int diameter = 25;
+	private static int radius = 20;
 	
 	private Circle circle;
 	private Label id;
@@ -30,7 +30,7 @@ public class VertexView extends Group {
 		super();
 		this.vertex = vertex;
 		
-		circle = new Circle(x, y, diameter, Color.TRANSPARENT);
+		circle = new Circle(x, y, radius, Color.TRANSPARENT);
 		
 		buildComposants();
 		buildInterface();
@@ -40,7 +40,7 @@ public class VertexView extends Group {
 		super();
 		this.vertex = vertex;
 		
-		circle = new Circle(p.x, p.y, diameter, Color.TRANSPARENT);
+		circle = new Circle(p.x, p.y, radius, Color.TRANSPARENT);
 
 		buildComposants();
 		buildInterface();
@@ -50,18 +50,19 @@ public class VertexView extends Group {
 		super();
 		this.vertex = vertex;
 		
-		circle = new Circle(pair.getFirst(), pair.getSecond(), diameter, Color.TRANSPARENT);
+		circle = new Circle(pair.getFirst(), pair.getSecond(), radius, Color.TRANSPARENT);
 		
 		buildComposants();
 		buildInterface();
 	}
 	
 	//	GETTERS
+	
 	public Vertex getVertex() { return vertex; }
 	
 	public Circle getCircle() { return circle; }
 	
-	public static int getDiameter() { return diameter; }
+	public static int getRadius() { return radius; }
 	
 	public boolean isSelected() { return selected; }
 	
@@ -89,6 +90,8 @@ public class VertexView extends Group {
 		}
 	}
 	
+	public static void setRadius(int diameter) { VertexView.radius = diameter; }
+	
 	//	METHODES
 	public double getCenterX() { return circle.getCenterX(); }
 	
@@ -105,6 +108,8 @@ public class VertexView extends Group {
 		id.setTranslateY(value);
 		name.setTranslateY(value);
 	}
+	
+	public void updateDiameter() { circle.setRadius(radius); }
 	
 	public void showID(boolean b) {
 		showID = b;

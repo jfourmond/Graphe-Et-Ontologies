@@ -2,7 +2,6 @@ package fr.fourmond.jerome.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import fr.fourmond.jerome.framework.Tree;
 import fr.fourmond.jerome.framework.Vertex;
@@ -11,11 +10,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -28,7 +28,7 @@ public class DataStage extends Stage {
 	
 	
 	private VBox vBox;
-		private Label labelVertex;
+		private Text text;
 		private TableView<Vertex> tableView;
 			private List<TableColumn<Vertex, String>> tableColumns;
 			
@@ -39,7 +39,6 @@ public class DataStage extends Stage {
 		
 		buildComposants();
 		buildInterface();
-		buildEvents();
 	}
 
 	private void buildComposants() {
@@ -48,11 +47,12 @@ public class DataStage extends Stage {
 		
 		ObservableList<Vertex> items = FXCollections.observableArrayList(vertices);
 		
-			labelVertex = new Label("Sommet");
+			text = new Text("Liste des sommet");
+			text.setFont(Font.font("Verdana", 15));
 			tableView = new TableView<>(items);
 		vBox = new VBox(10);
 		
-		Set<String> attributes = tree.getAttributes();
+		List<String> attributes = tree.getAttributes();
 		for(String attribute : attributes) {
 			TableColumn<Vertex, String> tableColumn = new TableColumn<>(attribute);
 			tableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Vertex,String>, ObservableValue<String>>() {
@@ -65,31 +65,13 @@ public class DataStage extends Stage {
 			tableColumns.add(tableColumn);
 		}
 		
-		for(Vertex vertex : vertices) {
-			for(String attribute : attributes) {
-				String value = vertex.get(attribute);
-				if(value != null) {
-					
-				}
-			}
-		}
-		
-		
-		
-		
 		tableView.getColumns().addAll(tableColumns);
 		
-		vBox.getChildren().addAll(labelVertex, tableView);
+		vBox.getChildren().addAll(text, tableView);
 	}
 
 	private void buildInterface() {
-		Scene scene = new Scene(vBox, 300, 200);
+		Scene scene = new Scene(vBox);
 		this.setScene(scene);
 	}
-
-	private void buildEvents() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

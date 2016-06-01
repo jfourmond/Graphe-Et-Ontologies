@@ -40,11 +40,13 @@ Le développement de cette partie se retrouve dans le commit [suivant](https://g
 
 - [x] Sauvegarde d'Ontologies
 - [x] Chargement d'Ontologies
-- [ ] Interaction avec l'Ontologie
+- [x] Interaction avec l'Ontologie
 
 ### 4. Quatrième étape
 
 - [ ] Manuel d'utilisation
+- [ ] Rapport
+- [ ] Soutenance
 
 ---
 
@@ -237,8 +239,9 @@ Par exemple :
 
 ### 2. Le Chargement
 
-Lors du chargement du fichier, le programme vérifie s'il est valide. Puis crée un [Tree](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Tree.java) manipulable par la suite.
+Lors du chargement du fichier, le programme vérifie s'il est valide sur le schéma de l'application. Puis crée un [Tree](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Tree.java) manipulable par la suite.
 
 ### 3. L'Ecriture
 
-L'écriture du fichier s'effectue grâce à la libraire JDOM. Dans le fichier spécifié par l'attribut *file* de l'instance.
+L'écriture du fichier s'effectue grâce à la libraire JDOM. Dans le fichier spécifié par l'attribut *file* de l'instance de [Tree](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Tree.java).
+Un fichier temporaire XML est également enregistré pour conserver les positions des sommets lors de l'enregistrement, ainsi que les couleurs des relations.
