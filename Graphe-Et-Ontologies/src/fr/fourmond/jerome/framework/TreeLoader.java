@@ -72,7 +72,7 @@ public class TreeLoader extends Task<Boolean> {
 			throw new FileNotFoundException("Le fichier n'existe pas.");
 		tmpTree.setFile(file);
 		
-		updateMessage("Chargement en cours...");
+		updateMessage("Chargement en cours");
 
 		Document document = saxBuilder.build(file);
 		
@@ -106,19 +106,21 @@ public class TreeLoader extends Task<Boolean> {
 				tmpTree.addAttribute(vertexKey, name, value);			// Ajout de l'attribut actuel au sommet actuel
 			}
 			updateProgress(++index, indexSize);
+			updateMessage("Chargement en cours.");
 		}
+		updateMessage("Chargement en cours..");
 		
 		tmpTree.setAutoID(maxID+1);
 		
 		String vertex1;
 		// Création des relations
 		for(Element courant : entries) {
-			vertex1 = courant.getAttributeValue(ID);							// Clé du sommet actuel
+			vertex1 = courant.getAttributeValue(ID);					// Clé du sommet actuel
 			List<Element> relations = courant.getChildren(RELATION);	// Récupération de ses relations
 			for(Element relation : relations) {						
-				String name = relation.getAttributeValue(NOM);					// Récupération du nom de la relation
-				if(!tmpTree.containsRelation(name)) {							// Si la relation n'existe pas,
-					tmpTree.createRelation(name);								// 		on la crée
+				String name = relation.getAttributeValue(NOM);			// Récupération du nom de la relation
+				if(!tmpTree.containsRelation(name)) {					// Si la relation n'existe pas,
+					tmpTree.createRelation(name);						// 		on la crée
 				}
 				List<Element> liens = relation.getChildren(LIEN);		// Récupération des liens de la relation
 				for(Element lien : liens) {
@@ -132,6 +134,7 @@ public class TreeLoader extends Task<Boolean> {
 				}
 			}
 			updateProgress(++index, indexSize);
+			updateMessage("Chargement en cours...");
 		}
 		
 		tree = tmpTree;

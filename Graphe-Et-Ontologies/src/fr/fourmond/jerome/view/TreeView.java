@@ -206,8 +206,7 @@ public class TreeView extends BorderPane {
 		fileChooser = new FileChooser();
 		fileChooser.setTitle("Ouvrir un fichier xml");
 		fileChooser.getExtensionFilters().addAll(
-				new FileChooser.ExtensionFilter("Tous fichiers", "*.*"),
-				new FileChooser.ExtensionFilter("XML", "*.xml")
+				new FileChooser.ExtensionFilter("Fichiers XML", "*.xml")
 			);
 		
 		colorRelation = new HashMap<>();
@@ -362,7 +361,7 @@ public class TreeView extends BorderPane {
 											List<EdgeView> list = edgesView.get(item.getKey());
 											for(EdgeView edgeView : list)
 												edgeView.setColor(c);
-											saved = false;
+											modificationDone();
 										}
 									});
 									setText(item.getKey());
@@ -501,7 +500,8 @@ public class TreeView extends BorderPane {
 							public void handle(WorkerStateEvent event) {
 								tree = loader.getTree();
 								build();
-								// TODO Ne pas reconstruire toute la fenêtre.
+								info_progress.setText("Chargement effectué");
+								pb.setProgress(100);
 							}
 						});
 						loader.setOnFailed(new EventHandler<WorkerStateEvent>() {
@@ -811,7 +811,7 @@ public class TreeView extends BorderPane {
 						info_area.setText(vertex.info());
 						vertexViewSelected.setVertex(vertex);
 					}
-					saved = false;
+					modificationDone();
 				} catch (VertexException e) {
 					e.printStackTrace();
 					alertError.setContentText(e.getMessage());
@@ -881,7 +881,7 @@ public class TreeView extends BorderPane {
 						info_area.setText(vertex.info());
 						vertex_list.getSelectionModel().getSelectedItem().setVertex(vertex);
 					}
-					saved = false;
+					modificationDone();
 				} catch (VertexException e) {
 					e.printStackTrace();
 					alertError.setContentText(e.getMessage());
@@ -1052,6 +1052,8 @@ public class TreeView extends BorderPane {
 			@Override
 			public void handle(WorkerStateEvent event) {
 				saved = true;
+				info_progress.textProperty().unbind();
+				pb.progressProperty().unbind();
 			}
 		});
 		new Thread(saver).start();
@@ -1082,7 +1084,7 @@ public class TreeView extends BorderPane {
 		// Edition de la liste
 		verticesViewForList.add(vertexView);
 		
-		saved = false;
+		modificationDone();
 	}
 	
 	/**
@@ -1112,7 +1114,7 @@ public class TreeView extends BorderPane {
 		// Edition de la liste
 		verticesViewForList.remove(vertex);
 		
-		saved = false;
+		modificationDone();
 	}
 	
 	/**
@@ -1204,7 +1206,7 @@ public class TreeView extends BorderPane {
 		colorRelationForList = FXCollections.observableArrayList(colorRelation.entrySet());
 		relation_list.setItems(colorRelationForList);
 		
-		saved = false;
+		modificationDone();
 	}
 	
 	/**
@@ -1306,7 +1308,7 @@ public class TreeView extends BorderPane {
 		colorRelation.remove(name);
 		edgesView.remove(name);
 		
-		saved = false;
+		modificationDone();
 	}
 	
 	/**
@@ -1334,7 +1336,7 @@ public class TreeView extends BorderPane {
 		
 		center.getChildren().add(edgeView);
 		
-		saved = false;
+		modificationDone();
 	}
 	
 	/**
@@ -1376,7 +1378,13 @@ public class TreeView extends BorderPane {
 		// Edition de la zone d'info
 		info_area.setText(tree.toString());
 		
+		modificationDone();
+	}
+	
+	private void modificationDone() {
 		saved = false;
+		info_progress.setText("Modifications non enregistrées");
+		pb.setProgress(0);
 	}
 	
 	protected class CenterClicked implements EventHandler<MouseEvent> {
@@ -1472,7 +1480,7 @@ public class TreeView extends BorderPane {
 				vertexView.setCenterX(event.getX());
 				vertexView.setCenterY(event.getY());
 				
-				saved = false;
+				modificationDone();
 			}
 		}
 	}
