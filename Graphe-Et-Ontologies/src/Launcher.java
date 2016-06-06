@@ -5,6 +5,11 @@ import fr.fourmond.jerome.view.LoadingSplashStage;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * Classe principale
+ * Exécution du programme
+ * @author jfourmond
+ */
 public class Launcher extends Application {
 	private static Tree tree;
 	private static String filename;
