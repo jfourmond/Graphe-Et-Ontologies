@@ -169,9 +169,7 @@ public class TestTree {
 	}
 	
 	@Test
-	public void testNbVertices() {
-		assertEquals(tree.nbVertices(), 0);
-	}
+	public void testVerticesCount() { assertEquals(tree.verticesCount(), 0); }
 	
 	@Test
 	public void testIsID() {

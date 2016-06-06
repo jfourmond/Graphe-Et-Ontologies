@@ -120,7 +120,7 @@ public class Tree {
 	 * Retourne le nombre de sommet
 	 * @return le nombre de sommet
 	 */
-	public int nbVertices() { return vertices.size(); }
+	public int verticesCount() { return vertices.size(); }
 	
 	/**
 	 * Teste si l'identifiant est l'identifiant d'un {@link Vertex} de l'arbre

@@ -94,7 +94,7 @@ public class TreeSaver extends Task<Boolean> {
 					lien.setText(pair.getSecond().getID());
 				}
 			}
-			updateProgress(++i, tree.nbVertices());
+			updateProgress(++i, tree.verticesCount());
 		}
 		
 		// Enregistrement

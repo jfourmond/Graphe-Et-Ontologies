@@ -378,7 +378,7 @@ public class TreeView extends BorderPane {
 			info_progress = new Label();
 			
 		alertError = new Alert(AlertType.ERROR);
-		alertError.setTitle("ERREUR");
+		alertError.setTitle("Erreur");
 		alertError.initStyle(StageStyle.UTILITY);
 	}
 	
