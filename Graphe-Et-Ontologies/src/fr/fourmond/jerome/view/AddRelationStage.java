@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -53,6 +54,8 @@ public class AddRelationStage extends Stage {
 	public void setRelation(Relation relation) { this.relation = relation; }
 	
 	private void buildComposants() {
+		getIcons().add(new Image("file:gando.png"));
+		
 		gridPane = new GridPane();
 		gridPane.setAlignment(Pos.CENTER);
 		gridPane.setHgap(10);

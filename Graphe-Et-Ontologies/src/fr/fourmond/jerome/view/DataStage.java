@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.image.Image;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -42,6 +43,8 @@ public class DataStage extends Stage {
 	}
 
 	private void buildComposants() {
+		getIcons().add(new Image("file:gando.png"));
+		
 		vertices = tree.getVertices();
 		tableColumns = new ArrayList<>();
 		

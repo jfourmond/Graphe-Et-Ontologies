@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -76,6 +77,8 @@ public class AddEdgeToRelationStage extends Stage {
 	
 	//	METHODES
 	private void buildComposants() {
+		getIcons().add(new Image("file:gando.png"));
+		
 		vertex1 = FXCollections.observableArrayList(vertices);
 		vertex2 = FXCollections.observableArrayList(vertices);
 		

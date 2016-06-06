@@ -20,6 +20,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -89,6 +90,8 @@ public class AddVertexStage extends Stage {
 	public void setVertex(Vertex vertex) { this.vertex = vertex; }
 	
 	private void buildComposants() {
+		getIcons().add(new Image("file:gando.png"));
+		
 		attributesView.clear();
 		
 		if(Settings.isAutoId())
@@ -112,7 +115,7 @@ public class AddVertexStage extends Stage {
 			hBox.setAlignment(Pos.BOTTOM_RIGHT);
 				cancel = new Button("Annuler");
 				add = new Button("Ajouter sommet");
-		
+				
 		// Construction des attributs
 		for(String attribute : attributes) {
 			Label label = new Label(attribute);

@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -30,6 +31,8 @@ public class AppStage extends Stage {
 		treeView = new TreeView(this.tree);
 		
 		this.setScene(new Scene(treeView, Settings.getWidth(), Settings.getHeight()));
+		
+		getIcons().add(new Image("file:gando.png"));
 		
 		getScene().widthProperty().addListener(new ChangeListener<Number>() {
 			@Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
