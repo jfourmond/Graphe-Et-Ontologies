@@ -43,7 +43,7 @@ public class DataStage extends Stage {
 	}
 
 	private void buildComposants() {
-		getIcons().add(new Image("file:gando.png"));
+		getIcons().add(new Image("file:res/gando.png"));
 		
 		vertices = tree.getVertices();
 		tableColumns = new ArrayList<>();

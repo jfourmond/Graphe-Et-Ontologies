@@ -54,7 +54,7 @@ public class AddRelationStage extends Stage {
 	public void setRelation(Relation relation) { this.relation = relation; }
 	
 	private void buildComposants() {
-		getIcons().add(new Image("file:gando.png"));
+		getIcons().add(new Image("file:res/gando.png"));
 		
 		gridPane = new GridPane();
 		gridPane.setAlignment(Pos.CENTER);

@@ -88,7 +88,7 @@ public class EditEdgeStage extends Stage {
 	
 	//	METHODES
 	private void buildComposants() {
-		getIcons().add(new Image("file:gando.png"));
+		getIcons().add(new Image("file:res/gando.png"));
 		
 		relationList = FXCollections.observableArrayList(relations);
 		vertex1 = FXCollections.observableArrayList(vertices);
