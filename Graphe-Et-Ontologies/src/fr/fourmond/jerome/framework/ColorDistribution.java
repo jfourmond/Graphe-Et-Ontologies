@@ -57,6 +57,10 @@ public class ColorDistribution {
 		return last;
 	}
 	
+	/**
+	 * Retourne une couleur aléatoire
+	 * @return une couleur aléatoire
+	 */
 	private Color randomColor() {
 		last = new Color(rand.nextDouble(), rand.nextDouble(), rand.nextDouble(), 1.0);
 		return last;
