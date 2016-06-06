@@ -32,7 +32,7 @@ public class AppStage extends Stage {
 		
 		this.setScene(new Scene(treeView, Settings.getWidth(), Settings.getHeight()));
 		
-		getIcons().add(new Image("file:gando.png"));
+		getIcons().add(new Image("file:res/gando.png"));
 		
 		getScene().widthProperty().addListener(new ChangeListener<Number>() {
 			@Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {

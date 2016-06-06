@@ -90,7 +90,7 @@ public class AddVertexStage extends Stage {
 	public void setVertex(Vertex vertex) { this.vertex = vertex; }
 	
 	private void buildComposants() {
-		getIcons().add(new Image("file:gando.png"));
+		getIcons().add(new Image("file:res/gando.png"));
 		
 		attributesView.clear();
 		

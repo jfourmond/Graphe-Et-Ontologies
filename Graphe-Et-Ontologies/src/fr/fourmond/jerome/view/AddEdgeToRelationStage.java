@@ -77,7 +77,7 @@ public class AddEdgeToRelationStage extends Stage {
 	
 	//	METHODES
 	private void buildComposants() {
-		getIcons().add(new Image("file:gando.png"));
+		getIcons().add(new Image("file:res/gando.png"));
 		
 		vertex1 = FXCollections.observableArrayList(vertices);
 		vertex2 = FXCollections.observableArrayList(vertices);

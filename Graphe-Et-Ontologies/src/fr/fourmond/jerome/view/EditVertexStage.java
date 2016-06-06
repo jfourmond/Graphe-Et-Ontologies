@@ -88,7 +88,7 @@ public class EditVertexStage extends Stage {
 	
 	//	METHODES
 	private void buildComposants() {
-		getIcons().add(new Image("file:gando.png"));
+		getIcons().add(new Image("file:res/gando.png"));
 		
 		attributesView = new ArrayList<>();
 		
