@@ -372,7 +372,7 @@ public class TreeView extends BorderPane {
 					}
 				});
 		// BAS
-		bottom = new HBox();
+		bottom = new HBox(10);
 			pb = new ProgressBar();
 				pb.setProgress(0);
 			info_progress = new Label();

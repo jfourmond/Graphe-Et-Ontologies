@@ -173,7 +173,8 @@ public class SavedPos {
 			
 			File directory = new File(directoryPath);
 			if(!directory.exists())
-				directory.mkdir();
+				if(!directory.mkdirs())
+					throw new Exception("Echec de la création du répertoire tmp");
 			
 			File file = new File(directory, nameFile + "_pos.xml");
 			
