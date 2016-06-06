@@ -257,17 +257,13 @@ public class TreeView extends BorderPane {
 					item_view_vertex_id.setSelected(true);
 				item_view_vertex_name = new RadioMenuItem("Noms");
 					item_view_vertex_name.setToggleGroup(items_view_vertex);
+			menu_view_relations = new Menu("Afficher les relations");
 			item_show_wording = new CheckMenuItem("Afficher les libellés");
 		menu_tools = new Menu("Outils");
 		item_tools_data = new MenuItem("Données");
 		menu_settings = new Menu("Options");
 			item_auto_id = new CheckMenuItem("Identifiant automatique");
 			item_vertex_radius = new MenuItem("Rayon des sommets");
-		
-		if(tree.relationCount() > 1)
-			menu_view_relations = new Menu("Afficher les relations");
-		else
-			menu_view_relations = new Menu("Afficher la relation");
 
 		// Menus Contextuels
 		vertexContextMenu = new ContextMenu();
@@ -1134,8 +1130,19 @@ public class TreeView extends BorderPane {
 		}
 		
 		// Création de ses composants graphiques et events
-		MenuItem menuItem = new MenuItem(relation.getName());
-		menuItem.setOnAction(new AddEdgeClicked(relation.getName()));
+			MenuItem menuItem = new MenuItem(relation.getName());
+			menuItem.setOnAction(new AddEdgeClicked(relation.getName()));
+		item_add_edge_relations.add(menuItem);
+			menuItem = new MenuItem(relation.getName());
+			menuItem.setOnAction(new AddEdgeClicked(relation.getName()));
+		vCM_add_edge_relations.add(menuItem);
+			menuItem = new MenuItem(relation.getName());
+			menuItem.setOnAction(new AddEdgeClicked(relation.getName()));
+		eCM_add_edge_relations.add(menuItem);
+			menuItem = new MenuItem(relation.getName());
+			menuItem.setOnAction(new AddEdgeClicked(relation.getName()));
+		tCM_add_edge_relations.add(menuItem);
+		
 		CheckMenuItem checkMenuItem = new CheckMenuItem(relation.getName());
 		checkMenuItem.setSelected(true);
 		checkMenuItem.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -1148,14 +1155,6 @@ public class TreeView extends BorderPane {
 					center.getChildren().removeAll(edges);
 			}
 		});
-		
-		item_add_edge_relations.add(menuItem);
-		vCM_add_edge_relations.add(menuItem);
-		eCM_add_edge_relations.add(menuItem);
-			eCM_add_edge.setDisable(false);
-		tCM_add_edge_relations.add(menuItem);
-			tCM_add_edge.setDisable(false);
-		
 		item_view_relations.add(checkMenuItem);
 		
 		// Menu "Edition"
