@@ -87,7 +87,7 @@ public class AddEdgeToRelationStage extends Stage {
 			gridPane.setVgap(10);
 			gridPane.setPadding(new Insets(25, 25, 25, 25));
 		
-		title = new Text("Nouvel arc");
+		title = new Text("Nouvel arc pour \"" + relationName +"\"");
 			from = new Text(" De ");
 				CB1 = new ComboBox<>(vertex1);
 				CB1.setCellFactory(new Callback<ListView<Vertex>, ListCell<Vertex>>() {
