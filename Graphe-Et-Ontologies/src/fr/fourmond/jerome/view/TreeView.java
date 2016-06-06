@@ -209,6 +209,8 @@ public class TreeView extends BorderPane {
 				new FileChooser.ExtensionFilter("Fichiers XML", "*.xml")
 			);
 		
+		if(colorRelation != null)
+			colorRelation.clear();
 		colorRelation = new HashMap<>();
 		
 		item_add_edge_relations = new ArrayList<>();
@@ -225,6 +227,7 @@ public class TreeView extends BorderPane {
 		
 		verticesViewForList = FXCollections.observableArrayList(verticesView);
 		colorRelationForList = FXCollections.observableArrayList(colorRelation.entrySet());
+		
 		
 		// Barre de Menu
 		menuBar = new MenuBar();
