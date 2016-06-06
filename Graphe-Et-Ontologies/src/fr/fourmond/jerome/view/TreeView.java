@@ -1498,7 +1498,7 @@ public class TreeView extends BorderPane {
 		
 		@Override
 		public void handle(ActionEvent event) {
-			if(!tree.isVerticesEmpty()) {
+			if(!(tree.verticesCount() < 2)) {
 				AddEdgeToRelationStage addEdge = new AddEdgeToRelationStage(tree.getVertices(), relationName);
 				addEdge.showAndWait();
 				String name = addEdge.getRelationName();
@@ -1510,7 +1510,10 @@ public class TreeView extends BorderPane {
 						e.printStackTrace();
 					}
 				}
-			} else System.err.println("Pas de sommets");
+			} else {
+				alertError.setContentText("Le graphe ne contient pas assez de sommets pour créer un arc.");
+				alertError.showAndWait();
+			}
 		}
 	}
 }
