@@ -55,5 +55,9 @@ public class Placement {
 		return p;
 	}
 	
+	/**
+	 * Retourne un {@link Point} aléatoire
+	 * @return un {@link Point} aléatoire
+	 */
 	private Point randomPoint() { return new Point(rand.nextInt(500), rand.nextInt(500)); }
 }
