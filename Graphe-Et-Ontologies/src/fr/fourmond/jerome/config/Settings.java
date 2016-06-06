@@ -9,18 +9,30 @@ import java.util.Properties;
 import fr.fourmond.jerome.view.VertexView;
 import javafx.concurrent.Task;
 
+/**
+ * {@link Settings} permet la gestion dans un fichier de configuration des 
+ * options de l'application
+ * @author jfourmond
+ */
 public class Settings {
+	// Nom du fichier de propriétés
 	private static final String propFileName = "config.properties";
+	// Largeur de la fenêtre
 	private static final String widthPP = "width";
 		private static double width = 800;
+	// Hauteur de la fenêtre
 	private static final String heightPP = "height";
 		private static double height = 600;
+	// Identifiant automatique
 	private static final String autoIdPP = "auto-id";
 		private static boolean autoId = false;
+	// Affichage, ou non, des sommets
 	private static final String showVerticesPP = "show-vertices";
 		private static boolean showVertices = true;
+	// Affichage, ou non, des libellées
 	private static final String showWordingPP = "show-wording";
 		private static boolean showWording = false;
+	// Rayon des sommets
 	private static final String vertexRadiusPP = "vertex-radius";
 	
 	/**
@@ -67,6 +79,10 @@ public class Settings {
 	
 	public static void setVertexRadius(int vertexDiameter) { VertexView.setRadius(vertexDiameter); }
 	
+	/**
+	 * {@link Task} pour la sauvegarde des propriétés
+	 * @author jfourmond
+	 */
 	protected static class Saver extends Task<Boolean> {
 		@Override
 		protected Boolean call() throws Exception {
@@ -92,6 +108,10 @@ public class Settings {
 		}
 	}
 	
+	/**
+	 * {@link Task} pour le chargement des propriétés
+	 * @author jfourmond
+	 */
 	protected static class Loader extends Task<Boolean> {
 
 		@Override
