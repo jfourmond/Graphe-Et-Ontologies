@@ -44,7 +44,7 @@ Le développement de cette partie se retrouve dans le commit [suivant](https://g
 
 ### 4. Quatrième étape
 
-- [ ] Manuel d'utilisation
+- [x] Manuel d'utilisation
 - [ ] Rapport
 - [ ] Soutenance
 
@@ -86,9 +86,9 @@ Un graphe doit pouvoir être crée en lisant un fichier xml avec une dtd reprena
 [Pair](https://github.com/jfourmond/Graphe-Et-Ontologies/blob/master/Graphe-Et-Ontologies/src/fr/fourmond/jerome/framework/Pair.java) est une classe générique. Elle permet de manipuler des paires d'*Object*.
 Par exemple :
 
-	Pair<String, Integer> p1 = new Pair<>();					// Création d'une paire
-	p1.setFirst("Population");								// Edition du premier membre
-	p1.setSecond(7348);										// Edition du second membre
+	Pair<String, Integer> p1 = new Pair<>();		// Création d'une paire
+	p1.setFirst("Population");				// Edition du premier membre
+	p1.setSecond(7348);					// Edition du second membre
 	Pair<Integer, String> p2 = new Pair<>(1, "Numéro 1");	// Création d'une paire, initialisée
 
 ### 2. Sommet - *Vertex*
@@ -102,8 +102,8 @@ Cette classe sera utilisée dans la modélisation du graphe.
 Par exemple :
 
 	Vertex sommet = new Vertex("1");	// Création d'un sommet avec l'ID "1"
-	sommet.add("Nom");					// Création d'un attribut "Nom"
-	sommet.set("Nom", "Jerome");			// Edition de la valeur de l'attribut "Nom"
+	sommet.add("Nom");			// Création d'un attribut "Nom"
+	sommet.set("Nom", "Jerome");		// Edition de la valeur de l'attribut "Nom"
 	String nom = sommet.get("Nom");		// Récupération de la valeur de l'attribut "Nom"
 
 ### 3. Relation - *Relation*
@@ -117,9 +117,9 @@ Par exemple :
 
 	Vertex v1 = new Vertex("1");
 	Vertex v2 = new Vertex("2");
-	Relation relation = new Relation("est voisin de");		// Création d'une relation
+	Relation relation = new Relation("est voisin de");	// Création d'une relation
 	Pair<Vertex, Vertex> pair = new Pair<>(v1, v2);
-	relation.add(pair);										// Ajout de la paire à la relation
+	relation.add(pair);					// Ajout de la paire à la relation
 
 ### 4. Graphe - *Tree*
 
