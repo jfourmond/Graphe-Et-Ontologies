@@ -31,6 +31,7 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -87,7 +88,6 @@ public class TreeView extends BorderPane {
 	
 	private Map<String, Color> colorRelation;
 	
-	
 	private SavedPos savedPos;
 	private MenuBar menuBar;
 	private Menu menu_file;
@@ -117,8 +117,9 @@ public class TreeView extends BorderPane {
 		private MenuItem item_vertex_radius;
 	
 	private Pane center;
-		private List<VertexView> verticesView;
-		private Map<String, List<EdgeView>> edgesView;
+		private Group centerGroup;
+			private List<VertexView> verticesView;
+			private Map<String, List<EdgeView>> edgesView;
 	private SplitPane east;
 		private VBox info_box;;
 			private Text info_label;
@@ -168,6 +169,8 @@ public class TreeView extends BorderPane {
 	private Alert alertError;
 	
 	private static MouseEvent pressed;
+		private static double cX;
+		private static double cY;
 	private static VertexView vertexViewSelected;
 	private static EdgeView edgeViewSelected;
 	private static Pair<Vertex, Vertex> pairToEdit;
@@ -318,6 +321,7 @@ public class TreeView extends BorderPane {
 		
 		// CENTRE
 		center = new Pane();
+			centerGroup = new Group();
 		// EST
 		east = new SplitPane();
 		east.setOrientation(Orientation.VERTICAL);
@@ -463,18 +467,22 @@ public class TreeView extends BorderPane {
 		east.setDividerPositions(0.3f, 0.6f, 0.9f);
 		bottom.getChildren().addAll(pb, info_progress);
 		
+		center.getChildren().add(centerGroup);
+		
 		setCenter(center);
 		setTop(menuBar);
 		setRight(east);
 		setBottom(bottom);
 	}
 	
-	private void drawVertices() { center.getChildren().addAll(verticesView); }
+	private void drawVertices() {
+		centerGroup.getChildren().addAll(verticesView);
+	}
 	
 	private void drawEdges() {
 		Set<Entry<String, List<EdgeView>>> relationSet = edgesView.entrySet();
 		for(Entry<String, List<EdgeView>> entry : relationSet) {
-			center.getChildren().addAll(entry.getValue());
+			centerGroup.getChildren().addAll(entry.getValue());
 		}
 	}
 	
@@ -687,9 +695,9 @@ public class TreeView extends BorderPane {
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 					List<EdgeView> edges = edgesView.get(text);
 					if(newValue)
-						center.getChildren().addAll(edges);
+						centerGroup.getChildren().addAll(edges);
 					else
-						center.getChildren().removeAll(edges);
+						centerGroup.getChildren().removeAll(edges);
 				}
 			});
 		}
@@ -944,8 +952,8 @@ public class TreeView extends BorderPane {
 				}
 				double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA : 1/SCALE_DELTA;
 				
-				center.setScaleX(center.getScaleX() * scaleFactor);
-				center.setScaleY(center.getScaleY() * scaleFactor);
+				centerGroup.setScaleX(centerGroup.getScaleX() * scaleFactor);
+				centerGroup.setScaleY(centerGroup.getScaleY() * scaleFactor);
 			}
 		});
 		center.setOnMouseDragged(new EventHandler<MouseEvent>() {
@@ -953,19 +961,20 @@ public class TreeView extends BorderPane {
 			public void handle(MouseEvent event) {
 				if(event.getButton() == MouseButton.SECONDARY)
 					return;
-				double ecartx = event.getX() + center.getTranslateX() - pressed.getX();
-				double ecarty = event.getY() + center.getTranslateY() - pressed.getY();
-				// System.out.println("Ecart : " + ecartx + " " + ecarty);
 				
-				// TODO ajouter une sécurité
-				center.setTranslateX(ecartx);
-				center.setTranslateY(ecarty);
+				double tX = event.getX() - pressed.getX() + cX;
+				double tY = event.getY() - pressed.getY() + cY;
+				
+				centerGroup.setTranslateX(tX);
+				centerGroup.setTranslateY(tY);
 			}
 		});
 		center.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				pressed = event;
+				cX = centerGroup.getTranslateX();
+				cY = centerGroup.getTranslateY();
 			}
 		});
 		center.setOnMouseClicked(new CenterClicked());
@@ -1075,7 +1084,7 @@ public class TreeView extends BorderPane {
 		vertexView.setOnMouseClicked(new VertexClicked(vertexView));
 		vertexView.setOnMouseDragged(new VertexDragged(vertexView));
 
-		center.getChildren().add(vertexView);
+		centerGroup.getChildren().add(vertexView);
 		
 		// Edition de la zone d'info
 		info_area.setText(tree.toString());
@@ -1096,7 +1105,7 @@ public class TreeView extends BorderPane {
 		// Suppression de son composant graphique
 		verticesView.remove(vertex);
 		
-		center.getChildren().remove(vertex);
+		centerGroup.getChildren().remove(vertex);
 		
 		// Suppression des arcs qui en découlent
 		List<EdgeView> list = getEdgeFromVertex(vertex);
@@ -1104,7 +1113,7 @@ public class TreeView extends BorderPane {
 			for(Entry<String, List<EdgeView>> entry : edgesView.entrySet()) {
 				entry.getValue().remove(edgeView);
 			}
-			center.getChildren().remove(edgeView);
+			centerGroup.getChildren().remove(edgeView);
 		}
 		
 		// Edition de la zone d'info
@@ -1150,9 +1159,9 @@ public class TreeView extends BorderPane {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				List<EdgeView> edges = edgesView.get(relation.getName());
 				if(newValue)
-					center.getChildren().addAll(edges);
+					centerGroup.getChildren().addAll(edges);
 				else
-					center.getChildren().removeAll(edges);
+					centerGroup.getChildren().removeAll(edges);
 			}
 		});
 		item_view_relations.add(checkMenuItem);
@@ -1198,7 +1207,7 @@ public class TreeView extends BorderPane {
 				EdgeView edge = new EdgeView(relation.getName(), start, end, colorRelation.get(relation.getName()));
 				edge.setWordingVisible(Settings.isShowWording());
 				edge.setOnMouseClicked(new EdgeClicked(edge));
-				center.getChildren().add(edge);
+				centerGroup.getChildren().add(edge);
 				edges.add(edge);
 			}
 			edgesView.put(relation.getName(), edges);
@@ -1299,7 +1308,7 @@ public class TreeView extends BorderPane {
 		
 		//	Suppression des arcs
 		List<EdgeView> edges = edgesView.get(name);
-		center.getChildren().removeAll(edges);		
+		centerGroup.getChildren().removeAll(edges);		
 		
 		colorRelationForList.remove(relation_list.getSelectionModel().getSelectedItem());
 		
@@ -1336,7 +1345,7 @@ public class TreeView extends BorderPane {
 		// Edition de la zone d'info
 		info_area.setText(tree.toString());
 		
-		center.getChildren().add(edgeView);
+		centerGroup.getChildren().add(edgeView);
 		
 		modificationDone();
 	}
@@ -1375,7 +1384,7 @@ public class TreeView extends BorderPane {
 		System.out.println(pair + " == " + edgeView.getPair());
 		list.remove(edgeView);
 		
-		center.getChildren().remove(edgeView);
+		centerGroup.getChildren().remove(edgeView);
 		
 		// Edition de la zone d'info
 		info_area.setText(tree.toString());
