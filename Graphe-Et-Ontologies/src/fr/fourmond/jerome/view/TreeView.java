@@ -169,8 +169,8 @@ public class TreeView extends BorderPane {
 	private Alert alertError;
 	
 	private static MouseEvent pressed;
-		private static double cX;
-		private static double cY;
+		private static double utilX;
+		private static double utilY;
 	private static VertexView vertexViewSelected;
 	private static EdgeView edgeViewSelected;
 	private static Pair<Vertex, Vertex> pairToEdit;
@@ -873,7 +873,24 @@ public class TreeView extends BorderPane {
 		});
 		eCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
 		eCM_add_relation.setOnAction(item_add_relation.getOnAction());
-		tCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
+		tCM_add_vertex.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				AddVertexStage addVertex = new AddVertexStage(tree);
+				addVertex.showAndWait();
+				Vertex vertex = addVertex.getVertex();
+				if(vertex != null ) {
+					alertError.setHeaderText("Erreur lors de l'ajout du sommet");
+					try {
+						addVertex(vertex, utilX, utilY);
+					} catch (TreeException e) {
+						e.printStackTrace();
+						alertError.setContentText(e.getMessage());
+						alertError.showAndWait();
+					}
+				}
+			}
+		});
 		tCM_add_relation.setOnAction(item_add_relation.getOnAction());
 		vLCM_edit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -962,8 +979,8 @@ public class TreeView extends BorderPane {
 				if(event.getButton() == MouseButton.SECONDARY)
 					return;
 				
-				double tX = event.getX() - pressed.getX() + cX;
-				double tY = event.getY() - pressed.getY() + cY;
+				double tX = event.getX() - pressed.getX() + utilX;
+				double tY = event.getY() - pressed.getY() + utilY;
 				
 				centerGroup.setTranslateX(tX);
 				centerGroup.setTranslateY(tY);
@@ -973,8 +990,8 @@ public class TreeView extends BorderPane {
 			@Override
 			public void handle(MouseEvent event) {
 				pressed = event;
-				cX = centerGroup.getTranslateX();
-				cY = centerGroup.getTranslateY();
+				utilX = centerGroup.getTranslateX();
+				utilY = centerGroup.getTranslateY();
 			}
 		});
 		center.setOnMouseClicked(new CenterClicked());
@@ -1080,6 +1097,34 @@ public class TreeView extends BorderPane {
 		
 		// Création de son composant graphique et events
 		VertexView vertexView = new VertexView(vertex, placement.next());
+		verticesView.add(vertexView);
+		vertexView.setOnMouseClicked(new VertexClicked(vertexView));
+		vertexView.setOnMouseDragged(new VertexDragged(vertexView));
+
+		centerGroup.getChildren().add(vertexView);
+		
+		// Edition de la zone d'info
+		info_area.setText(tree.toString());
+		
+		// Edition de la liste
+		verticesViewForList.add(vertexView);
+		
+		modificationDone();
+	}
+	
+	/**
+	 * Ajout d'un sommet
+	 * @param vertex : sommet à ajouter
+	 * @param x : abcisse du sommet
+	 * @param y : ordonnée du sommet
+	 * @throws TreeException si le sommet existe déjà
+	 */
+	private void addVertex(Vertex vertex, double x, double y) throws TreeException {
+		tree.createVertex(vertex);
+		
+		Pair<Double, Double> position = new Pair<Double, Double>(x, y);
+		// Création de son composant graphique et events
+		VertexView vertexView = new VertexView(vertex, position);
 		verticesView.add(vertexView);
 		vertexView.setOnMouseClicked(new VertexClicked(vertexView));
 		vertexView.setOnMouseDragged(new VertexDragged(vertexView));
@@ -1416,6 +1461,8 @@ public class TreeView extends BorderPane {
 			}
 			if(!event.isConsumed() && event.getButton() == MouseButton.SECONDARY) {
 				event.consume();
+				utilX = event.getX();
+				utilY = event.getY();
 				treeContextMenu.show(center, event.getScreenX(), event.getScreenY());
 			}
 		}
