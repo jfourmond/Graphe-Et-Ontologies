@@ -47,7 +47,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -135,20 +134,10 @@ public class TreeView extends BorderPane {
 	private ContextMenu vertexContextMenu;
 		private MenuItem vCM_edit;
 		private MenuItem vCM_delete;
-		private SeparatorMenuItem vCM_separator;
-		private MenuItem vCM_add_vertex;
-		private MenuItem vCM_add_relation;
-		private Menu vCM_add_edge;
-			private List<MenuItem> vCM_add_edge_relations;
 	
 	private ContextMenu edgeContextMenu;
 		private MenuItem eCM_edit;
 		private MenuItem eCM_delete;
-		private SeparatorMenuItem eCM_separator;
-		private MenuItem eCM_add_vertex;
-		private MenuItem eCM_add_relation;
-		private Menu eCM_add_edge;
-			private List<MenuItem> eCM_add_edge_relations;
 			
 	private ContextMenu treeContextMenu;
 		private MenuItem tCM_add_vertex;
@@ -218,8 +207,6 @@ public class TreeView extends BorderPane {
 		
 		item_add_edge_relations = new ArrayList<>();
 		item_view_relations = new ArrayList<>();
-		vCM_add_edge_relations = new ArrayList<>();
-		eCM_add_edge_relations = new ArrayList<>();
 		tCM_add_edge_relations = new ArrayList<>();
 		
 		verticesView = new ArrayList<>();
@@ -272,18 +259,10 @@ public class TreeView extends BorderPane {
 		vertexContextMenu = new ContextMenu();
 			vCM_edit = new MenuItem("Editer");
 			vCM_delete = new MenuItem("Supprimer");
-			vCM_separator = new SeparatorMenuItem();
-			vCM_add_vertex = new MenuItem("Nouveau sommet");
-			vCM_add_relation = new MenuItem("Nouvelle relation");
-			vCM_add_edge = new Menu("Nouvel arc");
 		
 		edgeContextMenu = new ContextMenu();
 			eCM_edit = new MenuItem("Editer");
 			eCM_delete = new MenuItem("Supprimer");
-			eCM_separator = new SeparatorMenuItem();
-			eCM_add_vertex = new MenuItem("Nouveau sommet");
-			eCM_add_relation = new MenuItem("Nouvelle relation");
-			eCM_add_edge = new Menu("Nouvel arc");
 			
 		treeContextMenu = new ContextMenu();
 			tCM_add_vertex = new MenuItem("Nouveau sommet");
@@ -303,16 +282,12 @@ public class TreeView extends BorderPane {
 			CheckMenuItem menuItem = new CheckMenuItem(relation.getName());
 			menuItem.setSelected(true);
 			item_view_relations.add(menuItem);
-			vCM_add_edge_relations.add(new MenuItem(relation.getName()));
-			eCM_add_edge_relations.add(new MenuItem(relation.getName()));
 			tCM_add_edge_relations.add(new MenuItem(relation.getName()));
 		}
 		
 		if(tree.relationCount() == 0) {
 			menu_add_edge.setDisable(true);
 			menu_view_relations.setDisable(true);
-			vCM_add_edge.setDisable(true);
-			eCM_add_edge.setDisable(true);
 			tCM_add_edge.setDisable(true);
 		}
 		
@@ -443,11 +418,9 @@ public class TreeView extends BorderPane {
 		menuBar.setUseSystemMenuBar(true);
 		
 		// Menus Contextuels
-			vCM_add_edge.getItems().addAll(vCM_add_edge_relations);
-		vertexContextMenu.getItems().addAll(vCM_edit, vCM_delete, vCM_separator, vCM_add_vertex, vCM_add_relation, vCM_add_edge);
+		vertexContextMenu.getItems().addAll(vCM_edit, vCM_delete);
 		
-			eCM_add_edge.getItems().addAll(eCM_add_edge_relations);
-		edgeContextMenu.getItems().addAll(eCM_edit, eCM_delete, eCM_separator, eCM_add_vertex, eCM_add_relation, eCM_add_edge);
+		edgeContextMenu.getItems().addAll(eCM_edit, eCM_delete);
 		
 			tCM_add_edge.getItems().addAll(tCM_add_edge_relations);
 		treeContextMenu.getItems().addAll(tCM_add_vertex, tCM_add_relation, tCM_add_edge);
@@ -794,14 +767,6 @@ public class TreeView extends BorderPane {
 				}
 			}
 		});
-		for(MenuItem item : vCM_add_edge_relations) {
-			String text = item.getText();
-			item.setOnAction(new AddEdgeClicked(text));
-		}
-		for(MenuItem item : eCM_add_edge_relations) {
-			String text = item.getText();
-			item.setOnAction(new AddEdgeClicked(text));
-		}
 		for(MenuItem item : tCM_add_edge_relations) {
 			String text = item.getText();
 			item.setOnAction(new AddEdgeClicked(text));
@@ -839,8 +804,6 @@ public class TreeView extends BorderPane {
 				}
 			}
 		});
-		vCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
-		vCM_add_relation.setOnAction(item_add_relation.getOnAction());
 		eCM_edit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -871,8 +834,6 @@ public class TreeView extends BorderPane {
 				}
 			}
 		});
-		eCM_add_vertex.setOnAction(item_add_vertex.getOnAction());
-		eCM_add_relation.setOnAction(item_add_relation.getOnAction());
 		tCM_add_vertex.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -1189,12 +1150,6 @@ public class TreeView extends BorderPane {
 		item_add_edge_relations.add(menuItem);
 			menuItem = new MenuItem(relation.getName());
 			menuItem.setOnAction(new AddEdgeClicked(relation.getName()));
-		vCM_add_edge_relations.add(menuItem);
-			menuItem = new MenuItem(relation.getName());
-			menuItem.setOnAction(new AddEdgeClicked(relation.getName()));
-		eCM_add_edge_relations.add(menuItem);
-			menuItem = new MenuItem(relation.getName());
-			menuItem.setOnAction(new AddEdgeClicked(relation.getName()));
 		tCM_add_edge_relations.add(menuItem);
 		
 		CheckMenuItem checkMenuItem = new CheckMenuItem(relation.getName());
@@ -1216,16 +1171,6 @@ public class TreeView extends BorderPane {
 			menu_add_edge.setDisable(false);
 			int index = menu_edit.getItems().indexOf(menu_add_edge);
 		menu_edit.getItems().set(index, menu_add_edge);
-		// Menu Contextuel Sommet
-			vCM_add_edge.getItems().setAll(vCM_add_edge_relations);
-			vCM_add_edge.setDisable(false);
-			index = vertexContextMenu.getItems().indexOf(vCM_add_edge);
-		vertexContextMenu.getItems().set(index, vCM_add_edge);
-		// Menu Contextuel Arc
-			eCM_add_edge.getItems().setAll(eCM_add_edge_relations);
-			eCM_add_edge.setDisable(false);
-			index = edgeContextMenu.getItems().indexOf(eCM_add_edge);
-		edgeContextMenu.getItems().set(index, eCM_add_edge);
 		// Menu Contextuel Arbre
 			tCM_add_edge.getItems().setAll(tCM_add_edge_relations);
 			tCM_add_edge.setDisable(false);
@@ -1314,30 +1259,6 @@ public class TreeView extends BorderPane {
 				menu_view_relations.setDisable(true);
 			index = menu_view.getItems().indexOf(menu_view_relations);
 		menu_view.getItems().set(index, menu_view_relations);
-		// Menu Contextuel Sommet
-		for(MenuItem mn : vCM_add_edge_relations) {
-			if(mn.getText().equals(name)) {
-				vCM_add_edge_relations.remove(mn);
-				break;
-			}
-		}
-			vCM_add_edge.getItems().setAll(vCM_add_edge_relations);
-			if(vCM_add_edge_relations.size() == 0)
-				vCM_add_edge.setDisable(true);
-			index = vertexContextMenu.getItems().indexOf(vCM_add_edge);
-		vertexContextMenu.getItems().set(index, vCM_add_edge);
-		// Menu Contextuel Arc
-		for(MenuItem mn : eCM_add_edge_relations) {
-			if(mn.getText().equals(name)) {
-				eCM_add_edge_relations.remove(mn);
-				break;
-			}
-		}
-			eCM_add_edge.getItems().setAll(eCM_add_edge_relations);
-			if(eCM_add_edge_relations.size() == 0)
-				eCM_add_edge.setDisable(true);
-			index = edgeContextMenu.getItems().indexOf(eCM_add_edge);
-		edgeContextMenu.getItems().set(index, eCM_add_edge);
 		// Menu Contextuel Arbre
 		for(MenuItem mn : tCM_add_edge_relations) {
 			if(mn.getText().equals(name)) {
@@ -1480,15 +1401,14 @@ public class TreeView extends BorderPane {
 		@Override
 		public void handle(MouseEvent event) {
 			event.consume();
-			if(event.getButton() == MouseButton.PRIMARY) {
-				Vertex v = vertexView.getVertex();
-				info_area.setText(v.info());
-				vertexView.setSelected(true);
-				for(VertexView other: verticesView) {
-					if(other != vertexView) other.setSelected(false);
-				}
-				vertex_list.getSelectionModel().select(vertexView);
-			} else if(event.getButton() == MouseButton.SECONDARY) {
+			Vertex v = vertexView.getVertex();
+			info_area.setText(v.info());
+			vertexView.setSelected(true);
+			for(VertexView other: verticesView) {
+				if(other != vertexView) other.setSelected(false);
+			}
+			vertex_list.getSelectionModel().select(vertexView);
+			if(event.getButton() == MouseButton.SECONDARY) {
 				vertexViewSelected = vertexView;
 				vertexContextMenu.show(vertexView, event.getScreenX(), event.getScreenY());
 			}
@@ -1507,14 +1427,13 @@ public class TreeView extends BorderPane {
 		@Override
 		public void handle(MouseEvent event) {
 			event.consume();
-			if(event.getButton() == MouseButton.PRIMARY) {
-				info_area.setText(edgeView.info());
-				edgeView.setSelected(true);
-				for(List<EdgeView> others : edgesView.values()) {
-					for(EdgeView other : others)
-						if(other != edgeView) other.setSelected(false);
-				}
-			} else if(event.getButton() == MouseButton.SECONDARY) {
+			info_area.setText(edgeView.info());
+			edgeView.setSelected(true);
+			for(List<EdgeView> others : edgesView.values()) {
+				for(EdgeView other : others)
+					if(other != edgeView) other.setSelected(false);
+			}
+			if(event.getButton() == MouseButton.SECONDARY) {
 				edgeViewSelected = edgeView;
 				pairToEdit = new Pair<Vertex, Vertex>(edgeView.getVertexStart(), edgeView.getVertexEnd());
 				edgeContextMenu.show(edgeView, event.getScreenX(), event.getScreenY());
