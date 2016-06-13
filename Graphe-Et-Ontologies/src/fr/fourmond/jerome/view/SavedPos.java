@@ -132,7 +132,7 @@ public class SavedPos {
 			if(!racine.getName().equals(FILE))
 				throw new TreeLoaderException("La DTD n'est pas respectée.");
 			
-			if(!racine.getAttribute(PATH).getValue().equals(treeFile.getCanonicalPath()))
+			if(!racine.getAttribute(PATH).getValue().equals(treeFile.getName()))
 				throw new Exception("Le chemin associé est différent.");
 			
 			// Chargement des positions des sommets
@@ -184,7 +184,7 @@ public class SavedPos {
 			Document documentJDOM;
 			// Racine du document
 			Element racine = new Element(FILE);
-				Attribute filePath = new Attribute(PATH, treeFile.getCanonicalPath());
+				Attribute filePath = new Attribute(PATH, treeFile.getName());
 				racine.setAttribute(filePath);
 			for(Entry<String, Pair<Double, Double>> entry : positions.entrySet()) {
 				Element entree = new Element(ENTREE);
