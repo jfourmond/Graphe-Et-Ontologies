@@ -196,7 +196,7 @@ public class TreeView extends BorderPane {
 		}
 		
 		fileChooser = new FileChooser();
-		fileChooser.setTitle("Ouvrir un fichier xml");
+		fileChooser.setTitle("Ouvrir une ontologie");
 		fileChooser.getExtensionFilters().addAll(
 				new FileChooser.ExtensionFilter("Fichiers XML", "*.xml")
 			);

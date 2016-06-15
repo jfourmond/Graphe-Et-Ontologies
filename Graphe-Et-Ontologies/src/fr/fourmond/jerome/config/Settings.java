@@ -16,7 +16,7 @@ import javafx.concurrent.Task;
  */
 public class Settings {
 	// Nom du fichier de propriétés
-	private static final String propFileName = "config.properties";
+	private static final String propFileName = "./config.properties";
 	// Largeur de la fenêtre
 	private static final String widthPP = "width";
 		private static double width = 800;
@@ -131,6 +131,5 @@ public class Settings {
 			
 			return true;
 		}
-		
 	}
 }
