@@ -45,7 +45,7 @@ Le développement de cette partie se retrouve dans le commit [suivant](https://g
 ### 4. Quatrième étape
 
 - [x] Manuel d'utilisation
-- [ ] Rapport
+- [x] Rapport
 - [ ] Soutenance
 
 ---
