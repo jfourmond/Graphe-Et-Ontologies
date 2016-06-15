@@ -1,6 +1,8 @@
 package fr.fourmond.jerome.view;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -79,6 +81,7 @@ import javafx.util.Callback;
  */
 public class TreeView extends BorderPane {
 	private final double SCALE_DELTA = 1.1;
+	private final String help_file = "res/manuel.pdf";
 	
 	private Placement placement;
 	private ColorDistribution colorDistribution;
@@ -111,6 +114,7 @@ public class TreeView extends BorderPane {
 		private CheckMenuItem item_show_wording;
 	private Menu menu_tools;
 		private MenuItem item_tools_data;
+		private MenuItem item_tools_help;
 	private Menu menu_settings;
 		private CheckMenuItem item_auto_id;
 		private MenuItem item_vertex_radius;
@@ -250,7 +254,8 @@ public class TreeView extends BorderPane {
 			menu_view_relations = new Menu("Afficher les relations");
 			item_show_wording = new CheckMenuItem("Afficher les libellés");
 		menu_tools = new Menu("Outils");
-		item_tools_data = new MenuItem("Données");
+			item_tools_data = new MenuItem("Données");
+			item_tools_help = new MenuItem("Aide");
 		menu_settings = new Menu("Options");
 			item_auto_id = new CheckMenuItem("Identifiant automatique");
 			item_vertex_radius = new MenuItem("Rayon des sommets");
@@ -410,7 +415,7 @@ public class TreeView extends BorderPane {
 				menu_add_edge.getItems().addAll(item_add_edge_relations);
 			menu_edit.getItems().addAll(item_add_vertex, item_add_relation, menu_add_edge);
 				menu_view_relations.getItems().addAll(item_view_relations);
-			menu_tools.getItems().add(item_tools_data);
+			menu_tools.getItems().addAll(item_tools_data, item_tools_help);
 				menu_view_vertex.getItems().addAll(item_view_vertex_id, item_view_vertex_name);
 			menu_view.getItems().addAll(item_show_vertices, menu_view_vertex, menu_view_relations, item_show_wording);
 			menu_settings.getItems().addAll(item_auto_id, item_vertex_radius);
@@ -659,6 +664,24 @@ public class TreeView extends BorderPane {
 			public void handle(ActionEvent event) {
 				DataStage stage = new DataStage(tree);
 				stage.show();
+			}
+		});
+		item_tools_help.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if(!Desktop.isDesktopSupported()) {
+					System.err.println("Ouverture non supportée ! ");
+					return;
+				}
+				try {
+					File file = new File(help_file);
+					if(file != null && file.exists()) {
+						Desktop desktop = Desktop.getDesktop();
+						desktop.open(file);
+					} else System.err.println("File don't exist");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		for(CheckMenuItem item : item_view_relations) {
