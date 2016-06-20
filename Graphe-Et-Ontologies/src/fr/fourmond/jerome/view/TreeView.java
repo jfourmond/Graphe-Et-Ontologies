@@ -222,7 +222,6 @@ public class TreeView extends BorderPane {
 		verticesViewForList = FXCollections.observableArrayList(verticesView);
 		colorRelationForList = FXCollections.observableArrayList(colorRelation.entrySet());
 		
-		
 		// Barre de Menu
 		menuBar = new MenuBar();
 		menu_file = new Menu("Fichier");
