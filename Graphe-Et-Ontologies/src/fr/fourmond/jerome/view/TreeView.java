@@ -49,6 +49,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -134,10 +135,12 @@ public class TreeView extends BorderPane {
 	private HBox bottom;
 		private ProgressBar pb;
 		private Label info_progress;
-		
+	
 	private ContextMenu vertexContextMenu;
 		private MenuItem vCM_edit;
 		private MenuItem vCM_delete;
+		private SeparatorMenuItem vCM_separator;
+		private MenuItem vCM_showTree;
 	
 	private ContextMenu edgeContextMenu;
 		private MenuItem eCM_edit;
@@ -263,6 +266,8 @@ public class TreeView extends BorderPane {
 		vertexContextMenu = new ContextMenu();
 			vCM_edit = new MenuItem("Editer");
 			vCM_delete = new MenuItem("Supprimer");
+			vCM_separator = new SeparatorMenuItem();
+			vCM_showTree = new MenuItem("Afficher arbre");
 		
 		edgeContextMenu = new ContextMenu();
 			eCM_edit = new MenuItem("Editer");
@@ -422,7 +427,7 @@ public class TreeView extends BorderPane {
 		menuBar.setUseSystemMenuBar(true);
 		
 		// Menus Contextuels
-		vertexContextMenu.getItems().addAll(vCM_edit, vCM_delete);
+		vertexContextMenu.getItems().addAll(vCM_edit, vCM_delete, vCM_separator, vCM_showTree);
 		
 		edgeContextMenu.getItems().addAll(eCM_edit, eCM_delete);
 		
@@ -824,6 +829,12 @@ public class TreeView extends BorderPane {
 					alertError.setContentText(e.getMessage());
 					alertError.showAndWait();
 				}
+			}
+		});
+		vCM_showTree.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				showTreeFrom(vertexViewSelected);
 			}
 		});
 		eCM_edit.setOnAction(new EventHandler<ActionEvent>() {
@@ -1384,6 +1395,33 @@ public class TreeView extends BorderPane {
 		saved = false;
 		info_progress.setText("Modifications non enregistrées");
 		pb.setProgress(0);
+	}
+	
+	/**
+	 * Affiche le graphe émanant du sommet
+	 * @param vertex : sommet d'origine
+	 */
+	private void showTreeFrom(VertexView vertex) {
+		List<VertexView> verticesLinked = new ArrayList<>();
+		verticesLinked.add(vertex);
+		Collection<List<EdgeView>> allEdges = edgesView.values();
+		for(List<EdgeView> edges : allEdges) {
+			for(EdgeView edge : edges) {
+				if(edge.getStart() == vertex) {
+					VertexView end = edge.getEnd();
+					if(!verticesLinked.contains(end))
+						verticesLinked.add(end);
+				} else if(edge.getEnd() == vertex) {
+					VertexView start = edge.getStart();
+					if(!verticesLinked.contains(start))
+						verticesLinked.add(start);
+				} else edge.setVisible(false);
+			}
+		}
+		for(VertexView v : verticesView) {
+			if(!verticesLinked.contains(v))
+				v.setVisible(false);
+		}
 	}
 	
 	protected class CenterClicked implements EventHandler<MouseEvent> {
