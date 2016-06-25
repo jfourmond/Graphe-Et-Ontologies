@@ -140,7 +140,7 @@ public class TreeView extends BorderPane {
 		private MenuItem vCM_edit;
 		private MenuItem vCM_delete;
 		private SeparatorMenuItem vCM_separator;
-		private MenuItem vCM_showTree;
+		private CheckMenuItem vCM_showTree;
 	
 	private ContextMenu edgeContextMenu;
 		private MenuItem eCM_edit;
@@ -267,7 +267,7 @@ public class TreeView extends BorderPane {
 			vCM_edit = new MenuItem("Editer");
 			vCM_delete = new MenuItem("Supprimer");
 			vCM_separator = new SeparatorMenuItem();
-			vCM_showTree = new MenuItem("Afficher arbre");
+			vCM_showTree = new CheckMenuItem("Afficher le graphe");
 		
 		edgeContextMenu = new ContextMenu();
 			eCM_edit = new MenuItem("Editer");
@@ -831,10 +831,10 @@ public class TreeView extends BorderPane {
 				}
 			}
 		});
-		vCM_showTree.setOnAction(new EventHandler<ActionEvent>() {
+		vCM_showTree.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
-			public void handle(ActionEvent event) {
-				showTreeFrom(vertexViewSelected);
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				showTreeFrom(vertexViewSelected, newValue);
 			}
 		});
 		eCM_edit.setOnAction(new EventHandler<ActionEvent>() {
@@ -1398,29 +1398,58 @@ public class TreeView extends BorderPane {
 	}
 	
 	/**
-	 * Affiche le graphe émanant du sommet
+	 * Affiche, ou non le graphe émanant du sommet
 	 * @param vertex : sommet d'origine
+	 * @param b : si <code>true</code> affiche (efface), sinon n'affiche pas (réinitialise)
 	 */
-	private void showTreeFrom(VertexView vertex) {
+	private void showTreeFrom(VertexView vertex, boolean b) {
+		// TODO A revoir
 		List<VertexView> verticesLinked = new ArrayList<>();
 		verticesLinked.add(vertex);
 		Collection<List<EdgeView>> allEdges = edgesView.values();
-		for(List<EdgeView> edges : allEdges) {
-			for(EdgeView edge : edges) {
-				if(edge.getStart() == vertex) {
-					VertexView end = edge.getEnd();
-					if(!verticesLinked.contains(end))
-						verticesLinked.add(end);
-				} else if(edge.getEnd() == vertex) {
-					VertexView start = edge.getStart();
-					if(!verticesLinked.contains(start))
-						verticesLinked.add(start);
-				} else edge.setVisible(false);
+		if(b) {
+			// Dessin du graphe du sommet
+			for(List<EdgeView> edges : allEdges) {
+				for(EdgeView edge : edges) {
+					if(edge.getStart() == vertex) {
+						VertexView end = edge.getEnd();
+						if(!verticesLinked.contains(end))
+							verticesLinked.add(end);
+						edge.setVisible(true);
+					} else if(edge.getEnd() == vertex) {
+						VertexView start = edge.getStart();
+						if(!verticesLinked.contains(start))
+							verticesLinked.add(start);
+						edge.setVisible(true);
+					} else edge.setVisible(false);
+				}
 			}
-		}
-		for(VertexView v : verticesView) {
-			if(!verticesLinked.contains(v))
-				v.setVisible(false);
+			for(VertexView v : verticesView) {
+				if(!verticesLinked.contains(v))
+					v.setVisible(false);
+			}
+		} else {
+			// Affichage des sommets ayant été effacés
+			// Dessin du graphe du sommet
+			for(List<EdgeView> edges : allEdges) {
+				for(EdgeView edge : edges) {
+					if(edge.getStart() == vertex) {
+						VertexView end = edge.getEnd();
+						if(!verticesLinked.contains(end))
+							verticesLinked.add(end);
+						edge.setVisible(true);
+					} else if(edge.getEnd() == vertex) {
+						VertexView start = edge.getStart();
+						if(!verticesLinked.contains(start))
+							verticesLinked.add(start);
+						edge.setVisible(true);
+					} else edge.setVisible(true);
+				}
+			}
+			for(VertexView v : verticesView) {
+				if(!verticesLinked.contains(v))
+					v.setVisible(true);
+			}
 		}
 	}
 	
